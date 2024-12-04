@@ -8,6 +8,8 @@ app.use(renderer)
 
 // Home page
 app.get('/', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+
   return c.render(
     <Layout>
       <div class="space-y-8">
