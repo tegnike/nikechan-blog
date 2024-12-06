@@ -604,6 +604,10 @@ video {
   inset: 0px;
 }
 
+.bottom-16 {
+  bottom: 4rem;
+}
+
 .bottom-4 {
   bottom: 1rem;
 }
@@ -626,10 +630,6 @@ video {
 
 .top-4 {
   top: 1rem;
-}
-
-.bottom-16 {
-  bottom: 4rem;
 }
 
 .z-10 {
@@ -705,20 +705,16 @@ video {
   width: 1.5rem;
 }
 
-.w-\[95vw\] {
-  width: 95vw;
-}
-
 .w-full {
   width: 100%;
 }
 
-.max-w-full {
-  max-width: 100%;
-}
-
 .max-w-\[95vw\] {
   max-width: 95vw;
+}
+
+.max-w-full {
+  max-width: 100%;
 }
 
 .cursor-pointer {

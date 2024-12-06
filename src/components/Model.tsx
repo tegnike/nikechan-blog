@@ -4,13 +4,13 @@ import { ImageModal } from './ImageModal'
 export const Model = () => {
   return (
     <>
-      <div class="pt-24 pb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-center dark:text-white">
+      <div className="pt-24 pb-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-center dark:text-white">
           MODEL
         </h1>
       </div>
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/models/live2d.png"
             alt="Illus. 綾川まとい"

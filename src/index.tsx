@@ -20,7 +20,8 @@ app.get('/', (c) => {
     <Layout>
       <Model />
       <Gallery />
-    </Layout>
+    </Layout>,
+    { title: "Nike Portfolio | Gallery" } 
   )
 })
 

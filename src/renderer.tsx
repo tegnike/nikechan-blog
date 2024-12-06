@@ -1,12 +1,17 @@
 import { jsxRenderer } from 'hono/jsx-renderer'
 
-export const renderer = jsxRenderer(({ children }) => {
+export const renderer = jsxRenderer(({ children, title }) => {
   return (
-    <html>
+    <html lang="ja">
       <head>
-        <link href="/static/style.css" rel="stylesheet" />
+        <meta charSet="utf-8" />
+        <title>{title || 'Default Title'}</title>
+        <link href="/static/styles/globals.css" rel="stylesheet" />
       </head>
-      <body>{children}</body>
+      <body class="bg-white dark:bg-gray-900">
+        {children}
+        <script src="/static/js/main.js"></script>
+      </body>
     </html>
   )
 })

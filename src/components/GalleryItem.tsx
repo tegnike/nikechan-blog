@@ -21,9 +21,9 @@ export function GalleryItem({ src, alt, caption, url, caption2, url2, className 
       <img
         src={src}
         alt={alt}
-        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
       />
-      <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-1000" />
+      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-1000" />
     </div>
   )
 }

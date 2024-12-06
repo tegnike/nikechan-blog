@@ -4,13 +4,13 @@ import { ImageModal } from './ImageModal'
 export const Gallery = () => {
   return (
     <>
-      <div class="pt-24 pb-12">
-        <h1 class="text-4xl md:text-5xl font-bold text-center dark:text-white">
+      <div className="pt-24 pb-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-center dark:text-white">
           GALLERY
         </h1>
       </div>
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/v_matoi.png"
             alt="Illus. 綾川まとい"
@@ -33,7 +33,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/v_onago.png"
             alt="Illus. おなご"
@@ -56,7 +56,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/h_unknown.png"
             alt="unknown illus."
@@ -72,8 +72,8 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
-          <div class="md:col-span-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+          <div className="md:col-span-1">
             <GalleryItem 
               src="/images/illustrations/s_ikawasa.png"
               alt="Illus. いかわさ🦑"
@@ -81,7 +81,7 @@ export const Gallery = () => {
               url="https://x.com/Midori_soumenn"
               className="aspect-[3/4]"
             />
-            <div class="mt-4">
+            <div className="mt-4">
               <GalleryItem 
                 src="/images/illustrations/s_icon_v0.jpg"
                 alt="TOUGENKYOU NFT"
@@ -100,7 +100,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/h_kainushi.png"
             alt="Illus. かいぬし"
@@ -110,7 +110,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/v_mira.jpg"
             alt="Illus. ミラ"
@@ -134,7 +134,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/v_darjeeling.png"
             alt="Illus. Darjeeling"
@@ -158,7 +158,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/s_nakimushipan.gif"
             alt="Illus. なきむしぱん"
@@ -175,8 +175,8 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
-          <div class="md:col-span-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+          <div className="md:col-span-1">
             <GalleryItem 
               src="/images/illustrations/s_sasami.png"
               alt="Illus. やきささみ"
@@ -184,7 +184,7 @@ export const Gallery = () => {
               url="https://x.com/v_sasami"
               className="aspect-[3/4]"
             />
-            <div class="mt-4">
+            <div className="mt-4">
               <GalleryItem 
                 src="/images/illustrations/s_imoko.png"
                 alt="unknown illus."
@@ -202,7 +202,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/h_syake.png"
             alt="Illus. しゃーけ"
@@ -218,7 +218,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/h_aituberkit.jpg"
             alt="Illus. Ruka Designer"
@@ -228,7 +228,7 @@ export const Gallery = () => {
           />
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
           <GalleryItem 
             src="/images/illustrations/v_obotsuka.png"
             alt="Illus. 憶束ない"
