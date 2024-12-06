@@ -1,8 +1,14 @@
 import { Hono } from 'hono'
+import { serveStatic } from '@hono/node-server/serve-static'
 import { renderer } from './renderer'
 import { Layout } from './components/Layout'
-
+import { Model } from './components/Model'
+import { Gallery } from './components/Gallery'
 const app = new Hono()
+
+// 静的ファイルの配信設定を追加
+app.use('/images/*', serveStatic({ root: './public' }))
+app.use('/static/*', serveStatic({ root: './public' }))
 
 app.use(renderer)
 
@@ -12,24 +18,8 @@ app.get('/', (c) => {
 
   return c.render(
     <Layout>
-      <div class="space-y-8">
-        <section>
-          <h1 class="text-4xl font-bold mb-4">Welcome to My Site</h1>
-          <p class="text-gray-600 dark:text-gray-400">
-            Web developer passionate about creating elegant solutions.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-bold mb-4">Latest Posts</h2>
-          {/* ここにブログ記事の一覧を表示 */}
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-bold mb-4">Featured Works</h2>
-          {/* ここにポートフォリオ作品の一覧を表示 */}
-        </section>
-      </div>
+      <Model />
+      <Gallery />
     </Layout>
   )
 })
