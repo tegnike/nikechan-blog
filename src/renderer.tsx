@@ -5,7 +5,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
     <html lang="ja">
       <head>
         <meta charSet="utf-8" />
-        <title>{title || 'Default Title'}</title>
+        <title>{title || 'Nike Portfolio'}</title>
         <link href="/static/styles/globals.css" rel="stylesheet" />
       </head>
       <body class="bg-white dark:bg-gray-900">
