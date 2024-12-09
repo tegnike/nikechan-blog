@@ -243,6 +243,13 @@ export const Gallery = () => {
             url="https://x.com/Midori_soumenn"
             className="aspect-[3/4]"
           />
+          <GalleryItem 
+            src="/images/illustrations/s_icon_v2.png"
+            alt="Illus. 綾川まとい"
+            caption="Illus. 綾川まとい"
+            url="https://x.com/matoi_e_ma"
+            className="aspect-[3/4]"
+          />
         </div>
 
         <ImageModal id="imageModal" />

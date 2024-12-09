@@ -25,4 +25,28 @@ app.get('/', (c) => {
   )
 })
 
+// Blog page
+app.get('/blog', (c) => {
+  return c.render(
+    <Layout>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <h1 className="text-4xl font-bold text-gray-700 dark:text-gray-300">準備中</h1>
+      </div>
+    </Layout>,
+    { title: "Nike Portfolio | Blog" }
+  )
+})
+
+// Works page
+app.get('/works', (c) => {
+  return c.render(
+    <Layout>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <h1 className="text-4xl font-bold text-gray-700 dark:text-gray-300">準備中</h1>
+      </div>
+    </Layout>,
+    { title: "Nike Portfolio | Works" }
+  )
+})
+
 export default app
