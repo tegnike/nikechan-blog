@@ -6,7 +6,7 @@ type Props = {
 export function Layout({ children, title = 'My Portfolio & Blog' }: Props) {
   return (
     <>
-      <header className="border-b border-transparent absolute top-0 left-0 right-0 z-10">
+      <header className="border-b border-transparent fixed top-0 left-0 right-0 z-10 bg-white dark:bg-gray-900">
         <nav className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
             <h1 className="text-white text-xl font-bold">
