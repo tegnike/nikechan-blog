@@ -12,6 +12,7 @@
   "dependencies": {
     "@hono/node-server": "^1.13.7",
     "@hono/zod-validator": "^0.4.1",
+    "@supabase/supabase-js": "^2.47.10",
     "better-sqlite3": "^11.6.0",
     "hono": "^4.6.12"
   },

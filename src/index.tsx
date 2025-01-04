@@ -4,6 +4,9 @@ import { renderer } from './renderer'
 import { Layout } from './components/Layout'
 import { Model } from './components/Model'
 import { Gallery } from './components/Gallery'
+import { Blog } from './components/Blog'
+import { BlogDetail } from './components/BlogDetail'
+
 const app = new Hono()
 
 // 静的ファイルの配信設定を追加
@@ -26,14 +29,24 @@ app.get('/', (c) => {
 })
 
 // Blog page
-app.get('/blog', (c) => {
+app.get('/blog', async (c) => {
   return c.render(
     <Layout>
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <h1 className="text-4xl font-bold text-gray-700 dark:text-gray-300">準備中</h1>
-      </div>
+      {/* @ts-expect-error Server Component */}
+      <Blog />
     </Layout>,
     { title: "Nike Portfolio | Blog" }
+  )
+})
+
+// Blog detail page
+app.get('/blog/:id', async (c) => {
+  const id = c.req.param('id')
+  return c.render(
+    <Layout>
+      {/* @ts-expect-error Server Component */}
+      <BlogDetail id={id} />
+    </Layout>
   )
 })
 
