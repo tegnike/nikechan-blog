@@ -158,7 +158,7 @@ export const AboutMe: FC = () => {
                 <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">@ai_nikechan</span>
               </a>
               <a
-                href="https://note.com/nikechan_note"
+                href="https://note.com/nike_cha_n"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
