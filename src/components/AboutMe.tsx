@@ -13,9 +13,9 @@ export const AboutMe: FC = () => {
           {/* Introduction */}
           <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8">
             <p className="text-gray-300 leading-relaxed">
-              Webエンジニア経験を持つフルスタック開発者として、Ruby on Railsを中心としたバックエンド開発を得意としています。
-              2024年からはAIエンジニアとしてキャリアを広げ、LLMを活用したAIキャラクター開発やAIエージェント開発に注力しています。
-              技術革新への情熱を持ち続け、AIとWeb技術の両方を活かした革新的なプロダクト開発に取り組んでいます。
+              ポーランド在住のフルスタック開発者として、数年間リモートワークを通じて日本のプロジェクトに携わってきました。
+              Ruby on Railsを中心としたバックエンド開発を得意とし、2024年からは活動の場を英語圏にも広げ、AIエンジニアとしての新たなキャリアをスタートしています。
+              現在はLLMを活用したAIキャラクター開発やAIエージェント開発に注力し、技術革新への情熱を持って、AIとWeb技術の両方を活かした革新的なプロダクト開発に取り組んでいます。
             </p>
           </div>
 
@@ -29,7 +29,7 @@ export const AboutMe: FC = () => {
                   <div>
                     <div className="font-medium">AI Engineer</div>
                     <p className="text-sm text-gray-400 mt-1">
-                      AIキャラクターやエージェントの開発に従事。LLMを活用した自然な会話システムの実装や、
+                      日本および英語圏のプロジェクトにてAIキャラクターやエージェントの開発に従事。LLMを活用した自然な会話システムの実装や、
                       独自の記憶機構の設計など、AIの応用開発を担当。Python、FastAPI、AWS等を使用。
                     </p>
                   </div>
@@ -41,7 +41,7 @@ export const AboutMe: FC = () => {
                   <div>
                     <div className="font-medium">Web Developer</div>
                     <p className="text-sm text-gray-400 mt-1">
-                      Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーション開発に従事。
+                      フルリモートで日本のプロジェクトに参画。Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーション開発に従事。
                       予約システム、ECサイト、オンラインくじサイトなど、多様なプロジェクトでリードエンジニアとして活躍。
                       AWS/GCPでのインフラ構築やCI/CD整備も担当。
                     </p>
