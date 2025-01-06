@@ -17,7 +17,7 @@ export function Layout({ children, title = 'My Portfolio & Blog' }: Props) {
             <ul className="flex gap-6 text-white">
               <li><a href="/" className="hover:text-blue-300 transition-colors">Gallery</a></li>
               <li><a href="/blog" className="hover:text-blue-300 transition-colors">Blog</a></li>
-              <li><a href="/about-me" className="hover:text-blue-300 transition-colors">About me</a></li>
+              <li><a href="/about" className="hover:text-blue-300 transition-colors">About</a></li>
             </ul>
           </div>
         </nav>

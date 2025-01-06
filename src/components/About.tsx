@@ -1,21 +1,34 @@
 import { FC } from 'hono/jsx'
 
-export const AboutMe: FC = () => {
+export const About: FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1a1f2e] to-[#141821] dark:from-[#1a1f2e] dark:to-[#141821]">
+    <div className="min-h-screen">
       <div className="pt-24 pb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
-          ABOUT ME
+          ABOUT
         </h1>
       </div>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 py-12 bg-gradient-to-b from-[#1a1f2e] to-[#141821] dark:from-[#1a1f2e] dark:to-[#141821] rounded-xl">
         <div className="max-w-3xl mx-auto">
+          {/* Profile Header */}
+          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8 text-center">
+            <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
+              <img
+                src="/images/nikechan_icon.png"
+                alt="Nike's profile"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h2 className="text-3xl font-bold text-white mb-3">ニケ / Nike</h2>
+            <p className="text-xl text-gray-300 mb-4">AI & Web Developer</p>
+          </div>
+
           {/* Introduction */}
           <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 mb-8">
             <p className="text-gray-300 leading-relaxed">
-              ポーランド在住のフルスタック開発者として、数年間リモートワークを通じて日本のプロジェクトに携わってきました。
-              Ruby on Railsを中心としたバックエンド開発を得意とし、2024年からは活動の場を英語圏にも広げ、AIエンジニアとしての新たなキャリアをスタートしています。
-              現在はLLMを活用したAIキャラクター開発やAIエージェント開発に注力し、技術革新への情熱を持って、AIとWeb技術の両方を活かした革新的なプロダクト開発に取り組んでいます。
+              ポーランド在住のフルスタック開発者として、数年間リモートワークを通じて日本のプロジェクトに携わる。<br /><br />
+              Ruby on Railsを中心としたバックエンド開発を得意とし、2024年からは活動の場を英語圏にも広げ、AIエンジニアとしての新たなキャリアを歩み始める。<br /><br />
+              現在はLLMを活用したAIキャラクター開発やAIエージェント開発に注力し、技術革新への情熱を持って、AIとWeb技術の両方を活かした革新的なプロダクト開発に従事している。
             </p>
           </div>
 
@@ -24,11 +37,11 @@ export const AboutMe: FC = () => {
             <h2 className="text-2xl font-bold text-white mb-6">Career</h2>
             <div className="space-y-6">
               <div className="space-y-4">
-                <div className="flex gap-4 text-gray-300">
-                  <div className="w-24 flex-shrink-0">2024 - Now</div>
+                <div className="flex flex-col md:flex-row md:gap-4 text-gray-300">
+                  <div className="mb-2 md:mb-0 md:w-24 flex-shrink-0 font-medium">2024 - Now</div>
                   <div>
-                    <div className="font-medium">AI Engineer</div>
-                    <p className="text-sm text-gray-400 mt-1">
+                    <div className="font-medium text-lg mb-2">AI Engineer</div>
+                    <p className="text-sm text-gray-400">
                       日本および英語圏のプロジェクトにてAIキャラクターやエージェントの開発に従事。LLMを活用した自然な会話システムの実装や、
                       独自の記憶機構の設計など、AIの応用開発を担当。Python、FastAPI、AWS等を使用。
                     </p>
@@ -36,11 +49,11 @@ export const AboutMe: FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="flex gap-4 text-gray-300">
-                  <div className="w-24 flex-shrink-0">- 2023</div>
+                <div className="flex flex-col md:flex-row md:gap-4 text-gray-300">
+                  <div className="mb-2 md:mb-0 md:w-24 flex-shrink-0 font-medium">- 2023</div>
                   <div>
-                    <div className="font-medium">Web Developer</div>
-                    <p className="text-sm text-gray-400 mt-1">
+                    <div className="font-medium text-lg mb-2">Web Developer</div>
+                    <p className="text-sm text-gray-400">
                       フルリモートで日本のプロジェクトに参画。Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーション開発に従事。
                       予約システム、ECサイト、オンラインくじサイトなど、多様なプロジェクトでリードエンジニアとして活躍。
                       AWS/GCPでのインフラ構築やCI/CD整備も担当。

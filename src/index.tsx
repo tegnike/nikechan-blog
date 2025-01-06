@@ -6,7 +6,7 @@ import { Model } from './components/Model'
 import { Gallery } from './components/Gallery'
 import { Blog } from './components/Blog'
 import { BlogDetail } from './components/BlogDetail'
-import { AboutMe } from './components/AboutMe'
+import { About } from './components/About'
 
 const app = new Hono()
 
@@ -53,12 +53,12 @@ app.get('/blog/:id', async (c) => {
 })
 
 // About me page
-app.get('/about-me', (c) => {
+app.get('/about', (c) => {
   return c.render(
     <Layout>
-      <AboutMe />
+      <About />
     </Layout>,
-    { title: "Nike Portfolio | About me" }
+    { title: "Nike Portfolio | About" }
   )
 })
 
