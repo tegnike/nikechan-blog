@@ -17,7 +17,7 @@ export function Layout({ children, title = 'My Portfolio & Blog' }: Props) {
             <ul className="flex gap-6 text-white">
               <li><a href="/" className="hover:text-blue-300 transition-colors">Gallery</a></li>
               <li><a href="/blog" className="hover:text-blue-300 transition-colors">Blog</a></li>
-              <li><a href="/works" className="hover:text-blue-300 transition-colors">Works</a></li>
+              <li><a href="/about-me" className="hover:text-blue-300 transition-colors">About me</a></li>
             </ul>
           </div>
         </nav>
@@ -29,7 +29,7 @@ export function Layout({ children, title = 'My Portfolio & Blog' }: Props) {
 
       <footer className="border-t">
         <div className="container mx-auto px-4 py-4 text-center text-gray-600">
-          © 2024 nike
+          © 2025 nikechan
         </div>
       </footer>
 

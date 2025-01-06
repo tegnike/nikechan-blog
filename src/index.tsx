@@ -6,6 +6,7 @@ import { Model } from './components/Model'
 import { Gallery } from './components/Gallery'
 import { Blog } from './components/Blog'
 import { BlogDetail } from './components/BlogDetail'
+import { AboutMe } from './components/AboutMe'
 
 const app = new Hono()
 
@@ -46,19 +47,18 @@ app.get('/blog/:id', async (c) => {
     <Layout>
       {/* @ts-expect-error Server Component */}
       <BlogDetail id={id} />
-    </Layout>
+    </Layout>,
+    { title: "Nike Portfolio | Blog Detail" }
   )
 })
 
-// Works page
-app.get('/works', (c) => {
+// About me page
+app.get('/about-me', (c) => {
   return c.render(
     <Layout>
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <h1 className="text-4xl font-bold text-gray-700 dark:text-gray-300">準備中</h1>
-      </div>
+      <AboutMe />
     </Layout>,
-    { title: "Nike Portfolio | Works" }
+    { title: "Nike Portfolio | About me" }
   )
 })
 
