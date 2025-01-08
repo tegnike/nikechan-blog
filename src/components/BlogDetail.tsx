@@ -24,7 +24,7 @@ export const BlogDetail = async ({ id }: Props) => {
   const formatContent = (data: any) => {
     if (typeof data === 'string') return data;
     
-    const { session_count, message_count, failed_responses, poor_reactions } = data;
+    const { session_count, message_count, failed_responses, poor_reactions, nijivoice_balance } = data;
     
     return (
       <>
@@ -36,6 +36,9 @@ export const BlogDetail = async ({ id }: Props) => {
           <h2 className="text-xl font-bold mb-2">セッション情報</h2>
           <p>セッション数: {session_count}</p>
           <p>メッセージ数: {message_count}</p>
+          {nijivoice_balance !== undefined && (
+            <p>にじボイスクレジット残高: {nijivoice_balance}</p>
+          )}
         </div>
 
         <div className="mb-6">
