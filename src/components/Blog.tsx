@@ -12,7 +12,8 @@ const shuffleArray = (array: number[]) => {
 
 export const Blog = async () => {
   // 1から9までの画像番号の配列をシャッフル
-  const shuffledImageNumbers = shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
+  const imageNumbers = Array.from({length: 17}, (_, i) => i + 1)
+  const shuffledImageNumbers = shuffleArray(imageNumbers)
 
   // データ取得
   const { data: summaries, error } = await supabase
@@ -31,7 +32,7 @@ export const Blog = async () => {
   return (
     <>
       <div className="pt-24 pb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-center dark:text-white">
+        <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
           NIKELOG
         </h1>
       </div>

@@ -57,4 +57,47 @@ document.addEventListener('DOMContentLoaded', () => {
       // または上のclosest条件で背景クリック時のみ反応するように設計します。
     });
   }
+
+  // プロフィール切り替え機能
+  const profileButtons = document.querySelectorAll('[data-profile]');
+  const profiles = {
+    nike: document.getElementById('nike-profile'),
+    ai_nike: document.getElementById('ai_nike-profile')
+  };
+
+  // 初期状態のアクティブボタンのスタイルを設定
+  profileButtons.forEach(button => {
+    if (button.classList.contains('active')) {
+      button.classList.add('bg-white/20');
+      button.classList.remove('bg-white/10');
+    }
+  });
+
+  profileButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const profileType = button.getAttribute('data-profile');
+      
+      // プロフィールの表示/非表示を切り替え
+      Object.entries(profiles).forEach(([type, element]) => {
+        if (type === profileType) {
+          element.classList.remove('hidden');
+        } else {
+          element.classList.add('hidden');
+        }
+      });
+
+      // ボタンのアクティブ状態を切り替え
+      profileButtons.forEach(btn => {
+        if (btn === button) {
+          btn.classList.add('active');
+          btn.classList.add('bg-white/20');
+          btn.classList.remove('bg-white/10');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.remove('bg-white/20');
+          btn.classList.add('bg-white/10');
+        }
+      });
+    });
+  });
 });
