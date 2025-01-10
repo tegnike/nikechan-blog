@@ -42,7 +42,9 @@ export const Blog = async () => {
             <a 
               key={summary.id} 
               href={`/blog/${summary.id}`}
-              className="block bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              className="block bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md 
+                hover:shadow-lg transition-all duration-300 ease-in-out 
+                hover:transform hover:-translate-y-1 hover:scale-[1.02]"
             >
               <div className="aspect-w-16 aspect-h-9 relative">
                 <img
