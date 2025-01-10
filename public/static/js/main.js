@@ -65,14 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ai_nike: document.getElementById('ai_nike-profile')
   };
 
-  // 初期状態のアクティブボタンのスタイルを設定
-  profileButtons.forEach(button => {
-    if (button.classList.contains('active')) {
-      button.classList.add('bg-white/20');
-      button.classList.remove('bg-white/10');
-    }
-  });
-
   profileButtons.forEach(button => {
     button.addEventListener('click', () => {
       const profileType = button.getAttribute('data-profile');
@@ -90,12 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
       profileButtons.forEach(btn => {
         if (btn === button) {
           btn.classList.add('active');
-          btn.classList.add('bg-white/20');
-          btn.classList.remove('bg-white/10');
         } else {
           btn.classList.remove('active');
-          btn.classList.remove('bg-white/20');
-          btn.classList.add('bg-white/10');
         }
       });
     });

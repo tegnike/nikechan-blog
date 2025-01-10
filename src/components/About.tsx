@@ -9,13 +9,13 @@ export const About: FC = () => {
         </h1>
         <div className="flex justify-center gap-4 mt-8">
           <button
-            className="px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors active"
+            className="px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors [&.active]:bg-white/20 active"
             data-profile="nike"
           >
             ニケ
           </button>
           <button
-            className="px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+            className="px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors [&.active]:bg-white/20"
             data-profile="ai_nike"
           >
             AIニケちゃん
@@ -42,10 +42,10 @@ export const About: FC = () => {
             {/* Introduction */}
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
               <p className="text-gray-300 leading-relaxed">
-                ポーランド在住のフルスタック開発者として、数年間リモートワークを通じて日本のプロジェクトに携わる。<br /><br />
-                Ruby on Railsを中心としたバックエンド開発を得意とし、2024年から英語圏での活動も開始。<br />
-                現在はAIエンジニアとして、LLMを活用したAIキャラクターやAIエージェントの開発を主に手掛ける。<br /><br />
-                個人開発では「AITuberKit」「美少女OPInterpreter」などのAIツールを公開し、AIとWeb技術を組み合わせた新しいアプリケーションの可能性を模索している。
+              ポーランド在住のフルスタック開発者として、数年間リモートワークを通じて日本のプロジェクトに携わる。<br /><br />
+              バックエンド開発を中心に経験を積み、現在はPythonやReactなどを用いたLLM応用の開発を手掛けるAIエンジニアとして活躍。<br />
+              2024年からは英語圏での活動も開始している。<br /><br />
+              個人開発では「AITuberKit」「美少女OPInterpreter」などのAIツールを公開し、AIとWeb技術を組み合わせた新しいアプリケーションの可能性を探求している。
               </p>
             </div>
 
