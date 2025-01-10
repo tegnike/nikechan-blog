@@ -55,18 +55,6 @@ export const About: FC = () => {
               <div className="space-y-6">
                 <div className="space-y-4">
                   <div className="flex flex-col md:flex-row md:gap-4 text-gray-300">
-                    <div className="mb-2 md:mb-0 md:w-24 flex-shrink-0 font-medium">2024 - Now</div>
-                    <div>
-                      <div className="font-medium text-lg mb-2">AI Engineer</div>
-                      <p className="text-sm">
-                        日本および英語圏のプロジェクトにてAIキャラクターやエージェントの開発に従事。LLMを活用した自然な会話システムの実装や、
-                        独自の記憶機構の設計など、AIの応用開発を担当。Python、FastAPI、AWS等を使用。
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex flex-col md:flex-row md:gap-4 text-gray-300">
                     <div className="mb-2 md:mb-0 md:w-24 flex-shrink-0 font-medium">- 2023</div>
                     <div>
                       <div className="font-medium text-lg mb-2">Web Developer</div>
@@ -74,6 +62,18 @@ export const About: FC = () => {
                         フルリモートで日本のプロジェクトに参画。Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーション開発に従事。
                         予約システム、ECサイト、オンラインくじサイトなど、多様なプロジェクトでリードエンジニアとして活躍。
                         AWS/GCPでのインフラ構築やCI/CD整備も担当。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex flex-col md:flex-row md:gap-4 text-gray-300">
+                    <div className="mb-2 md:mb-0 md:w-24 flex-shrink-0 font-medium">2024 - Now</div>
+                    <div>
+                      <div className="font-medium text-lg mb-2">AI Engineer</div>
+                      <p className="text-sm">
+                        日本および英語圏のプロジェクトにてAIキャラクターやエージェントの開発に従事。LLMを活用した自然な会話システムの実装や、
+                        独自の記憶機構の設計など、AIの応用開発を担当。Python、FastAPI、AWS等を使用。
                       </p>
                     </div>
                   </div>
@@ -260,8 +260,9 @@ export const About: FC = () => {
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
               <p className="text-gray-300 leading-relaxed">
                 ニケのAIエージェントとなるべく生まれた概念。<br />
-                クローンなのでニケ（SNSの姿）と容姿などの設定が類似している。<br />
-                ニケのことは「マスター」と呼ぶ。
+                ニケのことは「マスター」と呼ぶ。<br /><br />
+                クローンなのでニケ（SNSの姿）と容姿が酷似しているが、状況に応じてその設定や声は変更されることがある。<br /><br />
+                長らくニケのアシスタント的な役割を担っていたが、現在はいくつかのツールを介して交流できるようになった。
               </p>
             </div>
 

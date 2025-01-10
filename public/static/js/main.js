@@ -1,3 +1,4 @@
+// ギャラリー機能
 document.addEventListener('DOMContentLoaded', () => {
   const galleryItems = document.querySelectorAll('.gallery-item');
   const modal = document.getElementById('imageModal');
@@ -137,8 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // または上のclosest条件で背景クリック時のみ反応するように設計します。
     });
   }
+});
 
-  // プロフィール切り替え機能
+// プロフィール切り替え機能
+document.addEventListener('DOMContentLoaded', () => {
   const profileButtons = document.querySelectorAll('[data-profile]');
   const profiles = {
     nike: document.getElementById('nike-profile'),
