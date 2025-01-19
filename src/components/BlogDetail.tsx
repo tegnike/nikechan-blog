@@ -1,6 +1,7 @@
 import { supabase, type Summary } from '../lib/supabase'
 import { BlogDetailV1 } from './BlogDetailV1'
 import { BlogDetailV2 } from './BlogDetailV2'
+import { BlogDetailV3 } from './BlogDetailV3'
 
 type Props = {
   id: string
@@ -45,8 +46,12 @@ export const BlogDetail = async ({ id }: Props) => {
           <div className="text-gray-700 dark:text-gray-300">
             {summary.version === 1 ? (
               <BlogDetailV1 data={summary.public_message} />
-            ) : (
+            ) : summary.version === 2 ? (
               <BlogDetailV2 data={summary.public_message} />
+            ) : summary.version === 3 ? (
+              <BlogDetailV3 data={summary.public_message} />
+            ) : (
+              <div>バージョンが存在しません{summary.version}</div>
             )}
           </div>
         </div>

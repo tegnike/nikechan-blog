@@ -33,6 +33,8 @@ export function Layout({ children, title = 'My Portfolio & Blog' }: Props) {
         </div>
       </footer>
 
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script src="/static/js/main.js"></script>
     </>
   )

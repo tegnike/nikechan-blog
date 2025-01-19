@@ -1,3 +1,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* アナリティクスダッシュボードのスタイル */
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden;
+}
+
+.card-header {
+  @apply p-4 border-b border-gray-200 dark:border-gray-700;
+}
+
+.card-title {
+  @apply text-lg font-bold text-gray-900 dark:text-gray-100;
+}
+
+.card-content {
+  @apply p-4;
+}
+
+.tabs-container {
+  @apply w-full;
+}
+
+.tabs-list {
+  @apply mb-4;
+}
+
+.tab-trigger {
+  @apply px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none;
+}
+
+.tab-trigger.active {
+  @apply text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400;
+}
+
+.tab-content {
+  @apply hidden;
+}
+
+.tab-content.active {
+  @apply block;
+}
+
+/* アイコンのスタイル */
+.fas {
+  @apply text-xl;
+}
+
+/* グラフコンテナのスタイル */
+.chart-container {
+  @apply relative;
+  min-height: 300px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .grid-cols-4 {
+    @apply grid-cols-2;
+  }
+  
+  .tabs-list {
+    @apply grid-cols-2;
+  }
+  
+  .chart-container {
+    min-height: 250px;
+  }
+}

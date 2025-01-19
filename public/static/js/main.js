@@ -1,5 +1,333 @@
-// ギャラリー機能
+// Chart.jsのグローバル設定
+Chart.defaults.color = '#ffffff';
+Chart.defaults.borderColor = '#666666';
+
+// アニメーション設定
+const barChartAnimation = {
+  animation: {
+    y: {
+      from: 1000 // スケールの外側から開始
+    }
+  }
+};
+
+// チャート用のカラーパレット
+const chartColors = [
+  '#FF6B6B', // 赤系
+  '#FFEEAD', // 黄系
+  '#4ECDC4', // ターコイズ
+  '#9B89B3', // 紫系
+  '#E9B872', // オレンジ系
+  '#45B7D1', // 青系
+  '#D4A5A5', // ピンク系
+  '#96CEB4', // 緑系
+  '#84B1ED', // 水色系
+  '#B3E5BE'  // 薄緑系
+];
+
+// チャート初期化機能
+function initializeCharts(chartData) {
+  // ユーザータイプ分布の円グラフ
+  const userTypeCtx = document.getElementById('userTypeChart')?.getContext('2d');
+  if (userTypeCtx) {
+    const userTypes = {
+      '新規': chartData.user_metrics.user_types.new_user,
+      'リピート': chartData.user_metrics.user_types.repeat_user
+    };
+    const total = Object.values(userTypes).reduce((sum, value) => sum + value, 0);
+    
+    new Chart(userTypeCtx, {
+      type: 'pie',
+      data: {
+        labels: Object.keys(userTypes),
+        datasets: [{
+          data: Object.values(userTypes),
+          backgroundColor: chartColors.slice(0, 2)
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          title: {
+            display: true,
+            text: 'ユーザータイプ分布',
+            color: '#fff',
+            font: {
+              size: 16,
+              weight: 'bold'
+            },
+            padding: {
+              bottom: 20
+            }
+          },
+          legend: {
+            position: 'right',
+            labels: {
+              color: '#fff',
+              generateLabels: (chart) => {
+                const data = chart.data;
+                if (data.labels.length && data.datasets.length) {
+                  return data.labels.map((label, i) => {
+                    const value = data.datasets[0].data[i];
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return {
+                      text: `${label}: ${value}人 (${percentage}%)`,
+                      fillStyle: chartColors[i],
+                      strokeStyle: chartColors[i],
+                      lineWidth: 1,
+                      hidden: false,
+                      index: i,
+                      fontColor: '#fff'
+                    };
+                  });
+                }
+                return [];
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // 言語分布の円グラフ
+  const languageCtx = document.getElementById('languageChart')?.getContext('2d');
+  if (languageCtx) {
+    const languages = Object.entries(chartData.user_metrics.languages.languages);
+    const total = languages.reduce((sum, [, value]) => sum + value, 0);
+    
+    new Chart(languageCtx, {
+      type: 'pie',
+      data: {
+        labels: languages.map(([name]) => name),
+        datasets: [{
+          data: languages.map(([, value]) => value),
+          backgroundColor: languages.map((_, index) => chartColors[index % chartColors.length])
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          title: {
+            display: true,
+            text: '使用言語分布',
+            color: '#fff',
+            font: {
+              size: 16,
+              weight: 'bold'
+            },
+            padding: {
+              bottom: 20
+            }
+          },
+          legend: {
+            position: 'right',
+            labels: {
+              color: '#fff',
+              generateLabels: (chart) => {
+                const data = chart.data;
+                if (data.labels.length && data.datasets.length) {
+                  return data.labels.map((label, i) => {
+                    const value = data.datasets[0].data[i];
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return {
+                      text: `${label}: ${value}件 (${percentage}%)`,
+                      fillStyle: chartColors[i % chartColors.length],
+                      strokeStyle: chartColors[i % chartColors.length],
+                      lineWidth: 1,
+                      hidden: false,
+                      index: i,
+                      fontColor: '#fff'
+                    };
+                  });
+                }
+                return [];
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // 会話ターン数分布の棒グラフ
+  const turnDistributionCtx = document.getElementById('turnDistributionChart')?.getContext('2d');
+  if (turnDistributionCtx) {
+    const turnLabels = {
+      '1-3_turns': '1-3回',
+      '4-7_turns': '4-7回',
+      '8-10_turns': '8-10回',
+      '11-15_turns': '11-15回',
+      'over_15_turns': '15回以上'
+    };
+    const turns = Object.entries(chartData.conversation_metrics.turn_distribution);
+    
+    new Chart(turnDistributionCtx, {
+      type: 'bar',
+      data: {
+        labels: turns.map(([key]) => turnLabels[key]),
+        datasets: [{
+          label: 'セッション数',
+          data: turns.map(([, value]) => value),
+          backgroundColor: '#8884d8'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // 時間帯別会話傾向の複合グラフ
+  const timeDistributionSessionCtx = document.getElementById('timeDistributionSessionChart')?.getContext('2d');
+  const timeDistributionTurnCtx = document.getElementById('timeDistributionTurnChart')?.getContext('2d');
+  
+  if (timeDistributionSessionCtx && timeDistributionTurnCtx) {
+    const timeLabels = {
+      'morning': '0-3時',
+      'afternoon': '4-7時',
+      'evening': '8-11時',
+      'night': '12-15時',
+      'late_night': '16-19時',
+      'midnight': '20-23時'
+    };
+    
+    // 時間帯の順序を固定
+    const timeOrder = ['morning', 'afternoon', 'evening', 'night', 'late_night', 'midnight'];
+    const sortedTimes = timeOrder.map(key => [
+      key,
+      chartData.conversation_metrics.time_distribution[key]
+    ]);
+    
+    // セッション数のグラフ
+    new Chart(timeDistributionSessionCtx, {
+      type: 'bar',
+      data: {
+        labels: sortedTimes.map(([key]) => timeLabels[key]),
+        datasets: [{
+          label: 'セッション数',
+          data: sortedTimes.map(([, data]) => data.count),
+          backgroundColor: '#8884d8'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+
+    // 平均ターン数のグラフ
+    new Chart(timeDistributionTurnCtx, {
+      type: 'bar',
+      data: {
+        labels: sortedTimes.map(([key]) => timeLabels[key]),
+        datasets: [{
+          label: '平均ターン数',
+          data: sortedTimes.map(([, data]) => data.avg_turns),
+          backgroundColor: '#82ca9d'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // トピック別セッション数の棒グラフ
+  const topicCtx = document.getElementById('topicChart')?.getContext('2d');
+  if (topicCtx) {
+    const topicCategories = {
+      'technical': '技術・開発',
+      'education': '教育・学習',
+      'hobby': '趣味・エンターテイメント',
+      'business': '仕事・ビジネス',
+      'lifestyle': '生活・健康',
+      'system': 'システム関連',
+      'other': 'その他'
+    };
+    
+    const topicSummary = Object.entries(chartData.topic_metrics).map(([category, items]) => ({
+      name: topicCategories[category],
+      value: items.reduce((sum, item) => sum + item.count, 0)
+    }));
+
+    new Chart(topicCtx, {
+      type: 'bar',
+      data: {
+        labels: topicSummary.map(item => item.name),
+        datasets: [{
+          label: 'トピック数',
+          data: topicSummary.map(item => item.value),
+          backgroundColor: '#82ca9d'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+}
+
+// アナリティクスダッシュボード機能とギャラリー機能
 document.addEventListener('DOMContentLoaded', () => {
+  // タブ切り替え機能
+  const tabTriggers = document.querySelectorAll('.tab-trigger');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const targetTab = trigger.getAttribute('data-tab');
+      
+      // タブトリガーのアクティブ状態を切り替え
+      tabTriggers.forEach(t => t.classList.remove('active'));
+      trigger.classList.add('active');
+      
+      // タブコンテンツの表示/非表示を切り替え
+      tabContents.forEach(content => {
+        if (content.id === `${targetTab}-tab`) {
+          content.classList.add('active');
+        } else {
+          content.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  // ギャラリー機能
   const galleryItems = document.querySelectorAll('.gallery-item');
   const modal = document.getElementById('imageModal');
   const modalImage = document.getElementById('modalImage');
@@ -74,8 +402,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ナビゲーションボタンのイベントリスナー
-  const prevButton = modal.querySelector('[data-action="prev-image"]');
-  const nextButton = modal.querySelector('[data-action="next-image"]');
+  const prevButton = modal?.querySelector('[data-action="prev-image"]');
+  const nextButton = modal?.querySelector('[data-action="next-image"]');
 
   prevButton?.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -89,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // キーボードイベント
   document.addEventListener('keydown', (e) => {
-    if (modal.classList.contains('hidden')) return;
+    if (modal?.classList.contains('hidden')) return;
 
     if (e.key === 'ArrowLeft') {
       showPrevImage();
@@ -104,17 +432,17 @@ document.addEventListener('DOMContentLoaded', () => {
   let touchStartX = 0;
   let touchEndX = 0;
 
-  modal.addEventListener('touchstart', (e) => {
+  modal?.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
   }, false);
 
-  modal.addEventListener('touchend', (e) => {
+  modal?.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
   }, false);
 
   function handleSwipe() {
-    const swipeThreshold = 50; // スワイプを検知する閾値
+    const swipeThreshold = 50;
     const swipeLength = touchEndX - touchStartX;
 
     if (Math.abs(swipeLength) > swipeThreshold) {
@@ -127,21 +455,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // モーダル閉じる操作
-  if (modal) {
-    modal.addEventListener('click', (event) => {
-      const target = event.target;
-      // data-action="close-modal"が付いている要素をクリックしたらモーダル閉鎖
-      if (target instanceof Element && target.closest('[data-action="close-modal"]')) {
-        modal.classList.add('hidden');
-      }
-      // modal-content部分はstopPropagationで対応するか、 
-      // または上のclosest条件で背景クリック時のみ反応するように設計します。
-    });
-  }
-});
+  modal?.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target instanceof Element && target.closest('[data-action="close-modal"]')) {
+      modal.classList.add('hidden');
+    }
+  });
 
-// プロフィール切り替え機能
-document.addEventListener('DOMContentLoaded', () => {
+  // プロフィール切り替え機能
   const profileButtons = document.querySelectorAll('[data-profile]');
   const profiles = {
     nike: document.getElementById('nike-profile'),
@@ -155,9 +476,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // プロフィールの表示/非表示を切り替え
       Object.entries(profiles).forEach(([type, element]) => {
         if (type === profileType) {
-          element.classList.remove('hidden');
+          element?.classList.remove('hidden');
         } else {
-          element.classList.add('hidden');
+          element?.classList.add('hidden');
         }
       });
 
@@ -171,4 +492,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
+
+  // データが利用可能になったらチャートを初期化
+  window.initializeAnalyticsDashboard = function(data) {
+    if (data) {
+      initializeCharts(data);
+    }
+  };
 });
