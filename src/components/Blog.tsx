@@ -12,7 +12,7 @@ const shuffleArray = (array: number[]) => {
 
 export const Blog = async () => {
   // 1から9までの画像番号の配列をシャッフル
-  const imageNumbers = Array.from({length: 20}, (_, i) => i + 1)
+  const imageNumbers = Array.from({length: 23}, (_, i) => i + 1)
   const shuffledImageNumbers = shuffleArray(imageNumbers)
 
   // データ取得
