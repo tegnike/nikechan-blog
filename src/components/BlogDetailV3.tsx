@@ -62,7 +62,7 @@ export const BlogDetailV3 = ({ data }: Props) => {
   `;
 
   return (
-    <div className="w-full space-y-4 p-4">
+    <div className="w-full space-y-4 p-2 sm:p-4">
       <script dangerouslySetInnerHTML={{ __html: initScript }} />
       {/* サマリーカード */}
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
@@ -348,13 +348,13 @@ function generateIssuesList(issues: V3Data['issues']) {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {Object.entries(groupedIssues).map(([category, categoryIssues]) => (
         <div key={category} className="space-y-4">
-          <div className="bg-gray-800 rounded-lg p-4">
+          <div className="bg-gray-800 rounded-lg p-1 sm:p-4">
             <h3 className="text-xl font-bold mb-4 text-white border-b border-gray-700 pb-2">
               {categoryLabels[category] || category}
             </h3>
             <div className="space-y-4">
               {categoryIssues.map((issue, index) => (
-                <div key={index} className="bg-gray-900 rounded-lg p-4 hover:bg-gray-850 transition-colors duration-200">
+                <div key={index} className="bg-gray-900 rounded-lg p-3 sm:p-4 hover:bg-gray-850 transition-colors duration-200">
                   <div className="flex items-start space-x-3">
                     <div className="flex-shrink-0">
                       <div className="w-2 h-2 rounded-full bg-red-500 mt-2"></div>

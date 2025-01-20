@@ -42,7 +42,7 @@ export const BlogDetail = async ({ id }: Props) => {
             </time>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mb-6">
+        <div className="bg-white dark:bg-gray-800 p-1 sm:p-6 rounded-lg shadow-md mb-6">
           <div className="text-gray-700 dark:text-gray-300">
             {summary.version === 1 ? (
               <BlogDetailV1 data={summary.public_message} />
