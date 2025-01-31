@@ -3,13 +3,8 @@ import { supabase } from '../lib/supabase'
 type V3Data = {
   user_metrics: {
     total_users: number
-    repeat_rate: number
     total_messages: number
     issue_count: number
-    user_types: {
-      new_user: number
-      repeat_user: number
-    }
     languages: {
       languages: {
         [key: string]: number
@@ -65,7 +60,7 @@ export const BlogDetailV3 = ({ data }: Props) => {
     <div className="w-full space-y-4 p-2 sm:p-4">
       <script dangerouslySetInnerHTML={{ __html: initScript }} />
       {/* サマリーカード */}
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <div className="card">
           <div className="card-content pt-6">
             <div className="flex items-center space-x-2">
@@ -73,18 +68,6 @@ export const BlogDetailV3 = ({ data }: Props) => {
               <div>
                 <p className="text-sm text-white">総ユーザー数</p>
                 <p className="text-2xl font-bold">{data.user_metrics.total_users}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="card-content pt-6">
-            <div className="flex items-center space-x-2">
-              <i className="fas fa-sync text-green-500"></i>
-              <div>
-                <p className="text-sm text-white">リピート率</p>
-                <p className="text-2xl font-bold">{data.user_metrics.repeat_rate}%</p>
               </div>
             </div>
           </div>
@@ -126,18 +109,7 @@ export const BlogDetailV3 = ({ data }: Props) => {
 
         {/* ユーザー分析タブ */}
         <div className="tab-content active" id="users-tab">
-          <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-            <div className="card">
-              <div className="card-header">
-                <h3 className="card-title">ユーザータイプ分布</h3>
-              </div>
-              <div className="card-content">
-                <div className="h-80">
-                  <canvas id="userTypeChart"></canvas>
-                </div>
-              </div>
-            </div>
-
+          <div className="space-y-4">
             <div className="card">
               <div className="card-header">
                 <h3 className="card-title">使用言語分布</h3>
