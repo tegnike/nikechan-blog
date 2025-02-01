@@ -246,24 +246,30 @@ export const Blog = async () => {
         {/* 月別タブ */}
         <div className="mb-8 mt-8 overflow-x-auto">
           <div className="flex space-x-2 min-w-max p-2">
-            {months.map((yearMonth) => (
-              <a
+            {months.map((yearMonth, monthIndex) => (
+              <button
                 key={yearMonth}
-                href={`#${yearMonth}`}
-                className="px-4 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-white transition-colors"
+                data-tab={yearMonth}
+                className={`month-tab px-4 py-2 rounded-lg hover:bg-gray-600 text-white transition-colors ${
+                  monthIndex === 0 
+                    ? 'bg-gray-600 ring-2 ring-white font-bold' 
+                    : 'bg-gray-700'
+                }`}
               >
                 {formatMonthYear(yearMonth)}
-              </a>
+              </button>
             ))}
           </div>
         </div>
 
         {/* 月ごとのセクション */}
         {months.map((yearMonth, monthIndex) => (
-          <div key={yearMonth} id={yearMonth} className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-white">
-              {formatMonthYear(yearMonth)}
-            </h2>
+          <div 
+            key={yearMonth} 
+            id={yearMonth} 
+            className={`month-content mb-12 ${monthIndex === 0 ? 'block' : 'hidden'}`}
+            data-content={yearMonth}
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {groupedSummaries[yearMonth].map((summary, index) => (
                 <a 

@@ -304,6 +304,42 @@ function initializeCharts(chartData) {
 
 // アナリティクスダッシュボード機能とギャラリー機能
 document.addEventListener('DOMContentLoaded', () => {
+  // 月別タブ切り替え機能
+  const monthTabs = document.querySelectorAll('.month-tab');
+  const monthContents = document.querySelectorAll('.month-content');
+
+  // 初期表示時に最初のタブをアクティブにする
+  if (monthTabs.length > 0) {
+    const firstTab = monthTabs[0];
+    firstTab.classList.remove('bg-gray-700');
+    firstTab.classList.add('bg-gray-600', 'ring-2', 'ring-white', 'font-bold');
+  }
+
+  monthTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetMonth = tab.getAttribute('data-tab');
+      
+      // タブのアクティブ状態を切り替え
+      monthTabs.forEach(t => {
+        t.classList.remove('bg-gray-600', 'ring-2', 'ring-white', 'font-bold');
+        t.classList.add('bg-gray-700');
+      });
+      tab.classList.remove('bg-gray-700');
+      tab.classList.add('bg-gray-600', 'ring-2', 'ring-white', 'font-bold');
+      
+      // コンテンツの表示/非表示を切り替え
+      monthContents.forEach(content => {
+        if (content.getAttribute('data-content') === targetMonth) {
+          content.classList.remove('hidden');
+          content.classList.add('block');
+        } else {
+          content.classList.remove('block');
+          content.classList.add('hidden');
+        }
+      });
+    });
+  });
+
   // タブ切り替え機能
   const tabTriggers = document.querySelectorAll('.tab-trigger');
   const tabContents = document.querySelectorAll('.tab-content');
