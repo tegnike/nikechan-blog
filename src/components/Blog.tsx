@@ -21,6 +21,29 @@ const formatMonthYear = (yearMonth: string) => {
   return `${year}/${month}`
 }
 
+// 日付表示用の関数
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString('ja-JP', {
+    month: '2-digit',
+    day: '2-digit'
+  }).replace('/', '/')
+}
+
+// 日付単位の集計を行う関数
+const calculateDailyMetrics = (summaries: any[]) => {
+  // 日付でソート
+  const sortedSummaries = [...summaries].sort((a, b) => 
+    new Date(a.target_date).getTime() - new Date(b.target_date).getTime()
+  )
+
+  return sortedSummaries.map(summary => ({
+    date: summary.target_date,
+    sessions: summary.public_chat_session_count || 0,
+    messages: summary.public_message_count || 0,
+    repeats: summary.repeat_count || 0
+  }))
+}
+
 export const Blog = async () => {
   // 1から23までの画像番号の配列をシャッフル
   const imageNumbers = Array.from({length: 23}, (_, i) => i + 1)
@@ -29,7 +52,7 @@ export const Blog = async () => {
   // データ取得
   const { data: summaries, error } = await supabase
     .from('summaries')
-    .select('id, created_at, target_date')
+    .select('id, created_at, target_date, public_chat_session_count, public_message_count, repeat_count')
     .order('target_date', { ascending: false })
 
   if (error) {
@@ -53,6 +76,155 @@ export const Blog = async () => {
   // 月の配列を作成（降順）
   const months = Object.keys(groupedSummaries).sort((a, b) => b.localeCompare(a))
 
+  // 日付単位のメトリクスを計算
+  const dailyMetrics = calculateDailyMetrics(summaries)
+
+  // Chart.jsの初期化用のスクリプトタグを生成
+  const initScript = `
+    window.addEventListener('DOMContentLoaded', function() {
+      const ctx = document.getElementById('dailyMetricsChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ${JSON.stringify(dailyMetrics.map(m => formatDate(m.date)))},
+          datasets: [
+            {
+              label: 'セッション数',
+              data: ${JSON.stringify(dailyMetrics.map(m => m.sessions))},
+              borderColor: '#4ECDC4',
+              tension: 0.1,
+              yAxisID: 'y1',
+              borderWidth: 2,
+              pointRadius: 0,
+              pointHoverRadius: 4
+            },
+            {
+              label: 'メッセージ数',
+              data: ${JSON.stringify(dailyMetrics.map(m => m.messages))},
+              borderColor: '#FF6B6B',
+              tension: 0.1,
+              yAxisID: 'y2',
+              borderWidth: 2,
+              pointRadius: 0,
+              pointHoverRadius: 4
+            },
+            {
+              label: 'リピートユーザー数',
+              data: ${JSON.stringify(dailyMetrics.map(m => m.repeats))},
+              borderColor: '#FFD93D',
+              tension: 0.1,
+              yAxisID: 'y1',
+              borderWidth: 2,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              borderDash: [5, 5]
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false,
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+              align: 'start',
+              labels: {
+                boxWidth: 15,
+                padding: 15
+              }
+            },
+            tooltip: {
+              callbacks: {
+                afterBody: function(context) {
+                  const index = context[0].dataIndex;
+                  const sessions = dailyMetrics[index].sessions;
+                  const repeats = dailyMetrics[index].repeats;
+                  const repeatRate = sessions > 0 ? ((repeats / sessions) * 100).toFixed(1) : '0.0';
+                  return \`リピート率: \${repeatRate}%\`;
+                }
+              }
+            }
+          },
+          layout: {
+            padding: {
+              left: 10,
+              right: 10,
+              top: 10,
+              bottom: 10
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                display: true,
+                color: 'rgba(255, 255, 255, 0.1)'
+              },
+              ticks: {
+                maxRotation: 45,
+                minRotation: 45,
+                padding: 5,
+                color: 'rgba(255, 255, 255, 0.8)',
+                font: {
+                  size: 11
+                }
+              }
+            },
+            y1: {
+              type: 'linear',
+              display: true,
+              position: 'left',
+              title: {
+                display: true,
+                text: 'セッション数・リピート数',
+                color: '#4ECDC4',
+                font: {
+                  size: 12
+                }
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              },
+              ticks: {
+                color: 'rgba(255, 255, 255, 0.8)',
+                padding: 8,
+                font: {
+                  size: 11
+                }
+              }
+            },
+            y2: {
+              type: 'linear',
+              display: true,
+              position: 'right',
+              title: {
+                display: true,
+                text: 'メッセージ数',
+                color: '#FF6B6B',
+                font: {
+                  size: 12
+                }
+              },
+              grid: {
+                display: false
+              },
+              ticks: {
+                color: 'rgba(255, 255, 255, 0.8)',
+                padding: 8,
+                font: {
+                  size: 11
+                }
+              }
+            }
+          }
+        }
+      });
+    });
+  `;
+
   return (
     <>
       <div className="pt-24 pb-12">
@@ -60,9 +232,19 @@ export const Blog = async () => {
           NIKELOG
         </h1>
       </div>
+      {/* 日別メトリクスグラフ - コンテナを最大幅に */}
+      <div className="w-full bg-[#1a1f2e] p-0">
+        <div className="max-w-[2000px] mx-auto">
+          <h2 className="text-xl font-bold p-4 text-white">日別利用状況</h2>
+          <div className="h-[450px] px-2 pb-4">
+            <canvas id="dailyMetricsChart"></canvas>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4">
         {/* 月別タブ */}
-        <div className="mb-8 overflow-x-auto">
+        <div className="mb-8 mt-8 overflow-x-auto">
           <div className="flex space-x-2 min-w-max p-2">
             {months.map((yearMonth) => (
               <a
@@ -99,10 +281,7 @@ export const Blog = async () => {
                     />
                     <div className="absolute top-0 left-0 w-1/2 h-1/2 flex items-center justify-center">
                       <p className="text-4xl sm:text-5xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-gray-800 dark:text-white [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
-                        {new Date(summary.target_date).toLocaleDateString('ja-JP', {
-                          month: '2-digit',
-                          day: '2-digit'
-                        }).replace('/', '/')}
+                        {formatDate(summary.target_date)}
                       </p>
                     </div>
                   </div>
@@ -112,6 +291,7 @@ export const Blog = async () => {
           </div>
         ))}
       </div>
+      <script dangerouslySetInnerHTML={{ __html: initScript }} />
     </>
   )
 }
