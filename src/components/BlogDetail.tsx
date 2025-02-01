@@ -22,6 +22,24 @@ export const BlogDetail = async ({ id }: Props) => {
     )
   }
 
+  // Get previous blog post
+  const { data: prevPost } = await supabase
+    .from('summaries')
+    .select('id')
+    .lt('target_date', summary.target_date)
+    .order('target_date', { ascending: false })
+    .limit(1)
+    .single()
+
+  // Get next blog post
+  const { data: nextPost } = await supabase
+    .from('summaries')
+    .select('id')
+    .gt('target_date', summary.target_date)
+    .order('target_date', { ascending: true })
+    .limit(1)
+    .single()
+
   return (
     <>
       <div className="pt-24 pb-12">
@@ -32,14 +50,38 @@ export const BlogDetail = async ({ id }: Props) => {
       <div className="container mx-auto px-4">
         <div className="text-center p-2 rounded-lg mb-6">
           <div className="prose dark:prose-invert max-w-none">
-            <time className="text-2xl font-medium text-gray-700 dark:text-gray-300 flex items-center gap-3">
-              {new Date(summary.target_date).toLocaleDateString('ja-JP', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                weekday: 'short'
-              })}
-            </time>
+            <div className="flex items-center justify-center gap-6">
+              {prevPost ? (
+                <a 
+                  href={`/blog/${prevPost.id}`}
+                  className="text-3xl text-gray-500 hover:text-gray-300 transition-colors duration-200"
+                  aria-label="前の記事"
+                >
+                  ←
+                </a>
+              ) : (
+                <span className="text-3xl text-gray-700 cursor-not-allowed">←</span>
+              )}
+              <time className="text-2xl font-medium text-gray-700 dark:text-gray-300">
+                {new Date(summary.target_date).toLocaleDateString('ja-JP', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  weekday: 'short'
+                })}
+              </time>
+              {nextPost ? (
+                <a 
+                  href={`/blog/${nextPost.id}`}
+                  className="text-3xl text-gray-500 hover:text-gray-300 transition-colors duration-200"
+                  aria-label="次の記事"
+                >
+                  →
+                </a>
+              ) : (
+                <span className="text-3xl text-gray-700 cursor-not-allowed">→</span>
+              )}
+            </div>
           </div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-1 sm:p-6 rounded-lg shadow-md mb-6">
