@@ -10,7 +10,7 @@ type Props = {
 export const BlogDetail = async ({ id }: Props) => {
   const { data: summary, error } = await supabase
     .from('summaries')
-    .select('id, public_message, target_date, created_at, version')
+    .select('id, public_message, target_date, created_at, version, public_chat_session_count, public_message_count, repeat_count')
     .eq('id', id)
     .single()
 
@@ -49,7 +49,12 @@ export const BlogDetail = async ({ id }: Props) => {
             ) : summary.version === 2 ? (
               <BlogDetailV2 data={summary.public_message} />
             ) : summary.version === 3 ? (
-              <BlogDetailV3 data={summary.public_message} />
+              <BlogDetailV3 
+                data={summary.public_message} 
+                public_chat_session_count={summary.public_chat_session_count}
+                public_message_count={summary.public_message_count}
+                repeat_count={summary.repeat_count}
+              />
             ) : (
               <div>バージョンが存在しません{summary.version}</div>
             )}

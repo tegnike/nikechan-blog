@@ -10,4 +10,9 @@ export type Summary = {
   id: number
   public_message: any
   created_at: string
+  public_chat_session_count: number
+  public_message_count: number
+  repeat_count: number
+  target_date: string
+  version: number
 }
