@@ -9,7 +9,7 @@ type Props = {
 
 export const BlogDetail = async ({ id }: Props) => {
   const { data: summary, error } = await supabase
-    .from('summaries')
+    .from('daily_summaries')
     .select('id, public_message, target_date, created_at, version, public_chat_session_count, public_message_count, repeat_count')
     .eq('id', id)
     .single()
@@ -24,7 +24,7 @@ export const BlogDetail = async ({ id }: Props) => {
 
   // Get previous blog post
   const { data: prevPost } = await supabase
-    .from('summaries')
+    .from('daily_summaries')
     .select('id')
     .lt('target_date', summary.target_date)
     .order('target_date', { ascending: false })
@@ -33,7 +33,7 @@ export const BlogDetail = async ({ id }: Props) => {
 
   // Get next blog post
   const { data: nextPost } = await supabase
-    .from('summaries')
+    .from('daily_summaries')
     .select('id')
     .gt('target_date', summary.target_date)
     .order('target_date', { ascending: true })

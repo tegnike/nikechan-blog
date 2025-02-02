@@ -51,7 +51,7 @@ export const Blog = async () => {
 
   // データ取得
   const { data: summaries, error } = await supabase
-    .from('summaries')
+    .from('daily_summaries')
     .select('id, created_at, target_date, public_chat_session_count, public_message_count, repeat_count')
     .order('target_date', { ascending: false })
 
