@@ -29,6 +29,17 @@ const formatDate = (date: string) => {
   }).replace('/', '/')
 }
 
+// 指定された年月が現在の年月より過去かどうかをチェックする関数
+const isPastMonth = (yearMonth: string) => {
+  const today = new Date()
+  const targetDate = new Date(yearMonth + '-01')
+  
+  // 年と月を比較
+  if (today.getFullYear() < targetDate.getFullYear()) return false
+  if (today.getFullYear() > targetDate.getFullYear()) return true
+  return today.getMonth() > targetDate.getMonth()
+}
+
 // 日付単位の集計を行う関数
 const calculateDailyMetrics = (summaries: any[]) => {
   // 日付でソート
@@ -270,6 +281,20 @@ export const Blog = async () => {
             className={`month-content mb-12 ${monthIndex === 0 ? 'block' : 'hidden'}`}
             data-content={yearMonth}
           >
+            {/* 月間サマリへのリンク - 過去の月のみ表示 */}
+            {isPastMonth(yearMonth) && (
+              <div className="mb-6">
+                <a
+                  href={`/blog/summary/${yearMonth}`}
+                  className="inline-flex items-center px-6 py-3 bg-gray-700 hover:bg-gray-600 transition-colors rounded-lg text-white font-semibold shadow-lg ring-1 ring-gray-600"
+                >
+                  <svg className="w-5 h-5 mr-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  {formatMonthYear(yearMonth)}の月間サマリを見る
+                </a>
+              </div>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {groupedSummaries[yearMonth].map((summary, index) => (
                 <a 

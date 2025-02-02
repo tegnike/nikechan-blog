@@ -6,6 +6,7 @@ import { Model } from './components/Model'
 import { Gallery } from './components/Gallery'
 import { Blog } from './components/Blog'
 import { BlogDetail } from './components/BlogDetail'
+import { MonthlySummary } from './components/MonthlySummary'
 import { About } from './components/About'
 
 const app = new Hono()
@@ -49,6 +50,18 @@ app.get('/blog/:id', async (c) => {
       <BlogDetail id={id} />
     </Layout>,
     { title: "Nike Portfolio | Blog Detail" }
+  )
+})
+
+// Blog monthly summary page
+app.get('/blog/summary/:yearMonth', async (c) => {
+  const yearMonth = c.req.param('yearMonth')
+  return c.render(
+    <Layout>
+      {/* @ts-expect-error Server Component */}
+      <MonthlySummary yearMonth={yearMonth} />
+    </Layout>,
+    { title: "Nike Portfolio | Monthly Summary" }
   )
 })
 
