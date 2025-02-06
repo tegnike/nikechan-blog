@@ -94,16 +94,57 @@ function initializeCharts(chartData) {
   // 言語分布の円グラフ
   const languageCtx = document.getElementById('languageChart')?.getContext('2d');
   if (languageCtx) {
-    const languages = Object.entries(chartData.user_metrics.languages.languages);
+    // 固定の言語順序と色の定義
+    const fixedLanguages = {
+      '日本語': '#FF6B6B',  // 赤系
+      '英語': '#4ECDC4',    // ターコイズ
+      '中国語': '#FFEEAD',  // 黄系
+      '韓国語': '#9B89B3'   // 紫系
+    };
+
+    // その他の言語用のカラーパレット（固定言語の色は除外）
+    const otherColors = [
+      '#E9B872', // オレンジ系
+      '#45B7D1', // 青系
+      '#D4A5A5', // ピンク系
+      '#96CEB4', // 緑系
+      '#84B1ED', // 水色系
+      '#B3E5BE'  // 薄緑系
+    ];
+
+    // 言語データを整理
+    let languages = Object.entries(chartData.user_metrics.languages.languages);
     const total = languages.reduce((sum, [, value]) => sum + value, 0);
     
+    // 固定言語を優先的に並び替え
+    languages = languages.sort((a, b) => {
+      const aIndex = Object.keys(fixedLanguages).indexOf(a[0]);
+      const bIndex = Object.keys(fixedLanguages).indexOf(b[0]);
+      
+      if (aIndex === -1 && bIndex === -1) return 0;
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
+
+    // 色の割り当て
+    let otherColorIndex = 0;
+    const colors = languages.map(([name]) => {
+      if (name in fixedLanguages) {
+        return fixedLanguages[name];
+      }
+      const color = otherColors[otherColorIndex % otherColors.length];
+      otherColorIndex++;
+      return color;
+    });
+
     new Chart(languageCtx, {
       type: 'pie',
       data: {
         labels: languages.map(([name]) => name),
         datasets: [{
           data: languages.map(([, value]) => value),
-          backgroundColor: languages.map((_, index) => chartColors[index % chartColors.length])
+          backgroundColor: colors
         }]
       },
       options: {
@@ -134,8 +175,8 @@ function initializeCharts(chartData) {
                     const percentage = ((value / total) * 100).toFixed(1);
                     return {
                       text: `${label}: ${value}件 (${percentage}%)`,
-                      fillStyle: chartColors[i % chartColors.length],
-                      strokeStyle: chartColors[i % chartColors.length],
+                      fillStyle: colors[i],
+                      strokeStyle: colors[i],
                       lineWidth: 1,
                       hidden: false,
                       index: i,
