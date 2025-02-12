@@ -15,4 +15,6 @@ export type Summary = {
   repeat_count: number
   target_date: string
   version: number
+  podcast: string
+  podcast_url: string
 }

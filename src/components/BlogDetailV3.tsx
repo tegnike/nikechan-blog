@@ -54,9 +54,11 @@ type Props = {
   public_chat_session_count: number
   public_message_count: number
   repeat_count: number
+  podcast?: string
+  podcast_url?: string
 }
 
-export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_count, repeat_count }: Props) => {
+export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_count, repeat_count, podcast, podcast_url }: Props) => {
   // Chart.jsの初期化用のスクリプトタグを生成
   const initScript = `
     window.addEventListener('DOMContentLoaded', function() {
@@ -72,6 +74,21 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
           }
         }
       })});
+
+      // Podcastの文字起こしの開閉処理
+      const transcriptButton = document.getElementById('transcript-button');
+      const transcriptContent = document.getElementById('transcript-content');
+      const transcriptIcon = document.getElementById('transcript-icon');
+      
+      if (transcriptButton && transcriptContent && transcriptIcon) {
+        transcriptContent.style.display = 'none';
+        
+        transcriptButton.addEventListener('click', function() {
+          const isOpen = transcriptContent.style.display === 'block';
+          transcriptContent.style.display = isOpen ? 'none' : 'block';
+          transcriptIcon.className = isOpen ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
+        });
+      }
     });
   `;
 
@@ -128,6 +145,52 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
           </div>
         </div>
       </div>
+
+
+
+      {/* Podcastセクション */}
+      {podcast && podcast_url && (
+        <div className="mt-8">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title flex items-center space-x-2">
+                <i className="fas fa-podcast text-purple-500"></i>
+                <span>Today's Podcast</span>
+              </h3>
+            </div>
+            <div className="card-content">
+              <div className="space-y-4">
+                <div className="bg-gray-900 rounded-lg p-4">
+                  <audio
+                    className="w-full"
+                    controls
+                    src={podcast_url}
+                  >
+                    お使いのブラウザは音声再生をサポートしていません。
+                  </audio>
+                </div>
+                <div className="bg-gray-900 rounded-lg">
+                  <button
+                    id="transcript-button"
+                    className="w-full p-4 flex justify-between items-center text-sm font-medium text-gray-400 hover:text-gray-300 transition-colors"
+                  >
+                    <span className="flex items-center space-x-2">
+                      <i className="fas fa-file-alt"></i>
+                      <span>文字起こし</span>
+                    </span>
+                    <i id="transcript-icon" className="fas fa-chevron-down transition-transform duration-200"></i>
+                  </button>
+                  <div id="transcript-content" className="px-4 pb-4">
+                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                      <p className="whitespace-pre-wrap text-gray-300">{podcast}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* タブコンテナ */}
       <div className="tabs-container">
