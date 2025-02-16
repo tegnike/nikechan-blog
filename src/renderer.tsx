@@ -14,7 +14,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
       </head>
-      <body class="bg-white dark:bg-gray-900">
+      <body class="bg-gray-900">
         {children}
         <script src="/static/js/main.js"></script>
       </body>

@@ -97,8 +97,7 @@ export const MonthlySummary = async ({ yearMonth }: { yearMonth: string }) => {
             className="inline-flex items-center px-6 py-3 rounded-full
                      bg-gray-700 text-gray-200 font-medium
                      transform transition duration-200 ease-in-out
-                     hover:bg-gray-600 hover:scale-105 hover:shadow-lg
-                     dark:bg-gray-600 dark:hover:bg-gray-500"
+                     hover:bg-gray-600 hover:scale-105 hover:shadow-lg"
           >
             一覧に戻る
           </a>

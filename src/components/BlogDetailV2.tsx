@@ -127,7 +127,7 @@ export const BlogDetailV2 = ({ data }: Props) => {
       {/* 会話の長さに関する統計 */}
       <div className="mb-8">
         <h3 className="text-xl font-bold mb-4">会話の長さに関する統計</h3>
-        <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+        <div className="bg-gray-700 p-4 rounded-lg">
           <p>総セッション数: {data.conversation_length_metrics.total_sessions}</p>
           <p>総メッセージ数: {data.conversation_length_metrics.total_messages}</p>
           <h4 className="font-bold mt-2 mb-1">会話の長さの分布:</h4>
@@ -146,7 +146,7 @@ export const BlogDetailV2 = ({ data }: Props) => {
         <h3 className="text-xl font-bold mb-4">会話分析の比較</h3>
         <div className="grid md:grid-cols-2 gap-4">
           {/* 長い会話の分析 */}
-          <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+          <div className="bg-gray-700 p-4 rounded-lg">
             <h4 className="text-lg font-bold mb-3">長い会話 (7ターン以上)</h4>
             <div className="space-y-4">
               <div>
@@ -202,7 +202,7 @@ export const BlogDetailV2 = ({ data }: Props) => {
           </div>
 
           {/* 短い会話の分析 */}
-          <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+          <div className="bg-gray-700 p-4 rounded-lg">
             <h4 className="text-lg font-bold mb-3">短い会話 (7ターン未満)</h4>
             <div className="space-y-4">
               <div>
@@ -262,7 +262,7 @@ export const BlogDetailV2 = ({ data }: Props) => {
       {/* 不明な質問の分析 */}
       <div className="mb-8">
         <h3 className="text-xl font-bold mb-4">不明な質問の分析</h3>
-        <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+        <div className="bg-gray-700 p-4 rounded-lg">
           <h4 className="font-bold mb-2">不明な質問の例:</h4>
           <ul className="list-disc pl-5 mb-4">
             {data.unknown_question_analysis.questions.map((question: string, index: number) => (
@@ -292,7 +292,7 @@ export const BlogDetailV2 = ({ data }: Props) => {
       {/* 不満足な会話の分析 */}
       <div className="mb-8">
         <h3 className="text-xl font-bold mb-4">不満足な会話の分析</h3>
-        <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+        <div className="bg-gray-700 p-4 rounded-lg">
           <h4 className="font-bold mb-2">不満足の種類:</h4>
           <ul className="list-disc pl-5 mb-4">
             <li>回答の長さの問題: {data.dissatisfied_conversation_analysis.dissatisfaction_types.response_length_issue}</li>

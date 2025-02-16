@@ -5,7 +5,7 @@ export const Model = () => {
   return (
     <>
       <div className="pt-24 pb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-center dark:text-white">
+        <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
           MODEL
         </h1>
       </div>

@@ -49,7 +49,7 @@ export const BlogDetail = async ({ id }: Props) => {
       </div>
       <div className="container mx-auto px-4">
         <div className="text-center p-2 rounded-lg mb-6">
-          <div className="prose dark:prose-invert max-w-none">
+          <div className="prose prose-invert max-w-none">
             <div className="flex items-center justify-center gap-6">
               {prevPost ? (
                 <a 
@@ -62,7 +62,7 @@ export const BlogDetail = async ({ id }: Props) => {
               ) : (
                 <span className="text-3xl text-gray-700 cursor-not-allowed">←</span>
               )}
-              <time className="text-2xl font-medium text-gray-700 dark:text-gray-300">
+              <time className="text-2xl font-medium text-gray-300">
                 {new Date(summary.target_date).toLocaleDateString('ja-JP', {
                   year: 'numeric',
                   month: 'long',
@@ -84,8 +84,8 @@ export const BlogDetail = async ({ id }: Props) => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-gray-800 p-1 sm:p-6 rounded-lg shadow-md mb-6">
-          <div className="text-gray-700 dark:text-gray-300">
+        <div className="bg-gray-800 p-1 sm:p-6 rounded-lg shadow-md mb-6">
+          <div className="text-gray-300">
             {summary.version === 1 ? (
               <BlogDetailV1 data={summary.public_message} />
             ) : summary.version === 2 ? (
@@ -110,8 +110,7 @@ export const BlogDetail = async ({ id }: Props) => {
             className="inline-flex items-center px-6 py-3 rounded-full
                      bg-gray-700 text-gray-200 font-medium
                      transform transition duration-200 ease-in-out
-                     hover:bg-gray-600 hover:scale-105 hover:shadow-lg
-                     dark:bg-gray-600 dark:hover:bg-gray-500"
+                     hover:bg-gray-600 hover:scale-105 hover:shadow-lg"
           >
             一覧に戻る
           </a>

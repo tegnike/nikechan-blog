@@ -181,7 +181,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
                     <i id="transcript-icon" className="fas fa-chevron-down transition-transform duration-200"></i>
                   </button>
                   <div id="transcript-content" className="px-4 pb-4">
-                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                    <div className="prose prose-sm prose-invert max-w-none">
                       <p className="whitespace-pre-wrap text-gray-300">{podcast}</p>
                     </div>
                   </div>

@@ -300,7 +300,7 @@ export const Blog = async () => {
                 <a 
                   key={summary.id} 
                   href={`/blog/${summary.id}`}
-                  className="block bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md 
+                  className="block bg-gray-800 p-6 rounded-lg shadow-md 
                     hover:shadow-lg transition-all duration-300 ease-in-out 
                     hover:transform hover:-translate-y-1 hover:scale-[1.02]"
                 >
@@ -311,7 +311,7 @@ export const Blog = async () => {
                       className="object-cover w-full h-full rounded-lg"
                     />
                     <div className="absolute top-0 left-0 w-1/2 h-1/2 flex items-center justify-center">
-                      <p className="text-4xl sm:text-5xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-gray-800 dark:text-white [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+                      <p className="text-4xl sm:text-5xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
                         {formatDate(summary.target_date)}
                       </p>
                     </div>
