@@ -60,9 +60,9 @@ export const About: FC = () => {
                       <div className="font-medium text-lg mb-2">Web Developer</div>
                       <p className="text-sm">
                         フルリモートで日本のプロジェクトに参画。
-                        Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事。
+                        Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事してきた。
                         予約システム、ECサイト、オンラインくじサイトなど、様々なプロジェクトでリードエンジニアとして活躍。
-                        AWSやGCPを用いたインフラ構築やCI/CDの整備も担当。
+                        また、AWSやGCPを用いたインフラ構築やCI/CDの整備も担当した。
                       </p>
                     </div>
                   </div>
@@ -73,9 +73,9 @@ export const About: FC = () => {
                     <div>
                       <div className="font-medium text-lg mb-2">AI Engineer</div>
                       <p className="text-sm">
-                        日本および英語圏向けのプロジェクトにおいて、AIキャラクターやエージェントの開発に従事。
-                        LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当。
-                        また、AIツールを駆使したAI駆動開発を基盤とし、PythonやTypeScriptなどを用いたサービスの開発にも取り組む。
+                        日本および英語圏のプロジェクトにおいて、AIキャラクターやエージェントの開発に従事。
+                        PythonやTypeScriptなどを用い、LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当する。
+                        また、CursorやDevinなどのAIツールを駆使したAI駆動開発を積極的に取り入れている。
                       </p>
                     </div>
                   </div>
