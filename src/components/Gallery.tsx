@@ -93,7 +93,7 @@ export const Gallery = () => {
           </div>
           <GalleryItem 
             src="/images/illustrations/v_hyamo.png"
-            alt="TOUGENKYOU NFTひゃもぉ"
+            alt="Illus. ひゃもぉ"
             caption="Illus. ひゃもぉ"
             url="https://x.com/pantyu15"
             className="md:col-span-2 aspect-[3/4]"
@@ -249,6 +249,35 @@ export const Gallery = () => {
             caption="Illus. 綾川まとい"
             url="https://x.com/matoi_e_ma"
             className="aspect-[3/4]"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+          <div className="md:col-span-1">
+            <GalleryItem 
+              src="/images/illustrations/s_fuji.png"
+              alt="Illus. ふじ"
+              caption="Illus. ふじ"
+              url="https://x.com/f_ukkami"
+              className="aspect-[3/4]"
+            />
+            <div className="mt-4">
+              <GalleryItem 
+                src="/images/illustrations/s_hyamo2.png"
+                alt="Illus. ひゃもぉ"
+                caption="Illus. ひゃもぉ"
+                url="https://x.com/pantyu15"
+                className="aspect-[3/4]"
+              />
+            </div>
+          </div>
+          <GalleryItem 
+            src="/images/illustrations/v_sen.png"
+            alt="Illus. 栓"
+            caption="Illus. 栓"
+            url="https://x.com/seeenfree
+"
+            className="md:col-span-2 aspect-[3/4]"
           />
         </div>
 
