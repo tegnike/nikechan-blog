@@ -42,10 +42,10 @@ export const About: FC = () => {
             {/* Introduction */}
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
               <p className="text-gray-300 leading-relaxed">
-              ポーランド在住のフルスタック開発者として、数年間リモートワークを通じて日本のプロジェクトに携わる。<br /><br />
-              バックエンド開発を中心に経験を積み、現在はPythonやReactなどを用いたLLM応用の開発を手掛けるAIエンジニアとして活躍。<br />
-              2024年からは英語圏での活動も開始している。<br /><br />
-              個人開発では「AITuberKit」「美少女OPInterpreter」などのAIツールを公開し、AIとWeb技術を組み合わせた新しいアプリケーションの可能性を探求している。
+                ポーランド在住のフルスタック開発者として、数年間にわたりリモートワークを通して日本のプロジェクトに参画。<br /><br />
+                バックエンド開発を中心に経験を積む中で、現在はPythonやReactなどを用いたLLM応用の開発に携わるAIエンジニアとして活躍。最新のAI技術については常にキャッチアップし、定期的に関連の記事も発信している。<br /><br />
+                2024年からは英語圏での活動も開始。<br /><br />
+                個人開発では「AITuberKit」や「美少女OPInterpreter」などのAIツールを公開し、AIとWeb技術を融合した新たなアプリケーションの可能性を探求している。
               </p>
             </div>
 
@@ -59,9 +59,10 @@ export const About: FC = () => {
                     <div>
                       <div className="font-medium text-lg mb-2">Web Developer</div>
                       <p className="text-sm">
-                        フルリモートで日本のプロジェクトに参画。Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーション開発に従事。
-                        予約システム、ECサイト、オンラインくじサイトなど、多様なプロジェクトでリードエンジニアとして活躍。
-                        AWS/GCPでのインフラ構築やCI/CD整備も担当。
+                        フルリモートで日本のプロジェクトに参画。
+                        Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事。
+                        予約システム、ECサイト、オンラインくじサイトなど、様々なプロジェクトでリードエンジニアとして活躍。
+                        AWSやGCPを用いたインフラ構築やCI/CDの整備も担当。
                       </p>
                     </div>
                   </div>
@@ -72,8 +73,9 @@ export const About: FC = () => {
                     <div>
                       <div className="font-medium text-lg mb-2">AI Engineer</div>
                       <p className="text-sm">
-                        日本および英語圏のプロジェクトにてAIキャラクターやエージェントの開発に従事。LLMを活用した自然な会話システムの実装や、
-                        独自の記憶機構の設計など、AIの応用開発を担当。Python、FastAPI、AWS等を使用。
+                        日本および英語圏向けのプロジェクトにおいて、AIキャラクターやエージェントの開発に従事。
+                        LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当。
+                        また、AIツールを駆使したAI駆動開発を基盤とし、PythonやTypeScriptなどを用いたサービスの開発にも取り組む。
                       </p>
                     </div>
                   </div>
@@ -90,7 +92,7 @@ export const About: FC = () => {
                     <h3 className="font-bold text-lg">AITuberKit</h3>
                     <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2024</span>
                   </div>
-                  <p className="text-sm mb-3">AITuberおよびAIキャラクターと簡単に会話できるシステムを構築するプロジェクト。誰でも簡単にAITuberを作成・カスタマイズできる機能を提供。</p>
+                  <p className="text-sm mb-3">誰でも手軽にAIキャラクターチャットやAITuberシステムを構築できるプロジェクト。多数のLLMやTTSサービスに対応し、柔軟なカスタマイズが可能。ReactとTypeScriptを採用。</p>
                   <div className="flex gap-2 text-xs">
                     <a
                       href="https://github.com/tegnike/aituber-kit"
@@ -108,6 +110,14 @@ export const About: FC = () => {
                     >
                       Demo →
                     </a>
+                    <a
+                      href="https://note.com/nike_cha_n/n/ne98acb25e00f"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white/10 px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
+                    >
+                      紹介記事 →
+                    </a>
                   </div>
                 </div>
 
@@ -116,7 +126,7 @@ export const About: FC = () => {
                     <h3 className="font-bold text-lg">美少女OPInterpreter</h3>
                     <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2023</span>
                   </div>
-                  <p className="text-sm mb-3">Live2Dキャラクターとプログラミング実行環境を組み合わせた対話型開発支援ツール。美少女キャラクターとの対話でプログラムを実行可能。</p>
+                  <p className="text-sm mb-3">Live2Dキャラクターとプログラミング実行環境を融合した対話型開発支援ツール。美少女キャラクターとの会話を通じて、直感的にプログラムの実行が可能。</p>
                   <div className="flex gap-2 text-xs">
                     <a
                       href="https://www.youtube.com/watch?v=Qw2w2UvxcQY&t=2s"
@@ -132,7 +142,7 @@ export const About: FC = () => {
                       rel="noopener noreferrer"
                       className="bg-white/10 px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
                     >
-                      詳細ページ →
+                      紹介記事→
                     </a>
                   </div>
                 </div>
@@ -142,7 +152,7 @@ export const About: FC = () => {
                     <h3 className="font-bold text-lg">完全自動AIゲームプレイ&実況</h3>
                     <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2023</span>
                   </div>
-                  <p className="text-sm mb-3">AIによる完全自動ゲームプレイと実況を実現したプロジェクト。ターン制ゲームの戦略立案から実況まで、全てを自動化。</p>
+                  <p className="text-sm mb-3">AIが完全自動でゲームプレイと実況を実現するプロジェクト。ターン制ゲームの戦略策定から実況の生成まで、全工程を自動化。</p>
                   <div className="flex gap-2 text-xs">
                     <a
                       href="https://www.youtube.com/watch?v=dRsVVPaOOVk"
@@ -158,7 +168,7 @@ export const About: FC = () => {
                       rel="noopener noreferrer"
                       className="bg-white/10 px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
                     >
-                      詳細ページ →
+                      紹介記事 →
                     </a>
                   </div>
                 </div>
