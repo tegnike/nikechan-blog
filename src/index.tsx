@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { renderer } from './renderer'
 import { Layout } from './components/Layout'
+import { Introduction } from './components/Introduction'
 import { Model } from './components/Model'
 import { Gallery } from './components/Gallery'
 import { Blog } from './components/Blog'
@@ -23,6 +24,7 @@ app.get('/', (c) => {
 
   return c.render(
     <Layout>
+      <Introduction />
       <Model />
       <Gallery />
     </Layout>,
