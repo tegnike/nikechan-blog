@@ -69,7 +69,7 @@ export const About: FC = () => {
                 </div>
                 <div className="space-y-2">
                   <div className="flex flex-col md:flex-row md:gap-4 text-gray-300">
-                    <div className="mb-2 md:mb-0 md:w-24 flex-shrink-0 font-medium">2024 - Now</div>
+                    <div className="mb-2 md:mb-0 md:w-24 flex-shrink-0 font-medium">2024 -</div>
                     <div>
                       <div className="font-medium text-lg mb-2">AI Engineer</div>
                       <p className="text-sm">
@@ -83,9 +83,9 @@ export const About: FC = () => {
               </div>
             </div>
 
-            {/* Works */}
+            {/* Products */}
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
-              <h2 className="text-2xl font-bold text-white mb-6">Works</h2>
+              <h2 className="text-2xl font-bold text-white mb-6">Products</h2>
               <div className="grid grid-cols-1 gap-6">
                 <div className="bg-white/5 rounded-xl p-6 text-gray-300">
                   <div className="flex justify-between items-start mb-3">
@@ -117,6 +117,32 @@ export const About: FC = () => {
                       className="bg-white/10 px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
                     >
                       紹介記事 →
+                    </a>
+                  </div>
+                </div>
+
+                <div className="bg-white/5 rounded-xl p-6 text-gray-300">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="font-bold text-lg">AITuberList</h3>
+                    <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2024</span>
+                  </div>
+                  <p className="text-sm mb-3">Youtubeに投稿しているAITuberをまとめたサイト。</p>
+                  <div className="flex gap-2 text-xs">
+                    <a
+                      href="https://github.com/tegnike/aituber-list"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white/10 px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
+                    >
+                      GitHub →
+                    </a>
+                    <a
+                      href="https://aituberlist.net"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-white/10 px-2 py-1 rounded-full hover:bg-white/20 transition-colors"
+                    >
+                      サイト →
                     </a>
                   </div>
                 </div>
@@ -175,6 +201,63 @@ export const About: FC = () => {
               </div>
             </div>
 
+            {/* Articles */}
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
+              <h2 className="text-2xl font-bold text-white mb-6">Articles</h2>
+              <div className="space-y-4">
+                <a
+                  href="https://note.com/nike_cha_n/n/nd0f7566019ae"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
+                >
+                  <span className="text-lg">私のシンプルCursor活用方法</span>
+                  <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2025/02</span>
+                </a>
+
+                <a
+                  href="https://note.com/nike_cha_n/n/n843bf0b21725"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
+                >
+                  <span className="text-lg">爆速なStyle-Bert-VITS2サーバーを立ててAIキャラとチャットする</span>
+                  <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2024/11</span>
+                </a>
+
+                <a
+                  href="https://note.com/nike_cha_n/n/ne51c16ddadd0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
+                >
+                  <span className="text-lg">高度な音声モード こと Realtime API を試してみる</span>
+                  <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2024/10</span>
+                </a>
+
+                <a
+                  href="https://note.com/nike_cha_n/n/n23467824b22b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
+                >
+                  <span className="text-lg">DifyをXserverでインターネットに公開する</span>
+                  <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2024/09</span>
+                </a>
+
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <a
+                    href="https://note.com/nike_cha_n"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
+                  >
+                    <span className="text-lg">その他の記事はこちら →</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
             {/* Social Links */}
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
               <h2 className="text-2xl font-bold text-white mb-6">Social</h2>
@@ -187,14 +270,6 @@ export const About: FC = () => {
                 >
                   <span className="text-lg">Twitter</span>
                   <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">@tegnike</span>
-                </a>
-                <a
-                  href="https://note.com/nike_cha_n"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-                >
-                  <span className="text-lg">note | tech blog</span>
                 </a>
                 <a
                   href="https://github.com/tegnike"
@@ -356,6 +431,21 @@ export const About: FC = () => {
                       AITuberKit
                     </a>
                     ）にて会話することが可能です。
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-medium mb-2">Twitter</h3>
+                  <p className="text-sm">
+                    ツイート（
+                    <a
+                      href="https://twitter.com/ai_nikechan"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 hover:text-white transition-colors underline"
+                    >
+                      @ai_nikechan
+                    </a>
+                    ）へのリプライに反応することがあります。
                   </p>
                 </div>
               </div>
