@@ -55,6 +55,28 @@ const calculateDailyMetrics = (summaries: any[]) => {
   }))
 }
 
+// 画面サイズに応じてデータをフィルタリングする関数
+const filterDataByScreenSize = (metrics: any[]) => {
+  const now = new Date()
+  return {
+    sm: metrics.filter(m => {
+      const date = new Date(m.date)
+      const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth()
+      return monthDiff <= 1
+    }),
+    md: metrics.filter(m => {
+      const date = new Date(m.date)
+      const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth()
+      return monthDiff <= 3
+    }),
+    lg: metrics.filter(m => {
+      const date = new Date(m.date)
+      const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth()
+      return monthDiff <= 4
+    })
+  }
+}
+
 export const Blog = async () => {
   // 1から23までの画像番号の配列をシャッフル
   const imageNumbers = Array.from({length: 23}, (_, i) => i + 1)
@@ -93,15 +115,50 @@ export const Blog = async () => {
   // Chart.jsの初期化用のスクリプトタグを生成
   const initScript = `
     window.addEventListener('DOMContentLoaded', function() {
+      // 日付表示用の関数をクライアントサイドで定義
+      const formatDate = (date) => {
+        return new Date(date).toLocaleDateString('ja-JP', {
+          month: '2-digit',
+          day: '2-digit'
+        }).replace('/', '/');
+      };
+
+      // フィルタリング関数の定義
+      const filterByMonths = (data, months) => {
+        const now = new Date();
+        return data.filter(m => {
+          const date = new Date(m.date);
+          const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth();
+          return monthDiff <= months;
+        });
+      };
+
+      // 初期データの設定
+      const rawData = ${JSON.stringify(dailyMetrics)};
+      
+      // 画面サイズに応じたデータのフィルタリング
+      const getFilteredData = () => {
+        if (window.innerWidth >= 1024) {
+          return filterByMonths(rawData, 4);  // PC: 4ヶ月
+        } else if (window.innerWidth >= 768) {
+          return filterByMonths(rawData, 3);  // タブレット: 3ヶ月
+        } else {
+          return filterByMonths(rawData, 1);  // スマホ: 1ヶ月
+        }
+      };
+
+      // グラフの初期化
       const ctx = document.getElementById('dailyMetricsChart').getContext('2d');
-      new Chart(ctx, {
+      let currentData = getFilteredData();
+      
+      const chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ${JSON.stringify(dailyMetrics.map(m => formatDate(m.date)))},
+          labels: currentData.map(m => formatDate(m.date)),
           datasets: [
             {
               label: 'セッション数',
-              data: ${JSON.stringify(dailyMetrics.map(m => m.sessions))},
+              data: currentData.map(m => m.sessions),
               borderColor: '#4ECDC4',
               tension: 0.1,
               yAxisID: 'y1',
@@ -111,7 +168,7 @@ export const Blog = async () => {
             },
             {
               label: 'メッセージ数',
-              data: ${JSON.stringify(dailyMetrics.map(m => m.messages))},
+              data: currentData.map(m => m.messages),
               borderColor: '#FF6B6B',
               tension: 0.1,
               yAxisID: 'y2',
@@ -121,7 +178,7 @@ export const Blog = async () => {
             },
             {
               label: 'リピートユーザー数',
-              data: ${JSON.stringify(dailyMetrics.map(m => m.repeats))},
+              data: currentData.map(m => m.repeats),
               borderColor: '#FFD93D',
               tension: 0.1,
               yAxisID: 'y1',
@@ -152,20 +209,13 @@ export const Blog = async () => {
               callbacks: {
                 afterBody: function(context) {
                   const index = context[0].dataIndex;
-                  const sessions = dailyMetrics[index].sessions;
-                  const repeats = dailyMetrics[index].repeats;
+                  const data = currentData;
+                  const sessions = data[index].sessions;
+                  const repeats = data[index].repeats;
                   const repeatRate = sessions > 0 ? ((repeats / sessions) * 100).toFixed(1) : '0.0';
                   return \`リピート率: \${repeatRate}%\`;
                 }
               }
-            }
-          },
-          layout: {
-            padding: {
-              left: 10,
-              right: 10,
-              top: 10,
-              bottom: 10
             }
           },
           scales: {
@@ -232,6 +282,20 @@ export const Blog = async () => {
             }
           }
         }
+      });
+
+      // リサイズイベントの処理
+      let resizeTimeout;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+          currentData = getFilteredData();
+          chart.data.labels = currentData.map(m => formatDate(m.date));
+          chart.data.datasets[0].data = currentData.map(m => m.sessions);
+          chart.data.datasets[1].data = currentData.map(m => m.messages);
+          chart.data.datasets[2].data = currentData.map(m => m.repeats);
+          chart.update();
+        }, 250);
       });
     });
   `;
