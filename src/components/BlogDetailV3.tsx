@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { supabase } from '../lib/supabase'
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
+ChartJS.defaults.color = '#ffffff';
+ChartJS.defaults.borderColor = '#666666';
 
 type V3Data = {
   user_metrics: {
@@ -68,10 +69,6 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
   const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
 
   // --- Chart Data and Options ---
-
-  // Chart.jsのグローバル設定 (コンポーネントレベルで適用)
-  ChartJS.defaults.color = '#ffffff';
-  ChartJS.defaults.borderColor = '#666666';
 
   // チャート用のカラーパレット
   const chartColors = [

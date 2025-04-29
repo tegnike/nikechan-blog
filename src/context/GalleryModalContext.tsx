@@ -49,7 +49,7 @@ export function GalleryModalProvider({ children }: { children: ReactNode }) {
     return () => {
       delete (window as any).openGalleryModal
     }
-  }, [])
+  }, [openModal])
 
   const closeModal = () => {
     setItems([])
@@ -76,4 +76,4 @@ export function useGalleryModalContext() {
     throw new Error('useGalleryModalContext must be used within a GalleryModalProvider')
   }
   return context
-} 
+}  
