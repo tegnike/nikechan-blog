@@ -1,1 +1,1 @@
-/// <reference types="hono/jsx" />
+/// <reference types="react" />

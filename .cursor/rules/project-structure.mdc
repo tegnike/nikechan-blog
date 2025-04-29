@@ -1,0 +1,46 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# プロジェクト構成ガイド
+
+本リポジトリは Hono (API) + React (SSR) を用いたポートフォリオ & ブログサイトです。
+主要なエントリポイントやコンポーネントの関係を以下に示します。
+
+## サーバエントリポイント
+- [index.tsx](mdc:src/index.tsx)  
+  ルーティングの定義と各ページのレンダリングを行います。  
+  Hono を使用して `/`, `/blog`, `/blog/:id`, `/blog/summary/:yearMonth`, `/about` を提供します。
+
+## 共通レンダラー
+- [renderer.tsx](mdc:src/renderer.tsx)  
+  `@hono/react-renderer` の `reactRenderer` で HTML テンプレートを組み立て、共通 `<head>` と `<body>` を定義します。
+
+## レイアウト
+- [Layout.tsx](mdc:src/components/Layout.tsx)  
+  全ページ共通のヘッダー・フッター・ナビゲーションを提供します。
+
+## ページ／セクションコンポーネント
+| パス | 役割 |
+| --- | --- |
+| [Introduction.tsx](mdc:src/components/Introduction.tsx) | トップページの自己紹介セクション |
+| [Model.tsx](mdc:src/components/Model.tsx) | 3D モデルの表示 |
+| [Gallery.tsx](mdc:src/components/Gallery.tsx) | 作品ギャラリーの一覧 |
+| [Blog.tsx](mdc:src/components/Blog.tsx) | ブログ記事一覧 |
+| [BlogDetail.tsx](mdc:src/components/BlogDetail.tsx) | 記事詳細（最新版） |
+| [BlogDetailV1.tsx](mdc:src/components/BlogDetailV1.tsx) ~ V3 | 過去バージョンの詳細ページ |
+| [MonthlySummary.tsx](mdc:src/components/MonthlySummary.tsx) | 月別サマリー |
+| [About.tsx](mdc:src/components/About.tsx) | プロフィールページ |
+
+## 静的アセット
+`/public` 配下の画像・スタイル・JS を Hono の `serveStatic` で `/images/*` と `/static/*` に公開しています。
+
+## スタイル
+Tailwind CSS を使用し、設定は [tailwind.config.js](mdc:tailwind.config.js)、PostCSS 設定は [postcss.config.js](mdc:postcss.config.js) にあります。
+
+## ビルド／開発
+- Vite 設定: [vite.config.ts](mdc:vite.config.ts)
+- Wrangler 設定 (Cloudflare): [wrangler.toml](mdc:wrangler.toml)
+
+このルールを参照することで、主要ファイルの位置と役割を素早く把握できます。

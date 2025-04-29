@@ -1,4 +1,4 @@
-import { FC } from 'hono/jsx'
+import { FC } from 'react'
 
 export const About: FC = () => {
   return (

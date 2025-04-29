@@ -1,6 +1,12 @@
-import { jsxRenderer } from 'hono/jsx-renderer'
+import { reactRenderer } from '@hono/react-renderer'
+import type { ReactNode } from 'react'
 
-export const renderer = jsxRenderer(({ children, title }) => {
+interface BaseProps {
+  children: ReactNode
+  title?: string
+}
+
+export const renderer = reactRenderer<BaseProps>(({ children, title }: BaseProps) => {
   return (
     <html lang="ja">
       <head>
@@ -14,7 +20,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
       </head>
-      <body class="bg-gray-900">
+      <body className="bg-gray-900">
         {children}
         <script src="/static/js/main.js"></script>
       </body>

@@ -14,7 +14,10 @@
     "@hono/zod-validator": "^0.4.1",
     "@supabase/supabase-js": "^2.47.10",
     "better-sqlite3": "^11.6.0",
-    "hono": "^4.6.12"
+    "hono": "^4.6.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@hono/react-renderer": "^1.0.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
@@ -23,6 +26,8 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/typography": "^0.5.15",
     "@types/better-sqlite3": "^7.6.12",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.0",
     "postcss": "^8.4.49",

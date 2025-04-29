@@ -25,18 +25,18 @@
 ## セットアップ方法
 
 依存関係のインストール:
-```txt
+```shell
 bun install
 ```
 
 開発サーバーの起動:
-```txt
+```shell
 bun run dev
 ```
 
 ## デプロイ方法
 
 本番環境へのデプロイ:
-```txt
+```shell
 bun run deploy
 ```
