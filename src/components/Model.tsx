@@ -1,5 +1,4 @@
 import { GalleryItem } from './GalleryItem'
-import { ImageModal } from './ImageModal'
 
 export const Model = () => {
   return (
@@ -35,8 +34,6 @@ export const Model = () => {
             className="aspect-[2/4]"
           />
         </div>
-
-        <ImageModal id="imageModal" />
       </div>
     </>
   )

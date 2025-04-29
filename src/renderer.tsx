@@ -6,7 +6,7 @@ interface BaseProps {
   title?: string
 }
 
-export const renderer = reactRenderer<BaseProps>(({ children, title }: BaseProps) => {
+export const renderer = reactRenderer(({ children, title }: BaseProps) => {
   return (
     <html lang="ja">
       <head>
@@ -19,10 +19,12 @@ export const renderer = reactRenderer<BaseProps>(({ children, title }: BaseProps
         <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
+        <script type="module" src="/src/client.tsx"></script>
       </head>
       <body className="bg-gray-900">
-        {children}
-        <script src="/static/js/main.js"></script>
+        <div id="root">
+          {children}
+        </div>
       </body>
     </html>
   )

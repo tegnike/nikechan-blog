@@ -1,6 +1,8 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 export const About: FC = () => {
+  const [activeProfile, setActiveProfile] = useState<'nike' | 'ai_nike'>('nike')
+
   return (
     <div className="min-h-screen">
       <div className="pt-24 pb-12">
@@ -8,24 +10,27 @@ export const About: FC = () => {
           ABOUT
         </h1>
         <div className="flex justify-center gap-4 mt-8">
-          <button
-            className="px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors [&.active]:bg-white/20 active"
-            data-profile="nike"
-          >
-            ニケ
-          </button>
-          <button
-            className="px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors [&.active]:bg-white/20"
-            data-profile="ai_nike"
-          >
-            AIニケちゃん
-          </button>
+          {[
+            { key: 'nike', label: 'ニケ' },
+            { key: 'ai_nike', label: 'AIニケちゃん' }
+          ].map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => setActiveProfile(key as 'nike' | 'ai_nike')}
+              className={`px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors [&.active]:bg-white/20 ${
+                activeProfile === key ? 'active' : ''
+              }`}
+              data-profile={key}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
       <div className="container mx-auto px-4 py-8 bg-[#1a1f2e] rounded-xl">
         <div className="max-w-3xl mx-auto">
           {/* ニケのプロフィール */}
-          <div id="nike-profile">
+          <div id="nike-profile" className={activeProfile === 'nike' ? '' : 'hidden'}>
             {/* Profile Header */}
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8 text-center">
               <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
@@ -327,7 +332,7 @@ export const About: FC = () => {
           </div>
 
           {/* AIニケちゃんのプロフィール */}
-          <div id="ai_nike-profile" className="hidden">
+          <div id="ai_nike-profile" className={activeProfile === 'ai_nike' ? '' : 'hidden'}>
             {/* Profile Header */}
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8 text-center">
               <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">

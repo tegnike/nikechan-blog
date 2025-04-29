@@ -1,3 +1,6 @@
+import { GalleryModalProvider } from '../context/GalleryModalContext'
+import { GalleryModal } from './GalleryModal'
+
 type Props = {
   children: string | JSX.Element | JSX.Element[];
   title?: string;
@@ -5,7 +8,7 @@ type Props = {
 
 export function Layout({ children, title = 'My Portfolio & Blog' }: Props) {
   return (
-    <>
+    <GalleryModalProvider>
       <header className="border-b border-transparent fixed top-0 left-0 right-0 z-10 bg-gray-900">
         <nav className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
@@ -33,9 +36,10 @@ export function Layout({ children, title = 'My Portfolio & Blog' }: Props) {
         </div>
       </footer>
 
+      <GalleryModal />
+
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script src="/static/js/main.js"></script>
-    </>
+    </GalleryModalProvider>
   )
 }

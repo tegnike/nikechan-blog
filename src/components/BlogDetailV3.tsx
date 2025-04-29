@@ -1,4 +1,9 @@
+import { useState } from 'react';
 import { supabase } from '../lib/supabase'
+import { Pie, Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
 
 type V3Data = {
   user_metrics: {
@@ -59,42 +64,142 @@ type Props = {
 }
 
 export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_count, repeat_count, podcast, podcast_url }: Props) => {
-  // Chart.jsの初期化用のスクリプトタグを生成
-  const initScript = `
-    window.addEventListener('DOMContentLoaded', function() {
-      initializeCharts(${JSON.stringify({
-        ...data,
-        user_metrics: {
-          ...data.user_metrics,
-          total_messages: public_message_count,
-          repeat_rate: repeat_count,
-          user_types: {
-            new_user: public_chat_session_count - repeat_count,
-            repeat_user: repeat_count
+  const [activeTab, setActiveTab] = useState('users');
+  const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
+
+  // --- Chart Data and Options ---
+
+  // Chart.jsのグローバル設定 (コンポーネントレベルで適用)
+  ChartJS.defaults.color = '#ffffff';
+  ChartJS.defaults.borderColor = '#666666';
+
+  // チャート用のカラーパレット
+  const chartColors = [
+    '#FF6B6B', '#FFEEAD', '#4ECDC4', '#9B89B3', '#E9B872',
+    '#45B7D1', '#D4A5A5', '#96CEB4', '#84B1ED', '#B3E5BE'
+  ];
+
+  // ユーザータイプ分布データ
+  const userTypesData = {
+    labels: ['新規', 'リピート'],
+    datasets: [{
+      data: [public_chat_session_count - repeat_count, repeat_count],
+      backgroundColor: chartColors.slice(0, 2)
+    }]
+  };
+  const userTypesOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: { display: true, text: 'ユーザータイプ分布', color: '#fff', font: { size: 16, weight: 'bold' }, padding: { bottom: 20 } },
+      legend: {
+        position: 'right' as const,
+        labels: {
+          color: '#fff',
+          generateLabels: (chart: any) => {
+            const data = chart.data;
+            if (data.labels.length && data.datasets.length) {
+              const total = data.datasets[0].data.reduce((sum: number, value: number) => sum + value, 0);
+              return data.labels.map((label: string, i: number) => {
+                const value = data.datasets[0].data[i];
+                const percentage = total === 0 ? 0 : ((value / total) * 100).toFixed(1);
+                return { text: `${label}: ${value}人 (${percentage}%)`, fillStyle: chartColors[i], strokeStyle: chartColors[i], lineWidth: 1, hidden: false, index: i, fontColor: '#fff' };
+              });
+            }
+            return [];
           }
         }
-      })});
-
-      // Podcastの文字起こしの開閉処理
-      const transcriptButton = document.getElementById('transcript-button');
-      const transcriptContent = document.getElementById('transcript-content');
-      const transcriptIcon = document.getElementById('transcript-icon');
-      
-      if (transcriptButton && transcriptContent && transcriptIcon) {
-        transcriptContent.style.display = 'none';
-        
-        transcriptButton.addEventListener('click', function() {
-          const isOpen = transcriptContent.style.display === 'block';
-          transcriptContent.style.display = isOpen ? 'none' : 'block';
-          transcriptIcon.className = isOpen ? 'fas fa-chevron-down' : 'fas fa-chevron-up';
-        });
       }
-    });
-  `;
+    }
+  };
+
+  // 言語分布データ
+  const fixedLanguages = { '日本語': '#FF6B6B', '英語': '#4ECDC4', '中国語': '#FFEEAD', '韓国語': '#9B89B3' };
+  const otherColors = chartColors.filter(color => !Object.values(fixedLanguages).includes(color));
+  let languages = Object.entries(data.user_metrics.languages.languages);
+  const totalLanguage = languages.reduce((sum, [, value]) => sum + value, 0);
+  languages = languages.sort((a, b) => {
+    const aIndex = Object.keys(fixedLanguages).indexOf(a[0]);
+    const bIndex = Object.keys(fixedLanguages).indexOf(b[0]);
+    if (aIndex === -1 && bIndex === -1) return b[1] - a[1]; // その他は件数でソート
+    if (aIndex === -1) return 1;
+    if (bIndex === -1) return -1;
+    return aIndex - bIndex;
+  });
+  let otherColorIndex = 0;
+  const languageColors = languages.map(([name]) => {
+    if (name in fixedLanguages) return fixedLanguages[name as keyof typeof fixedLanguages];
+    const color = otherColors[otherColorIndex % otherColors.length];
+    otherColorIndex++;
+    return color;
+  });
+  const languageData = {
+    labels: languages.map(([name]) => name),
+    datasets: [{ data: languages.map(([, value]) => value), backgroundColor: languageColors }]
+  };
+  const languageOptions = {
+    responsive: true, maintainAspectRatio: false, plugins: {
+      title: { display: true, text: '使用言語分布', color: '#fff', font: { size: 16, weight: 'bold' }, padding: { bottom: 20 } },
+      legend: {
+        position: 'right' as const, labels: { color: '#fff',
+          generateLabels: (chart: any) => {
+            const data = chart.data;
+            if (data.labels.length && data.datasets.length) {
+              return data.labels.map((label: string, i: number) => {
+                const value = data.datasets[0].data[i];
+                const percentage = totalLanguage === 0 ? 0 : ((value / totalLanguage) * 100).toFixed(1);
+                return { text: `${label}: ${value}件 (${percentage}%)`, fillStyle: languageColors[i], strokeStyle: languageColors[i], lineWidth: 1, hidden: false, index: i, fontColor: '#fff' };
+              });
+            } return [];
+          }
+        }
+      }
+    }
+  };
+
+  // 会話ターン数分布データ
+  const turnLabelsMap = { '1-3_turns': '1-3回', '4-7_turns': '4-7回', '8-10_turns': '8-10回', '11-15_turns': '11-15回', 'over_15_turns': '15回以上' };
+  const turns = Object.entries(data.conversation_metrics.turn_distribution);
+  const turnDistributionData = {
+    labels: turns.map(([key]) => turnLabelsMap[key as keyof typeof turnLabelsMap]),
+    datasets: [{ label: 'セッション数', data: turns.map(([, value]) => value), backgroundColor: '#8884d8' }]
+  };
+  const turnDistributionOptions = { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#fff' }, grid: { color: '#666' } }, x: { ticks: { color: '#fff' }, grid: { color: '#666' } } } };
+
+  // 時間帯別会話傾向データ
+  const timeLabelsMap = { 'morning': '0-3時', 'afternoon': '4-7時', 'evening': '8-11時', 'night': '12-15時', 'late_night': '16-19時', 'midnight': '20-23時' };
+  const timeOrder = ['morning', 'afternoon', 'evening', 'night', 'late_night', 'midnight'];
+  const sortedTimes = timeOrder.map(key => [key, data.conversation_metrics.time_distribution[key as keyof typeof data.conversation_metrics.time_distribution]]);
+  const timeDistributionSessionData = {
+    labels: sortedTimes.map(([key]) => timeLabelsMap[key as keyof typeof timeLabelsMap]),
+    datasets: [{ label: 'セッション数', data: sortedTimes.map(([, d]) => d.count), backgroundColor: '#8884d8' }]
+  };
+  const timeDistributionTurnData = {
+    labels: sortedTimes.map(([key]) => timeLabelsMap[key as keyof typeof timeLabelsMap]),
+    datasets: [{ label: '平均ターン数', data: sortedTimes.map(([, d]) => d.avg_turns), backgroundColor: '#82ca9d' }]
+  };
+  const timeDistributionOptions = { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#fff' }, grid: { color: '#666' } }, x: { ticks: { color: '#fff' }, grid: { color: '#666' } } } };
+
+  // トピック別セッション数データ
+  const topicCategoriesMap = { 'technical': '技術・開発', 'education': '教育・学習', 'hobby': '趣味・エンターテイメント', 'business': '仕事・ビジネス', 'lifestyle': '生活・健康', 'system': 'システム関連', 'other': 'その他' };
+  const topicSummary = Object.entries(data.topic_metrics).map(([category, items]) => ({ name: topicCategoriesMap[category as keyof typeof topicCategoriesMap], value: items.reduce((sum, item) => sum + item.count, 0) }));
+  const topicData = {
+    labels: topicSummary.map(item => item.name),
+    datasets: [{ label: 'トピック数', data: topicSummary.map(item => item.value), backgroundColor: '#82ca9d' }]
+  };
+  const topicOptions = { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { color: '#fff' }, grid: { color: '#666' } }, x: { ticks: { color: '#fff' }, grid: { color: '#666' } } } };
+
+  // --- Helper Functions ---
+  const handleTabClick = (tabName: string) => {
+    setActiveTab(tabName);
+  };
+
+  const toggleTranscript = () => {
+    setIsTranscriptOpen(!isTranscriptOpen);
+  };
 
   return (
     <div className="w-full space-y-4 p-2 sm:p-4">
-      <script dangerouslySetInnerHTML={{ __html: initScript }} />
       {/* サマリーカード */}
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <div className="card">
@@ -115,7 +220,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               <i className="fas fa-sync text-green-500"></i>
               <div>
                 <p className="text-sm text-white">リピート率</p>
-                <p className="text-2xl font-bold">{((repeat_count / public_chat_session_count) * 100).toFixed(1)}%</p>
+                <p className="text-2xl font-bold">{public_chat_session_count > 0 ? ((repeat_count / public_chat_session_count) * 100).toFixed(1) : 0}%</p>
               </div>
             </div>
           </div>
@@ -146,8 +251,6 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
         </div>
       </div>
 
-
-
       {/* Podcastセクション */}
       {podcast && podcast_url && (
         <div className="mt-8">
@@ -171,20 +274,22 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
                 </div>
                 <div className="bg-gray-900 rounded-lg">
                   <button
-                    id="transcript-button"
+                    onClick={toggleTranscript}
                     className="w-full p-4 flex justify-between items-center text-sm font-medium text-gray-400 hover:text-gray-300 transition-colors"
                   >
                     <span className="flex items-center space-x-2">
                       <i className="fas fa-file-alt"></i>
                       <span>文字起こし</span>
                     </span>
-                    <i id="transcript-icon" className="fas fa-chevron-down transition-transform duration-200"></i>
+                    <i id="transcript-icon" className={`fas ${isTranscriptOpen ? 'fa-chevron-up' : 'fa-chevron-down'} transition-transform duration-200`}></i>
                   </button>
-                  <div id="transcript-content" className="px-4 pb-4">
-                    <div className="prose prose-sm prose-invert max-w-none">
-                      <p className="whitespace-pre-wrap text-gray-300">{podcast}</p>
+                  {isTranscriptOpen && (
+                    <div id="transcript-content" className="px-4 pb-4">
+                      <div className="prose prose-sm prose-invert max-w-none">
+                        <p className="whitespace-pre-wrap text-gray-300">{podcast}</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -195,14 +300,14 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
       {/* タブコンテナ */}
       <div className="tabs-container">
         <div className="tabs-list grid grid-cols-4">
-          <button className="tab-trigger active" data-tab="users">ユーザー分析</button>
-          <button className="tab-trigger" data-tab="conversations">会話分析</button>
-          <button className="tab-trigger" data-tab="topics">トピック分析</button>
-          <button className="tab-trigger" data-tab="issues">改善項目</button>
+          <button className={`tab-trigger ${activeTab === 'users' ? 'active' : ''}`} onClick={() => handleTabClick('users')}>ユーザー分析</button>
+          <button className={`tab-trigger ${activeTab === 'conversations' ? 'active' : ''}`} onClick={() => handleTabClick('conversations')}>会話分析</button>
+          <button className={`tab-trigger ${activeTab === 'topics' ? 'active' : ''}`} onClick={() => handleTabClick('topics')}>トピック分析</button>
+          <button className={`tab-trigger ${activeTab === 'issues' ? 'active' : ''}`} onClick={() => handleTabClick('issues')}>改善項目</button>
         </div>
 
         {/* ユーザー分析タブ */}
-        <div className="tab-content active" id="users-tab">
+        <div className={`tab-content ${activeTab === 'users' ? 'active' : ''}`} id="users-tab">
           <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
             <div className="card">
               <div className="card-header">
@@ -210,7 +315,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <canvas id="userTypeChart"></canvas>
+                  <Pie data={userTypesData} options={userTypesOptions} />
                 </div>
               </div>
             </div>
@@ -221,7 +326,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <canvas id="languageChart"></canvas>
+                  <Pie data={languageData} options={languageOptions} />
                 </div>
               </div>
             </div>
@@ -229,7 +334,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
         </div>
 
         {/* 会話分析タブ */}
-        <div className="tab-content" id="conversations-tab">
+        <div className={`tab-content ${activeTab === 'conversations' ? 'active' : ''}`} id="conversations-tab">
           <div className="space-y-4">
             <div className="card">
               <div className="card-header">
@@ -237,7 +342,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <canvas id="turnDistributionChart"></canvas>
+                  <Bar data={turnDistributionData} options={turnDistributionOptions} />
                 </div>
               </div>
             </div>
@@ -249,10 +354,10 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               <div className="card-content">
                 <div className="space-y-4">
                   <div className="h-64">
-                    <canvas id="timeDistributionSessionChart"></canvas>
+                    <Bar data={timeDistributionSessionData} options={timeDistributionOptions} />
                   </div>
                   <div className="h-64">
-                    <canvas id="timeDistributionTurnChart"></canvas>
+                    <Bar data={timeDistributionTurnData} options={timeDistributionOptions} />
                   </div>
                 </div>
                 <div className="mt-4 space-y-2">
@@ -266,7 +371,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
         </div>
 
         {/* トピック分析タブ */}
-        <div className="tab-content" id="topics-tab">
+        <div className={`tab-content ${activeTab === 'topics' ? 'active' : ''}`} id="topics-tab">
           <div className="space-y-4">
             <div className="card">
               <div className="card-header">
@@ -274,7 +379,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <canvas id="topicChart"></canvas>
+                  <Bar data={topicData} options={topicOptions} />
                 </div>
               </div>
             </div>
@@ -293,7 +398,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
         </div>
 
         {/* 改善項目タブ */}
-        <div className="tab-content" id="issues-tab">
+        <div className={`tab-content ${activeTab === 'issues' ? 'active' : ''}`} id="issues-tab">
           <div className="card">
             <div className="card-header">
               <h3 className="card-title">要改善項目</h3>
@@ -312,94 +417,46 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
 
 function generateTopicDetails(details: V3Data['topic_metrics']) {
   if (!details) return null;
+  const categoryLabels: { [key: string]: string } = {
+    'technical': '技術・開発',
+    'education': '教育・学習',
+    'hobby': '趣味・エンターテイメント',
+    'business': '仕事・ビジネス',
+    'lifestyle': '生活・健康',
+    'system': 'システム関連',
+    'other': 'その他'
+  };
+  const categoryColors: { [key: string]: string } = {
+    'technical': 'text-blue-400',
+    'education': 'text-green-400',
+    'hobby': 'text-purple-400',
+    'business': 'text-yellow-400',
+    'lifestyle': 'text-pink-400',
+    'system': 'text-red-400',
+    'other': 'text-gray-400'
+  };
 
   return (
     <>
-      <div>
-        <h3 className="font-bold text-blue-600 mb-1">技術・開発</h3>
-        <div className="space-y-1">
-          {details.technical?.map((item, index) => (
-            <div key={index} className="flex justify-between items-center text-sm">
-              <span>{item.topic}</span>
-              <span className="text-white">{item.count}回</span>
+      {Object.entries(details).map(([categoryKey, items]) => (
+        items && items.length > 0 && (
+          <div key={categoryKey}>
+            <h3 className={`font-bold ${categoryColors[categoryKey] || 'text-gray-400'} mb-1`}>
+              {categoryLabels[categoryKey] || categoryKey}
+            </h3>
+            <div className="space-y-1">
+              {items.map((item, index) => (
+                <div key={index} className="flex justify-between items-center text-sm text-gray-300">
+                  <span>{item.topic}</span>
+                  <span className="text-white font-medium">{item.count}回</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-      
-      <div>
-        <h3 className="font-bold text-green-600 mb-1">教育・学習</h3>
-        <div className="space-y-1">
-          {details.education?.map((item, index) => (
-            <div key={index} className="flex justify-between items-center text-sm">
-              <span>{item.topic}</span>
-              <span className="text-white">{item.count}回</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-bold text-purple-600 mb-1">趣味・エンターテイメント</h3>
-        <div className="space-y-1">
-          {details.hobby?.map((item, index) => (
-            <div key={index} className="flex justify-between items-center text-sm">
-              <span>{item.topic}</span>
-              <span className="text-white">{item.count}回</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-bold text-yellow-600 mb-1">仕事・ビジネス</h3>
-        <div className="space-y-1">
-          {details.business?.map((item, index) => (
-            <div key={index} className="flex justify-between items-center text-sm">
-              <span>{item.topic}</span>
-              <span className="text-white">{item.count}回</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-bold text-pink-600 mb-1">生活・健康</h3>
-        <div className="space-y-1">
-          {details.lifestyle?.map((item, index) => (
-            <div key={index} className="flex justify-between items-center text-sm">
-              <span>{item.topic}</span>
-              <span className="text-white">{item.count}回</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-bold text-red-600 mb-1">システム関連</h3>
-        <div className="space-y-1">
-          {details.system?.map((item, index) => (
-            <div key={index} className="flex justify-between items-center text-sm">
-              <span>{item.topic}</span>
-              <span className="text-white">{item.count}回</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="font-bold text-gray-600 mb-1">その他</h3>
-        <div className="space-y-1">
-          {details.other?.map((item, index) => (
-            <div key={index} className="flex justify-between items-center text-sm">
-              <span>{item.topic}</span>
-              <span className="text-white">{item.count}回</span>
-            </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        )
+      ))}
     </>
-  )
+  );
 }
 
 function generateIssuesList(issues: V3Data['issues']) {
