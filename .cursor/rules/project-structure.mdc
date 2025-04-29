@@ -17,6 +17,12 @@ alwaysApply: false
 - [renderer.tsx](mdc:src/renderer.tsx)  
   `@hono/react-renderer` の `reactRenderer` で HTML テンプレートを組み立て、共通 `<head>` と `<body>` を定義します。
 
+## クライアントサイドスクリプト
+- [client.tsx](mdc:src/client.tsx)  
+  ブラウザ側で実行される処理を定義しています。
+  - ギャラリーモーダルの機能
+  - About ページのプロフィール切り替え機能（React コンポーネントの `useState` はサーバーサイドレンダリングのみで、クライアント側では DOM 操作で実装）
+
 ## レイアウト
 - [Layout.tsx](mdc:src/components/Layout.tsx)  
   全ページ共通のヘッダー・フッター・ナビゲーションを提供します。
@@ -31,7 +37,7 @@ alwaysApply: false
 | [BlogDetail.tsx](mdc:src/components/BlogDetail.tsx) | 記事詳細（最新版） |
 | [BlogDetailV1.tsx](mdc:src/components/BlogDetailV1.tsx) ~ V3 | 過去バージョンの詳細ページ |
 | [MonthlySummary.tsx](mdc:src/components/MonthlySummary.tsx) | 月別サマリー |
-| [About.tsx](mdc:src/components/About.tsx) | プロフィールページ |
+| [About.tsx](mdc:src/components/About.tsx) | プロフィールページ（見た目は React で定義、機能は client.tsx で実装） |
 
 ## 静的アセット
 `/public` 配下の画像・スタイル・JS を Hono の `serveStatic` で `/images/*` と `/static/*` に公開しています。
