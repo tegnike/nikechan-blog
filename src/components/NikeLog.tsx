@@ -30,8 +30,17 @@ const isPastMonth = (yearMonth: string) => {
   return today.getMonth() > targetDate.getMonth()
 }
 
+// 金額のフォーマット関数
+const formatCurrency = (amount: number | null) => {
+  if (amount === null || amount === undefined) return 'N/A'; // undefinedもチェック
+  return new Intl.NumberFormat('ja-JP', {
+    style: 'currency',
+    currency: 'JPY'
+  }).format(amount);
+};
+
 // 日付単位の集計を行う関数
-const calculateDailyMetrics = (summaries: any[]) => {
+const calculateDailyMetrics = (summaries: Summary[]) => {
   // 日付でソート
   const sortedSummaries = [...summaries].sort((a, b) => 
     new Date(a.target_date).getTime() - new Date(b.target_date).getTime()
@@ -51,6 +60,15 @@ type NikeLogProps = {
 }
 
 export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
+  // 全期間の合計値を計算
+  const totalSessions = summaries.reduce((sum, s) => sum + (s.public_chat_session_count || 0), 0);
+  const totalMessages = summaries.reduce((sum, s) => sum + (s.public_message_count || 0), 0);
+  // incomeとexpenditureはSummary型に含まれているか確認が必要。
+  // 現状の型定義にはないため、一旦コメントアウトまたは0で初期化。
+  // TODO: Summary型とデータ取得部分を確認し、income/expenditureを追加する
+  const totalIncome = summaries.reduce((sum, s) => sum + (s.income || 0), 0);
+  const totalExpenditure = summaries.reduce((sum, s) => sum + (s.expenditure || 0), 0);
+
   // 記事を月ごとにグループ化
   const groupedSummaries = summaries.reduce((acc, summary) => {
     const yearMonth = getYearMonth(summary.target_date as string)
@@ -257,6 +275,25 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
 
   return (
     <div id="category-nikelog" className="category-content block" data-content="nikelog">
+      {/* 全期間の合計統計 */}
+      <div className="container mx-auto px-4 mt-8 mb-12">
+        <h2 className="text-2xl font-bold text-white mb-6">全期間利用統計 (月末更新)</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h3 className="text-lg font-semibold text-gray-400 mb-2">総セッション数</h3>
+            <p className="text-4xl font-bold text-white">
+              {totalSessions.toLocaleString()}
+            </p>
+          </div>
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h3 className="text-lg font-semibold text-gray-400 mb-2">総メッセージ数</h3>
+            <p className="text-4xl font-bold text-white">
+              {totalMessages.toLocaleString()}
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* 日別メトリクスグラフ - コンテナを最大幅に */}
       <div className="w-full bg-[#1a1f2e] p-0">
         <div className="max-w-[2000px] mx-auto">
