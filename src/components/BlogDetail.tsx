@@ -91,14 +91,28 @@ export const BlogDetail = async ({ id }: Props) => {
             ) : summary.version === 2 ? (
               <BlogDetailV2 data={summary.public_message} />
             ) : summary.version === 3 ? (
-              <BlogDetailV3 
-                data={summary.public_message} 
-                public_chat_session_count={summary.public_chat_session_count}
-                public_message_count={summary.public_message_count}
-                repeat_count={summary.repeat_count}
-                podcast={summary.podcast}
-                podcast_url={summary.podcast_url}
-              />
+              <>
+                <BlogDetailV3 
+                  data={summary.public_message} 
+                  public_chat_session_count={summary.public_chat_session_count}
+                  public_message_count={summary.public_message_count}
+                  repeat_count={summary.repeat_count}
+                  podcast={summary.podcast}
+                  podcast_url={summary.podcast_url}
+                />
+                <script
+                  id="blog-detail-init"
+                  type="application/json"
+                  dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                    data: summary.public_message,
+                    public_chat_session_count: summary.public_chat_session_count,
+                    public_message_count: summary.public_message_count,
+                    repeat_count: summary.repeat_count,
+                    podcast: summary.podcast,
+                    podcast_url: summary.podcast_url
+                  }) }}
+                />
+              </>
             ) : (
               <div>バージョンが存在しません{summary.version}</div>
             )}

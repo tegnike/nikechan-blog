@@ -196,7 +196,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
   };
 
   return (
-    <div className="w-full space-y-4 p-2 sm:p-4">
+    <div id="blog-detail-v3-root" className="w-full space-y-4 p-2 sm:p-4">
       {/* サマリーカード */}
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <div className="card">
@@ -271,22 +271,20 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
                 </div>
                 <div className="bg-gray-900 rounded-lg">
                   <button
-                    onClick={toggleTranscript}
+                    id="toggle-transcript-button"
                     className="w-full p-4 flex justify-between items-center text-sm font-medium text-gray-400 hover:text-gray-300 transition-colors"
                   >
                     <span className="flex items-center space-x-2">
                       <i className="fas fa-file-alt"></i>
                       <span>文字起こし</span>
                     </span>
-                    <i id="transcript-icon" className={`fas ${isTranscriptOpen ? 'fa-chevron-up' : 'fa-chevron-down'} transition-transform duration-200`}></i>
+                    <i id="transcript-icon" className="fas fa-chevron-down transition-transform duration-200"></i>
                   </button>
-                  {isTranscriptOpen && (
-                    <div id="transcript-content" className="px-4 pb-4">
-                      <div className="prose prose-sm prose-invert max-w-none">
-                        <p className="whitespace-pre-wrap text-gray-300">{podcast}</p>
-                      </div>
+                  <div id="transcript-content" className="px-4 pb-4 hidden">
+                    <div className="prose prose-sm prose-invert max-w-none">
+                      <p className="whitespace-pre-wrap text-gray-300">{podcast}</p>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>

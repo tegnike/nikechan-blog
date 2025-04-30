@@ -1,12 +1,19 @@
 ---
 description: 
 globs: 
-alwaysApply: false
+alwaysApply: true
 ---
 # プロジェクト構成ガイド
 
 本リポジトリは Hono (API) + React (SSR) を用いたポートフォリオ & ブログサイトです。
 主要なエントリポイントやコンポーネントの関係を以下に示します。
+
+## アーキテクチャ
+- サーバー側で React コンポーネントを静的 HTML として生成（@hono/react-renderer）
+- クライアント側では `src/client.tsx` を **TypeScript (Vanilla JS)** として読み込み、
+  必要なインタラクションだけを DOM 操作または小規模な React ツリー（ギャラリーモーダル）で実装
+- エッジでの実行により高速なレスポンスを実現
+- **React**: UI コンポーネント（SSRのみ、フルハイドレーションは行わず *必要箇所のみ* クライアントJSで制御）
 
 ## サーバエントリポイント
 - [index.tsx](mdc:src/index.tsx)  
@@ -16,12 +23,16 @@ alwaysApply: false
 ## 共通レンダラー
 - [renderer.tsx](mdc:src/renderer.tsx)  
   `@hono/react-renderer` の `reactRenderer` で HTML テンプレートを組み立て、共通 `<head>` と `<body>` を定義します。
+  `<script type="module" src="/src/client.tsx"></script>` でクライアントスクリプトを読み込みます。
 
 ## クライアントサイドスクリプト
 - [client.tsx](mdc:src/client.tsx)  
   ブラウザ側で実行される処理を定義しています。
-  - ギャラリーモーダルの機能
-  - About ページのプロフィール切り替え機能（React コンポーネントの `useState` はサーバーサイドレンダリングのみで、クライアント側では DOM 操作で実装）
+  - ギャラリーモーダルの機能（小規模 React ツリーを使用）
+  - About ページのプロフィール切り替え機能
+  - 文字起こしトグル機能
+  - 分析タブの切り替え機能
+  - その他軽量インタラクション（React コンポーネントの `onClick` はサーバーサイドレンダリングのみで、クライアント側では DOM 操作で実装）
 
 ## レイアウト
 - [Layout.tsx](mdc:src/components/Layout.tsx)  
@@ -48,5 +59,13 @@ Tailwind CSS を使用し、設定は [tailwind.config.js](mdc:tailwind.config.j
 ## ビルド／開発
 - Vite 設定: [vite.config.ts](mdc:vite.config.ts)
 - Wrangler 設定 (Cloudflare): [wrangler.toml](mdc:wrangler.toml)
+
+## 環境変数
+| 変数名 | 用途 |
+| ------- | ---- |
+| `VITE_SUPABASE_URL` | Supabase プロジェクトの URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase 公開 anon キー |
+
+Cloudflare Pages の **Environment variables** に Production / Preview それぞれ設定する必要があります。
 
 このルールを参照することで、主要ファイルの位置と役割を素早く把握できます。

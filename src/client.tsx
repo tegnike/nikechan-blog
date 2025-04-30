@@ -1,5 +1,5 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { GalleryModalProvider } from './context/GalleryModalContext'
 import { GalleryModal } from './components/GalleryModal'
 import type { GalleryModalItem } from './context/GalleryModalContext'
@@ -55,7 +55,55 @@ function bootstrap() {
     })
   }
 
+  function setupTranscriptToggle() {
+    const btn = document.getElementById('toggle-transcript-button')
+    if (!btn) return
+    const icon = document.getElementById('transcript-icon')
+    const content = document.getElementById('transcript-content')
+    if (!icon || !content) return
+    btn.addEventListener('click', () => {
+      const isOpen = !content.classList.toggle('hidden')
+      icon.classList.toggle('fa-chevron-up', isOpen)
+      icon.classList.toggle('fa-chevron-down', !isOpen)
+    })
+  }
+
+  function setupTabs() {
+    const triggers = document.querySelectorAll<HTMLButtonElement>('.tab-trigger')
+    const contents = document.querySelectorAll<HTMLElement>('.tab-content')
+    if (triggers.length === 0) return
+    triggers.forEach(tr => {
+      tr.addEventListener('click', () => {
+        const targetId = tr.textContent?.trim()
+        triggers.forEach(t => t.classList.remove('active'))
+        tr.classList.add('active')
+        contents.forEach(ct => {
+          ct.classList.toggle('active', ct.id.startsWith(targetId!.toLowerCase()))
+        })
+      })
+    })
+  }
+
   setupProfileToggle()
+  setupTranscriptToggle()
+  setupTabs()
+
+  // BlogDetailV3 のグラフ表示（クライアントのみで描画が必要な場合）
+  const initScript = document.getElementById('blog-detail-init') as HTMLScriptElement | null
+  if (initScript) {
+    try {
+      const props = JSON.parse(initScript.textContent || '{}')
+      const rootEl = document.getElementById('blog-detail-v3-root')
+      if (rootEl) {
+        import('./components/BlogDetailV3').then(mod => {
+          const BlogDetailV3 = mod.BlogDetailV3 as any
+          hydrateRoot(rootEl, <BlogDetailV3 {...props} />)
+        })
+      }
+    } catch (e) {
+      console.error('Failed to hydrate BlogDetailV3', e)
+    }
+  }
 }
 
 if (typeof document !== 'undefined') {

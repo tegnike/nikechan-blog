@@ -12,7 +12,7 @@
 - **Supabase**: バックエンドサービス（データベース、認証）
 
 ### フロントエンド
-- **React**: UI コンポーネント（SSRのみ、クライアントサイドハイドレーションなし）
+- **React**: UI コンポーネント（SSRのみ、フルハイドレーションは行わず *必要箇所のみ* クライアントJSで制御）
 - **TailwindCSS**: CSSフレームワーク
   - @tailwindcss/typography
   - @tailwindcss/aspect-ratio
@@ -20,6 +20,9 @@
 - **クライアントJS**: DOM操作による対話機能
   - ギャラリーモーダル表示
   - プロフィール切り替え
+  - 文字起こしトグル
+  - 分析タブの切り替え
+  - ほか軽量インタラクション
 
 ### ビルドツール/開発環境
 - **Vite**: ビルドツール
@@ -29,9 +32,19 @@
 
 ## アーキテクチャ
 
-- サーバー側でReactコンポーネントを静的HTMLとして生成
-- クライアント側は最低限のJavaScriptで対話機能を実装
+- サーバー側で React コンポーネントを静的 HTML として生成（@hono/react-renderer）
+- クライアント側では `src/client.tsx` を **TypeScript (Vanilla JS)** として読み込み、
+  必要なインタラクションだけを DOM 操作または小規模な React ツリー（ギャラリーモーダル）で実装
 - エッジでの実行により高速なレスポンスを実現
+
+### 環境変数
+
+| 変数名 | 用途 |
+| ------- | ---- |
+| `VITE_SUPABASE_URL` | Supabase プロジェクトの URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase 公開 anon キー |
+
+Cloudflare Pages の **Environment variables** に Production / Preview それぞれ設定してください。
 
 ## セットアップ方法
 
