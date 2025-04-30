@@ -17,6 +17,7 @@
   - @tailwindcss/typography
   - @tailwindcss/aspect-ratio
 - **Chart.js**: データ可視化ライブラリ
+- **react-chartjs-2**: Chart.js の React ラッパー
 - **クライアントJS**: DOM操作による対話機能
   - ギャラリーモーダル表示
   - プロフィール切り替え
