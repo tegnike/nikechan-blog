@@ -18,3 +18,14 @@ export type Summary = {
   podcast: string
   podcast_url: string
 }
+
+export type NoteArticle = {
+  id: string
+  title: string
+  published_at: string
+  thumbnail_url: string
+  like_count: number
+  created_at: string
+  status: string
+  note_key: string
+}

@@ -146,12 +146,147 @@ function bootstrap() {
     // ため、クライアントサイドでの初期クリックは不要
   }
 
+  // カテゴリタブ切り替え機能 (NIKELOG / TECHBLOG)
+  function setupCategoryTabs() {
+    const categoryTabs = document.querySelectorAll<HTMLButtonElement>('.category-tab')
+    if (categoryTabs.length === 0) return // ブログページ以外では何もしない
+
+    const categoryContents = document.querySelectorAll<HTMLElement>('.category-content')
+
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        const clickedTab = e.currentTarget as HTMLButtonElement
+        const targetCategory = clickedTab.getAttribute('data-category')
+        if (!targetCategory) return
+
+        // タブのスタイルを更新
+        categoryTabs.forEach(t => {
+          t.classList.remove('active', 'bg-white/20')
+        })
+        clickedTab.classList.add('active', 'bg-white/20')
+
+        // コンテンツの表示切り替え
+        categoryContents.forEach(ct => {
+          const contentCat = ct.getAttribute('data-content')
+          if (contentCat === targetCategory) {
+            ct.classList.remove('hidden')
+            ct.classList.add('block')
+          } else {
+            ct.classList.add('hidden')
+            ct.classList.remove('block')
+          }
+        })
+      })
+    })
+  }
+
+  // Tech Blog ページネーション機能
+  function setupTechBlogPagination() {
+    const techBlogContainer = document.getElementById('category-techblog')
+    if (!techBlogContainer) return // TechBlogコンポーネントがない場合は何もしない
+
+    const paginationControls = techBlogContainer.querySelector('.pagination-controls') as HTMLElement | null
+    const articleList = techBlogContainer.querySelector('.article-list') as HTMLElement | null
+    const paginationInfo = techBlogContainer.querySelector('.pagination-info') as HTMLElement | null
+
+    if (!paginationControls || !articleList || !paginationInfo) return
+
+    const totalPages = parseInt(paginationControls.dataset.totalPages || '1', 10)
+    const totalArticles = parseInt(paginationInfo.dataset.totalArticles || '0', 10)
+    const articlesPerPage = parseInt(paginationInfo.dataset.articlesPerPage || '15', 10)
+    let currentPage = parseInt(paginationControls.dataset.currentPage || '1', 10)
+
+    const updateView = () => {
+      // 記事の表示/非表示を切り替え
+      const articles = articleList.querySelectorAll('.article-item') as NodeListOf<HTMLElement>
+      articles.forEach(article => {
+        const pageItem = parseInt(article.dataset.pageItem || '0', 10)
+        article.classList.toggle('hidden', pageItem !== currentPage)
+      })
+
+      // ページネーションボタンの状態を更新
+      const buttons = paginationControls.querySelectorAll('.pagination-button') as NodeListOf<HTMLButtonElement>
+      buttons.forEach(button => {
+        const page = parseInt(button.dataset.page || '0', 10)
+        const action = button.dataset.pageAction
+
+        // ページ番号ボタンのアクティブ状態
+        if (page > 0) {
+          button.classList.toggle('active', page === currentPage)
+          button.classList.toggle('bg-gray-500', page === currentPage)
+          button.classList.toggle('text-white', page === currentPage)
+          button.classList.toggle('font-bold', page === currentPage)
+          button.classList.toggle('bg-gray-700', page !== currentPage)
+          button.classList.toggle('hover:bg-gray-600', page !== currentPage)
+        }
+
+        // 表示するページ番号ボタンの範囲を調整 (常に5つ表示)
+        const maxVisibleButtons = 5
+        const startPage = Math.max(1, Math.min(currentPage - 2, totalPages - maxVisibleButtons + 1))
+        const endPage = Math.min(totalPages, startPage + maxVisibleButtons - 1)
+        if (button.classList.contains('page-number')) {
+            const pageNum = parseInt(button.dataset.page || '0', 10);
+            button.classList.toggle('hidden', pageNum < startPage || pageNum > endPage);
+        }
+        
+        // アクションボタンの表示/非表示
+        if (action === 'first' || action === 'prev') {
+          button.classList.toggle('hidden', currentPage <= 1)
+        }
+        if (action === 'next' || action === 'last') {
+          button.classList.toggle('hidden', currentPage >= totalPages)
+        }
+      })
+
+      // 表示件数情報を更新
+      const startArticleIndex = (currentPage - 1) * articlesPerPage + 1
+      const endArticleIndex = Math.min(currentPage * articlesPerPage, totalArticles)
+      paginationInfo.textContent = `全${totalArticles}件中 ${startArticleIndex}〜${endArticleIndex}件を表示`
+
+      // 現在のページをデータ属性に保存
+      paginationControls.dataset.currentPage = currentPage.toString()
+    }
+
+    paginationControls.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement
+      const button = target.closest('.pagination-button') as HTMLButtonElement | null
+      if (!button) return
+
+      const page = parseInt(button.dataset.page || '0', 10)
+      const action = button.dataset.pageAction
+      let newPage = currentPage
+
+      if (page > 0) {
+        newPage = page
+      } else if (action) {
+        switch (action) {
+          case 'first': newPage = 1; break;
+          case 'prev': newPage = Math.max(1, currentPage - 1); break;
+          case 'next': newPage = Math.min(totalPages, currentPage + 1); break;
+          case 'last': newPage = totalPages; break;
+        }
+      }
+
+      if (newPage !== currentPage) {
+        currentPage = newPage
+        updateView()
+        // ページトップにスクロール (TechBlogコンテナのトップが良いかも)
+        // techBlogContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.scrollTo({ top: techBlogContainer.offsetTop - 80, behavior: 'smooth' }) // ヘッダー分オフセット
+      }
+    })
+
+    // 初期表示更新 (不要かもしれないが念のため)
+    // updateView(); 
+  }
 
   // 各機能のセットアップ関数を呼び出す
   setupProfileToggle()
   setupTranscriptToggle()
   setupTabs() // 汎用タブ用
   setupBlogMonthTabs() // ブログ年月タブ用
+  setupCategoryTabs() // カテゴリタブ用
+  setupTechBlogPagination() // Tech Blog ページネーション用
 
   // BlogDetailV3 のグラフ表示（クライアントのみで描画が必要な場合）
   const initScript = document.getElementById('blog-detail-init') as HTMLScriptElement | null
