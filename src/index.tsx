@@ -34,10 +34,10 @@ app.get('/', (c) => {
 
 // Blog page
 app.get('/blog', async (c) => {
+  const blogContent = await Blog()
   return c.render(
     <Layout>
-      {/* @ts-expect-error Server Component */}
-      <Blog />
+      {blogContent}
     </Layout>,
     { title: "Nike Portfolio | Blog" }
   )
@@ -46,10 +46,10 @@ app.get('/blog', async (c) => {
 // Blog detail page
 app.get('/blog/:id', async (c) => {
   const id = c.req.param('id')
+  const detailContent = await BlogDetail({ id })
   return c.render(
     <Layout>
-      {/* @ts-expect-error Server Component */}
-      <BlogDetail id={id} />
+      {detailContent}
     </Layout>,
     { title: "Nike Portfolio | Blog Detail" }
   )
@@ -58,10 +58,10 @@ app.get('/blog/:id', async (c) => {
 // Blog monthly summary page
 app.get('/blog/summary/:yearMonth', async (c) => {
   const yearMonth = c.req.param('yearMonth')
+  const summaryContent = await MonthlySummary({ yearMonth })
   return c.render(
     <Layout>
-      {/* @ts-expect-error Server Component */}
-      <MonthlySummary yearMonth={yearMonth} />
+      {summaryContent}
     </Layout>,
     { title: "Nike Portfolio | Monthly Summary" }
   )

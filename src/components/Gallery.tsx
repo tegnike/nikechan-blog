@@ -1,7 +1,8 @@
 import { GalleryItem } from './GalleryItem'
-import { ImageModal } from './ImageModal'
 
 export const Gallery = () => {
+  // no-op
+
   return (
     <>
       <div className="pt-24 pb-12">
@@ -280,8 +281,6 @@ export const Gallery = () => {
             className="md:col-span-2 aspect-[3/4]"
           />
         </div>
-
-        <ImageModal id="imageModal" />
       </div>
     </>
   )

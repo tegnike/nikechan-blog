@@ -1,3 +1,5 @@
+import { useGalleryModalContext } from '../context/GalleryModalContext'
+
 type GalleryItemProps = {
   src: string;
   alt: string;
@@ -9,9 +11,16 @@ type GalleryItemProps = {
 }
 
 export function GalleryItem({ src, alt, caption, url, caption2, url2, className = '' }: GalleryItemProps) {
+  const { openModal } = useGalleryModalContext()
+
+  const handleClick = () => {
+    openModal({ src, caption, url, caption2, url2 })
+  }
+
   return (
     <div 
-      class={`relative group overflow-hidden rounded-lg cursor-pointer gallery-item ${className}`}
+      onClick={handleClick}
+      className={`relative group overflow-hidden rounded-lg cursor-pointer gallery-item ${className}`}
       data-src={src}
       data-caption={caption}
       data-url={url || ''}
