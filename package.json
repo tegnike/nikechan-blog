@@ -6,7 +6,8 @@
     "watch:css": "tailwindcss -i ./src/styles/globals.css -o ./public/static/styles/globals.css --watch",
     "dev": "concurrently \"npm run watch:css\" \"vite\"",
     "build:server": "npm run build:css && vite build",
-    "build": "npm run build:server",
+    "build:client": "vite build --mode client",
+    "build": "npm run build:css && npm run build:client && vite build",
     "preview": "wrangler pages dev",
     "deploy": "npm run build && wrangler pages deploy"
   },
