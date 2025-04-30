@@ -77,7 +77,11 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
   }, {} as { [key: string]: typeof summaries })
 
   // 月の配列を作成（降順）
-  const months = Object.keys(groupedSummaries).sort((a, b) => b.localeCompare(a))
+  const months = Object.keys(groupedSummaries).sort((a, b) => {
+    const [ay, am] = a.split('-').map(Number)
+    const [by, bm] = b.split('-').map(Number)
+    return by !== ay ? by - ay : bm - am
+  })
 
   // 日付単位のメトリクスを計算
   const dailyMetrics = calculateDailyMetrics(summaries)
@@ -376,4 +380,4 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
       <script dangerouslySetInnerHTML={{ __html: initScript }} />
     </div>
   )
-}      
+}        
