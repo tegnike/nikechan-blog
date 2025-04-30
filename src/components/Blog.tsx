@@ -97,7 +97,7 @@ export const Blog = async () => {
     .eq('status', 'published')
     .order('published_at', { ascending: false })
 
-  if (error) {
+  if (error || noteError) {
     return (
       <div className="text-center py-8 text-red-500">
         エラーが発生しました

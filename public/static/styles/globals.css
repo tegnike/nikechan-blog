@@ -2308,14 +2308,7 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.line-clamp-2 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.\[text-shadow\:_-1px_-1px_0_\#000\2c _1px_-1px_0_\#000\2c _-1px_1px_0_\#000\2c _1px_1px_0_\#000\] {
+.\[text-shadow\:_-1px_-1px_0_\#000\2c _1px_-1px_0_\#000\2c _-1px_1px_0_\#000\2c _1px_1px_0_\#000\]{
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 

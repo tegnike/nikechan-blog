@@ -133,6 +133,7 @@ export const TechBlog = ({ noteArticles, shuffledImageNumbers }: TechBlogProps) 
                         fetchpriority={index < 6 ? "high" : "low"} // 最初の数件だけ優先読み込み
                         onError={(e) => {
                           const target = e.target as HTMLImageElement
+                          target.onerror = null; // 無限ループ防止
                           target.src = `/images/thumbnails/${shuffledImageNumbers[index % shuffledImageNumbers.length]}.png`
                         }}
                       />
@@ -170,4 +171,4 @@ export const TechBlog = ({ noteArticles, shuffledImageNumbers }: TechBlogProps) 
       </div>
     </div>
   )
-} 
+}    

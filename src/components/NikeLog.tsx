@@ -307,7 +307,7 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
       <div className="container mx-auto px-4">
         {/* 月別タブ */}
         <div className="mb-8 mt-8 overflow-x-auto">
-          <div className="flex space-x-2 min-w-max p-2">
+          <div className="flex space-x-2 min-w-max p-2" data-month-tabs>
             {months.map((yearMonth, monthIndex) => (
               <button
                 key={yearMonth}
@@ -376,4 +376,4 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
       <script dangerouslySetInnerHTML={{ __html: initScript }} />
     </div>
   )
-} 
+}  

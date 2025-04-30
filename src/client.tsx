@@ -103,7 +103,7 @@ function bootstrap() {
 
   // ブログページの年月タブ切り替え機能
   function setupBlogMonthTabs() {
-    const monthTabsContainer = document.querySelector('.flex.space-x-2.min-w-max.p-2') // Blog.tsxのクラス構造に合わせる
+    const monthTabsContainer = document.querySelector('[data-month-tabs]') // クラスセレクタをdata属性に置き換え
     if (!monthTabsContainer) return // ブログページ以外では何もしない
 
     const monthTabs = monthTabsContainer.querySelectorAll<HTMLButtonElement>('.month-tab')
@@ -312,4 +312,4 @@ if (typeof document !== 'undefined') {
   } else {
     bootstrap()
   }
-} 
+}  

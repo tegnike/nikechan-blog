@@ -10,9 +10,10 @@ type Props = {
 export function Layout({ children, title = 'My Portfolio & Blog', currentPath }: Props) {
   const getLinkClass = (path: string, isBlog = false) => {
     const baseClass = "transition-colors";
+    const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     const isActive = isBlog 
-      ? currentPath === path || currentPath.startsWith(path + '/')
-      : currentPath === path;
+      ? clean === path || clean.startsWith(`${path}/`)
+      : clean === path;
     return isActive ? `${baseClass} text-blue-300` : `${baseClass} hover:text-blue-300`;
   };
 
