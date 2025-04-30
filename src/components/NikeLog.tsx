@@ -63,9 +63,6 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
   // 全期間の合計値を計算
   const totalSessions = summaries.reduce((sum, s) => sum + (s.public_chat_session_count || 0), 0);
   const totalMessages = summaries.reduce((sum, s) => sum + (s.public_message_count || 0), 0);
-  // incomeとexpenditureはSummary型に含まれているか確認が必要。
-  // 現状の型定義にはないため、一旦コメントアウトまたは0で初期化。
-  // TODO: Summary型とデータ取得部分を確認し、income/expenditureを追加する
   const totalIncome = summaries.reduce((sum, s) => sum + (s.income || 0), 0);
   const totalExpenditure = summaries.reduce((sum, s) => sum + (s.expenditure || 0), 0);
 
@@ -379,4 +376,4 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
       <script dangerouslySetInnerHTML={{ __html: initScript }} />
     </div>
   )
-}    
+}      
