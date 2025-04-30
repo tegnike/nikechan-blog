@@ -1381,10 +1381,6 @@ video {
   left: 0;
 }
 
-.static {
-  position: static;
-}
-
 .fixed {
   position: fixed;
 }
