@@ -1,4 +1,5 @@
 import { supabase, type Summary } from '../lib/supabase'
+import { useEffect } from 'react'
 
 // 日付をYYYY-MMの形式に変換する関数
 const getYearMonth = (date: string) => {
@@ -86,196 +87,221 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
   // 日付単位のメトリクスを計算
   const dailyMetrics = calculateDailyMetrics(summaries)
 
-  // Chart.jsの初期化用のスクリプトタグを生成
-  const initScript = `
-    window.addEventListener('DOMContentLoaded', function() {
-      // 日付表示用の関数をクライアントサイドで定義
-      const formatDate = (date) => {
-        return new Date(date).toLocaleDateString('ja-JP', {
-          month: '2-digit',
-          day: '2-digit'
-        }).replace('/', '/');
-      };
+  // Chart.jsの初期化用のuseEffect
+  useEffect(() => {
+    const loadChart = async () => {
+      try {
+        // Chart.jsを動的にインポート
+        const { Chart } = await import('chart.js/auto');
+        
+        // 日付表示用の関数をクライアントサイドで定義
+        const formatDateClient = (date: string) => {
+          return new Date(date).toLocaleDateString('ja-JP', {
+            month: '2-digit',
+            day: '2-digit'
+          }).replace('/', '/');
+        };
 
-      // フィルタリング関数の定義
-      const filterByMonths = (data, months) => {
-        const now = new Date();
-        return data.filter(m => {
-          const date = new Date(m.date);
-          const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth();
-          return monthDiff <= months;
-        });
-      };
+        // フィルタリング関数の定義
+        const filterByMonths = (data: any[], months: number) => {
+          const now = new Date();
+          return data.filter(m => {
+            const date = new Date(m.date);
+            const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth();
+            return monthDiff <= months;
+          });
+        };
 
-      // 初期データの設定
-      const rawData = ${JSON.stringify(dailyMetrics)};
-      
-      // 画面サイズに応じたデータのフィルタリング
-      const getFilteredData = () => {
-        if (window.innerWidth >= 1024) {
-          return filterByMonths(rawData, 4);  // PC: 4ヶ月
-        } else if (window.innerWidth >= 768) {
-          return filterByMonths(rawData, 3);  // タブレット: 3ヶ月
-        } else {
-          return filterByMonths(rawData, 1);  // スマホ: 1ヶ月
-        }
-      };
+        // 初期データの設定
+        const rawData = dailyMetrics;
+        
+        // 画面サイズに応じたデータのフィルタリング
+        const getFilteredData = () => {
+          if (window.innerWidth >= 1024) {
+            return filterByMonths(rawData, 4);  // PC: 4ヶ月
+          } else if (window.innerWidth >= 768) {
+            return filterByMonths(rawData, 3);  // タブレット: 3ヶ月
+          } else {
+            return filterByMonths(rawData, 1);  // スマホ: 1ヶ月
+          }
+        };
 
-      // グラフの初期化
-      const canvas = document.getElementById('dailyMetricsChart');
-      if (!canvas || typeof Chart === 'undefined') return; // Chart.js 未ロード対策
-      
-      const ctx = canvas.getContext('2d');
-      let currentData = getFilteredData();
-      
-      const chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: currentData.map(m => formatDate(m.date)),
-          datasets: [
-            {
-              label: 'セッション数',
-              data: currentData.map(m => m.sessions),
-              borderColor: '#4ECDC4',
-              tension: 0.1,
-              yAxisID: 'y1',
-              borderWidth: 2,
-              pointRadius: 0,
-              pointHoverRadius: 4
-            },
-            {
-              label: 'メッセージ数',
-              data: currentData.map(m => m.messages),
-              borderColor: '#FF6B6B',
-              tension: 0.1,
-              yAxisID: 'y2',
-              borderWidth: 2,
-              pointRadius: 0,
-              pointHoverRadius: 4
-            },
-            {
-              label: 'リピートユーザー数',
-              data: currentData.map(m => m.repeats),
-              borderColor: '#FFD93D',
-              tension: 0.1,
-              yAxisID: 'y1',
-              borderWidth: 2,
-              pointRadius: 0,
-              pointHoverRadius: 4,
-              borderDash: [5, 5]
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: {
-            mode: 'index',
-            intersect: false,
+        // グラフの初期化
+        const canvas = document.getElementById('dailyMetricsChart') as HTMLCanvasElement;
+        if (!canvas) return; // キャンバス要素が存在しない場合は終了
+        
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return; // コンテキストが取得できない場合は終了
+        
+        let currentData = getFilteredData();
+        
+        const chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: currentData.map(m => formatDateClient(m.date)),
+            datasets: [
+              {
+                label: 'セッション数',
+                data: currentData.map(m => m.sessions),
+                borderColor: '#4ECDC4',
+                tension: 0.1,
+                yAxisID: 'y1',
+                borderWidth: 2,
+                pointRadius: 0,
+                pointHoverRadius: 4
+              },
+              {
+                label: 'メッセージ数',
+                data: currentData.map(m => m.messages),
+                borderColor: '#FF6B6B',
+                tension: 0.1,
+                yAxisID: 'y2',
+                borderWidth: 2,
+                pointRadius: 0,
+                pointHoverRadius: 4
+              },
+              {
+                label: 'リピートユーザー数',
+                data: currentData.map(m => m.repeats),
+                borderColor: '#FFD93D',
+                tension: 0.1,
+                yAxisID: 'y1',
+                borderWidth: 2,
+                pointRadius: 0,
+                pointHoverRadius: 4,
+                borderDash: [5, 5]
+              }
+            ]
           },
-          plugins: {
-            legend: {
-              position: 'top',
-              align: 'start',
-              labels: {
-                boxWidth: 15,
-                padding: 15
-              }
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+              mode: 'index',
+              intersect: false,
             },
-            tooltip: {
-              callbacks: {
-                afterBody: function(context) {
-                  const index = context[0].dataIndex;
-                  const data = currentData;
-                  const sessions = data[index].sessions;
-                  const repeats = data[index].repeats;
-                  const repeatRate = sessions > 0 ? ((repeats / sessions) * 100).toFixed(1) : '0.0';
-                  return \`リピート率: \${repeatRate}%\`;
+            plugins: {
+              legend: {
+                position: 'top',
+                align: 'start',
+                labels: {
+                  boxWidth: 15,
+                  padding: 15
                 }
-              }
-            }
-          },
-          scales: {
-            x: {
-              grid: {
-                display: true,
-                color: 'rgba(255, 255, 255, 0.1)'
               },
-              ticks: {
-                maxRotation: 45,
-                minRotation: 45,
-                padding: 5,
-                color: 'rgba(255, 255, 255, 0.8)',
-                font: {
-                  size: 11
+              tooltip: {
+                callbacks: {
+                  afterBody: function(context) {
+                    const index = context[0].dataIndex;
+                    const data = currentData;
+                    const sessions = data[index].sessions;
+                    const repeats = data[index].repeats;
+                    const repeatRate = sessions > 0 ? ((repeats / sessions) * 100).toFixed(1) : '0.0';
+                    return `リピート率: ${repeatRate}%`;
+                  }
                 }
               }
             },
-            y1: {
-              type: 'linear',
-              display: true,
-              position: 'left',
-              title: {
+            scales: {
+              x: {
+                grid: {
+                  display: true,
+                  color: 'rgba(255, 255, 255, 0.1)'
+                },
+                ticks: {
+                  maxRotation: 45,
+                  minRotation: 45,
+                  padding: 5,
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  font: {
+                    size: 11
+                  }
+                }
+              },
+              y1: {
+                type: 'linear',
                 display: true,
-                text: 'セッション数・リピート数',
-                color: '#4ECDC4',
-                font: {
-                  size: 12
+                position: 'left',
+                title: {
+                  display: true,
+                  text: 'セッション数・リピート数',
+                  color: '#4ECDC4',
+                  font: {
+                    size: 12
+                  }
+                },
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.1)'
+                },
+                ticks: {
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  padding: 8,
+                  font: {
+                    size: 11
+                  }
                 }
               },
-              grid: {
-                color: 'rgba(255, 255, 255, 0.1)'
-              },
-              ticks: {
-                color: 'rgba(255, 255, 255, 0.8)',
-                padding: 8,
-                font: {
-                  size: 11
-                }
-              }
-            },
-            y2: {
-              type: 'linear',
-              display: true,
-              position: 'right',
-              title: {
+              y2: {
+                type: 'linear',
                 display: true,
-                text: 'メッセージ数',
-                color: '#FF6B6B',
-                font: {
-                  size: 12
-                }
-              },
-              grid: {
-                display: false
-              },
-              ticks: {
-                color: 'rgba(255, 255, 255, 0.8)',
-                padding: 8,
-                font: {
-                  size: 11
+                position: 'right',
+                title: {
+                  display: true,
+                  text: 'メッセージ数',
+                  color: '#FF6B6B',
+                  font: {
+                    size: 12
+                  }
+                },
+                grid: {
+                  display: false
+                },
+                ticks: {
+                  color: 'rgba(255, 255, 255, 0.8)',
+                  padding: 8,
+                  font: {
+                    size: 11
+                  }
                 }
               }
             }
           }
-        }
-      });
+        });
 
-      // リサイズイベントの処理
-      let resizeTimeout;
-      window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(function() {
-          currentData = getFilteredData();
-          chart.data.labels = currentData.map(m => formatDate(m.date));
-          chart.data.datasets[0].data = currentData.map(m => m.sessions);
-          chart.data.datasets[1].data = currentData.map(m => m.messages);
-          chart.data.datasets[2].data = currentData.map(m => m.repeats);
-          chart.update();
-        }, 250);
-      });
-    });
-  `;
+        // リサイズイベントの処理
+        let resizeTimeout: number;
+        const handleResize = () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = window.setTimeout(() => {
+            currentData = getFilteredData();
+            chart.data.labels = currentData.map(m => formatDateClient(m.date));
+            chart.data.datasets[0].data = currentData.map(m => m.sessions);
+            chart.data.datasets[1].data = currentData.map(m => m.messages);
+            chart.data.datasets[2].data = currentData.map(m => m.repeats);
+            chart.update();
+          }, 250);
+        };
+        
+        window.addEventListener('resize', handleResize);
+        
+        return () => {
+          window.removeEventListener('resize', handleResize);
+          chart.destroy();
+        };
+      } catch (error) {
+        console.error('Chart.jsの読み込みに失敗しました:', error);
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadChart);
+      return () => {
+        document.removeEventListener('DOMContentLoaded', loadChart);
+      };
+    } else {
+      loadChart();
+    }
+  }, [dailyMetrics]); // dailyMetricsが変更されたときに再実行
 
   return (
     <div id="category-nikelog" className="category-content block" data-content="nikelog">
@@ -377,7 +403,6 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
           </div>
         ))}
       </div>
-      <script dangerouslySetInnerHTML={{ __html: initScript }} />
     </div>
   )
-}        
+}                 
