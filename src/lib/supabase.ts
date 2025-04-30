@@ -17,6 +17,8 @@ export type Summary = {
   version: number
   podcast: string
   podcast_url: string
+  income?: number
+  expenditure?: number
 }
 
 export type NoteArticle = {
