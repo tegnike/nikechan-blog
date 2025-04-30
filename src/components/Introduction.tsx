@@ -1,7 +1,7 @@
 export const Introduction = () => {
   return (
     <>
-      <div className="pt-24 pb-12">
+      <div className="pt-12 pb-12">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-white">
           Hello, I'm Nike.
         </h1>

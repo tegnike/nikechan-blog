@@ -24,7 +24,7 @@ app.get('/', (c) => {
   const currentPath = c.req.path; // パスを取得
 
   return c.render(
-    <Layout currentPath={currentPath}> // currentPathを渡す
+    <Layout currentPath={currentPath}>
       <Introduction />
       <Model />
       <Gallery />
@@ -38,7 +38,7 @@ app.get('/blog', async (c) => {
   const blogContent = await Blog()
   const currentPath = c.req.path; // パスを取得
   return c.render(
-    <Layout currentPath={currentPath}> // currentPathを渡す
+    <Layout currentPath={currentPath}>
       {blogContent}
     </Layout>,
     { title: "Nike Portfolio | Blog" }
@@ -51,7 +51,7 @@ app.get('/blog/:id', async (c) => {
   const detailContent = await BlogDetail({ id })
   const currentPath = c.req.path; // パスを取得
   return c.render(
-    <Layout currentPath={currentPath}> // currentPathを渡す
+    <Layout currentPath={currentPath}>
       {detailContent}
     </Layout>,
     { title: "Nike Portfolio | Blog Detail" }
@@ -64,7 +64,7 @@ app.get('/blog/summary/:yearMonth', async (c) => {
   const summaryContent = await MonthlySummary({ yearMonth })
   const currentPath = c.req.path; // パスを取得
   return c.render(
-    <Layout currentPath={currentPath}> // currentPathを渡す
+    <Layout currentPath={currentPath}>
       {summaryContent}
     </Layout>,
     { title: "Nike Portfolio | Monthly Summary" }
@@ -75,7 +75,7 @@ app.get('/blog/summary/:yearMonth', async (c) => {
 app.get('/about', (c) => {
   const currentPath = c.req.path; // パスを取得
   return c.render(
-    <Layout currentPath={currentPath}> // currentPathを渡す
+    <Layout currentPath={currentPath}>
       <About />
     </Layout>,
     { title: "Nike Portfolio | About" }
