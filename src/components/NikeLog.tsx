@@ -121,7 +121,10 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
       };
 
       // グラフの初期化
-      const ctx = document.getElementById('dailyMetricsChart').getContext('2d');
+      const canvas = document.getElementById('dailyMetricsChart');
+      if (!canvas || typeof Chart === 'undefined') return; // Chart.js 未ロード対策
+      
+      const ctx = canvas.getContext('2d');
       let currentData = getFilteredData();
       
       const chart = new Chart(ctx, {
@@ -376,4 +379,4 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
       <script dangerouslySetInnerHTML={{ __html: initScript }} />
     </div>
   )
-}  
+}    
