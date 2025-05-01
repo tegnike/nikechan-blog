@@ -159,25 +159,30 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
                 </a>
               </div>
             )}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {groupedSummaries[yearMonth].map((summary, index) => (
+            <div className="divide-y divide-gray-700">
+              {groupedSummaries[yearMonth].map((summary) => (
                 <a 
                   key={summary.id} 
                   href={`/blog/${summary.id}`}
-                  className="block bg-gray-800 p-6 rounded-lg shadow-md 
-                    hover:shadow-lg transition-all duration-300 ease-in-out 
-                    hover:transform hover:-translate-y-1 hover:scale-[1.02]"
+                  className="block py-4 px-4 hover:bg-gray-800 transition-colors rounded-lg"
                 >
-                  <div className="aspect-w-16 aspect-h-9 relative">
-                    <img
-                      src={`/images/thumbnails/${shuffledImageNumbers[(monthIndex * 10 + index) % shuffledImageNumbers.length]}.png`}
-                      alt="ブログサムネイル"
-                      className="object-cover w-full h-full rounded-lg"
-                    />
-                    <div className="absolute top-0 left-0 w-1/2 h-1/2 flex items-center justify-center">
-                      <p className="text-4xl sm:text-5xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
-                        {formatDate(summary.target_date as string)}
-                      </p>
+                  <div className="flex flex-col md:flex-row md:items-center">
+                    <div className="text-xl font-bold text-white mb-2 md:mb-0 md:mr-4">
+                      {formatDate(summary.target_date as string)}
+                    </div>
+                    <div className="flex gap-4 text-gray-300">
+                      <div className="flex items-center">
+                        <svg className="w-5 h-5 mr-1 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                        </svg>
+                        <span>{summary.public_chat_session_count || 0}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <svg className="w-5 h-5 mr-1 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                        </svg>
+                        <span>{summary.public_message_count || 0}</span>
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -188,4 +193,4 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
       </div>
     </div>
   )
-}        
+}                
