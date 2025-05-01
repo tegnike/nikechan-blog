@@ -123,7 +123,7 @@ export const TechBlog = ({ noteArticles, shuffledImageNumbers }: TechBlogProps) 
                     }
                     data-page-item={pageNumber}
                   >
-                    <div className="aspect-w-16 aspect-h-9 mb-4">
+                    <div className="aspect-w-128 aspect-h-67 mb-4">
                       <img
                         src={article.thumbnail_url || `/images/thumbnails/${shuffledImageNumbers[index % shuffledImageNumbers.length]}.png`}
                         alt={article.title}
