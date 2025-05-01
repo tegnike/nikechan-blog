@@ -168,16 +168,21 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
                     hover:shadow-lg transition-all duration-300 ease-in-out 
                     hover:transform hover:-translate-y-1 hover:scale-[1.02]"
                 >
-                  <div className="aspect-w-16 aspect-h-9 relative">
-                    <img
-                      src={`/images/thumbnails/${shuffledImageNumbers[(monthIndex * 10 + index) % shuffledImageNumbers.length]}.png`}
-                      alt="ブログサムネイル"
-                      className="object-cover w-full h-full rounded-lg"
-                    />
-                    <div className="absolute top-0 left-0 w-1/2 h-1/2 flex items-center justify-center">
-                      <p className="text-4xl sm:text-5xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+                  <div className="flex flex-col h-full">
+                    <div className="mb-4">
+                      <h3 className="text-2xl font-bold text-white">
                         {formatDate(summary.target_date as string)}
-                      </p>
+                      </h3>
+                    </div>
+                    <div className="flex flex-wrap gap-4 mt-auto">
+                      <div className="bg-gray-700 rounded-lg px-4 py-2">
+                        <p className="text-sm text-gray-400">セッション数</p>
+                        <p className="text-lg font-bold text-white">{summary.public_chat_session_count || 0}</p>
+                      </div>
+                      <div className="bg-gray-700 rounded-lg px-4 py-2">
+                        <p className="text-sm text-gray-400">メッセージ数</p>
+                        <p className="text-lg font-bold text-white">{summary.public_message_count || 0}</p>
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -188,4 +193,4 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
       </div>
     </div>
   )
-}        
+}                
