@@ -280,31 +280,229 @@ function bootstrap() {
     // updateView(); 
   }
 
-  // 各機能のセットアップ関数を呼び出す
-  setupProfileToggle()
-  setupTranscriptToggle()
-  setupTabs() // 汎用タブ用
-  setupBlogMonthTabs() // ブログ年月タブ用
-  setupCategoryTabs() // カテゴリタブ用
-  setupTechBlogPagination() // Tech Blog ページネーション用
-
-  // BlogDetailV3 のグラフ表示（クライアントのみで描画が必要な場合）
-  const initScript = document.getElementById('blog-detail-init') as HTMLScriptElement | null
-  if (initScript) {
-    try {
-      const props = JSON.parse(initScript.textContent || '{}')
-      const rootEl = document.getElementById('blog-detail-v3-root')
-      if (rootEl) {
-        import('./components/BlogDetailV3').then(mod => {
-          const BlogDetailV3 = mod.BlogDetailV3 as any
-          hydrateRoot(rootEl, <BlogDetailV3 {...props} />)
-        })
-      }
-    } catch (e) {
-      console.error('Failed to hydrate BlogDetailV3', e)
+  // NikeLog チャート初期化機能
+  function setupNikeLogChart() {
+    const canvas = document.getElementById('dailyMetricsChart') as HTMLCanvasElement | null;
+    if (!canvas || typeof Chart === 'undefined') {
+      // Chart.jsが読み込まれていないか、要素がない場合は何もしない
+      if (!canvas) console.warn('NikeLog chart canvas not found.');
+      if (typeof Chart === 'undefined') console.warn('Chart.js is not loaded.');
+      return;
     }
+
+    const metricsDataString = canvas.dataset.metrics;
+    if (!metricsDataString) {
+      console.warn('No metrics data found on canvas.');
+      return;
+    }
+
+    let rawData: { date: string; sessions: number; messages: number; repeats: number }[];
+    try {
+      rawData = JSON.parse(metricsDataString);
+    } catch (e) {
+      console.error('Failed to parse metrics data:', e);
+      return;
+    }
+
+    // 日付表示用の関数
+    const formatDate = (dateString: string) => {
+      return new Date(dateString).toLocaleDateString('ja-JP', {
+        month: '2-digit',
+        day: '2-digit'
+      }).replace('/', '/');
+    };
+
+    // フィルタリング関数の定義
+    const filterByMonths = (data: typeof rawData, months: number) => {
+      const now = new Date();
+      return data.filter(m => {
+        const date = new Date(m.date);
+        const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth();
+        // 未来のデータは含めないように <= を使用
+        return monthDiff >= 0 && monthDiff <= months;
+      });
+    };
+
+    // 画面サイズに応じたデータのフィルタリング
+    const getFilteredData = () => {
+      if (window.innerWidth >= 1024) {
+        return filterByMonths(rawData, 3); // PC: 4ヶ月前まで（0,1,2,3）-> 0から数えるので3
+      } else if (window.innerWidth >= 768) {
+        return filterByMonths(rawData, 2); // タブレット: 3ヶ月前まで -> 2
+      } else {
+        return filterByMonths(rawData, 0); // スマホ: 当月のみ -> 0
+      }
+    };
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let currentData = getFilteredData();
+    const chart = new (window as any).Chart(ctx, { // グローバルのChartを使用
+      type: 'line',
+      data: {
+        labels: currentData.map(m => formatDate(m.date)),
+        datasets: [
+          {
+            label: 'セッション数',
+            data: currentData.map(m => m.sessions),
+            borderColor: '#4ECDC4',
+            tension: 0.1,
+            yAxisID: 'y1',
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 4
+          },
+          {
+            label: 'メッセージ数',
+            data: currentData.map(m => m.messages),
+            borderColor: '#FF6B6B',
+            tension: 0.1,
+            yAxisID: 'y2',
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 4
+          },
+          {
+            label: 'リピートユーザー数',
+            data: currentData.map(m => m.repeats),
+            borderColor: '#FFD93D',
+            tension: 0.1,
+            yAxisID: 'y1',
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            borderDash: [5, 5]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+            align: 'start',
+            labels: {
+              boxWidth: 15,
+              padding: 15
+            }
+          },
+          tooltip: {
+            callbacks: {
+              afterBody: function(context: any) { // Tooltip コールバックの型付け
+                const index = context[0].dataIndex;
+                // currentData はクロージャで参照される
+                const dataPoint = currentData[index];
+                if (!dataPoint) return ''; // データポイントが存在しない場合
+                const sessions = dataPoint.sessions;
+                const repeats = dataPoint.repeats;
+                const repeatRate = sessions > 0 ? ((repeats / sessions) * 100).toFixed(1) : '0.0';
+                return `リピート率: ${repeatRate}%`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: {
+              display: true,
+              color: 'rgba(255, 255, 255, 0.1)'
+            },
+            ticks: {
+              maxRotation: 45,
+              minRotation: 45,
+              padding: 5,
+              color: 'rgba(255, 255, 255, 0.8)',
+              font: {
+                size: 11
+              }
+            }
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: {
+              display: true,
+              text: 'セッション数・リピート数',
+              color: '#4ECDC4',
+              font: {
+                size: 12
+              }
+            },
+            grid: {
+              color: 'rgba(255, 255, 255, 0.1)'
+            },
+            ticks: {
+              color: 'rgba(255, 255, 255, 0.8)',
+              padding: 8,
+              font: {
+                size: 11
+              }
+            }
+          },
+          y2: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            title: {
+              display: true,
+              text: 'メッセージ数',
+              color: '#FF6B6B',
+              font: {
+                size: 12
+              }
+            },
+            grid: {
+              display: false
+            },
+            ticks: {
+              color: 'rgba(255, 255, 255, 0.8)',
+              padding: 8,
+              font: {
+                size: 11
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // リサイズイベントの処理
+    let resizeTimeout: number;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(function() { // window.setTimeout を使用
+        currentData = getFilteredData(); // 再計算
+        chart.data.labels = currentData.map(m => formatDate(m.date));
+        chart.data.datasets[0].data = currentData.map(m => m.sessions);
+        chart.data.datasets[1].data = currentData.map(m => m.messages);
+        chart.data.datasets[2].data = currentData.map(m => m.repeats);
+        chart.update();
+      }, 250);
+    });
   }
+
+
+  // DOMContentLoaded で各種セットアップを実行
+  document.addEventListener('DOMContentLoaded', () => {
+    setupProfileToggle()
+    setupTranscriptToggle()
+    setupTabs()
+    setupBlogMonthTabs()
+    setupCategoryTabs()
+    setupTechBlogPagination()
+    setupNikeLogChart() // NikeLogチャートの初期化を追加
+  })
 }
+
+// アプリケーションのブートストラップを実行
+bootstrap()
 
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
