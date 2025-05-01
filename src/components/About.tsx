@@ -5,7 +5,7 @@ export const About: FC = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="pt-24 pb-12">
+      <div className="pt-12 pb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
           ABOUT
         </h1>

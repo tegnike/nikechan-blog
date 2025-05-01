@@ -33,7 +33,7 @@ export const MonthlySummary = async ({ yearMonth }: { yearMonth: string }) => {
 
   return (
     <>
-      <div className="pt-24 pb-12">
+      <div className="pt-12 pb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
           NIKELOG
         </h1>

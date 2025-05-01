@@ -23,6 +23,7 @@ export const renderer = reactRenderer(({ children, title }: BaseProps) => {
           type="module"
           src={import.meta.env.PROD ? '/static/client.js' : '/src/client.tsx'}
         ></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
       </head>
       <body className="bg-gray-900">
         <div id="root">

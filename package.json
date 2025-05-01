@@ -31,6 +31,7 @@
     "@hono/vite-build": "^1.0.0",
     "@hono/vite-dev-server": "^0.16.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.15",
     "@types/better-sqlite3": "^7.6.12",
     "@types/react": "^18.3.1",
