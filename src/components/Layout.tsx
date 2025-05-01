@@ -28,7 +28,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
               </a>
             </h1>
             <ul className="flex gap-6 text-white">
-              <li><a href="/" className={getLinkClass('/')}>Gallery</a></li>
+              <li><a href="/" className={getLinkClass('')}>Gallery</a></li>
               <li><a href="/blog" className={getLinkClass('/blog', true)}>Blog</a></li>
               <li><a href="/about" className={getLinkClass('/about')}>About</a></li>
             </ul>
