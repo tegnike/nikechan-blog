@@ -312,25 +312,26 @@ function bootstrap() {
       }).replace('/', '/');
     };
 
-    // フィルタリング関数の定義
-    const filterByMonths = (data: typeof rawData, months: number) => {
+    // 指定日数以内のデータだけを抽出する関数
+    const filterByDays = (data: typeof rawData, days: number) => {
       const now = new Date();
+      const msPerDay = 1000 * 60 * 60 * 24;
       return data.filter(m => {
         const date = new Date(m.date);
-        const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth();
-        // 未来のデータは含めないように <= を使用
-        return monthDiff >= 0 && monthDiff <= months;
+        const diffDays = Math.floor((now.getTime() - date.getTime()) / msPerDay);
+        // 未来の日付は除外し、範囲内の日付のみ含める
+        return diffDays >= 0 && diffDays <= days;
       });
     };
 
     // 画面サイズに応じたデータのフィルタリング
     const getFilteredData = () => {
       if (window.innerWidth >= 1024) {
-        return filterByMonths(rawData, 3); // PC: 4ヶ月前まで（0,1,2,3）-> 0から数えるので3
+        return filterByDays(rawData, 120); // PC: 当日含めて120日分
       } else if (window.innerWidth >= 768) {
-        return filterByMonths(rawData, 2); // タブレット: 3ヶ月前まで -> 2
+        return filterByDays(rawData, 90); // タブレット: 当日含めて90日分
       } else {
-        return filterByMonths(rawData, 0); // スマホ: 当月のみ -> 0
+        return filterByDays(rawData, 30); // スマホ: 当日含めて30日分
       }
     };
 
