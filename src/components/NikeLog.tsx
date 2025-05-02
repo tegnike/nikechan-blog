@@ -166,8 +166,8 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
                   href={`/blog/${summary.id}`}
                   className="block py-4 px-4 hover:bg-gray-800 transition-colors rounded-lg"
                 >
-                  <div className="flex flex-col md:flex-row md:items-center">
-                    <div className="text-xl font-bold text-white mb-2 md:mb-0 md:mr-4">
+                  <div className="flex items-center">
+                    <div className="text-xl font-bold text-white mb-2 md:mb-0 mr-4">
                       {formatDate(summary.target_date as string)}
                     </div>
                     <div className="flex gap-4 text-gray-300">
