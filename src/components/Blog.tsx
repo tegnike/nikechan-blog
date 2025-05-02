@@ -12,73 +12,6 @@ const shuffleArray = (array: number[]) => {
   return shuffled
 }
 
-// 日付をYYYY-MMの形式に変換する関数
-const getYearMonth = (date: string) => {
-  return date.substring(0, 7) // YYYY-MM形式で取得
-}
-
-// 月表示用の関数
-const formatMonthYear = (yearMonth: string) => {
-  const [year, month] = yearMonth.split('-')
-  return `${year}/${month}`
-}
-
-// 日付表示用の関数
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString('ja-JP', {
-    month: '2-digit',
-    day: '2-digit'
-  }).replace('/', '/')
-}
-
-// 指定された年月が現在の年月より過去かどうかをチェックする関数
-const isPastMonth = (yearMonth: string) => {
-  const today = new Date()
-  const targetDate = new Date(yearMonth + '-01')
-  
-  // 年と月を比較
-  if (today.getFullYear() < targetDate.getFullYear()) return false
-  if (today.getFullYear() > targetDate.getFullYear()) return true
-  return today.getMonth() > targetDate.getMonth()
-}
-
-// 日付単位の集計を行う関数
-const calculateDailyMetrics = (summaries: any[]) => {
-  // 日付でソート
-  const sortedSummaries = [...summaries].sort((a, b) => 
-    new Date(a.target_date).getTime() - new Date(b.target_date).getTime()
-  )
-
-  return sortedSummaries.map(summary => ({
-    date: summary.target_date,
-    sessions: summary.public_chat_session_count || 0,
-    messages: summary.public_message_count || 0,
-    repeats: summary.repeat_count || 0
-  }))
-}
-
-// 画面サイズに応じてデータをフィルタリングする関数
-const filterDataByScreenSize = (metrics: any[]) => {
-  const now = new Date()
-  return {
-    sm: metrics.filter(m => {
-      const date = new Date(m.date)
-      const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth()
-      return monthDiff <= 1
-    }),
-    md: metrics.filter(m => {
-      const date = new Date(m.date)
-      const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth()
-      return monthDiff <= 3
-    }),
-    lg: metrics.filter(m => {
-      const date = new Date(m.date)
-      const monthDiff = (now.getFullYear() - date.getFullYear()) * 12 + now.getMonth() - date.getMonth()
-      return monthDiff <= 4
-    })
-  }
-}
-
 export const Blog = async () => {
   // 1から23までの画像番号の配列をシャッフル
   const imageNumbers = Array.from({length: 23}, (_, i) => i + 1)
@@ -87,7 +20,7 @@ export const Blog = async () => {
   // NIKELOG データ取得
   const { data: summaries, error } = await supabase
     .from('daily_summaries')
-    .select('id, created_at, target_date, public_chat_session_count, public_message_count, repeat_count')
+    .select('*') // Summary 型に合わせて全カラム取得
     .order('target_date', { ascending: false })
 
   // TECH BLOG データ取得
