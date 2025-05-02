@@ -169,11 +169,11 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
   const sortedTimes = timeOrder.map(key => [key, data.conversation_metrics.time_distribution[key as keyof typeof data.conversation_metrics.time_distribution]]);
   const timeDistributionSessionData = {
     labels: sortedTimes.map(([key]) => timeLabelsMap[key as keyof typeof timeLabelsMap]),
-    datasets: [{ label: 'セッション数', data: sortedTimes.map(([, d]) => d.count), backgroundColor: '#8884d8' }]
+    datasets: [{ label: 'セッション数', data: sortedTimes.map(([, d]) => typeof d === 'object' ? d.count : 0), backgroundColor: '#8884d8' }]
   };
   const timeDistributionTurnData = {
     labels: sortedTimes.map(([key]) => timeLabelsMap[key as keyof typeof timeLabelsMap]),
-    datasets: [{ label: '平均ターン数', data: sortedTimes.map(([, d]) => d.avg_turns), backgroundColor: '#82ca9d' }]
+    datasets: [{ label: '平均ターン数', data: sortedTimes.map(([, d]) => typeof d === 'object' ? d.avg_turns : 0), backgroundColor: '#82ca9d' }]
   };
   const timeDistributionOptions = { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#fff' }, grid: { color: '#666' } }, x: { ticks: { color: '#fff' }, grid: { color: '#666' } } } };
 
@@ -273,14 +273,15 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
                   <button
                     id="toggle-transcript-button"
                     className="w-full p-4 flex justify-between items-center text-sm font-medium text-gray-400 hover:text-gray-300 transition-colors"
+                    onClick={toggleTranscript}
                   >
                     <span className="flex items-center space-x-2">
                       <i className="fas fa-file-alt"></i>
                       <span>文字起こし</span>
                     </span>
-                    <i id="transcript-icon" className="fas fa-chevron-down transition-transform duration-200"></i>
+                    <i id="transcript-icon" className={`fas ${isTranscriptOpen ? 'fa-chevron-up' : 'fa-chevron-down'} transition-transform duration-200`}></i>
                   </button>
-                  <div id="transcript-content" className="px-4 pb-4 hidden">
+                  <div id="transcript-content" className={`px-4 pb-4 ${isTranscriptOpen ? '' : 'hidden'}`}>
                     <div className="prose prose-sm prose-invert max-w-none">
                       <p className="whitespace-pre-wrap text-gray-300">{podcast}</p>
                     </div>
@@ -293,16 +294,16 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
       )}
 
       {/* タブコンテナ */}
-      <div className="tabs-container">
+      <div className="tabs-container" data-tab-container>
         <div className="tabs-list grid grid-cols-4">
-          <button className={`tab-trigger ${activeTab === 'users' ? 'active' : ''}`} onClick={() => handleTabClick('users')}>ユーザー分析</button>
-          <button className={`tab-trigger ${activeTab === 'conversations' ? 'active' : ''}`} onClick={() => handleTabClick('conversations')}>会話分析</button>
-          <button className={`tab-trigger ${activeTab === 'topics' ? 'active' : ''}`} onClick={() => handleTabClick('topics')}>トピック分析</button>
-          <button className={`tab-trigger ${activeTab === 'issues' ? 'active' : ''}`} onClick={() => handleTabClick('issues')}>改善項目</button>
+          <button className={`tab-trigger ${activeTab === 'users' ? 'active' : ''}`} data-target="users-tab" onClick={() => handleTabClick('users')}>ユーザー分析</button>
+          <button className={`tab-trigger ${activeTab === 'conversations' ? 'active' : ''}`} data-target="conversations-tab" onClick={() => handleTabClick('conversations')}>会話分析</button>
+          <button className={`tab-trigger ${activeTab === 'topics' ? 'active' : ''}`} data-target="topics-tab" onClick={() => handleTabClick('topics')}>トピック分析</button>
+          <button className={`tab-trigger ${activeTab === 'issues' ? 'active' : ''}`} data-target="issues-tab" onClick={() => handleTabClick('issues')}>改善項目</button>
         </div>
 
         {/* ユーザー分析タブ */}
-        <div className={`tab-content ${activeTab === 'users' ? 'active' : ''}`} id="users-tab">
+        <div className={`tab-content ${activeTab === 'users' ? '' : 'hidden'}`} id="users-tab">
           <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
             <div className="card">
               <div className="card-header">
@@ -310,7 +311,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <Pie data={userTypesData} options={userTypesOptions} />
+                  <Pie data={userTypesData} options={userTypesOptions as any} />
                 </div>
               </div>
             </div>
@@ -321,7 +322,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <Pie data={languageData} options={languageOptions} />
+                  <Pie data={languageData} options={languageOptions as any} />
                 </div>
               </div>
             </div>
@@ -329,7 +330,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
         </div>
 
         {/* 会話分析タブ */}
-        <div className={`tab-content ${activeTab === 'conversations' ? 'active' : ''}`} id="conversations-tab">
+        <div className={`tab-content ${activeTab === 'conversations' ? '' : 'hidden'}`} id="conversations-tab">
           <div className="space-y-4">
             <div className="card">
               <div className="card-header">
@@ -366,7 +367,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
         </div>
 
         {/* トピック分析タブ */}
-        <div className={`tab-content ${activeTab === 'topics' ? 'active' : ''}`} id="topics-tab">
+        <div className={`tab-content ${activeTab === 'topics' ? '' : 'hidden'}`} id="topics-tab">
           <div className="space-y-4">
             <div className="card">
               <div className="card-header">
@@ -393,7 +394,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
         </div>
 
         {/* 改善項目タブ */}
-        <div className={`tab-content ${activeTab === 'issues' ? 'active' : ''}`} id="issues-tab">
+        <div className={`tab-content ${activeTab === 'issues' ? '' : 'hidden'}`} id="issues-tab">
           <div className="card">
             <div className="card-header">
               <h3 className="card-title">要改善項目</h3>
