@@ -88,6 +88,24 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
 
   return (
     <div id="category-nikelog" className="category-content block" data-content="nikelog">
+      <div className="container mx-auto px-4">
+        <div className="bg-gray-800 p-6 md:p-8 rounded-lg shadow-lg">
+          <div className="max-w-3xl mx-auto">
+            <p className="text-base md:text-lg lg:text-l text-white leading-relaxed">
+              NIKELOGでは、AITuberKitのデモサイトの利用状況を記録しています。
+            </p>
+            <a
+              href="https://aituberkit.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors font-semibold duration-300"
+            >
+              デモサイトはこちら
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* 全期間の合計統計 */}
       <div className="container mx-auto px-4 mt-8 mb-12">
         <h2 className="text-2xl font-bold text-white mb-6">全期間利用統計 (月末更新)</h2>
