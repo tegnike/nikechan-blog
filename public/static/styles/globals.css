@@ -2367,10 +2367,6 @@ video {
   color: rgb(96 165 250 / var(--tw-text-opacity, 1));
 }
 
-.tab-content {
-  display: none;
-}
-
 .tab-content.active {
   display: block;
 }

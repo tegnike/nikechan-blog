@@ -283,6 +283,28 @@ function bootstrap() {
     // updateView(); 
   }
 
+  // BlogDetailV3 のハイドレーション
+  function setupBlogDetailHydration() {
+    const container = document.getElementById('blog-detail-v3-container')
+    if (!container) return
+    const propsStr = container.getAttribute('data-props')
+    if (!propsStr) return
+    let props: any
+    try {
+      props = JSON.parse(propsStr)
+    } catch (e) {
+      console.error('Failed to parse BlogDetailV3 props:', e)
+      return
+    }
+
+    import('./components/BlogDetailV3').then(mod => {
+      const BlogDetailV3 = mod.BlogDetailV3 as any
+      hydrateRoot(container, <BlogDetailV3 {...props} />)
+    }).catch(err => {
+      console.error('Failed to hydrate BlogDetailV3:', err)
+    })
+  }
+
   // NikeLog チャート初期化機能
   function setupNikeLogChart() {
     // 既存のチャートがあれば破棄する
@@ -500,7 +522,6 @@ function bootstrap() {
     });
   }
 
-
   // DOMContentLoaded で各種セットアップを実行
   document.addEventListener('DOMContentLoaded', () => {
     setupProfileToggle()
@@ -510,12 +531,11 @@ function bootstrap() {
     setupCategoryTabs()
     setupTechBlogPagination()
     setupNikeLogChart() // NikeLogチャートの初期化を追加
+    setupBlogDetailHydration() // BlogDetailV3 をハイドレート
   })
 }
 
 // アプリケーションのブートストラップを実行
-bootstrap()
-
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', bootstrap)

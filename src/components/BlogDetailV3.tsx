@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Pie, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 
@@ -67,6 +67,11 @@ type Props = {
 export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_count, repeat_count, podcast, podcast_url }: Props) => {
   const [activeTab, setActiveTab] = useState('users');
   const [isTranscriptOpen, setIsTranscriptOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // --- Chart Data and Options ---
 
@@ -311,7 +316,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <Pie data={userTypesData} options={userTypesOptions as any} />
+                  {isClient && <Pie data={userTypesData} options={userTypesOptions as any} />}
                 </div>
               </div>
             </div>
@@ -322,7 +327,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <Pie data={languageData} options={languageOptions as any} />
+                  {isClient && <Pie data={languageData} options={languageOptions as any} />}
                 </div>
               </div>
             </div>
@@ -338,7 +343,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <Bar data={turnDistributionData} options={turnDistributionOptions} />
+                  {isClient && <Bar data={turnDistributionData} options={turnDistributionOptions} />}
                 </div>
               </div>
             </div>
@@ -350,10 +355,10 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               <div className="card-content">
                 <div className="space-y-4">
                   <div className="h-64">
-                    <Bar data={timeDistributionSessionData} options={timeDistributionOptions} />
+                    {isClient && <Bar data={timeDistributionSessionData} options={timeDistributionOptions} />}
                   </div>
                   <div className="h-64">
-                    <Bar data={timeDistributionTurnData} options={timeDistributionOptions} />
+                    {isClient && <Bar data={timeDistributionTurnData} options={timeDistributionOptions} />}
                   </div>
                 </div>
                 <div className="mt-4 space-y-2">
@@ -375,7 +380,7 @@ export const BlogDetailV3 = ({ data, public_chat_session_count, public_message_c
               </div>
               <div className="card-content">
                 <div className="h-80">
-                  <Bar data={topicData} options={topicOptions} />
+                  {isClient && <Bar data={topicData} options={topicOptions} />}
                 </div>
               </div>
             </div>
