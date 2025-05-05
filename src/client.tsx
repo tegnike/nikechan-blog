@@ -1,8 +1,11 @@
 import React from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
+import Chart from 'chart.js/auto'; // Chart.jsをインポート
 import { GalleryModalProvider } from './context/GalleryModalContext'
 import { GalleryModal } from './components/GalleryModal'
 import type { GalleryModalItem } from './context/GalleryModalContext'
+
+let dailyMetricsChartInstance: Chart | null = null; // チャートインスタンスを保持する変数
 
 function bootstrap() {
   // モーダル専用のルート要素
@@ -280,13 +283,40 @@ function bootstrap() {
     // updateView(); 
   }
 
+  // BlogDetailV3 のハイドレーション
+  function setupBlogDetailHydration() {
+    const container = document.getElementById('blog-detail-v3-container')
+    if (!container) return
+    const propsStr = container.getAttribute('data-props')
+    if (!propsStr) return
+    let props: any
+    try {
+      props = JSON.parse(propsStr)
+    } catch (e) {
+      console.error('Failed to parse BlogDetailV3 props:', e)
+      return
+    }
+
+    import('./components/BlogDetailV3').then(mod => {
+      const BlogDetailV3 = mod.BlogDetailV3 as any
+      hydrateRoot(container, <BlogDetailV3 {...props} />)
+    }).catch(err => {
+      console.error('Failed to hydrate BlogDetailV3:', err)
+    })
+  }
+
   // NikeLog チャート初期化機能
   function setupNikeLogChart() {
+    // 既存のチャートがあれば破棄する
+    if (dailyMetricsChartInstance) {
+      dailyMetricsChartInstance.destroy();
+      dailyMetricsChartInstance = null; // 念のためnullに戻す
+    }
+
     const canvas = document.getElementById('dailyMetricsChart') as HTMLCanvasElement | null;
-    if (!canvas || typeof Chart === 'undefined') {
-      // Chart.jsが読み込まれていないか、要素がない場合は何もしない
-      if (!canvas) console.warn('NikeLog chart canvas not found.');
-      if (typeof Chart === 'undefined') console.warn('Chart.js is not loaded.');
+    if (!canvas) {
+      // Chart.jsはインポート済みなので typeof Chart === 'undefined' は不要
+      console.warn('NikeLog chart canvas not found.');
       return;
     }
 
@@ -339,7 +369,7 @@ function bootstrap() {
     if (!ctx) return;
 
     let currentData = getFilteredData();
-    const chart = new (window as any).Chart(ctx, { // グローバルのChartを使用
+    dailyMetricsChartInstance = new Chart(ctx, { 
       type: 'line',
       data: {
         labels: currentData.map(m => formatDate(m.date)),
@@ -480,15 +510,17 @@ function bootstrap() {
       clearTimeout(resizeTimeout);
       resizeTimeout = window.setTimeout(function() { // window.setTimeout を使用
         currentData = getFilteredData(); // 再計算
-        chart.data.labels = currentData.map(m => formatDate(m.date));
-        chart.data.datasets[0].data = currentData.map(m => m.sessions);
-        chart.data.datasets[1].data = currentData.map(m => m.messages);
-        chart.data.datasets[2].data = currentData.map(m => m.repeats);
-        chart.update();
+        // インスタンスが存在するか確認してから更新
+        if (dailyMetricsChartInstance) {
+          dailyMetricsChartInstance.data.labels = currentData.map(m => formatDate(m.date));
+          dailyMetricsChartInstance.data.datasets[0].data = currentData.map(m => m.sessions);
+          dailyMetricsChartInstance.data.datasets[1].data = currentData.map(m => m.messages);
+          dailyMetricsChartInstance.data.datasets[2].data = currentData.map(m => m.repeats);
+          dailyMetricsChartInstance.update();
+        }
       }, 250);
     });
   }
-
 
   // DOMContentLoaded で各種セットアップを実行
   document.addEventListener('DOMContentLoaded', () => {
@@ -499,12 +531,11 @@ function bootstrap() {
     setupCategoryTabs()
     setupTechBlogPagination()
     setupNikeLogChart() // NikeLogチャートの初期化を追加
+    setupBlogDetailHydration() // BlogDetailV3 をハイドレート
   })
 }
 
 // アプリケーションのブートストラップを実行
-bootstrap()
-
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', bootstrap)
