@@ -108,7 +108,7 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
 
       {/* 全期間の合計統計 */}
       <div className="container mx-auto px-4 mt-8 mb-12">
-        <h2 className="text-2xl font-bold text-white mb-6">全期間利用統計 (月末更新)</h2>
+        <h2 className="text-2xl font-bold text-white mb-6">全期間利用統計</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
             <h3 className="text-lg font-semibold text-gray-400 mb-2">総セッション数</h3>
