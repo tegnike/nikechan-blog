@@ -35,10 +35,6 @@
   @apply text-blue-400 border-b-2 border-blue-400;
 }
 
-.tab-content {
-  @apply hidden;
-}
-
 .tab-content.active {
   @apply block;
 }
