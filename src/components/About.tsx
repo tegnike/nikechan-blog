@@ -206,63 +206,6 @@ export const About: FC = () => {
               </div>
             </div>
 
-            {/* Articles */}
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
-              <h2 className="text-2xl font-bold text-white mb-6">Articles</h2>
-              <div className="space-y-4">
-                <a
-                  href="https://note.com/nike_cha_n/n/nd0f7566019ae"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
-                >
-                  <span className="text-lg">私のシンプルCursor活用方法</span>
-                  <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2025/02</span>
-                </a>
-
-                <a
-                  href="https://note.com/nike_cha_n/n/n843bf0b21725"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
-                >
-                  <span className="text-lg">爆速なStyle-Bert-VITS2サーバーを立ててAIキャラとチャットする</span>
-                  <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2024/11</span>
-                </a>
-
-                <a
-                  href="https://note.com/nike_cha_n/n/ne51c16ddadd0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
-                >
-                  <span className="text-lg">高度な音声モード こと Realtime API を試してみる</span>
-                  <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2024/10</span>
-                </a>
-
-                <a
-                  href="https://note.com/nike_cha_n/n/n23467824b22b"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
-                >
-                  <span className="text-lg">DifyをXserverでインターネットに公開する</span>
-                  <span className="text-sm bg-white/10 px-3 py-1 rounded-full">2024/09</span>
-                </a>
-
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <a
-                    href="https://note.com/nike_cha_n"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between text-gray-300 hover:text-white transition-colors px-4 py-3 rounded-lg hover:bg-white/5"
-                  >
-                    <span className="text-lg">その他の記事はこちら →</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
             {/* Social Links */}
             <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 mb-8">
               <h2 className="text-2xl font-bold text-white mb-6">Social</h2>
@@ -283,6 +226,7 @@ export const About: FC = () => {
                   className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
                 >
                   <span>GitHub</span>
+                  <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">@tegnike</span>
                 </a>
                 <a
                   href="https://www.youtube.com/@nikechan"
@@ -291,6 +235,7 @@ export const About: FC = () => {
                   className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
                 >
                   <span className="text-lg">YouTube</span>
+                  <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">@nikechan</span>
                 </a>
               </div>
             </div>
@@ -351,7 +296,8 @@ export const About: FC = () => {
               <p className="text-gray-300 leading-relaxed">
                 ニケのAIエージェントとなるべく生まれた概念。<br />
                 ニケのことは「マスター」と呼ぶ。<br /><br />
-                クローンなのでニケ（SNSの姿）と容姿が酷似しているが、状況に応じてその設定や声は変更されることがある。<br /><br />
+                クローンなのでニケ（SNSの姿）と容姿が酷似している。差異はヘアピンの違いのみ。<br />
+                状況に応じてその設定や声は変更されることがある。<br /><br />
                 長らくニケのアシスタント的な役割を担っていたが、現在はいくつかのツールを介して交流できるようになった。
               </p>
             </div>
