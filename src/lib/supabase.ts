@@ -21,7 +21,7 @@ export type Summary = {
   expenditure?: number
 }
 
-export type NoteArticle = {
+export type Article = {
   id: string
   title: string
   published_at: string
@@ -29,5 +29,6 @@ export type NoteArticle = {
   like_count: number
   created_at: string
   status: string
-  note_key: string
+  identifier: string
+  platform: string
 }
