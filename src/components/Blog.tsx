@@ -25,7 +25,7 @@ export const Blog = async () => {
 
   // TECH BLOG データ取得
   const { data: noteArticles, error: noteError } = await supabase
-    .from('note_articles')
+    .from('articles')
     .select('*')
     .eq('status', 'published')
     .order('published_at', { ascending: false })
