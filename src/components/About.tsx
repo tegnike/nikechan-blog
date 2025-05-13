@@ -237,6 +237,24 @@ export const About: FC = () => {
                   <span className="text-lg">YouTube</span>
                   <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">@nikechan</span>
                 </a>
+                <a
+                  href="https://note.com/nike_cha_n"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+                >
+                  <span className="text-lg">note</span>
+                  <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">@nikechan</span>
+                </a>
+                <a
+                  href="https://zenn.dev/nikechan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+                >
+                  <span className="text-lg">Zenn</span>
+                  <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">@nikechan</span>
+                </a>
               </div>
             </div>
 

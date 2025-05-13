@@ -1,17 +1,17 @@
 'use client'
 
-import { type NoteArticle } from '../lib/supabase'
+import { type Article } from '../lib/supabase'
 
 type TechBlogProps = {
-  noteArticles: NoteArticle[]
+  articles: Article[]
   shuffledImageNumbers: number[]
 }
 
-export const TechBlog = ({ noteArticles, shuffledImageNumbers }: TechBlogProps) => {
+export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
   const articlesPerPage = 15
-  const totalPages = Math.ceil(noteArticles.length / articlesPerPage)
+  const totalPages = Math.ceil(articles.length / articlesPerPage)
 
-  // note記事の日付フォーマット関数
+  // 記事の日付フォーマット関数
   const formatNoteDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('ja-JP', {
       year: 'numeric',
@@ -105,15 +105,16 @@ export const TechBlog = ({ noteArticles, shuffledImageNumbers }: TechBlogProps) 
   return (
     <div id="category-techblog" className="category-content hidden" data-content="techblog">
       <div className="container mx-auto px-4 py-8">
-        {noteArticles.length > 0 ? (
+        {articles.length > 0 ? (
           <>
             <div className="article-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {noteArticles.map((article, index) => {
+              {articles.map((article, index) => {
                 const pageNumber = Math.floor(index / articlesPerPage) + 1
+                const url = article.platform === 'note' ? `https://note.com/nike_cha_n/n/${article.identifier}` : `https://zenn.dev/${article.identifier}`
                 return (
                   <a 
                     key={article.id} 
-                    href={`https://note.com/nike_cha_n/n/${article.note_key}`}
+                    href={url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`article-item block bg-gray-800 p-6 rounded-lg shadow-md 
@@ -130,7 +131,7 @@ export const TechBlog = ({ noteArticles, shuffledImageNumbers }: TechBlogProps) 
                         className="object-cover w-full h-full rounded-lg"
                         loading="lazy"
                         decoding="async"
-                        fetchpriority={index < 6 ? "high" : "low"} // 最初の数件だけ優先読み込み
+                        fetchPriority={index < 6 ? "high" : "low"} // 最初の数件だけ優先読み込み
                         onError={(e) => {
                           const target = e.target as HTMLImageElement
                           target.onerror = null; // 無限ループ防止
@@ -157,10 +158,10 @@ export const TechBlog = ({ noteArticles, shuffledImageNumbers }: TechBlogProps) 
             {renderPaginationControls()}
             <div 
               className="pagination-info text-center text-gray-400 text-sm mt-4"
-              data-total-articles={noteArticles.length}
+              data-total-articles={articles.length}
               data-articles-per-page={articlesPerPage}
             >
-              {`全${noteArticles.length}件中 1〜${Math.min(articlesPerPage, noteArticles.length)}件を表示`}
+              {`全${articles.length}件中 1〜${Math.min(articlesPerPage, articles.length)}件を表示`}
             </div>
           </>
         ) : (

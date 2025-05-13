@@ -1511,10 +1511,6 @@ video {
   margin-top: 1rem;
 }
 
-.mt-6 {
-  margin-top: 1.5rem;
-}
-
 .mt-8 {
   margin-top: 2rem;
 }
@@ -1850,10 +1846,6 @@ video {
 
 .border-transparent {
   border-color: transparent;
-}
-
-.border-white\/10 {
-  border-color: rgb(255 255 255 / 0.1);
 }
 
 .bg-\[\#1a1f2e\] {
@@ -2434,10 +2426,6 @@ video {
 
 .hover\:bg-white\/20:hover {
   background-color: rgb(255 255 255 / 0.2);
-}
-
-.hover\:bg-white\/5:hover {
-  background-color: rgb(255 255 255 / 0.05);
 }
 
 .hover\:bg-opacity-75:hover {

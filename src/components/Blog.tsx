@@ -1,4 +1,4 @@
-import { supabase, type Summary, type NoteArticle } from '../lib/supabase'
+import { supabase } from '../lib/supabase'
 import { NikeLog } from './NikeLog'
 import { TechBlog } from './TechBlog'
 
@@ -24,13 +24,13 @@ export const Blog = async () => {
     .order('target_date', { ascending: false })
 
   // TECH BLOG データ取得
-  const { data: noteArticles, error: noteError } = await supabase
-    .from('note_articles')
+  const { data: articles, error: articleError } = await supabase
+    .from('articles')
     .select('*')
-    .eq('status', 'published')
+    .or('status.eq.published,status.eq.public')
     .order('published_at', { ascending: false })
 
-  if (error || noteError) {
+  if (error || articleError) {
     return (
       <div className="text-center py-8 text-red-500">
         エラーが発生しました
@@ -72,7 +72,7 @@ export const Blog = async () => {
 
       {/* TECH BLOG コンテンツ */}
       <TechBlog 
-        noteArticles={noteArticles || []} 
+        articles={articles || []} 
         shuffledImageNumbers={shuffledImageNumbers}
       />
     </>
