@@ -110,7 +110,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
             <div className="article-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {articles.map((article, index) => {
                 const pageNumber = Math.floor(index / articlesPerPage) + 1
-                const url = article.platform === 'note' ? `https://note.com/nike_cha_n/n/${article.identifier}` : `https://zenn.dev/${article.identifier}`
+                const url = article.platform === 'note' ? `https://note.com/nike_cha_n/n/${article.identifier}` : `https://zenn.dev/nikechan/articles/${article.identifier}`
                 return (
                   <a 
                     key={article.id} 
