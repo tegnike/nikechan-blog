@@ -52,8 +52,12 @@ function bootstrap() {
         if (targetProfile) targetProfile.classList.remove('hidden')
 
         // ボタンのアクティブ状態を更新
-        profileButtons.forEach((btn) => btn.classList.remove('active')) // `active`クラスは例。AboutページのCSSに依存
-        target.classList.add('active') // `active`クラスは例。AboutページのCSSに依存
+        profileButtons.forEach((btn) => {
+          btn.classList.remove('active', 'bg-gradient-to-r', 'from-purple-500', 'to-pink-500', 'text-white', 'shadow-lg')
+          btn.classList.add('text-gray-300', 'hover:text-white')
+        })
+        target.classList.add('active', 'bg-gradient-to-r', 'from-purple-500', 'to-pink-500', 'text-white', 'shadow-lg')
+        target.classList.remove('text-gray-300', 'hover:text-white')
       })
     })
   }

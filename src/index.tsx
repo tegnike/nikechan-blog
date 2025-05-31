@@ -15,6 +15,7 @@ const app = new Hono()
 // 静的ファイルの配信設定を追加
 app.use('/images/*', serveStatic({ root: './public' }))
 app.use('/static/*', serveStatic({ root: './public' }))
+app.use('/svg/*', serveStatic({ root: './public' }))
 
 app.use(renderer)
 
