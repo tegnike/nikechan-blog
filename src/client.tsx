@@ -1,11 +1,10 @@
 import React from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
-import Chart from 'chart.js/auto'; // Chart.jsをインポート
 import { GalleryModalProvider } from './context/GalleryModalContext'
 import { GalleryModal } from './components/GalleryModal'
 import type { GalleryModalItem } from './context/GalleryModalContext'
 
-let dailyMetricsChartInstance: Chart | null = null; // チャートインスタンスを保持する変数
+let dailyMetricsChartInstance: any = null; // チャートインスタンスを保持する変数
 
 function bootstrap() {
   // モーダル専用のルート要素
@@ -310,7 +309,7 @@ function bootstrap() {
   }
 
   // NikeLog チャート初期化機能
-  function setupNikeLogChart() {
+  async function setupNikeLogChart() {
     // 既存のチャートがあれば破棄する
     if (dailyMetricsChartInstance) {
       dailyMetricsChartInstance.destroy();
@@ -319,8 +318,18 @@ function bootstrap() {
 
     const canvas = document.getElementById('dailyMetricsChart') as HTMLCanvasElement | null;
     if (!canvas) {
-      // Chart.jsはインポート済みなので typeof Chart === 'undefined' は不要
       console.warn('NikeLog chart canvas not found.');
+      return;
+    }
+
+    // Chart.jsを動的にインポート（パフォーマンス最適化）
+    const Chart = await import('chart.js/auto').then(m => m.default).catch(err => {
+      console.error('Failed to load Chart.js:', err);
+      return null;
+    });
+    
+    if (!Chart) {
+      console.error('Chart.js could not be loaded');
       return;
     }
 
