@@ -60,7 +60,7 @@ type NikeLogProps = {
 }
 
 export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
-  // 全期間の合計値を計算
+  // サーバーサイドでの計算を最適化
   const totalSessions = summaries.reduce((sum, s) => sum + (s.public_chat_session_count || 0), 0);
   const totalMessages = summaries.reduce((sum, s) => sum + (s.public_message_count || 0), 0);
   const totalIncome = summaries.reduce((sum, s) => sum + (s.income || 0), 0);

@@ -36,6 +36,7 @@ app.get('/', (c) => {
 
 // Blog page
 app.get('/blog', async (c) => {
+  c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
   const blogContent = await Blog()
   const currentPath = c.req.path; // パスを取得
   return c.render(
