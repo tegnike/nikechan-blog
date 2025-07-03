@@ -1,5 +1,3 @@
-'use client'
-
 import { type Article } from '../lib/supabase'
 
 type TechBlogProps = {
@@ -129,9 +127,9 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
                         src={article.thumbnail_url || `/images/thumbnails/${shuffledImageNumbers[index % shuffledImageNumbers.length]}.png`}
                         alt={article.title}
                         className="object-cover w-full h-full rounded-lg"
-                        loading="lazy"
+                        loading={index < 6 ? "eager" : "lazy"}
                         decoding="async"
-                        fetchPriority={index < 6 ? "high" : "low"} // 最初の数件だけ優先読み込み
+                        fetchPriority={index < 6 ? "high" : "low"}
                         onError={(e) => {
                           const target = e.target as HTMLImageElement
                           target.onerror = null; // 無限ループ防止

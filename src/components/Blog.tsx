@@ -17,18 +17,22 @@ export const Blog = async () => {
   const imageNumbers = Array.from({length: 23}, (_, i) => i + 1)
   const shuffledImageNumbers = shuffleArray(imageNumbers)
 
-  // NIKELOG データ取得
-  const { data: summaries, error } = await supabase
-    .from('daily_summaries')
-    .select('*') // Summary 型に合わせて全カラム取得
-    .order('target_date', { ascending: false })
+  // 並列でデータ取得してパフォーマンスを向上
+  const [summariesResult, articlesResult] = await Promise.all([
+    supabase
+      .from('daily_summaries')
+      .select('*')
+      .order('target_date', { ascending: false })
+      .limit(130),
+    supabase
+      .from('articles')
+      .select('*')
+      .or('status.eq.published,status.eq.public')
+      .order('published_at', { ascending: false })
+  ])
 
-  // TECH BLOG データ取得
-  const { data: articles, error: articleError } = await supabase
-    .from('articles')
-    .select('*')
-    .or('status.eq.published,status.eq.public')
-    .order('published_at', { ascending: false })
+  const { data: summaries, error } = summariesResult
+  const { data: articles, error: articleError } = articlesResult
 
   if (error || articleError) {
     return (
