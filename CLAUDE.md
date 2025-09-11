@@ -16,17 +16,23 @@ bun install
 # Start development server with hot reload for CSS
 bun run dev
 
-# Build CSS separately
+# Build CSS separately (for standalone CSS updates)
 bun run build:css
 
-# Watch CSS changes
+# Watch CSS changes (standalone CSS watching)
 bun run watch:css
 ```
 
 ### Build & Deploy
 ```bash
-# Full build (CSS + client + server)
+# Full production build (CSS + client + server)
 bun run build
+
+# Build server only (includes CSS)
+bun run build:server
+
+# Build client JavaScript only
+bun run build:client
 
 # Deploy to Cloudflare Pages
 bun run deploy
@@ -89,3 +95,23 @@ Set these in Cloudflare Pages environment variables for both Production and Prev
 - TailwindCSS for all styling
 - Global styles in `src/styles/globals.css`
 - Avoid inline styles unless dynamic
+
+## Key File Structure
+
+### Entry Points
+- `src/index.tsx`: Main Hono server with routing (`/`, `/blog`, `/blog/:id`, `/about`)
+- `src/renderer.tsx`: Common HTML template using `@hono/react-renderer`
+- `src/client.tsx`: Client-side interactions (vanilla JS/TypeScript, minimal React)
+
+### Components Organization
+- `src/components/Layout.tsx`: Common header/footer/navigation
+- Page components: `Introduction.tsx`, `Blog.tsx`, `BlogDetail.tsx`, `About.tsx`, etc.
+- Static assets served via Hono's `serveStatic` from `/public` to `/images/*`, `/static/*`, `/svg/*`
+
+### Client-Side Architecture
+- Server renders React to static HTML
+- Client script provides selective interactivity:
+  - Gallery modal (small React tree)
+  - Profile switching on About page
+  - Tab navigation and analytics charts
+  - No full React hydration - performance optimized

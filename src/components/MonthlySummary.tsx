@@ -35,7 +35,7 @@ export const MonthlySummary = async ({ yearMonth }: { yearMonth: string }) => {
     <>
       <div className="pt-12 pb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
-          NIKELOG
+          LOG
         </h1>
       </div>
       <div className="container mx-auto px-4">
@@ -93,7 +93,7 @@ export const MonthlySummary = async ({ yearMonth }: { yearMonth: string }) => {
 
         <div className="mt-12 text-center">
           <a 
-            href="/blog" 
+            href="/log" 
             className="inline-flex items-center px-6 py-3 rounded-full
                      bg-gray-700 text-gray-200 font-medium
                      transform transition duration-200 ease-in-out

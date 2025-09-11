@@ -5,6 +5,22 @@ import { GalleryModalProvider } from './context/GalleryModalContext'
 import { GalleryModal } from './components/GalleryModal'
 import type { GalleryModalItem } from './context/GalleryModalContext'
 
+// Motion.js initial styles fix for LP
+function fixMotionStyles() {
+  // Find all elements with motion/react initial styles and apply visible state
+  setTimeout(() => {
+    const elements = document.querySelectorAll('[style*="opacity:0"], [style*="opacity: 0"]')
+    elements.forEach(el => {
+      const element = el as HTMLElement
+      if (element.style.opacity === '0') {
+        element.style.opacity = '1'
+        element.style.transform = 'none'
+        element.style.transition = 'all 0.5s ease'
+      }
+    })
+  }, 100)
+}
+
 let dailyMetricsChartInstance: Chart | null = null; // チャートインスタンスを保持する変数
 
 function bootstrap() {
@@ -542,8 +558,12 @@ function bootstrap() {
 // アプリケーションのブートストラップを実行
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bootstrap)
+    document.addEventListener('DOMContentLoaded', () => {
+      bootstrap()
+      fixMotionStyles()
+    })
   } else {
     bootstrap()
+    fixMotionStyles()
   }
 }  

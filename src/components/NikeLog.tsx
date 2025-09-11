@@ -92,16 +92,8 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
         <div className="bg-gray-800 p-6 md:p-8 rounded-lg shadow-lg">
           <div className="max-w-3xl mx-auto">
             <p className="text-base md:text-lg lg:text-l text-white leading-relaxed">
-              NIKELOGでは、AITuberKitのデモサイトの利用状況を記録しています。
+              このページでは、キャラクターの活動記録（セッションやメッセージなどの指標）を日次でまとめています。
             </p>
-            <a
-              href="https://aituberkit.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-4 px-6 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors font-semibold duration-300"
-            >
-              デモサイトはこちら
-            </a>
           </div>
         </div>
       </div>
@@ -167,7 +159,7 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
             {isPastMonth(yearMonth) && (
               <div className="mb-6">
                 <a
-                  href={`/blog/summary/${yearMonth}`}
+                  href={`/log/summary/${yearMonth}`}
                   className="inline-flex items-center px-6 py-3 bg-gray-700 hover:bg-gray-600 transition-colors rounded-lg text-white font-semibold shadow-lg ring-1 ring-gray-600"
                 >
                   <svg className="w-5 h-5 mr-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +173,7 @@ export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
               {groupedSummaries[yearMonth].map((summary) => (
                 <a 
                   key={summary.id} 
-                  href={`/blog/${summary.id}`}
+                  href={`/log/${summary.id}`}
                   className="block py-4 px-4 hover:bg-gray-800 transition-colors rounded-lg"
                 >
                   <div className="flex items-center">

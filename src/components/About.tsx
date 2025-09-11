@@ -9,9 +9,11 @@ export const About: FC = () => {
     <div className="min-h-screen py-12 px-4">
       {/* Header with animated gradient */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-white mb-8">
-          ABOUT
-        </h1>
+        <div className="pt-12 pb-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-8">
+            ABOUT
+          </h1>
+          </div>
         
         {/* Profile Switcher */}
         <div className="inline-flex p-1 bg-white/5 backdrop-blur-sm rounded-full">

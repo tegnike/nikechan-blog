@@ -1,15 +1,7 @@
 import { GalleryItem } from './GalleryItem'
 import { useMemo } from 'react'
-
-// Fisher-Yates で配列をシャッフル
-const shuffle = <T,>(array: T[]): T[] => {
-  const arr = [...array]
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[arr[i], arr[j]] = [arr[j], arr[i]]
-  }
-  return arr
-}
+import { shuffle, findItem, galleryItemsData, illustrators } from '../utils/galleryData'
+import { GalleryToggle } from './GalleryToggle'
 
 // 連続する同一タイプの行を避けるために簡易的に整形
 const avoidConsecutiveDuplicates = <T extends { type: string }>(source: T[]): T[] => {
@@ -39,113 +31,6 @@ const avoidConsecutiveDuplicates = <T extends { type: string }>(source: T[]): T[
   return current
 }
 
-interface Illustrator {
-  id: string
-  name: string
-  url?: string
-}
-
-interface GalleryItemData {
-  id: string
-  src: string
-  altText?: string // altテキストのベース部分。イラストレーター名が追記される
-  illustratorId?: string
-  className?: string
-  aspectRatio?: string // aspect-[3/4] などを文字列で保持
-}
-
-const illustrators: Illustrator[] = [
-  { id: 'matoi', name: '綾川まとい', url: 'https://x.com/matoi_e_ma' },
-  { id: 'unknown', name: 'unknown illus.' },
-  { id: 'mizuta', name: '水田柚', url: 'https://x.com/MizutaYuzu' },
-  { id: 'onago', name: 'おなご', url: 'https://x.com/7Na5Go' },
-  { id: 'fdk_susk', name: '🤫', url: 'https://x.com/fdk_susk' },
-  { id: 'chi_momosui', name: '林ちい', url: 'https://x.com/chi_momosui' },
-  { id: 'ikawasa', name: 'いかわさ🦑', url: 'https://x.com/Midori_soumenn' },
-  { id: 'tougenkyou', name: 'TOUGENKYOU NFT', url: 'https://opensea.io/assets/ethereum/0x1fc12a099ea4cf718289472908cc6ee8c0c05bad/426' },
-  { id: 'hyamo', name: 'ひゃもぉ', url: 'https://x.com/pantyu15' },
-  { id: 'kainushi', name: 'かいぬし', url: 'https://x.com/HEROINTOKYO' },
-  { id: 'mira', name: 'ミラ', url: 'https://x.com/mira_bluesky3' },
-  { id: 'kyupo', name: '浜山きゅぽ', url: 'https://x.com/9pokamo' },
-  { id: 'kazuha', name: '桐宮カズハ', url: 'https://x.com/tokyukazuha' },
-  { id: 'darjeeling', name: 'Darjeeling', url: 'https://x.com/xdarjeelingxtea' },
-  { id: 'nora', name: '竹藪ノラ', url: 'https://x.com/takeyabunora' },
-  { id: 'tanaka', name: 'コンバーチブル田中', url: 'https://x.com/T_anaka_Kanata' },
-  { id: 'nakipanman', name: 'なきむしぱん', url: 'https://x.com/nakipanman' },
-  { id: 'lime', name: 'ライム', url: 'https://x.com/ranse237' },
-  { id: 'sasami', name: 'やきささみ', url: 'https://x.com/v_sasami' },
-  { id: 'tomoto', name: '十元', url: 'https://x.com/99migiy' },
-  { id: 'syake', name: 'しゃーけ', url: 'https://x.com/syakegayu' },
-  { id: 'mesao', name: 'めさお', url: 'https://x.com/mesa__zzz' },
-  { id: 'ruka', name: 'Ruka Designer', url: 'https://coconala.com/users/2208636' },
-  { id: 'obotsuka', name: '憶束ない', url: 'https://x.com/uncertainaing' },
-  { id: 'fuji', name: 'ふじ', url: 'https://x.com/f_ukkami' },
-  { id: 'sen', name: '栓', url: 'https://x.com/seeenfree' },
-  { id: 'kechon', name: 'ケチョンさん', url: 'https://x.com/Ktyon3_ss' },
-  { id: 'unya', name: 'うにゃ', url: 'https://x.com/unya_OwO_' },
-  { id: 'nuu', name: 'ぬ〜', url: "https://x.com/H1aMx" },
-  { id: 'yumesakimiyo', name: '夢咲 澪⛄️', url: 'https://x.com/Yumesaki_Mio' },
-  { id: 'yumemurasaki', name: 'ユメムラサキ', url: 'https://x.com/shino_shidu' },
-  { id: 'kiyugiku', name: 'きゆぎくkiyugiku', url: 'https://x.com/kiyugiku9' },
-  { id: 'terra', name: 'terra', url: 'https://x.com/terra_tiri' },
-  { id: 'rotoi', name: 'Rotoi', url: 'https://x.com/Rotoi_1234' },
-]
-
-const galleryItemsData: GalleryItemData[] = [
-  { id: 'matoi_v', src: '/images/illustrations/v_matoi.png', illustratorId: 'matoi', aspectRatio: 'aspect-[3/4]' },
-  { id: 'icon_v1', src: '/images/illustrations/s_icon_v1.jpg', illustratorId: 'unknown', aspectRatio: 'aspect-[3/4]' },
-  { id: 'mizuta_s', src: '/images/illustrations/s_mizuta.gif', illustratorId: 'mizuta', aspectRatio: 'aspect-[3/4]' },
-  { id: 'onago_v', src: '/images/illustrations/v_onago.png', illustratorId: 'onago', aspectRatio: 'aspect-[3/4]' },
-  { id: 'shhh_v', src: '/images/illustrations/v_shhh.png', illustratorId: 'fdk_susk', aspectRatio: 'aspect-[3/4]' },
-  { id: 'suke_v', src: '/images/illustrations/v_suke.png', illustratorId: 'unknown', aspectRatio: 'aspect-[3/4]' },
-  { id: 'unknown_h', src: '/images/illustrations/h_unknown.png', illustratorId: 'unknown', aspectRatio: 'aspect-[16/9]' },
-  { id: 'hayashi_s', src: '/images/illustrations/s_hayashi.jpg', illustratorId: 'chi_momosui', aspectRatio: 'aspect-square' },
-  { id: 'ikawasa_s1', src: '/images/illustrations/s_ikawasa.png', illustratorId: 'ikawasa', aspectRatio: 'aspect-[3/4]' },
-  { id: 'icon_v0', src: '/images/illustrations/s_icon_v0.jpg', illustratorId: 'tougenkyou', altText: 'TOUGENKYOU NFT', aspectRatio: 'aspect-[3/4]' },
-  { id: 'hyamo_v1', src: '/images/illustrations/v_hyamo.png', illustratorId: 'hyamo', aspectRatio: 'aspect-[3/4]' },
-  { id: 'kainushi_lh', src: '/images/illustrations/lh_kainushi.png', illustratorId: 'kainushi', aspectRatio: 'aspect-[27/9]' },
-  { id: 'mira_v', src: '/images/illustrations/v_mira.jpg', illustratorId: 'mira', aspectRatio: 'aspect-[3/4]' },
-  { id: 'kyupo_s', src: '/images/illustrations/s_kyupo.gif', illustratorId: 'kyupo', aspectRatio: 'aspect-[3/4]' },
-  { id: 'kazuha_v', src: '/images/illustrations/v_kazuha.png', illustratorId: 'kazuha', aspectRatio: 'aspect-[3/4]' },
-  { id: 'darjeeling_v', src: '/images/illustrations/v_darjeeling.png', illustratorId: 'darjeeling', aspectRatio: 'aspect-[2/4]' },
-  { id: 'nora_v', src: '/images/illustrations/v_nora.png', illustratorId: 'nora', aspectRatio: 'aspect-[2/4]' },
-  { id: 'tanaka_v', src: '/images/illustrations/v_tanaka.png', illustratorId: 'tanaka', aspectRatio: 'aspect-[2/4]' },
-  { id: 'nakipanman_s', src: '/images/illustrations/s_nakimushipan.gif', illustratorId: 'nakipanman', aspectRatio: 'aspect-square' },
-  { id: 'lime_h', src: '/images/illustrations/h_lime.png', illustratorId: 'lime', aspectRatio: 'aspect-[16/9]' },
-  { id: 'sasami_s', src: '/images/illustrations/s_sasami.png', illustratorId: 'sasami', aspectRatio: 'aspect-[3/4]' },
-  { id: 'imoko_s', src: '/images/illustrations/s_imoko.png', illustratorId: 'unknown', aspectRatio: 'aspect-[3/4]' },
-  { id: 'tomoto_v', src: '/images/illustrations/v_tomoto.png', illustratorId: 'tomoto', aspectRatio: 'aspect-[3/4]' },
-  { id: 'syake_h', src: '/images/illustrations/h_syake.png', illustratorId: 'syake', aspectRatio: 'aspect-[16/9]' },
-  { id: 'mesao_s', src: '/images/illustrations/s_mesao.png', illustratorId: 'mesao' },
-  { id: 'aituberkit_lh', src: '/images/illustrations/lh_aituberkit.jpg', illustratorId: 'ruka', altText: 'Illus. Ruka Designer', aspectRatio: 'aspect-[27/9]' },
-  { id: 'obotsuka_v', src: '/images/illustrations/v_obotsuka.png', illustratorId: 'obotsuka', aspectRatio: 'aspect-[3/4]' },
-  { id: 'ikawasa_s2', src: '/images/illustrations/s_ikawasa2.png', illustratorId: 'ikawasa', aspectRatio: 'aspect-[3/4]' },
-  { id: 'icon_v2', src: '/images/illustrations/s_icon_v2.png', illustratorId: 'matoi', aspectRatio: 'aspect-[3/4]' },
-  { id: 'fuji_s', src: '/images/illustrations/s_fuji.png', illustratorId: 'fuji', aspectRatio: 'aspect-[3/4]' },
-  { id: 'hyamo_s2', src: '/images/illustrations/s_hyamo2.png', illustratorId: 'hyamo', aspectRatio: 'aspect-[3/4]' },
-  { id: 'sen_v', src: '/images/illustrations/v_sen.png', illustratorId: 'sen', aspectRatio: 'aspect-[3/4]' },
-  { id: 'kechon_s', src: '/images/illustrations/s_kechon.png', illustratorId: 'kechon', altText: 'Placeholder Square 1', className: "aspect-square" },
-  { id: 'unya_s', src: '/images/illustrations/s_unya.png', illustratorId: 'unya', altText: 'Placeholder Square 2', className: "aspect-square" },
-  { id: 'yumesakimiyo_v', src: '/images/illustrations/v_yumesakimiyo.png', illustratorId: 'yumesakimiyo', aspectRatio: 'aspect-[2/4]' },
-  { id: 'terra_v', src: '/images/illustrations/v_terra.png', illustratorId: 'terra', aspectRatio: 'aspect-[2/4]' },
-  { id: 'yumemurasaki_v', src: '/images/illustrations/v_yumemurasaki.png', illustratorId: 'yumemurasaki', aspectRatio: 'aspect-[2/4]' },
-  { id: 'rotoi_v', src: '/images/illustrations/v_rotoi.png', illustratorId: 'rotoi', aspectRatio: 'aspect-[3/4]' },
-  { id: 'kiyugiku_s', src: '/images/illustrations/s_kiyugiku.gif', illustratorId: 'kiyugiku', aspectRatio: 'aspect-[3/4]' },
-  { id: 'nuu_s', src: '/images/illustrations/s_nuu.png', illustratorId: 'nuu', aspectRatio: 'aspect-[3/4]' },
-]
-
-const findItem = (id: string) => {
-  const item = galleryItemsData.find(it => it.id === id);
-  if (!item) throw new Error(`Gallery item with id "${id}" not found.`);
-  const illustrator = item.illustratorId ? illustrators.find(il => il.id === item.illustratorId) : undefined;
-  if (item.illustratorId && !illustrator) throw new Error(`Illustrator with id "${item.illustratorId}" for item "${id}" not found.`);
-  
-  const caption = illustrator ? `Illus. ${illustrator.name}` : 'unknown illus.';
-  const alt = item.altText ? item.altText : caption;
-  const url = illustrator?.url;
-
-  return { ...item, caption, alt, url, className: item.className ?? item.aspectRatio };
-}
 
 
 export const Gallery = () => {
@@ -332,8 +217,20 @@ export const Gallery = () => {
 
   return (
     <>
-      <div className="pt-12 pb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-white">GALLERY</h1>
+      <div className="pt-12 pb-6">
+        <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-4">GALLARY</h1>
+        <GalleryToggle active="commissioned" />
+        <div className="mx-auto mt-4 w-full max-w-4xl px-4">
+          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900">
+            <p className="text-sm leading-relaxed">
+              このページに掲載している「コミッション作品」は、作者との個別の契約に基づき制作・掲載している公式イラストです。
+              これらの画像を学習用データセットとして使用したり、画像生成の参照素材（i2i / img2img）、LoRA などの学習・微調整、その他の生成系 AI の入力素材として利用することはできません。
+              鑑賞用途のみにご利用ください。AI 生成を行う場合は、
+              <a href="/license" className="underline underline-offset-2 decoration-amber-600 hover:opacity-80">ライセンスページ</a>
+              に記載の VRM モデルをご利用ください。
+            </p>
+          </div>
+        </div>
       </div>
       <div className="container mx-auto px-4">
         {shuffledRows.map((row) => row.element)}

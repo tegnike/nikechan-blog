@@ -2,13 +2,17 @@ import { Hono } from 'hono'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { renderer } from './renderer'
 import { Layout } from './components/Layout'
+import { LandingPage } from './components/LandingPage'
 import { Introduction } from './components/Introduction'
 import { Model } from './components/Model'
 import { Gallery } from './components/Gallery'
-import { Blog } from './components/Blog'
+import { FanGallery } from './components/FanGallery'
+import { Log } from './components/Log'
 import { BlogDetail } from './components/BlogDetail'
 import { MonthlySummary } from './components/MonthlySummary'
-import { About } from './components/About'
+import { Developer } from './components/Developer'
+import { License } from './components/License'
+import { DevBlog } from './components/DevBlog'
 
 const app = new Hono()
 
@@ -19,36 +23,69 @@ app.use('/svg/*', serveStatic({ root: './public' }))
 
 app.use(renderer)
 
-// Home page
+// Home page - Landing Page
 app.get('/', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path; // パスを取得
 
   return c.render(
     <Layout currentPath={currentPath}>
-      <Introduction />
-      <Model />
-      <Gallery />
+      <LandingPage />
     </Layout>,
-    { title: "Nike Portfolio | Gallery" } 
+    { title: "Nike Portfolio | Landing Page" } 
   )
 })
 
-// Blog page
-app.get('/blog', async (c) => {
-  c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
-  const blogContent = await Blog()
+// Gallery pages
+app.get('/gallery', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+  const currentPath = c.req.path;
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <FanGallery />
+    </Layout>,
+    { title: "Nike Portfolio | Fan Art" }
+  )
+})
+
+app.get('/gallery/commissioned', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+  const currentPath = c.req.path;
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <Gallery />
+    </Layout>,
+    { title: "Nike Portfolio | Commissioned" }
+  )
+})
+
+// License page
+app.get('/license', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path; // パスを取得
   return c.render(
     <Layout currentPath={currentPath}>
-      {blogContent}
+      <License />
     </Layout>,
-    { title: "Nike Portfolio | Blog" }
+    { title: "Nike Portfolio | License" }
   )
 })
 
-// Blog detail page
-app.get('/blog/:id', async (c) => {
+// Log page (活動記録)
+app.get('/log', async (c) => {
+  c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
+  const content = await Log()
+  const currentPath = c.req.path; // パスを取得
+  return c.render(
+    <Layout currentPath={currentPath}>
+      {content}
+    </Layout>,
+    { title: "Nike Portfolio | Log" }
+  )
+})
+
+// Log detail page
+app.get('/log/:id', async (c) => {
   const id = c.req.param('id')
   const detailContent = await BlogDetail({ id })
   const currentPath = c.req.path; // パスを取得
@@ -56,12 +93,12 @@ app.get('/blog/:id', async (c) => {
     <Layout currentPath={currentPath}>
       {detailContent}
     </Layout>,
-    { title: "Nike Portfolio | Blog Detail" }
+    { title: "Nike Portfolio | Log Detail" }
   )
 })
 
-// Blog monthly summary page
-app.get('/blog/summary/:yearMonth', async (c) => {
+// Log monthly summary page
+app.get('/log/summary/:yearMonth', async (c) => {
   const yearMonth = c.req.param('yearMonth')
   const summaryContent = await MonthlySummary({ yearMonth })
   const currentPath = c.req.path; // パスを取得
@@ -73,15 +110,42 @@ app.get('/blog/summary/:yearMonth', async (c) => {
   )
 })
 
-// About me page
-app.get('/about', (c) => {
+// Developer page
+app.get('/dev', (c) => {
   const currentPath = c.req.path; // パスを取得
   return c.render(
     <Layout currentPath={currentPath}>
-      <About />
+      <Developer />
     </Layout>,
-    { title: "Nike Portfolio | About" }
+    { title: "Nike Portfolio | Developer" }
   )
 })
+
+// Developer Blog page
+app.get('/dev/blog', async (c) => {
+  c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
+  const content = await DevBlog()
+  const currentPath = c.req.path; // パスを取得
+  return c.render(
+    <Layout currentPath={currentPath}>
+      {content}
+    </Layout>,
+    { title: "Nike Portfolio | Dev Blog" }
+  )
+})
+
+// Backward-compatible redirects from old blog paths
+app.get('/blog', (c) => c.redirect('/log', 301))
+app.get('/blog/summary/:yearMonth', (c) => {
+  const ym = c.req.param('yearMonth')
+  return c.redirect(`/log/summary/${ym}`, 301)
+})
+app.get('/blog/:id', (c) => {
+  const id = c.req.param('id')
+  return c.redirect(`/log/${id}`, 301)
+})
+
+// Old about path
+app.get('/about', (c) => c.redirect('/dev', 301))
 
 export default app
