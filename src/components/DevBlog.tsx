@@ -31,11 +31,10 @@ export const DevBlog = async () => {
 
   return (
     <>
-      <div className="pt-12 pb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-white">DEV BLOG</h1>
+      <div className="pt-12 pb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">DEV BLOG</h1>
       </div>
       <TechBlog articles={articles || []} shuffledImageNumbers={shuffledImageNumbers} />
     </>
   )
 }
-

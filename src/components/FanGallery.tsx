@@ -6,8 +6,10 @@ import { shuffle } from '../utils/galleryData'
 export function FanGallery() {
   return (
     <>
-      <div className="pt-12 pb-6">
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-4">GALLARY</h1>
+      <div className="pb-4">
+        <div className="pt-12 pb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">GALLERY</h1>
+        </div>
         <GalleryToggle active="fan" />
         <div className="mx-auto mt-4 w-full max-w-4xl px-4">
           <div className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sky-900">
@@ -19,7 +21,7 @@ export function FanGallery() {
         </div>
       </div>
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
           {shuffle([...fanArts]).map(({ src, author }) => (
             <GalleryItem
               key={src}

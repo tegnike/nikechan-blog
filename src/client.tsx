@@ -124,6 +124,98 @@ function bootstrap() {
     })
   }
 
+  // ヘッダの「Other」ドロップダウン（クリック開閉）
+  function setupHeaderOtherDropdown() {
+    const trigger = document.getElementById('other-menu-trigger') as HTMLButtonElement | null
+    const menu = document.getElementById('other-menu') as HTMLElement | null
+    if (!trigger || !menu) return
+
+    let open = false
+    const openMenu = () => {
+      menu.classList.remove('hidden')
+      trigger.setAttribute('aria-expanded', 'true')
+      open = true
+    }
+    const closeMenu = () => {
+      menu.classList.add('hidden')
+      trigger.setAttribute('aria-expanded', 'false')
+      open = false
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault()
+      open ? closeMenu() : openMenu()
+    })
+
+    // メニュー外クリックで閉じる
+    document.addEventListener('click', (e) => {
+      if (!open) return
+      const target = e.target as Node
+      if (!menu.contains(target) && !trigger.contains(target)) {
+        closeMenu()
+      }
+    })
+
+    // Escキーで閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && open) closeMenu()
+    })
+  }
+
+  // モバイルメニュー（Menuボタンの開閉）
+  function setupMobileMenu() {
+    const btn = document.getElementById('mobile-menu-button') as HTMLButtonElement | null
+    const panel = document.getElementById('mobile-menu') as HTMLElement | null
+    if (!btn || !panel) return
+
+    let open = false
+    const openMenu = () => {
+      panel.classList.remove('hidden')
+      btn.setAttribute('aria-expanded', 'true')
+      open = true
+    }
+    const closeMenu = () => {
+      panel.classList.add('hidden')
+      btn.setAttribute('aria-expanded', 'false')
+      open = false
+    }
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault()
+      open ? closeMenu() : openMenu()
+    })
+
+    // 外側クリックで閉じる
+    document.addEventListener('click', (e) => {
+      if (!open) return
+      const target = e.target as Node
+      if (!panel.contains(target) && !btn.contains(target)) {
+        closeMenu()
+      }
+    })
+
+    // Esc で閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && open) closeMenu()
+    })
+
+    // メニュー内のリンククリックで閉じる
+    panel.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => closeMenu())
+    })
+
+    // 画面幅がmd以上になったら閉じる（レイアウト切替時の取りこぼし防止）
+    const mq = window.matchMedia('(min-width: 768px)')
+    const handleMq = (e: MediaQueryListEvent | MediaQueryList) => {
+      if ((e as MediaQueryList).matches || (e as MediaQueryListEvent).matches) {
+        closeMenu()
+      }
+    }
+    // 初期と変更時
+    handleMq(mq)
+    mq.addEventListener('change', handleMq)
+  }
+
   // ブログページの年月タブ切り替え機能
   function setupBlogMonthTabs() {
     const monthTabsContainer = document.querySelector('[data-month-tabs]') // クラスセレクタをdata属性に置き換え
@@ -236,11 +328,15 @@ function bootstrap() {
         // ページ番号ボタンのアクティブ状態
         if (page > 0) {
           button.classList.toggle('active', page === currentPage)
-          button.classList.toggle('bg-gray-500', page === currentPage)
+          // active styles
+          button.classList.toggle('bg-purple-600', page === currentPage)
           button.classList.toggle('text-white', page === currentPage)
-          button.classList.toggle('font-bold', page === currentPage)
-          button.classList.toggle('bg-gray-700', page !== currentPage)
-          button.classList.toggle('hover:bg-gray-600', page !== currentPage)
+          button.classList.toggle('border-purple-600', page === currentPage)
+          button.classList.toggle('font-semibold', page === currentPage)
+          // inactive styles
+          button.classList.toggle('bg-white/70', page !== currentPage)
+          button.classList.toggle('text-zinc-700', page !== currentPage)
+          button.classList.toggle('hover:bg-zinc-50', page !== currentPage)
         }
 
         // 表示するページ番号ボタンの範囲を調整 (常に5つ表示)
@@ -552,6 +648,8 @@ function bootstrap() {
     setupTechBlogPagination()
     setupNikeLogChart() // NikeLogチャートの初期化を追加
     setupBlogDetailHydration() // BlogDetailV3 をハイドレート
+    setupHeaderOtherDropdown() // Header: Other ドロップダウン
+    setupMobileMenu() // Header: モバイルメニュー
   })
 }
 

@@ -3,25 +3,26 @@ import { motion } from "motion/react";
 import { useMemo } from "react";
 import { fanArts } from "../../utils/fanArtsData";
 import { shuffle } from "../../utils/galleryData";
+import { Button } from "./ui/button";
 
 export function GallerySection() {
   // ランダムに8件（4列 x 2行）を取得（ファンアート）
   const items = useMemo(() => shuffle([...fanArts]).slice(0, 8), []);
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
-      <div className="container relative z-10 mx-auto max-w-7xl">
+    <section className="relative pt-10 pb-20 px-4 overflow-hidden">
+      <div className="container relative z-10 mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight mb-6">
             アートギャラリー
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
             ニケちゃんのアートワークやファンアートをご紹介
           </p>
         </motion.div>
@@ -55,13 +56,12 @@ export function GallerySection() {
           transition={{ delay: 0.8, duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <a 
-            href="/gallery"
-            className="inline-flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-          >
-            <ImageIcon className="w-5 h-5" />
-            <span>ギャラリーを見る</span>
-          </a>
+          <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white">
+            <a href="/gallery" className="inline-flex items-center gap-2">
+              <ImageIcon className="w-5 h-5" />
+              <span>ギャラリーを見る</span>
+            </a>
+          </Button>
         </motion.div>
       </div>
     </section>

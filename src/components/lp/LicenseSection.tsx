@@ -4,11 +4,8 @@ import { Button } from "./ui/button";
 
 export function LicenseSection() {
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
-      <div className="absolute top-10 right-10 w-48 h-48 bg-indigo-200/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-10 left-10 w-56 h-56 bg-fuchsia-200/30 rounded-full blur-3xl" />
-
-      <div className="container relative z-10 mx-auto max-w-7xl">
+    <section className="relative pt-10 pb-20 px-4 overflow-hidden">
+      <div className="container relative z-10 mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-14 items-stretch">
           {/* Left: Copy and CTAs */}
           <motion.div
@@ -20,7 +17,7 @@ export function LicenseSection() {
           >
             <div>
               <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
-                ライセンスについて
+                ガイドラインについて
               </h2>
               <p className="mt-4 text-lg text-gray-700 leading-relaxed">
                 VRMモデルはAI生成OK。i2iやLoRAの作成など、どんな用途でもご利用いただけます。
@@ -47,10 +44,10 @@ export function LicenseSection() {
                 </a>
               </Button>
               <a
-                href="/dev"
+                href="/guidelines"
                 className="inline-flex items-center text-indigo-700 font-semibold hover:text-indigo-800"
               >
-                ライセンスの詳細はこちら
+                ガイドラインの詳細はこちら
                 <ArrowRight className="ml-1 h-4 w-4" />
               </a>
             </div>
@@ -68,16 +65,13 @@ export function LicenseSection() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="rounded-3xl border border-white/50 bg-white/70 shadow-xl backdrop-blur p-5 h-full flex flex-col">
+            <div className="rounded-3xl border border-white/60 bg-white/80 shadow-xl backdrop-blur p-5 h-full flex flex-col">
               <div className="flex items-center justify-between mb-4">
                 <div className="text-sm font-semibold text-gray-800">banana で i2i を試す例</div>
-                <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-[11px] font-medium text-indigo-700">
-                  i2i sample
-                </span>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white/80">
+                <div className="rounded-2xl overflow-hidden border border-white/60 bg-white/80 backdrop-blur">
                   <div className="flex items-center justify-between px-3 py-2 text-xs text-gray-600">
                     <span>input</span>
                     <span className="opacity-70">reference</span>
@@ -92,7 +86,7 @@ export function LicenseSection() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white/80">
+                <div className="rounded-2xl overflow-hidden border border-white/60 bg-white/80 backdrop-blur">
                   <div className="flex items-center justify-between px-3 py-2 text-xs text-gray-600">
                     <span>output</span>
                     <span className="opacity-70">generated with banana</span>

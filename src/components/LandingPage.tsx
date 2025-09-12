@@ -12,12 +12,9 @@ export function LandingPage() {
         {/* Top hero section (has its own background) */}
         <WelcomeSection />
 
-        {/* Content sections with subtle white background */}
+        {/* Content sections share a subtle white background (ambient spots removed) */}
         <div className="bg-white/30">
           <AboutSection />
-        </div>
-
-        <div className="bg-white/30">
           <LicenseSection />
           <GallerySection />
           <SocialLinksSection />

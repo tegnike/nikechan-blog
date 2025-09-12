@@ -69,10 +69,7 @@ export function SocialLinksSection() {
   ] as const;
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
-      <div className="absolute top-10 left-10 w-40 h-40 bg-indigo-200/40 rounded-full blur-2xl" />
-      <div className="absolute bottom-10 right-10 w-56 h-56 bg-pink-200/40 rounded-full blur-3xl" />
-
+    <section className="relative pt-10 pb-20 px-4 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -81,10 +78,10 @@ export function SocialLinksSection() {
           viewport={{ once: true }}
           className="text-center mb-14"
         >
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900">
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
             SNS
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-4 text-lg text-gray-700 leading-relaxed">
             各種SNSでニケちゃんとつながろう。最新情報やコミュニティ活動をチェック
           </p>
         </motion.div>

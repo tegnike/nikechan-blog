@@ -20,6 +20,10 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
       ? `${baseClass} text-purple-600 font-semibold` 
       : `${baseClass} text-gray-700 hover:text-purple-600`;
   };
+  const isOtherActive = ["/developer", "/dev_blog"].some((p) => {
+    const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
+    return clean === p || clean.startsWith(`${p}/`)
+  })
   return (
     <GalleryModalProvider>
       <header 
@@ -43,26 +47,85 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
             </a>
           </motion.div>
           
-          <nav className="hidden md:flex items-center space-x-8">
-            {[
-              { name: "Home", path: "/" },
-              { name: "Gallery", path: "/gallery" },
-              { name: "License", path: "/license" },
-              { name: "Developer", path: "/dev" }
-            ].map((item, index) => (
-              <a 
-                key={item.name}
-                href={item.path}
-                className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass(item.path, item.name === "Log" || item.name === "Gallery")}`}
+          <nav className="hidden md:flex items-center space-x-4">
+            {/* Home */}
+            <a 
+              href="/"
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/")}`}
+            >
+              <span className="relative z-10">Home</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              />
+            </a>
+
+            {/* About */}
+            <a 
+              href="/about"
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/about")}`}
+            >
+              <span className="relative z-10">About</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              />
+            </a>
+
+            {/* Gallery (covers /gallery/*) */}
+            <a 
+              href="/gallery"
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/gallery", true)}`}
+            >
+              <span className="relative z-10">Gallery</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              />
+            </a>
+
+            {/* Guidelines (covers /guidelines/*) */}
+            <a 
+              href="/guidelines"
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/guidelines", true)}`}
+            >
+              <span className="relative z-10">Guidelines</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              />
+            </a>
+
+            {/* Other dropdown: Developer / Blog (click toggle) */}
+            <div className="relative">
+              <button
+                id="other-menu-trigger"
+                aria-haspopup="menu"
+                aria-expanded={isOtherActive ? 'true' : 'false'}
+                className={`relative px-4 py-2 font-medium select-none transition-colors duration-300 ${isOtherActive ? 'text-purple-600 font-semibold' : 'text-gray-700 hover:text-purple-600'}`}
+                type="button"
               >
-                <span className="relative z-10">{item.name}</span>
+                <span className="relative z-10">Other</span>
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
                   whileHover={{ opacity: 1, scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 />
-              </a>
-            ))}
+              </button>
+              <div
+                id="other-menu"
+                role="menu"
+                aria-labelledby="other-menu-trigger"
+                className="absolute left-0 mt-2 w-44 rounded-lg border bg-white shadow-lg hidden"
+              >
+                <a href="/developer" role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/developer', true)}`}>Developer</a>
+                <a href="/dev_blog" role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/dev_blog', true)}`}>Dev Blog</a>
+              </div>
+            </div>
           </nav>
 
           <motion.div
@@ -70,10 +133,25 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
             whileTap={{ scale: 0.95 }}
             className="mr-2 md:mr-0 md:hidden"
           >
-            <button className="bg-white/50 border border-purple-200 hover:bg-purple-50 px-4 py-2 rounded-lg text-sm font-medium">
+            <button id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false" className="bg-white/50 border border-purple-200 hover:bg-purple-50 px-4 py-2 rounded-lg text-sm font-medium">
               Menu
             </button>
           </motion.div>
+
+          {/* Mobile dropdown menu */}
+          <div
+            id="mobile-menu"
+            className="md:hidden absolute left-0 right-0 top-full mt-2 px-4 hidden"
+          >
+            <div className="rounded-xl border bg-white shadow-lg divide-y">
+              <a href="/" className={`block px-4 py-3 ${getLinkClass('/')}`}>Home</a>
+              <a href="/about" className={`block px-4 py-3 ${getLinkClass('/about')}`}>About</a>
+              <a href="/gallery" className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>Gallery</a>
+              <a href="/guidelines" className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>Guidelines</a>
+              <a href="/developer" className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>Developer</a>
+              <a href="/dev_blog" className={`block px-4 py-3 ${getLinkClass('/dev_blog', true)}`}>Dev Blog</a>
+            </div>
+          </div>
         </div>
       </header>
 

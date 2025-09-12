@@ -1,7 +1,15 @@
-import { About } from './About'
+import { NikeProfile } from './NikeProfile'
 
 export function Developer() {
-  // 開発者ページは既存のAboutコンテンツをそのまま使用
-  return <About />
+  // Developer ページはニケのプロフィールのみを表示
+  return (
+    <div className="min-h-screen px-4">
+      <div className="pt-12 pb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">DEVELOPER</h1>
+      </div>
+      <div className="max-w-4xl mx-auto">
+        <NikeProfile />
+      </div>
+    </div>
+  )
 }
-

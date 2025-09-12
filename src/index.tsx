@@ -13,6 +13,7 @@ import { MonthlySummary } from './components/MonthlySummary'
 import { Developer } from './components/Developer'
 import { License } from './components/License'
 import { DevBlog } from './components/DevBlog'
+import { About } from './components/About'
 
 const app = new Hono()
 
@@ -59,17 +60,32 @@ app.get('/gallery/commissioned', (c) => {
   )
 })
 
-// License page
-app.get('/license', (c) => {
+// Guidelines pages
+app.get('/guidelines', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path; // パスを取得
   return c.render(
     <Layout currentPath={currentPath}>
-      <License />
+      <License active="derivative" />
     </Layout>,
-    { title: "Nike Portfolio | License" }
+    { title: "Nike Portfolio | Guidelines" }
   )
 })
+
+app.get('/guidelines/ai', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+  const currentPath = c.req.path; // パスを取得
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <License active="ai" />
+    </Layout>,
+    { title: "Nike Portfolio | AI Guidelines" }
+  )
+})
+
+// Backward-compatible redirects from old /license paths
+app.get('/license', (c) => c.redirect('/guidelines', 301))
+app.get('/license/ai', (c) => c.redirect('/guidelines/ai', 301))
 
 // Log page (活動記録)
 app.get('/log', async (c) => {
@@ -111,7 +127,7 @@ app.get('/log/summary/:yearMonth', async (c) => {
 })
 
 // Developer page
-app.get('/dev', (c) => {
+app.get('/developer', (c) => {
   const currentPath = c.req.path; // パスを取得
   return c.render(
     <Layout currentPath={currentPath}>
@@ -121,8 +137,11 @@ app.get('/dev', (c) => {
   )
 })
 
+// Backward-compatible redirect from old /dev
+app.get('/dev', (c) => c.redirect('/developer', 301))
+
 // Developer Blog page
-app.get('/dev/blog', async (c) => {
+app.get('/dev_blog', async (c) => {
   c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
   const content = await DevBlog()
   const currentPath = c.req.path; // パスを取得
@@ -133,6 +152,9 @@ app.get('/dev/blog', async (c) => {
     { title: "Nike Portfolio | Dev Blog" }
   )
 })
+
+// Backward-compatible redirect
+app.get('/dev/blog', (c) => c.redirect('/dev_blog', 301))
 
 // Backward-compatible redirects from old blog paths
 app.get('/blog', (c) => c.redirect('/log', 301))
@@ -146,6 +168,14 @@ app.get('/blog/:id', (c) => {
 })
 
 // Old about path
-app.get('/about', (c) => c.redirect('/dev', 301))
+app.get('/about', (c) => {
+  const currentPath = c.req.path;
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <About />
+    </Layout>,
+    { title: "Nike Portfolio | About" }
+  )
+})
 
 export default app

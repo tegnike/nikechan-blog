@@ -217,8 +217,10 @@ export const Gallery = () => {
 
   return (
     <>
-      <div className="pt-12 pb-6">
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground mb-4">GALLARY</h1>
+      <div className="pb-4">
+        <div className="pt-12 pb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">GALLERY</h1>
+        </div>
         <GalleryToggle active="commissioned" />
         <div className="mx-auto mt-4 w-full max-w-4xl px-4">
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900">
@@ -226,7 +228,7 @@ export const Gallery = () => {
               このページに掲載している「コミッション作品」は、作者との個別の契約に基づき制作・掲載している公式イラストです。
               これらの画像を学習用データセットとして使用したり、画像生成の参照素材（i2i / img2img）、LoRA などの学習・微調整、その他の生成系 AI の入力素材として利用することはできません。
               鑑賞用途のみにご利用ください。AI 生成を行う場合は、
-              <a href="/license" className="underline underline-offset-2 decoration-amber-600 hover:opacity-80">ライセンスページ</a>
+              <a href="/guidelines" className="underline underline-offset-2 decoration-amber-600 hover:opacity-80">ガイドラインページ</a>
               に記載の VRM モデルをご利用ください。
             </p>
           </div>

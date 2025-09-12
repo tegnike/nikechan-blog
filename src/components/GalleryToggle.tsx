@@ -8,7 +8,7 @@ export function GalleryToggle({ active }: Props) {
   const inactiveClass = 'bg-white/50 border border-purple-200 text-gray-800 hover:bg-purple-50';
 
   return (
-    <div className="w-full flex items-center justify-center gap-3 mt-2">
+    <div className="w-full flex items-center justify-center gap-3 mt-2 mb-6">
       <a
         href="/gallery"
         className={`${base} ${active === 'fan' ? activeClass : inactiveClass}`}
@@ -24,4 +24,3 @@ export function GalleryToggle({ active }: Props) {
     </div>
   )
 }
-
