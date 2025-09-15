@@ -52,7 +52,6 @@ export const NikeProfile: FC = () => {
             </div>
             <div className="flex-1 text-center sm:text-left">
               <div className="inline-flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-pink-500" />
                 <h1 className="text-balance text-2xl font-bold tracking-tight sm:text-3xl">ニケ / Nike</h1>
               </div>
               <p className="mt-2 text-sm text-zinc-600">
@@ -174,6 +173,18 @@ export const NikeProfile: FC = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* AI Nike-chan Introduction Link */}
+      <a href="/about" className="block mt-6">
+        <Card className="transition-shadow hover:shadow-lg cursor-pointer">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-center gap-2 text-lg font-medium">
+              <Sparkles className="h-5 w-5 text-purple-600" />
+              AIニケちゃんの紹介ページへ
+            </div>
+          </CardContent>
+        </Card>
+      </a>
 
       {/* Career timeline */}
       <Card className="mt-6">

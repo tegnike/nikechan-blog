@@ -4,21 +4,18 @@ import { Button } from "./ui/button";
 
 export function SupportSection() {
   return (
-    <section className="relative pt-10 pb-20 px-4 overflow-hidden">
+    <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-10"
         >
           <h2 className="mt-3 text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
             活動のご支援について
           </h2>
-          <p className="mt-4 text-lg text-gray-700 leading-relaxed">
-            支援はFANBOXのみで受け付けています。プランは複数ありますが、特典は全て同じです。
-          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
@@ -29,7 +26,7 @@ export function SupportSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="h-full rounded-3xl border border-white/60 bg-white/80 p-8 shadow-sm backdrop-blur">
+            <div className="h-full rounded-3xl border border-white/60 bg-white/80 backdrop-blur">
               <h3 className="text-2xl font-bold text-gray-900">FANBOX で支援</h3>
               <p className="mt-3 text-gray-700 leading-relaxed">
                 活動の継続・制作費に充てさせていただきます。どの支援プランでも受けられる特典は同じで、金額で差が出ない設計です。
@@ -37,7 +34,7 @@ export function SupportSection() {
               <ul className="mt-6 space-y-3 text-gray-800">
                 {[
                   "同一特典：どのプランでも内容は共通",
-                  "決済はFANBOXに一本化",
+                  "現在、決済はFANBOXに一本化",
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-3">
                     <span className="mt-1 inline-block h-2 w-2 rounded-full bg-indigo-500" />
@@ -64,7 +61,7 @@ export function SupportSection() {
             transition={{ duration: 0.6, delay: 0.05 }}
             viewport={{ once: true }}
           >
-            <div className="h-full rounded-3xl border border-white/60 bg-white/80 p-8 shadow-sm backdrop-blur">
+            <div className="h-full rounded-3xl border border-white/60 bg-white/80 backdrop-blur">
               <div className="flex items-center gap-2 text-gray-900">
                 <Shield className="h-5 w-5 text-indigo-600" />
                 <h3 className="text-2xl font-bold">Discord について</h3>

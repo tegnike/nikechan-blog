@@ -10,21 +10,18 @@ export function GallerySection() {
   const items = useMemo(() => shuffle([...fanArts]).slice(0, 8), []);
 
   return (
-    <section className="relative pt-10 pb-20 px-4 overflow-hidden">
+    <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-10"
         >
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight mb-6">
             アートギャラリー
           </h2>
-          <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
-            ニケちゃんのアートワークやファンアートをご紹介
-          </p>
         </motion.div>
 
         {/* ファンアート（4列 x 2行、クリック/ホバー無し） */}
@@ -50,7 +47,7 @@ export function GallerySection() {
 
         {/* ギャラリーへのリンク */}
         <motion.div
-          className="text-center mt-16"
+          className="text-center mt-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}

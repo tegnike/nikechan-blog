@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
-import { Button } from "./ui/button";
 
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
@@ -69,21 +68,18 @@ export function SocialLinksSection() {
   ] as const;
 
   return (
-    <section className="relative pt-10 pb-20 px-4 overflow-hidden">
+    <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-10"
         >
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
             SNS
           </h2>
-          <p className="mt-4 text-lg text-gray-700 leading-relaxed">
-            各種SNSでニケちゃんとつながろう。最新情報やコミュニティ活動をチェック
-          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -96,7 +92,13 @@ export function SocialLinksSection() {
               viewport={{ once: true }}
               className="group"
             >
-              <div className={`relative overflow-hidden rounded-2xl border border-white/60 bg-white/80 shadow-sm backdrop-blur ring-2 ${ring}`}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${label} ${handle} を開く`}
+                className={`block relative overflow-hidden rounded-2xl border border-white/60 bg-white/90 backdrop-blur ring-2 ${ring} shadow-md transition-all cursor-pointer focus:outline-none focus-visible:ring-4 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0`}
+              >
                 <div className="p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-4">
@@ -111,16 +113,13 @@ export function SocialLinksSection() {
                         )}
                       </div>
                     </div>
-
-                    <Button asChild size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                      <a href={href} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="mr-2 h-4 w-4" />
-                        開く
-                      </a>
-                    </Button>
+                    {/* Visual affordance: pill-like CTA that reinforces clickability */}
+                    <span className="inline-flex items-center self-center rounded-md bg-indigo-600 p-2 text-white shadow-sm transition-colors group-hover:bg-indigo-700">
+                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
-              </div>
+              </a>
             </motion.div>
           ))}
         </div>

@@ -38,7 +38,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
           >
             <a href="/" className="inline-flex items-center" aria-label="Nike Chan - Official Website">
               <img 
-                src="/images/logs/logo_with_frame_and_shadow.png" 
+                src="/images/logos/logo_with_frame_and_shadow.png" 
                 alt="Nike Chan Logo" 
                 className="h-14 md:h-16 w-auto rounded-2xl"
                 decoding="async"

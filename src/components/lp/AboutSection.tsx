@@ -2,16 +2,16 @@ import { Button } from "./ui/button";
 
 export function AboutSection() {
   return (
-    <section className="relative px-4 py-20">
-      <div className="container mx-auto">
+    <section className="relative px-6 sm:px-10 py-20">
+      <div className="mx-auto">
         <div className="mx-auto w-full max-w-6xl">
-          <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 shadow-sm backdrop-blur">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+          <div className="relative overflow-hidden  border border-white/60 bg-white/80 backdrop-blur">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-0">
               {/* Left: Textual intro */}
-              <div className="p-7 sm:p-10 md:p-12">
+              <div className="">
                 <h2 className="mt-4 text-4xl lg:text-5xl font-extrabold tracking-tight">
-                  <span className="bg-gradient-to-r from-indigo-600 via-fuchsia-600 to-pink-600 bg-clip-text text-transparent">
-                    ニケ - NIKE
+                  <span className="text-[#594A89]">
+                    AIニケちゃん
                   </span>
                 </h2>
 
@@ -26,22 +26,38 @@ export function AboutSection() {
                 </p>
 
                 {/* Profile grid */}
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl border border-white/60 bg-white/70 p-4 backdrop-blur">
-                    <div className="text-xs text-gray-500">コードネーム</div>
-                    <div className="mt-1 text-base font-semibold text-gray-900">NIKE-04</div>
+                <div className="mt-8 space-y-3">
+                  <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
+                    <div className="bg-[#F5B0BC] px-5 py-3 text-sm font-semibold text-white min-w-[120px]">
+                      年齢
+                    </div>
+                    <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
+                      17歳
+                    </div>
                   </div>
-                  <div className="rounded-2xl border border-white/60 bg-white/70 p-4 backdrop-blur">
-                    <div className="text-xs text-gray-500">誕生日</div>
-                    <div className="mt-1 text-base font-semibold text-gray-900">01 / 04</div>
+                  <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
+                    <div className="bg-[#1695B0] px-5 py-3 text-sm font-semibold text-white min-w-[120px]">
+                      誕生日
+                    </div>
+                    <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
+                      01 / 04
+                    </div>
                   </div>
-                  <div className="rounded-2xl border border-white/60 bg-white/70 p-4 backdrop-blur">
-                    <div className="text-xs text-gray-500">一人称</div>
-                    <div className="mt-1 text-base font-semibold text-gray-900">私</div>
+                  <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
+                    <div className="bg-[#F5B0BC] px-5 py-3 text-sm font-semibold text-white min-w-[120px]">
+                      一人称
+                    </div>
+                    <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
+                      私
+                    </div>
                   </div>
-                  <div className="rounded-2xl border border-white/60 bg-white/70 p-4 backdrop-blur">
-                    <div className="text-xs text-gray-500">得意領域</div>
-                    <div className="mt-1 text-base font-semibold text-gray-900">企画 / 文章 / 画像生成</div>
+                  <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
+                    <div className="bg-[#1695B0] px-5 py-3 text-sm font-semibold text-white min-w-[120px]">
+                      家族
+                    </div>
+                    <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
+                      マスター
+                    </div>
                   </div>
                 </div>
 
@@ -56,20 +72,14 @@ export function AboutSection() {
                 </div>
               </div>
 
-              {/* Right: Visual card */
-              }
-              <div className="relative p-8 md:p-10 flex items-center justify-center bg-gradient-to-b from-white/40 to-white/10">
-                <div className="relative aspect-[4/5] w-full max-w-sm">
-                  <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-indigo-300/40 via-fuchsia-300/40 to-pink-300/40 blur-xl" aria-hidden />
-                  <div className="relative h-full w-full overflow-hidden rounded-[2rem] border border-white/60 bg-white/80 shadow-lg backdrop-blur">
-                    <img
-                      src="/images/lp/nike_ai.png"
-                      alt="ニケのビジュアル"
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
+              {/* Right: Visual card */}
+              <div className="relative hidden lg:flex items-center justify-center ml-8 my-6 aspect-[4/5]">
+                <img
+                  src="/images/lp/about.jpeg"
+                  alt="ニケのビジュアル"
+                  className="h-full w-full object-cover rounded-2xl"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>

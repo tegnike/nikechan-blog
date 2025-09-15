@@ -8,6 +8,10 @@ function escapeHtml(str: string): string {
 }
 
 function applyInlineTransforms(str: string): string {
+  // images ![alt](src)
+  str = str.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_m, alt, src) => {
+    return `<img src="${src}" alt="${alt}" />`
+  })
   // links [text](url)
   str = str.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, (_m, text, href) => {
     const isExternal = /^(https?:)?\/\//.test(href)

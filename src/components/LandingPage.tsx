@@ -3,6 +3,7 @@ import { AboutSection } from "./lp/AboutSection";
 import { LicenseSection } from "./lp/LicenseSection";
 import { GallerySection } from "./lp/GallerySection";
 import { SocialLinksSection } from "./lp/SocialLinksSection";
+import { ContactSupportSection } from "./lp/ContactSupportSection";
 import { SupportSection } from "./lp/SupportSection";
 
 export function LandingPage() {
@@ -19,6 +20,7 @@ export function LandingPage() {
           <GallerySection />
           <SocialLinksSection />
           <SupportSection />
+          <ContactSupportSection />
         </div>
       </main>
     </div>
