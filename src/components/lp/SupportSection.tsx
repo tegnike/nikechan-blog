@@ -6,26 +6,17 @@ export function SupportSection() {
   return (
     <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-10"
         >
           <h2 className="mt-3 text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
             活動のご支援について
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
           {/* Left: FANBOX policy and CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <div className="h-full rounded-3xl border border-white/60 bg-white/80 backdrop-blur">
               <h3 className="text-2xl font-bold text-gray-900">FANBOX で支援</h3>
               <p className="mt-3 text-gray-700 leading-relaxed">
@@ -52,15 +43,10 @@ export function SupportSection() {
                 </Button>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right: Discord policy */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <div className="h-full rounded-3xl border border-white/60 bg-white/80 backdrop-blur">
               <div className="flex items-center gap-2 text-gray-900">
                 <Shield className="h-5 w-5 text-indigo-600" />
@@ -88,10 +74,10 @@ export function SupportSection() {
               </div>
 
               <p className="mt-4 text-sm text-gray-500">
-                詳細な参加手順やチャンネル構成は、FANBOX内のお知らせでご案内します。
+                詳細な参加手順やチャンネル構成は、Discord内の特設チャンネルでご案内します。
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

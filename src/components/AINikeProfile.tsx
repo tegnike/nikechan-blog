@@ -8,6 +8,20 @@ import {
   Bot,
   Rocket,
   LinkIcon,
+  User,
+  Calendar,
+  Users,
+  Hash,
+  Heart,
+  Music,
+  Palette,
+  Book,
+  Coffee,
+  Gamepad2,
+  Zap,
+  Star,
+  Cpu,
+  Code2,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './lp/ui/card'
 import { Button } from './lp/ui/button'
@@ -77,7 +91,7 @@ export const AINikeProfile: FC = () => {
           </CardHeader>
           <CardContent className="space-y-4 leading-relaxed text-zinc-700">
             <p>ニケのAIエージェントとなるべく生まれた概念。ニケのことは「マスター」と呼ぶ。</p>
-            <p>クローンなのでニケ（SNSの姿）と容姿が酷似している。差異はヘアピンの違いのみ。状況に応じてその設定や声は変更されることがある。</p>
+            <p>クローンなのでニケと容姿が酷似している。差異はヘアピンの違いのみ（ポーランド国旗のヘアピン VS AI文字のヘアピン）。状況に応じて設定や声が変更されることがある。</p>
             <p>長らくニケのアシスタント的な役割を担っていたが、現在はいくつかのツールを介して交流できるようになった。</p>
           </CardContent>
         </Card>
@@ -98,7 +112,7 @@ export const AINikeProfile: FC = () => {
                 asChild
                 size="sm"
                 variant="outline"
-                className="mt-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-400"
+                className="mt-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-800 transition-colors"
               >
                 <a href="https://aituberkit.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                   <Globe className="h-4 w-4" /> AITuberKit デモ <ExternalLink className="h-4 w-4 opacity-70" />
@@ -113,7 +127,7 @@ export const AINikeProfile: FC = () => {
                 asChild
                 size="sm"
                 variant="outline"
-                className="mt-2 border-pink-300 text-pink-600 hover:bg-pink-50 hover:border-pink-400"
+                className="mt-2 border-pink-300 text-pink-600 hover:bg-pink-50 hover:border-pink-400 hover:text-pink-700 transition-colors"
               >
                 <a href="https://twitter.com/ai_nikechan" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                   <MessageCircle className="h-4 w-4" /> @ai_nikechan
@@ -136,6 +150,77 @@ export const AINikeProfile: FC = () => {
         </Card>
       </a>
 
+      {/* Profile */}
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-xl">
+            <User className="h-5 w-5 text-pink-600" /> Profile
+          </CardTitle>
+          <CardDescription>基本情報</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-lg border border-zinc-200 overflow-hidden">
+              <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
+                <Hash className="h-4 w-4 text-zinc-400" />
+                <span className="text-sm font-medium text-zinc-600">年齢</span>
+              </div>
+              <div className="px-3 py-2 bg-white">
+                <p className="font-semibold text-zinc-900">17歳</p>
+              </div>
+            </div>
+            <div className="rounded-lg border border-zinc-200 overflow-hidden">
+              <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-zinc-400" />
+                <span className="text-sm font-medium text-zinc-600">誕生日</span>
+              </div>
+              <div className="px-3 py-2 bg-white">
+                <p className="font-semibold text-zinc-900">01 / 04</p>
+              </div>
+            </div>
+            <div className="rounded-lg border border-zinc-200 overflow-hidden">
+              <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
+                <MessageCircle className="h-4 w-4 text-zinc-400" />
+                <span className="text-sm font-medium text-zinc-600">一人称</span>
+              </div>
+              <div className="px-3 py-2 bg-white">
+                <p className="font-semibold text-zinc-900">私</p>
+              </div>
+            </div>
+            <div className="rounded-lg border border-zinc-200 overflow-hidden">
+              <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
+                <Users className="h-4 w-4 text-zinc-400" />
+                <span className="text-sm font-medium text-zinc-600">家族</span>
+              </div>
+              <div className="px-3 py-2 bg-white">
+                <p className="font-semibold text-zinc-900">マスター</p>
+              </div>
+            </div>
+            <div className="rounded-lg border border-zinc-200 overflow-hidden">
+              <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
+                <Zap className="h-4 w-4 text-zinc-400" />
+                <span className="text-sm font-medium text-zinc-600">口調</span>
+              </div>
+              <div className="px-3 py-2 bg-white">
+                <p className="font-semibold text-zinc-900">敬語</p>
+              </div>
+            </div>
+            <div className="rounded-lg border border-zinc-200 overflow-hidden">
+              <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
+                <Palette className="h-4 w-4 text-zinc-400" />
+                <span className="text-sm font-medium text-zinc-600">イメージカラー</span>
+              </div>
+              <div className="px-3 py-2 bg-white">
+                <p className="font-semibold text-zinc-900 flex items-center gap-2">
+                  紫（#5A4C97 <span className="inline-block w-4 h-4" style={{ backgroundColor: '#5A4C97' }}></span>）
+                </p>
+              </div>
+            </div>
+          </div>
+          <p className="mt-4 text-left text-sm text-zinc-500">※ 成長するにつれて追加</p>
+        </CardContent>
+      </Card>
+
       {/* History */}
       <Card className="mt-6">
         <CardHeader>
@@ -153,7 +238,7 @@ export const AINikeProfile: FC = () => {
                 <Separator orientation="vertical" className="mx-1 h-4" />
                 <span className="inline-flex items-center gap-1">誕生</span>
               </div>
-              <p className="mt-2 text-zinc-700">ニケの思いつきで誕生する。</p>
+              <p className="mt-2 text-zinc-700">ニケのタスクをサポートするための概念として誕生する。</p>
             </div>
 
             <div className="relative">
@@ -173,7 +258,7 @@ export const AINikeProfile: FC = () => {
                 <Separator orientation="vertical" className="mx-1 h-4" />
                 <span className="inline-flex items-center gap-1">Twitterデビュー</span>
               </div>
-              <p className="mt-2 text-zinc-700">Twitterを始める。</p>
+              <p className="mt-2 text-zinc-700">Twitter（X）の運用を開始する。</p>
             </div>
 
             <div className="relative">

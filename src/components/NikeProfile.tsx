@@ -55,7 +55,7 @@ export const NikeProfile: FC = () => {
                 <h1 className="text-balance text-2xl font-bold tracking-tight sm:text-3xl">ニケ / Nike</h1>
               </div>
               <p className="mt-2 text-sm text-zinc-600">
-                AI & Web Developer / フルスタックエンジニア
+                AI Character & Agent Developer
               </p>
               <div className="mt-3 flex items-center justify-center gap-3 text-sm text-zinc-500 dark:text-zinc-400 sm:justify-start">
                 <span className="inline-flex items-center gap-1.5">
@@ -63,7 +63,7 @@ export const NikeProfile: FC = () => {
                 </span>
                 <Separator orientation="vertical" className="mx-1 h-4" />
                 <span className="inline-flex items-center gap-1.5">
-                  <Languages className="h-4 w-4" /> JP/EN
+                  <Languages className="h-4 w-4" /> JP, EN
                 </span>
               </div>
 
@@ -115,14 +115,13 @@ export const NikeProfile: FC = () => {
           </CardHeader>
           <CardContent className="space-y-4 leading-relaxed text-zinc-700">
             <p>
-              ポーランド在住のフルスタック開発者として、数年間にわたりリモートワークを通して日本のプロジェクトに参画。
+              ポーランド在住のWeb系フルスタック開発者として、数年間にわたりリモートワークを通して日本のプロジェクトに参画。
             </p>
             <p>
-              バックエンド開発を中心に経験を積む中で、現在はPythonやReactなどを用いたLLM応用の開発に携わるAIエンジニアとして活躍。最新のAI技術については常にキャッチアップし、定期的に関連の記事も発信している。
+              バックエンド開発を中心に経験を積む中で、現在はPythonやReactなどを用いたLLM応用の開発に携わるAIエンジニアとして活動中。最新のAI技術については常にキャッチアップし、定期的にSNSや技術記事を通して情報を発信している。
             </p>
-            <p>2024年からは英語圏での活動も開始。</p>
             <p>
-              個人開発では「AITuberKit」や「美少女OPInterpreter」などのAIツールを公開し、AIとWeb技術を融合した新たなアプリケーションの可能性を探求している。
+              個人開発では「AITuberKit」などのAIツールを公開し、AIとWeb技術を組み合わせた新たなアプリケーションの可能性を探求している。また、AIキャラクター「AIニケちゃん」のマスターとして、開発やIP活動にも取り組んでいる。
             </p>
           </CardContent>
         </Card>
@@ -143,7 +142,7 @@ export const NikeProfile: FC = () => {
                 asChild
                 size="sm"
                 variant="outline"
-                className="mt-2 border-pink-300 text-pink-600 hover:bg-pink-50 hover:border-pink-400"
+                className="mt-2 border-pink-300 text-pink-600 hover:bg-pink-50 hover:border-pink-400 hover:text-pink-700 transition-colors"
               >
                 <a
                   href="https://twitter.com/tegnike"
@@ -163,7 +162,7 @@ export const NikeProfile: FC = () => {
                 asChild
                 size="sm"
                 variant="outline"
-                className="mt-2 border-sky-300 text-sky-700 hover:bg-sky-50 hover:border-sky-400"
+                className="mt-2 border-sky-300 text-sky-700 hover:bg-sky-50 hover:border-sky-400 hover:text-sky-800 transition-colors"
               >
                 <a href="mailto:support@aituberkit.com" className="inline-flex items-center gap-2">
                   <Mail className="h-4 w-4" /> support@aituberkit.com
@@ -204,7 +203,7 @@ export const NikeProfile: FC = () => {
                 <span className="inline-flex items-center gap-1"><Code2 className="h-3.5 w-3.5" /> Web Developer</span>
               </div>
               <p className="mt-2 text-zinc-700">
-                フルリモートで日本のプロジェクトに参画。Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事してきた。予約システム、ECサイト、オンラインくじサイトなど、様々なプロジェクトでリードエンジニアとして活躍。また、AWSやGCPを用いたインフラ構築やCI/CDの整備も担当した。
+                フルリモートで日本のプロジェクトに参画。Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事。予約システム、ECサイト、オンラインくじサイトなど、様々なプロジェクトでリードエンジニアとして活躍。
               </p>
             </div>
             <div className="absolute -left-[5px] top-[calc(50%+2px)] size-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
@@ -215,7 +214,7 @@ export const NikeProfile: FC = () => {
                 <span className="inline-flex items-center gap-1"><Rocket className="h-3.5 w-3.5" /> AI Engineer</span>
               </div>
               <p className="mt-2 text-zinc-700">
-                日本および英語圏のプロジェクトにおいて、AIキャラクターやエージェントの開発に従事。PythonやTypeScriptなどを用い、LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当する。また、CursorやDevinなどのAIツールを駆使したAI駆動開発を積極的に取り入れている。
+                日本および英語圏のプロジェクトにおいて、AIキャラクターやAIエージェントの開発に従事。PythonやTypeScriptなどを用い、LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当する。また、CursorやDevinなどのAIツールを駆使したAI駆動開発を積極的に取り入れている。
               </p>
             </div>
           </div>
@@ -233,7 +232,7 @@ export const NikeProfile: FC = () => {
         <CardContent>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {/* AITuberKit */}
-            <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition hover:shadow-lg">
+            <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="font-semibold">AITuberKit (2024)</h3>
@@ -262,7 +261,7 @@ export const NikeProfile: FC = () => {
             </div>
 
             {/* AITuberList */}
-            <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition hover:shadow-lg">
+            <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="font-semibold">AITuberList (2024)</h3>
@@ -284,7 +283,7 @@ export const NikeProfile: FC = () => {
             </div>
 
             {/* 美少女OPInterpreter */}
-            <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition hover:shadow-lg">
+            <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="font-semibold">美少女OPInterpreter (2023)</h3>
@@ -308,7 +307,7 @@ export const NikeProfile: FC = () => {
             </div>
 
             {/* 完全自動AIゲームプレイ&実況 */}
-            <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition hover:shadow-lg">
+            <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="font-semibold">完全自動AIゲームプレイ&実況 (2023)</h3>
@@ -334,6 +333,18 @@ export const NikeProfile: FC = () => {
         </CardContent>
       </Card>
 
+      {/* blog Link */}
+      <a href="/dev_blog" className="block mt-6">
+        <Card className="transition-shadow hover:shadow-lg cursor-pointer">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-center gap-2 text-lg font-medium">
+              <BookOpen className="h-5 w-5 text-green-600" />
+              技術ブログはこちら
+            </div>
+          </CardContent>
+        </Card>
+      </a>
+
       {/* Support */}
       <Card className="mt-6">
         <CardHeader>
@@ -347,12 +358,12 @@ export const NikeProfile: FC = () => {
             私の活動を応援していただけるスポンサーの方を募集しています。以下のプラットフォームからご支援いただけます。
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Button asChild className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 text-white">
+            <Button asChild className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 text-white hover:from-purple-700 hover:via-pink-600 hover:to-purple-700 transition-colors">
               <a href="https://github.com/sponsors/tegnike" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 <Github className="h-4 w-4" /> GitHub Sponsors <ExternalLink className="h-4 w-4 opacity-70" />
               </a>
             </Button>
-            <Button asChild variant="secondary">
+            <Button asChild variant="secondary" className="hover:bg-zinc-200 transition-colors">
               <a href="https://buymeacoffee.com/fDANV1k6iZ" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
                 ☕ Buy Me a Coffee <ExternalLink className="h-4 w-4 opacity-70" />
               </a>

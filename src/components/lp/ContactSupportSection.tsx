@@ -6,17 +6,13 @@ export function ContactSupportSection() {
   return (
     <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-10"
         >
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
             お問い合わせ
           </h2>
-        </motion.div>
+        </div>
 
         <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/80 backdrop-blur mx-auto max-w-3xl">
           <div className="">

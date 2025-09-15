@@ -70,26 +70,16 @@ export function SocialLinksSection() {
   return (
     <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="text-center mb-10"
-        >
+        <div className="text-center mb-10">
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
             SNS
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {links.map(({ label, handle, href, Icon, accent, ring, note }, i) => (
-            <motion.div
+            <div
               key={href}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              viewport={{ once: true }}
               className="group"
             >
               <a
@@ -120,7 +110,7 @@ export function SocialLinksSection() {
                   </div>
                 </div>
               </a>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
