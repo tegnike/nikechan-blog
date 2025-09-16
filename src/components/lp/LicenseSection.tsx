@@ -68,7 +68,7 @@ export function LicenseSection() {
                   </div>
                   <div className="aspect-[4/5] w-full">
                     <img
-                      src="/images/lp/guideline1.png"
+                      src="/images/lp/guideline1.webp"
                       alt="i2i input"
                       className="h-full w-full object-cover"
                       loading="lazy"
@@ -82,7 +82,7 @@ export function LicenseSection() {
                   </div>
                   <div className="aspect-[4/5] w-full">
                     <img
-                      src="/images/lp/guideline2.png"
+                      src="/images/lp/guideline2.webp"
                       alt="i2i output"
                       className="h-full w-full object-cover"
                       loading="lazy"

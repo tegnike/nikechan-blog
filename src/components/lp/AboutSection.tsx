@@ -76,7 +76,7 @@ export function AboutSection() {
               {/* Right: Visual card */}
               <div className="relative hidden lg:flex items-center justify-center ml-8 my-6 aspect-[4/5]">
                 <img
-                  src="/images/lp/about.jpeg"
+                  src="/images/lp/about.webp"
                   alt="ニケのビジュアル"
                   className="h-full w-full object-cover rounded-2xl"
                   loading="lazy"

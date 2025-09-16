@@ -3,7 +3,7 @@ export function WelcomeSection() {
     <section
       className="relative min-h-[calc(100svh-5rem)] flex items-center justify-center px-4 overflow-hidden"
       style={{
-        backgroundImage: "url(/images/lp/bg.png)",
+        backgroundImage: "url(/images/lp/bg.webp)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -21,7 +21,7 @@ export function WelcomeSection() {
       {/* Centered character image */}
       <div className="relative z-10 flex items-center justify-center">
         <img
-          src="/images/lp/top.png"
+          src="/images/lp/top.webp"
           alt="AIニケちゃん"
           className="w-full max-w-[576px] h-auto object-contain"
           style={{
