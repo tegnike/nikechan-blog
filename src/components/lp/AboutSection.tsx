@@ -37,7 +37,7 @@ export function AboutSection() {
                     </div>
                   </div>
                   <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
-                    <div className="bg-[#1695B0] px-5 py-3 text-sm font-semibold text-white min-w-[150px]">
+                    <div className="bg-[#7CCFF3] px-5 py-3 text-sm font-semibold text-white min-w-[150px]">
                       誕生日
                     </div>
                     <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
@@ -45,7 +45,7 @@ export function AboutSection() {
                     </div>
                   </div>
                   <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
-                    <div className="bg-[#F5B0BC] px-5 py-3 text-sm font-semibold text-white min-w-[150px]">
+                    <div className="bg-[#1695B0] px-5 py-3 text-sm font-semibold text-white min-w-[150px]">
                       家族
                     </div>
                     <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
