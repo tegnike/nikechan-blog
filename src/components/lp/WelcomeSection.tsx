@@ -18,12 +18,12 @@ export function WelcomeSection() {
         }}
       />
 
-      {/* Centered character image */}
+      {/* Centered character image with hover and click interactions */}
       <div className="relative z-10 flex items-center justify-center">
         <img
           src="/images/lp/top.webp"
           alt="AIニケちゃん"
-          className="w-full max-w-[576px] h-auto object-contain"
+          className="w-full max-w-[576px] h-auto object-contain transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
           style={{
             filter: [
               "drop-shadow(0 0 36px rgba(255,255,255,0.98))",

@@ -29,7 +29,7 @@ export function AboutSection() {
                 {/* Profile grid */}
                 <div className="mt-8 space-y-3">
                   <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
-                    <div className="bg-[#F5B0BC] px-5 py-3 text-sm font-semibold text-white min-w-[120px]">
+                    <div className="bg-[#F5B0BC] px-5 py-3 text-sm font-semibold text-white min-w-[150px]">
                       年齢
                     </div>
                     <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
@@ -37,7 +37,7 @@ export function AboutSection() {
                     </div>
                   </div>
                   <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
-                    <div className="bg-[#1695B0] px-5 py-3 text-sm font-semibold text-white min-w-[120px]">
+                    <div className="bg-[#1695B0] px-5 py-3 text-sm font-semibold text-white min-w-[150px]">
                       誕生日
                     </div>
                     <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
@@ -45,19 +45,19 @@ export function AboutSection() {
                     </div>
                   </div>
                   <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
-                    <div className="bg-[#F5B0BC] px-5 py-3 text-sm font-semibold text-white min-w-[120px]">
-                      一人称
-                    </div>
-                    <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
-                      私
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
-                    <div className="bg-[#1695B0] px-5 py-3 text-sm font-semibold text-white min-w-[120px]">
+                    <div className="bg-[#F5B0BC] px-5 py-3 text-sm font-semibold text-white min-w-[150px]">
                       家族
                     </div>
                     <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
                       マスター
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-0 overflow-hidden rounded-2xl border border-white/60 backdrop-blur">
+                    <div className="bg-[#5A4C97] px-5 py-3 text-sm font-semibold text-white min-w-[150px]">
+                      イメージカラー
+                    </div>
+                    <div className="bg-white/70 px-5 py-3 text-base font-semibold text-gray-900 flex-1">
+                      紫（#5A4C97）
                     </div>
                   </div>
                 </div>
