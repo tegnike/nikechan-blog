@@ -77,9 +77,11 @@ export function AboutSection() {
               <div className="relative hidden lg:flex items-center justify-center ml-8 my-6 aspect-[4/5]">
                 <img
                   src="/images/lp/about.webp"
-                  alt="ニケのビジュアル"
+                  alt="Nike Chan（ニケちゃん）のプロフィール画像 - 紫髪の17歳の女の子キャラクター"
                   className="h-full w-full object-cover rounded-2xl"
                   loading="lazy"
+                  width="400"
+                  height="500"
                 />
               </div>
             </div>

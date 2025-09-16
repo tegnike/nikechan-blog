@@ -1,0 +1,57 @@
+# NIKELOG Robots.txt
+# https://nikechan.com
+
+User-agent: *
+Allow: /
+
+# Directories
+Allow: /gallery/
+Allow: /guidelines/
+Allow: /log/
+Allow: /about
+Allow: /developer
+Allow: /dev_blog
+
+# Block crawlers from assets
+Disallow: /static/client.js
+Disallow: *.js$
+Disallow: *.css$
+
+# Sitemap
+Sitemap: https://nikechan.com/sitemap.xml
+
+# Crawl-delay (in seconds)
+Crawl-delay: 1
+
+# Popular Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Social Media Crawlers
+User-agent: Twitterbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: facebookexternalhit
+Allow: /
+Crawl-delay: 0
+
+# AI/ML Crawlers - Controlled Access
+User-agent: GPTBot
+Disallow: /guidelines/ai
+Allow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /guidelines/ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /

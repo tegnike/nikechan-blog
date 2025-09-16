@@ -8,6 +8,7 @@ export function WelcomeSection() {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
+      aria-label="ヒーローセクション"
     >
       {/* White gradient overlay: subtle at top, stronger at bottom */}
       <div
@@ -19,10 +20,11 @@ export function WelcomeSection() {
       />
 
       {/* Centered character image with hover and click interactions */}
-      <div className="relative z-10 flex items-center justify-center">
+      <div className="relative z-10 flex flex-col items-center justify-center">
+        <h1 className="sr-only">NIKELOG - Nike Chan Official Portfolio</h1>
         <img
           src="/images/lp/top.webp"
-          alt="AIニケちゃん"
+          alt="Nike Chan（ニケちゃん）のメインビジュアル - デジタルアート作品"
           className="w-full max-w-[576px] h-auto object-contain transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
           style={{
             filter: [
@@ -32,6 +34,8 @@ export function WelcomeSection() {
             ].join(" "),
           }}
           loading="eager"
+          width="576"
+          height="800"
         />
       </div>
     </section>

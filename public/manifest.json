@@ -1,0 +1,47 @@
+{
+  "name": "NIKELOG - Nike Chan Official Portfolio",
+  "short_name": "NIKELOG",
+  "description": "Nike Chan（ニケちゃん）の公式ポートフォリオサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#9333ea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/logos/logo_with_frame_and_shadow.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "ja",
+  "dir": "ltr",
+  "categories": ["art", "portfolio", "blog", "entertainment"],
+  "screenshots": [
+    {
+      "src": "/images/logos/logo_with_frame_and_shadow.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "label": "NIKELOG Homepage"
+    }
+  ]
+}
