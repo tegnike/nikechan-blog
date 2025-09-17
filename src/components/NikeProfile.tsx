@@ -23,7 +23,7 @@ import { Separator } from './lp/ui/separator'
 
 export const NikeProfile: FC = () => {
   const AVATAR_SRC = "/images/about/nikechan_icon.png";
-  const AVATAR_FALLBACK_SRC = "/images/about/ai_nikechan_icon.jpg";
+  const AVATAR_FALLBACK_SRC = "/images/about/ai_nikechan_icon.png";
 
   return (
     <section className="relative mx-auto max-w-5xl px-4 py-5">

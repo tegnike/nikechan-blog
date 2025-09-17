@@ -28,7 +28,7 @@ import { Button } from './lp/ui/button'
 import { Separator } from './lp/ui/separator'
 
 export const AINikeProfile: FC = () => {
-  const AVATAR_SRC = "/images/about/ai_nikechan_icon.jpg";
+  const AVATAR_SRC = "/images/about/ai_nikechan_icon.png";
   const AVATAR_FALLBACK_SRC = "/images/about/nikechan_icon.png";
 
   return (
@@ -48,7 +48,7 @@ export const AINikeProfile: FC = () => {
                   decoding="async"
                   onError={(e) => {
                     const img = e.currentTarget as HTMLImageElement;
-                    if (img.src.endsWith("ai_nikechan_icon.jpg")) {
+                    if (img.src.endsWith("ai_nikechan_icon.png")) {
                       img.src = AVATAR_FALLBACK_SRC;
                     }
                   }}

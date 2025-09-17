@@ -1,6 +1,6 @@
 ## AIニケちゃん / AI Nike chan
 
-![AI nikechan's profile](/images/about/ai_nikechan_icon.jpg)
+![AI nikechan's profile](/images/about/ai_nikechan_icon.png)
 
 - 役割: AI Agent
 - 概要: ニケのAIエージェント 兼 AI VTuber
