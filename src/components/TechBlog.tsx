@@ -32,7 +32,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
       <button
         key="first"
         data-page-action="first"
-        className="pagination-button px-3 py-1 mx-1 bg-gray-700 hover:bg-gray-600 rounded-md hidden"
+        className="pagination-button px-2.5 py-1 mx-1 rounded-md border bg-white/70 text-zinc-700 hover:bg-zinc-50 hidden"
         aria-label="最初のページ"
       >
         &laquo;
@@ -43,7 +43,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
       <button
         key="prev"
         data-page-action="prev"
-        className="pagination-button px-3 py-1 mx-1 bg-gray-700 hover:bg-gray-600 rounded-md hidden"
+        className="pagination-button px-2.5 py-1 mx-1 rounded-md border bg-white/70 text-zinc-700 hover:bg-zinc-50 hidden"
         aria-label="前のページ"
       >
         &lsaquo;
@@ -56,8 +56,10 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
         <button
           key={i}
           data-page={i}
-          className={`pagination-button page-number px-3 py-1 mx-1 rounded-md ${
-            i === 1 ? 'active bg-gray-500 text-white font-bold' : 'bg-gray-700 hover:bg-gray-600'
+          className={`pagination-button page-number px-3 py-1 mx-1 rounded-md border ${
+            i === 1
+              ? 'active bg-purple-600 text-white border-purple-600 font-semibold'
+              : 'bg-white/70 text-zinc-700 hover:bg-zinc-50'
           } ${i > 5 ? 'hidden' : ''}` // 初期は5ページまで表示
         }
         >
@@ -71,7 +73,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
       <button
         key="next"
         data-page-action="next"
-        className={`pagination-button px-3 py-1 mx-1 bg-gray-700 hover:bg-gray-600 rounded-md ${totalPages <= 1 ? 'hidden' : ''}`}
+        className={`pagination-button px-2.5 py-1 mx-1 rounded-md border bg-white/70 text-zinc-700 hover:bg-zinc-50 ${totalPages <= 1 ? 'hidden' : ''}`}
         aria-label="次のページ"
       >
         &rsaquo;
@@ -82,7 +84,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
       <button
         key="last"
         data-page-action="last"
-        className={`pagination-button px-3 py-1 mx-1 bg-gray-700 hover:bg-gray-600 rounded-md ${totalPages <= 1 ? 'hidden' : ''}`}
+        className={`pagination-button px-2.5 py-1 mx-1 rounded-md border bg-white/70 text-zinc-700 hover:bg-zinc-50 ${totalPages <= 1 ? 'hidden' : ''}`}
         aria-label="最後のページ"
       >
         &raquo;
@@ -101,7 +103,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
   }
 
   return (
-    <div id="category-techblog" className="category-content hidden" data-content="techblog">
+    <div id="category-techblog" className="category-content" data-content="techblog">
       <div className="container mx-auto px-4 py-8">
         {articles.length > 0 ? (
           <>
@@ -115,18 +117,18 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`article-item block bg-gray-800 p-6 rounded-lg shadow-md 
-                      hover:shadow-lg transition-all duration-300 ease-in-out 
-                      hover:transform hover:-translate-y-1 hover:scale-[1.02]
+                    className={`article-item block rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 shadow-sm 
+                      hover:shadow-md transition-all duration-300 ease-in-out transform
+                      hover:-translate-y-1 hover:scale-[1.02]
                       ${pageNumber === 1 ? '' : 'hidden'}` // 初期は1ページ目のみ表示
                     }
                     data-page-item={pageNumber}
                   >
-                    <div className="aspect-w-128 aspect-h-67 mb-4">
+                    <div className="aspect-w-128 aspect-h-67 mb-4 overflow-hidden rounded-lg">
                       <img
                         src={article.thumbnail_url || `/images/thumbnails/${shuffledImageNumbers[index % shuffledImageNumbers.length]}.png`}
                         alt={article.title}
-                        className="object-cover w-full h-full rounded-lg"
+                        className="object-cover w-full h-full"
                         loading={index < 6 ? "eager" : "lazy"}
                         decoding="async"
                         fetchPriority={index < 6 ? "high" : "low"}
@@ -137,10 +139,10 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
                         }}
                       />
                     </div>
-                    <div className="text-gray-400 text-sm mb-2">
+                    <div className="text-zinc-500 text-sm mb-2">
                       {formatNoteDate(article.published_at)}
                     </div>
-                    <h3 className="text-white font-bold text-lg mb-2 line-clamp-2 truncate-2-lines">
+                    <h3 className="text-foreground font-semibold text-lg mb-2 line-clamp-2 truncate-2-lines">
                       {article.title}
                     </h3>
                     <div className="flex items-center text-[#EB4667]">
@@ -155,7 +157,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
             </div>
             {renderPaginationControls()}
             <div 
-              className="pagination-info text-center text-gray-400 text-sm mt-4"
+              className="pagination-info text-center text-zinc-600 text-sm mt-4"
               data-total-articles={articles.length}
               data-articles-per-page={articlesPerPage}
             >
@@ -163,11 +165,11 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
             </div>
           </>
         ) : (
-          <div className="text-center py-8 text-gray-400">
+          <div className="text-center py-8 text-zinc-500">
             記事がありません
           </div>
         )}
       </div>
     </div>
   )
-}    
+}

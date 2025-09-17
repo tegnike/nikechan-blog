@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-NIKELOG is a modern web application built with Hono framework and Cloudflare Pages. It leverages edge computing for fast responses and uses Supabase for backend services. The site serves as a portfolio and blog platform.
+NIKECHAN BLOG is a portfolio & blog site built with Hono (API) + React (SSR) architecture. It uses server-side rendering for performance while maintaining selective client-side interactivity. The application runs on Cloudflare Pages with edge computing and uses Supabase for backend services.
 
 ## Common Commands
 
@@ -16,17 +16,23 @@ bun install
 # Start development server with hot reload for CSS
 bun run dev
 
-# Build CSS separately
+# Build CSS separately (for standalone CSS updates)
 bun run build:css
 
-# Watch CSS changes
+# Watch CSS changes (standalone CSS watching)
 bun run watch:css
 ```
 
 ### Build & Deploy
 ```bash
-# Full build (CSS + client + server)
+# Full production build (CSS + client + server)
 bun run build
+
+# Build server only (includes CSS)
+bun run build:server
+
+# Build client JavaScript only
+bun run build:client
 
 # Deploy to Cloudflare Pages
 bun run deploy
@@ -39,17 +45,18 @@ bun run preview
 
 ### Server-Side Rendering (SSR)
 - React components are rendered to static HTML on the server using `@hono/react-renderer`
-- Routes are defined in `src/index.tsx`
+- Routes are defined in `src/index.tsx` (`/`, `/blog`, `/blog/:id`, `/blog/summary/:yearMonth`, `/about`)
 - No full React hydration - only selective client-side interactivity
 
 ### Client-Side Interactivity
 - `src/client.tsx` provides minimal DOM manipulation for interactions:
-  - Gallery modal functionality
-  - Profile switching
-  - Tab navigation
+  - Gallery modal functionality (small React tree)
+  - Profile switching (About page)
+  - Transcription toggle functionality
+  - Analytics tab switching
   - Chart.js visualizations
   - Pagination controls
-- Only `BlogDetailV3` component uses React hydration
+- Light-weight interactions use vanilla TypeScript, no full React hydration
 
 ### Build Process
 - Vite handles both server and client builds
@@ -89,3 +96,36 @@ Set these in Cloudflare Pages environment variables for both Production and Prev
 - TailwindCSS for all styling
 - Global styles in `src/styles/globals.css`
 - Avoid inline styles unless dynamic
+
+## Key File Structure
+
+### Entry Points
+- `src/index.tsx`: Main Hono server with routing and page rendering
+- `src/renderer.tsx`: Common HTML template using `@hono/react-renderer`
+- `src/client.tsx`: Client-side interactions (TypeScript + minimal React for modals)
+
+### Components Organization
+- Layout:
+  - `src/components/Layout.tsx`: Common header/footer/navigation
+- Page Components:
+  - `Introduction.tsx`: Homepage self-introduction section
+  - `Model.tsx`: 3D model display
+  - `Gallery.tsx`: Portfolio gallery listing
+  - `Blog.tsx`: Blog article listing
+  - `BlogDetail.tsx`: Article detail page (latest version)
+  - `BlogDetailV1.tsx` ~ `V3.tsx`: Previous versions of detail page
+  - `MonthlySummary.tsx`: Monthly blog summary
+  - `About.tsx`: Profile page (appearance defined in React, functionality in client.tsx)
+- Static assets served via Hono's `serveStatic` from `/public` to `/images/*`, `/static/*`, `/svg/*`
+
+### Client-Side Architecture
+- Server renders React to static HTML
+- Client script provides selective interactivity:
+  - Gallery modal (small React tree)
+  - Profile switching on About page
+  - Tab navigation and analytics charts
+  - No full React hydration - performance optimized
+
+## Testing
+
+No test framework is currently configured. When implementing tests, first check with the project maintainer for preferred testing approach.

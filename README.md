@@ -1,67 +1,135 @@
-# NIKELOG
+# AI Nike Chan Official Website
 
-## 概要
-このアプリケーションは、HonoフレームワークとCloudflare Pagesを利用したモダンなWebアプリケーションです。エッジコンピューティングの特性を活かした高速なレスポンスと、Supabaseによる堅牢なバックエンドサービスを組み合わせることで、スケーラブルで信頼性の高いサービスを提供します。
+https://nikechan.com
 
-## 技術スタック
+## 🤝 コントリビューション
 
-### フレームワーク/ライブラリ
-- **Hono**: JSX対応のWebフレームワーク
-  - `@hono/react-renderer`: React コンポーネントを SSR（サーバーサイドレンダリング）で出力
-- **Cloudflare Pages**: ホスティングプラットフォーム
-- **Supabase**: バックエンドサービス（データベース、認証）
+公式サイトですが、イシューやプルリクエストなど、改善に関わる指摘は歓迎します！
+気軽にコントリビューションしてください！！
 
-### フロントエンド
-- **React**: UI コンポーネント（SSRのみ、フルハイドレーションは行わず *必要箇所のみ* クライアントJSで制御）
-- **TailwindCSS**: CSSフレームワーク
-  - @tailwindcss/typography
-  - @tailwindcss/aspect-ratio
-- **Chart.js**: データ可視化ライブラリ
-- **react-chartjs-2**: Chart.js の React ラッパー
-- **クライアントJS**: DOM操作による対話機能
-  - ギャラリーモーダル表示
-  - プロフィール切り替え
-  - 文字起こしトグル
-  - 分析タブの切り替え
-  - ほか軽量インタラクション
+## 📕 概要
 
-### ビルドツール/開発環境
-- **Vite**: ビルドツール
-- **TypeScript**: 型システム
-- **PostCSS**: CSSプロセッサー
-- **Concurrently**: 開発用ツール
+以下は全てAIが書きました。
 
-## アーキテクチャ
+## 🚀 機能
 
-- サーバー側で React コンポーネントを静的 HTML として生成（@hono/react-renderer）
-- クライアント側では `src/client.tsx` を **TypeScript (Vanilla JS)** として読み込み、
-  必要なインタラクションだけを DOM 操作または小規模な React ツリー（ギャラリーモーダル）で実装
-- エッジでの実行により高速なレスポンスを実現
+- **サーバーサイドレンダリング** - React SSRによる高速な初回ロード
+- **エッジコンピューティング** - Cloudflare Pagesによるグローバルな高速配信
+- **最小限のクライアントJS** - 選択的ハイドレーションによる最適パフォーマンス
+- **レスポンシブデザイン** - TailwindCSSによるモバイルファースト設計
+- **ブログシステム** - 月次サマリー機能付きのフル機能ブログ
+- **ポートフォリオギャラリー** - モーダル表示対応のプロジェクトショーケース
+- **分析ダッシュボード** - Chart.jsによる組み込み分析機能
 
-### 環境変数
+## 🛠 技術スタック
 
-| 変数名 | 用途 |
-| ------- | ---- |
-| `VITE_SUPABASE_URL` | Supabase プロジェクトの URL |
-| `VITE_SUPABASE_ANON_KEY` | Supabase 公開 anon キー |
+- **フレームワーク**: [Hono](https://hono.dev/) - 軽量Webフレームワーク
+- **UI**: React (SSRのみ、フルハイドレーションなし)
+- **スタイリング**: TailwindCSS + Typographyプラグイン
+- **ホスティング**: Cloudflare Pages
+- **データベース**: Supabase
+- **ビルドツール**: Vite
+- **ランタイム**: Bun
 
-Cloudflare Pages の **Environment variables** に Production / Preview それぞれ設定してください。
+## 📦 インストール
 
-## セットアップ方法
+```bash
+# リポジトリをクローン
+git clone https://github.com/yourusername/nikechan-blog.git
+cd nikechan-blog
 
-依存関係のインストール:
-```shell
+# Bunで依存関係をインストール
 bun install
 ```
 
-開発サーバーの起動:
-```shell
-bun run dev
+## 🔧 環境設定
+
+Supabaseの認証情報を含む`.env`ファイルを作成してください：
+
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-## デプロイ方法
+Cloudflare Pagesへのデプロイ時は、PagesダッシュボードのProductionとPreview環境両方に環境変数を設定してください。
 
-本番環境へのデプロイ:
-```shell
+## 💻 開発
+
+```bash
+# ホットリロード付き開発サーバーを起動
+bun run dev
+
+# CSSのみビルド
+bun run build:css
+
+# CSS変更を監視
+bun run watch:css
+```
+
+## 🏗 ビルド＆デプロイ
+
+```bash
+# フルプロダクションビルド
+bun run build
+
+# サーバーのみビルド
+bun run build:server
+
+# クライアントのみビルド
+bun run build:client
+
+# Wranglerでプレビュー
+bun run preview
+
+# Cloudflare Pagesにデプロイ
 bun run deploy
 ```
+
+## 📁 プロジェクト構造
+
+```
+nikechan-blog/
+├── src/
+│   ├── index.tsx          # メインサーバー＆ルーティング
+│   ├── renderer.tsx       # HTMLテンプレートレンダラー
+│   ├── client.tsx         # クライアントサイドインタラクション
+│   ├── components/        # Reactコンポーネント
+│   │   ├── Layout.tsx     # 共通レイアウト
+│   │   ├── Introduction.tsx
+│   │   ├── Gallery.tsx
+│   │   ├── Blog.tsx
+│   │   ├── BlogDetail.tsx
+│   │   ├── About.tsx
+│   │   └── ...
+│   └── styles/
+│       └── globals.css    # グローバルスタイル
+├── public/                # 静的アセット
+│   ├── images/
+│   ├── static/
+│   └── svg/
+├── vite.config.ts        # Vite設定
+├── tailwind.config.js    # TailwindCSS設定
+├── wrangler.toml         # Cloudflare設定
+└── package.json
+```
+
+## 🌐 ルート
+
+- `/` - イントロダクションとギャラリーのあるホームページ
+- `/blog` - ブログ一覧ページ
+- `/blog/:id` - 個別ブログ記事
+- `/blog/summary/:yearMonth` - 月次ブログサマリー
+- `/about` - プロフィール／自己紹介ページ
+
+## 🎨 アーキテクチャ
+
+SSRと選択的クライアントサイドインタラクションのハイブリッドアプローチを採用：
+
+1. **サーバーサイド**: Reactコンポーネントを静的HTMLにレンダリング
+2. **クライアントサイド**: 特定のインタラクションに最小限のJavaScriptを使用
+   - ギャラリーモーダル
+   - プロフィール切り替え
+   - タブナビゲーション
+   - 分析チャート
+
+フルReactハイドレーションを行わないことで、最適なパフォーマンスを実現しています。

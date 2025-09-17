@@ -4,7 +4,14 @@
       "Bash(bun run:*)",
       "Bash(timeout:*)",
       "mcp__github__get_issue",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(bun add:*)",
+      "Bash(pkill:*)",
+      "Bash(find:*)",
+      "Bash(sed:*)",
+      "Bash(curl:*)"
     ],
     "deny": []
   }

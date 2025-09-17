@@ -53,7 +53,7 @@ export const BlogDetail = async ({ id }: Props) => {
     <>
       <div className="pt-12 pb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
-          NIKELOG
+          LOG
         </h1>
       </div>
       <div className="container mx-auto px-4">
@@ -62,7 +62,7 @@ export const BlogDetail = async ({ id }: Props) => {
             <div className="flex items-center justify-center gap-6">
               {prevPost ? (
                 <a 
-                  href={`/blog/${prevPost.id}`}
+                  href={`/log/${prevPost.id}`}
                   className="text-3xl text-gray-500 hover:text-gray-300 transition-colors duration-200"
                   aria-label="前の記事"
                 >
@@ -81,7 +81,7 @@ export const BlogDetail = async ({ id }: Props) => {
               </time>
               {nextPost ? (
                 <a 
-                  href={`/blog/${nextPost.id}`}
+                  href={`/log/${nextPost.id}`}
                   className="text-3xl text-gray-500 hover:text-gray-300 transition-colors duration-200"
                   aria-label="次の記事"
                 >
@@ -110,7 +110,7 @@ export const BlogDetail = async ({ id }: Props) => {
         </div>
         <div className="mt-12 text-center">
           <a 
-            href="/blog" 
+            href="/log" 
             className="inline-flex items-center px-6 py-3 rounded-full
                      bg-gray-700 text-gray-200 font-medium
                      transform transition duration-200 ease-in-out
