@@ -52,7 +52,7 @@ export function SocialLinksSection() {
     {
       label: "Discord",
       handle: "参加リンク",
-      href: "https://discord.gg/4jv5AuybqC",
+      href: "https://discord.gg/G4E5Sf3yj3",
       Icon: DiscordIcon,
       accent: "text-indigo-600",
       ring: "ring-indigo-300",

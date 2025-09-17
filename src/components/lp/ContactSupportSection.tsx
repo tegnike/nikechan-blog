@@ -43,7 +43,7 @@ export function ContactSupportSection() {
                   </div>
                 </div>
                 <Button asChild variant="outline" size="sm">
-                  <a href="https://discord.gg/4jv5AuybqC" target="_blank" rel="noopener noreferrer">
+                  <a href="https://discord.gg/G4E5Sf3yj3" target="_blank" rel="noopener noreferrer">
                     参加リンク
                   </a>
                 </Button>

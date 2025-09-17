@@ -2172,6 +2172,10 @@ body {
   min-width: 2.25rem;
 }
 
+.min-w-\[120px\] {
+  min-width: 120px;
+}
+
 .min-w-\[12rem\] {
   min-width: 12rem;
 }
@@ -2187,10 +2191,6 @@ body {
 .min-w-max {
   min-width: -moz-max-content;
   min-width: max-content;
-}
-
-.min-w-\[120px\] {
-  min-width: 120px;
 }
 
 .min-w-\[150px\] {
@@ -2793,10 +2793,6 @@ body {
   border-color: transparent;
 }
 
-.border-white\/40 {
-  border-color: rgb(255 255 255 / 0.4);
-}
-
 .border-white\/60 {
   border-color: rgb(255 255 255 / 0.6);
 }
@@ -2804,6 +2800,10 @@ body {
 .border-zinc-200 {
   --tw-border-opacity: 1;
   border-color: rgb(228 228 231 / var(--tw-border-opacity, 1));
+}
+
+.border-white\/40 {
+  border-color: rgb(255 255 255 / 0.4);
 }
 
 .border-l-transparent {
@@ -2814,9 +2814,19 @@ body {
   border-top-color: transparent;
 }
 
+.bg-\[\#1695B0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 149 176 / var(--tw-bg-opacity, 1));
+}
+
 .bg-\[\#1a1f2e\] {
   --tw-bg-opacity: 1;
   background-color: rgb(26 31 46 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#F5B0BC\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 176 188 / var(--tw-bg-opacity, 1));
 }
 
 .bg-accent {
@@ -2995,16 +3005,6 @@ body {
   background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1));
 }
 
-.bg-\[\#1695B0\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 149 176 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\#F5B0BC\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(245 176 188 / var(--tw-bg-opacity, 1));
-}
-
 .bg-\[\#5A4C97\] {
   --tw-bg-opacity: 1;
   background-color: rgb(90 76 151 / var(--tw-bg-opacity, 1));
@@ -3037,30 +3037,6 @@ body {
 
 .bg-gradient-to-tr {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
-}
-
-.from-\[\#1695B0\]\/90 {
-  --tw-gradient-from: rgb(22 149 176 / 0.9) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(22 149 176 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-\[\#9B7EDE\]\/90 {
-  --tw-gradient-from: rgb(155 126 222 / 0.9) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(155 126 222 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-\[\#F5B0BC\]\/90 {
-  --tw-gradient-from: rgb(245 176 188 / 0.9) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(245 176 188 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.from-\[\#FF9A9E\]\/90 {
-  --tw-gradient-from: rgb(255 154 158 / 0.9) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(255 154 158 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
 .from-amber-500 {
@@ -3123,6 +3099,30 @@ body {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-\[\#1695B0\]\/90 {
+  --tw-gradient-from: rgb(22 149 176 / 0.9) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(22 149 176 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-\[\#9B7EDE\]\/90 {
+  --tw-gradient-from: rgb(155 126 222 / 0.9) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(155 126 222 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-\[\#F5B0BC\]\/90 {
+  --tw-gradient-from: rgb(245 176 188 / 0.9) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(245 176 188 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-\[\#FF9A9E\]\/90 {
+  --tw-gradient-from: rgb(255 154 158 / 0.9) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(255 154 158 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .via-pink-500 {
   --tw-gradient-to: rgb(236 72 153 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #ec4899 var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -3136,22 +3136,6 @@ body {
 .via-purple-500 {
   --tw-gradient-to: rgb(168 85 247 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #a855f7 var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-
-.to-\[\#1695B0\]\/70 {
-  --tw-gradient-to: rgb(22 149 176 / 0.7) var(--tw-gradient-to-position);
-}
-
-.to-\[\#9B7EDE\]\/70 {
-  --tw-gradient-to: rgb(155 126 222 / 0.7) var(--tw-gradient-to-position);
-}
-
-.to-\[\#F5B0BC\]\/70 {
-  --tw-gradient-to: rgb(245 176 188 / 0.7) var(--tw-gradient-to-position);
-}
-
-.to-\[\#FF9A9E\]\/70 {
-  --tw-gradient-to: rgb(255 154 158 / 0.7) var(--tw-gradient-to-position);
 }
 
 .to-blue-500 {
@@ -3192,6 +3176,22 @@ body {
 
 .to-teal-500 {
   --tw-gradient-to: #14b8a6 var(--tw-gradient-to-position);
+}
+
+.to-\[\#1695B0\]\/70 {
+  --tw-gradient-to: rgb(22 149 176 / 0.7) var(--tw-gradient-to-position);
+}
+
+.to-\[\#9B7EDE\]\/70 {
+  --tw-gradient-to: rgb(155 126 222 / 0.7) var(--tw-gradient-to-position);
+}
+
+.to-\[\#F5B0BC\]\/70 {
+  --tw-gradient-to: rgb(245 176 188 / 0.7) var(--tw-gradient-to-position);
+}
+
+.to-\[\#FF9A9E\]\/70 {
+  --tw-gradient-to: rgb(255 154 158 / 0.7) var(--tw-gradient-to-position);
 }
 
 .bg-clip-text {
@@ -3287,6 +3287,11 @@ body {
   padding-right: 1rem;
 }
 
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -3340,11 +3345,6 @@ body {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
 }
 
 .pb-10 {
@@ -3762,10 +3762,6 @@ body {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-.text-white\/90 {
-  color: rgb(255 255 255 / 0.9);
-}
-
 .text-yellow-400 {
   --tw-text-opacity: 1;
   color: rgb(250 204 21 / var(--tw-text-opacity, 1));
@@ -3799,6 +3795,10 @@ body {
 .text-zinc-900 {
   --tw-text-opacity: 1;
   color: rgb(24 24 27 / var(--tw-text-opacity, 1));
+}
+
+.text-white\/90 {
+  color: rgb(255 255 255 / 0.9);
 }
 
 .underline {

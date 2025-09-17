@@ -25,7 +25,7 @@ export function WelcomeSection() {
         <img
           src="/images/lp/top.webp"
           alt="Nike Chan（ニケちゃん）のメインビジュアル - デジタルアート作品"
-          className="w-full max-w-[576px] h-auto object-contain transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+          className="w-full max-w-[576px] h-auto object-contain transition-transform duration-300 hover:scale-[1.02]"
           style={{
             filter: [
               "drop-shadow(0 0 36px rgba(255,255,255,0.98))",
