@@ -1,4 +1,4 @@
-# NIKELOG Robots.txt
+# AI Nike Chan Robots.txt
 # https://nikechan.com
 
 User-agent: *

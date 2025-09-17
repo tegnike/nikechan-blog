@@ -34,8 +34,8 @@ app.get('/', (c) => {
       <LandingPage />
     </Layout>,
     {
-      title: "NIKELOG - Nike Chan Official Portfolio",
-      description: "Nike Chan（ニケちゃん）の公式ポートフォリオサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。",
+      title: "AI Nike Chan Official Website",
+      description: "AIニケちゃんのオフィシャルサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。",
       canonicalUrl: "https://nikechan.com",
       ogType: "website"
     }
@@ -50,7 +50,7 @@ app.get('/gallery', (c) => {
     <Layout currentPath={currentPath}>
       <FanGallery />
     </Layout>,
-    { title: "Nike Portfolio | Fan Art" }
+    { title: "AI Nike Chan Official Website | Fan Art" }
   )
 })
 
@@ -61,7 +61,7 @@ app.get('/gallery/commissioned', (c) => {
     <Layout currentPath={currentPath}>
       <Gallery />
     </Layout>,
-    { title: "Nike Portfolio | Commissioned" }
+    { title: "AI Nike Chan Official Website | Commissioned" }
   )
 })
 
@@ -74,8 +74,8 @@ app.get('/guidelines', (c) => {
       <License active="derivative" />
     </Layout>,
     {
-      title: "利用ガイドライン | NIKELOG",
-      description: "Nike Chan（ニケちゃん）の作品利用ガイドライン。二次創作、ファンアート、AI学習への利用に関する規約。",
+      title: "AI Nike Chan Official Website | Usage Guidelines",
+      description: "AIニケちゃんの作品利用ガイドライン。二次創作、ファンアート、AI学習への利用に関する規約。",
       canonicalUrl: "https://nikechan.com/guidelines",
       keywords: "利用規約, ガイドライン, 二次創作, ライセンス, 著作権"
     }
@@ -90,8 +90,8 @@ app.get('/guidelines/ai', (c) => {
       <License active="ai" />
     </Layout>,
     {
-      title: "AI利用ガイドライン | NIKELOG",
-      description: "Nike Chan（ニケちゃん）の作品のAI学習への使用に関するガイドライン。機械学習モデルへの利用規約。",
+      title: "AI Nike Chan Official Website | AI Usage Guidelines",
+      description: "AIニケちゃんの作品のAI学習への使用に関するガイドライン。機械学習モデルへの利用規約。",
       canonicalUrl: "https://nikechan.com/guidelines/ai",
       keywords: "AI学習, 機械学習, ガイドライン, 使用許諾, 著作権"
     }
@@ -112,8 +112,8 @@ app.get('/log', async (c) => {
       {content}
     </Layout>,
     {
-      title: "活動記録 | NIKELOG",
-      description: "Nike Chan（ニケちゃん）の最新活動記録。イラスト制作、プロジェクト更新、作品リリース情報を毎日更新。",
+      title: "AI Nike Chan Official Website | Log",
+      description: "AIニケちゃんの最新活動記録。イラスト制作、プロジェクト更新、作品リリース情報を更新。",
       canonicalUrl: "https://nikechan.com/log",
       ogType: "blog"
     }
@@ -129,7 +129,7 @@ app.get('/log/:id', async (c) => {
     <Layout currentPath={currentPath}>
       {detailContent}
     </Layout>,
-    { title: "Nike Portfolio | Log Detail" }
+    { title: "AI Nike Chan Official Website | Log Detail" }
   )
 })
 
@@ -142,7 +142,7 @@ app.get('/log/summary/:yearMonth', async (c) => {
     <Layout currentPath={currentPath}>
       {summaryContent}
     </Layout>,
-    { title: "Nike Portfolio | Monthly Summary" }
+    { title: "AI Nike Chan Official Website | Monthly Summary" }
   )
 })
 
@@ -153,7 +153,7 @@ app.get('/developer', (c) => {
     <Layout currentPath={currentPath}>
       <Developer />
     </Layout>,
-    { title: "Nike Portfolio | Developer" }
+    { title: "AI Nike Chan Official Website | Developer" }
   )
 })
 
@@ -170,8 +170,8 @@ app.get('/dev_blog', async (c) => {
       {content}
     </Layout>,
     {
-      title: "開発ブログ | NIKELOG",
-      description: "Nike Chan（ニケちゃん）の技術ブログ。プログラミング、Web開発、AI技術に関する記事を発信。",
+      title: "AI Nike Chan Official Website | Developer Blog",
+      description: "ニケの技術ブログ。プログラミング、Web開発、AI技術に関する記事を発信。",
       canonicalUrl: "https://nikechan.com/dev_blog",
       ogType: "blog",
       keywords: "技術ブログ, プログラミング, Web開発, AI, コーディング"
@@ -201,8 +201,8 @@ app.get('/about', (c) => {
       <About />
     </Layout>,
     {
-      title: "About - プロフィール | NIKELOG",
-      description: "Nike Chan（ニケちゃん）とAIニケちゃんのプロフィール。創作活動、技術スキル、プロジェクト詳細について。",
+      title: "AI Nike Chan Official Website | About",
+      description: "AIニケちゃんのプロフィール。創作活動、技術スキル、プロジェクト詳細について。",
       canonicalUrl: "https://nikechan.com/about",
       structuredData: {
         "@context": "https://schema.org",

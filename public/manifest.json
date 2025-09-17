@@ -1,7 +1,7 @@
 {
-  "name": "NIKELOG - Nike Chan Official Portfolio",
-  "short_name": "NIKELOG",
-  "description": "Nike Chan（ニケちゃん）の公式ポートフォリオサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。",
+  "name": "AI Nike Chan Official Website",
+  "short_name": "AI Nike Chan",
+  "description": "AIニケちゃんのオフィシャルサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -41,7 +41,7 @@
       "src": "/images/logos/logo_with_frame_and_shadow.png",
       "sizes": "512x512",
       "type": "image/png",
-      "label": "NIKELOG Homepage"
+      "label": "AI Nike Chan Official Website"
     }
   ]
 }
