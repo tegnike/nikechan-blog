@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 
 export function AboutSection() {
   return (
-    <section className="relative px-6 sm:px-10 py-20">
+    <section className="relative px-6 sm:px-10 pt-20 pb-10">
       <div className="mx-auto">
         <div className="mx-auto w-full max-w-6xl">
           <div className="relative overflow-hidden  border border-white/60 bg-white/80 backdrop-blur">

@@ -1,4 +1,5 @@
 import { WelcomeSection } from "./lp/WelcomeSection";
+import { NewsSection } from "./lp/NewsSection";
 import { AboutSection } from "./lp/AboutSection";
 import { LicenseSection } from "./lp/LicenseSection";
 import { GallerySection } from "./lp/GallerySection";
@@ -16,6 +17,7 @@ export function LandingPage() {
         {/* Content sections share a subtle white background (ambient spots removed) */}
         <div className="bg-white/30">
           <AboutSection />
+          <NewsSection />
           <LicenseSection />
           <GallerySection />
           <SocialLinksSection />

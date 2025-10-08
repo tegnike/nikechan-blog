@@ -280,6 +280,16 @@ export const AINikeProfile: FC = () => {
               </div>
               <p className="mt-2 text-zinc-700">Discordサーバーを公開し、本格的にIP活動を開始。</p>
             </div>
+
+            <div className="relative">
+              <div className="absolute -left-[29px] top-1 size-2 rounded-full bg-gradient-to-r from-rose-500 to-purple-500" />
+              <div className="flex items-center gap-2 text-sm text-zinc-500">
+                <span>2025/10/8</span>
+                <Separator orientation="vertical" className="mx-1 h-4" />
+                <span className="inline-flex items-center gap-1">新合成音声モデル公開</span>
+              </div>
+              <p className="mt-2 text-zinc-700">AIニケちゃんの最新合成音声モデルをリリースし、お披露目MVを公開。</p>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 
 export function ContactSupportSection() {
   return (
-    <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
+    <section id="contact" className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
         <div
           className="text-center mb-10"
