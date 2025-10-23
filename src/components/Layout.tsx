@@ -20,7 +20,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
       ? `${baseClass} text-purple-600 font-semibold` 
       : `${baseClass} text-gray-700 hover:text-purple-600`;
   };
-  const isOtherActive = ["/developer", "/dev_blog"].some((p) => {
+  const isOtherActive = ["/developer", "/dev_blog", "/tutorial"].some((p) => {
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     return clean === p || clean.startsWith(`${p}/`)
   })
@@ -48,12 +48,12 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
           </motion.div>
           
           <nav className="hidden md:flex items-center space-x-4">
-            {/* Home */}
+            {/* About */}
             <a 
-              href="/"
-              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/")}`}
+              href="/about"
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/about")}`}
             >
-              <span className="relative z-10">Home</span>
+              <span className="relative z-10">About</span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
                 whileHover={{ opacity: 1, scale: 1.05 }}
@@ -61,12 +61,12 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
               />
             </a>
 
-            {/* About */}
+            {/* Tutorial */}
             <a 
-              href="/about"
-              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/about")}`}
+              href="/tutorial"
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/tutorial")}`}
             >
-              <span className="relative z-10">About</span>
+              <span className="relative z-10">Tutorial</span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
                 whileHover={{ opacity: 1, scale: 1.05 }}
@@ -148,6 +148,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
               <a href="/about" className={`block px-4 py-3 ${getLinkClass('/about')}`}>About</a>
               <a href="/gallery" className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>Gallery</a>
               <a href="/guidelines" className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>Guidelines</a>
+              <a href="/tutorial" className={`block px-4 py-3 ${getLinkClass('/tutorial', true)}`}>Tutorial</a>
               <a href="/developer" className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>Developer</a>
               <a href="/dev_blog" className={`block px-4 py-3 ${getLinkClass('/dev_blog', true)}`}>Dev Blog</a>
             </div>

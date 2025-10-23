@@ -162,6 +162,55 @@ function bootstrap() {
     })
   }
 
+  // 汎用コピー機能（data-copy-text属性を持つボタンに対応）
+  function setupCopyButtons() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-copy-text]')
+    if (buttons.length === 0) return
+
+    buttons.forEach(button => {
+      const defaultLabel = button.getAttribute('data-copy-default') ?? button.textContent ?? ''
+      const successLabel = button.getAttribute('data-copy-success') ?? 'Copied!'
+      const errorLabel = button.getAttribute('data-copy-error') ?? 'コピーに失敗しました'
+
+      button.addEventListener('click', async () => {
+        const text = button.getAttribute('data-copy-text')
+        if (!text) return
+
+        button.disabled = true
+
+        const restore = () => {
+          setTimeout(() => {
+            button.textContent = defaultLabel
+            button.disabled = false
+          }, 1500)
+        }
+
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text)
+          } else {
+            const textarea = document.createElement('textarea')
+            textarea.value = text
+            textarea.style.position = 'fixed'
+            textarea.style.top = '-9999px'
+            document.body.appendChild(textarea)
+            textarea.focus()
+            textarea.select()
+            document.execCommand('copy')
+            document.body.removeChild(textarea)
+          }
+
+          button.textContent = successLabel
+        } catch (err) {
+          console.error('Failed to copy text', err)
+          button.textContent = errorLabel
+        } finally {
+          restore()
+        }
+      })
+    })
+  }
+
   // モバイルメニュー（Menuボタンの開閉）
   function setupMobileMenu() {
     const btn = document.getElementById('mobile-menu-button') as HTMLButtonElement | null
@@ -643,6 +692,7 @@ function bootstrap() {
     setupProfileToggle()
     setupTranscriptToggle()
     setupTabs()
+    setupCopyButtons()
     setupBlogMonthTabs()
     setupCategoryTabs()
     setupTechBlogPagination()

@@ -14,6 +14,7 @@ import { Developer } from './components/Developer'
 import { License } from './components/License'
 import { DevBlog } from './components/DevBlog'
 import { About } from './components/About'
+import { Tutorial } from './components/Tutorial'
 
 const app = new Hono()
 
@@ -215,6 +216,39 @@ app.get('/about', (c) => {
           "url": "https://nikechan.com"
         }
       }
+    }
+  )
+})
+
+// Tutorial pages
+app.get('/tutorial', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+  const currentPath = c.req.path;
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <Tutorial active="illustration" />
+    </Layout>,
+    {
+      title: "AI Nike Chan Official Website | Tutorial - Illustration",
+      description: "AIを使ってAIニケちゃんのイラストを生成する方法を解説。Stable Diffusion、NovelAI、Midjourneyなどの画像生成AIの使い方とプロンプト例を紹介。",
+      canonicalUrl: "https://nikechan.com/tutorial",
+      keywords: "AI, イラスト生成, Stable Diffusion, 画像生成AI, プロンプト, LoRA"
+    }
+  )
+})
+
+app.get('/tutorial/video', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+  const currentPath = c.req.path;
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <Tutorial active="video" />
+    </Layout>,
+    {
+      title: "AI Nike Chan Official Website | Tutorial - Video",
+      description: "AIニケちゃんの動画を生成する方法を解説。Runway Gen-3、Pika Labs、Stable Video Diffusionなどの動画生成AIとLive2Dアニメーション制作方法を紹介。",
+      canonicalUrl: "https://nikechan.com/tutorial/video",
+      keywords: "AI, 動画生成, アニメーション, Live2D, VTuber, Runway, Pika Labs"
     }
   )
 })
