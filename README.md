@@ -1,4 +1,4 @@
-# AI Nike Chan Official Website
+# AIニケちゃんオフィシャルサイト
 
 https://nikechan.com
 

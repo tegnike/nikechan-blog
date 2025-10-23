@@ -21,7 +21,7 @@ export function WelcomeSection() {
 
       {/* Centered character image with hover and click interactions */}
       <div className="relative z-10 flex flex-col items-center justify-center">
-        <h1 className="sr-only">AI Nike Chan Official Website</h1>
+        <h1 className="sr-only">AIニケちゃんオフィシャルサイト</h1>
         <img
           src="/images/lp/top.webp"
           alt="Nike Chan（ニケちゃん）のメインビジュアル - デジタルアート作品"

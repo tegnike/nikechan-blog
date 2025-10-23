@@ -35,7 +35,7 @@ app.get('/', (c) => {
       <LandingPage />
     </Layout>,
     {
-      title: "AI Nike Chan Official Website",
+      title: "AIニケちゃんオフィシャルサイト",
       description: "AIニケちゃんのオフィシャルサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。",
       canonicalUrl: "https://nikechan.com",
       ogType: "website"
@@ -51,7 +51,7 @@ app.get('/gallery', (c) => {
     <Layout currentPath={currentPath}>
       <FanGallery />
     </Layout>,
-    { title: "AI Nike Chan Official Website | Fan Art" }
+    { title: "ファンアート | AIニケちゃんオフィシャルサイト" }
   )
 })
 
@@ -62,7 +62,7 @@ app.get('/gallery/commissioned', (c) => {
     <Layout currentPath={currentPath}>
       <Gallery />
     </Layout>,
-    { title: "AI Nike Chan Official Website | Commissioned" }
+    { title: "コミッションイラスト | AIニケちゃんオフィシャルサイト" }
   )
 })
 
@@ -75,7 +75,7 @@ app.get('/guidelines', (c) => {
       <License active="derivative" />
     </Layout>,
     {
-      title: "AI Nike Chan Official Website | Usage Guidelines",
+      title: "二次創作ガイドライン | AIニケちゃんオフィシャルサイトs",
       description: "AIニケちゃんの作品利用ガイドライン。二次創作、ファンアート、AI学習への利用に関する規約。",
       canonicalUrl: "https://nikechan.com/guidelines",
       keywords: "利用規約, ガイドライン, 二次創作, ライセンス, 著作権"
@@ -91,7 +91,7 @@ app.get('/guidelines/ai', (c) => {
       <License active="ai" />
     </Layout>,
     {
-      title: "AI Nike Chan Official Website | AI Usage Guidelines",
+      title: "生成AIガイドライン | AIニケちゃんオフィシャルサイト",
       description: "AIニケちゃんの作品のAI学習への使用に関するガイドライン。機械学習モデルへの利用規約。",
       canonicalUrl: "https://nikechan.com/guidelines/ai",
       keywords: "AI学習, 機械学習, ガイドライン, 使用許諾, 著作権"
@@ -113,7 +113,7 @@ app.get('/log', async (c) => {
       {content}
     </Layout>,
     {
-      title: "AI Nike Chan Official Website | Log",
+      title: "ログ | AIニケちゃんオフィシャルサイト",
       description: "AIニケちゃんの最新活動記録。イラスト制作、プロジェクト更新、作品リリース情報を更新。",
       canonicalUrl: "https://nikechan.com/log",
       ogType: "blog"
@@ -130,7 +130,7 @@ app.get('/log/:id', async (c) => {
     <Layout currentPath={currentPath}>
       {detailContent}
     </Layout>,
-    { title: "AI Nike Chan Official Website | Log Detail" }
+    { title: "ログ詳細 | AIニケちゃんオフィシャルサイト" }
   )
 })
 
@@ -143,7 +143,7 @@ app.get('/log/summary/:yearMonth', async (c) => {
     <Layout currentPath={currentPath}>
       {summaryContent}
     </Layout>,
-    { title: "AI Nike Chan Official Website | Monthly Summary" }
+    { title: "月次サマリー | AIニケちゃんオフィシャルサイト" }
   )
 })
 
@@ -154,7 +154,7 @@ app.get('/developer', (c) => {
     <Layout currentPath={currentPath}>
       <Developer />
     </Layout>,
-    { title: "AI Nike Chan Official Website | Developer" }
+    { title: "開発者情報 | AIニケちゃんオフィシャルサイト" }
   )
 })
 
@@ -171,7 +171,7 @@ app.get('/dev_blog', async (c) => {
       {content}
     </Layout>,
     {
-      title: "AI Nike Chan Official Website | Developer Blog",
+      title: "開発者ブログ | AIニケちゃんオフィシャルサイト",
       description: "ニケの技術ブログ。プログラミング、Web開発、AI技術に関する記事を発信。",
       canonicalUrl: "https://nikechan.com/dev_blog",
       ogType: "blog",
@@ -202,7 +202,7 @@ app.get('/about', (c) => {
       <About />
     </Layout>,
     {
-      title: "AI Nike Chan Official Website | About",
+      title: "AIニケちゃんとは | AIニケちゃんオフィシャルサイト",
       description: "AIニケちゃんのプロフィール。創作活動、技術スキル、プロジェクト詳細について。",
       canonicalUrl: "https://nikechan.com/about",
       structuredData: {
@@ -229,7 +229,7 @@ app.get('/tutorial', (c) => {
       <Tutorial active="illustration" />
     </Layout>,
     {
-      title: "AI Nike Chan Official Website | Tutorial - Illustration",
+      title: "画像生成チュートリアル | AIニケちゃんオフィシャルサイト",
       description: "AIを使ってAIニケちゃんのイラストを生成する方法を解説。Stable Diffusion、NovelAI、Midjourneyなどの画像生成AIの使い方とプロンプト例を紹介。",
       canonicalUrl: "https://nikechan.com/tutorial",
       keywords: "AI, イラスト生成, Stable Diffusion, 画像生成AI, プロンプト, LoRA"
@@ -245,7 +245,7 @@ app.get('/tutorial/video', (c) => {
       <Tutorial active="video" />
     </Layout>,
     {
-      title: "AI Nike Chan Official Website | Tutorial - Video",
+      title: "動画生成チュートリアル | AIニケちゃんオフィシャルサイト",
       description: "AIニケちゃんの動画を生成する方法を解説。Runway Gen-3、Pika Labs、Stable Video Diffusionなどの動画生成AIとLive2Dアニメーション制作方法を紹介。",
       canonicalUrl: "https://nikechan.com/tutorial/video",
       keywords: "AI, 動画生成, アニメーション, Live2D, VTuber, Runway, Pika Labs"
