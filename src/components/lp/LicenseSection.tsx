@@ -36,8 +36,9 @@ export function LicenseSection() {
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                <a href="https://github.com/tegnike/nikechan-assets" download>
-                  VRMモデルをダウンロードページへ
+                <a href="/tutorial">
+                  生成AIを試してみよう！
+                  <ArrowRight className="ml-1 h-4 w-4" />
                 </a>
               </Button>
               <a

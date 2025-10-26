@@ -21,7 +21,7 @@ export function GallerySection() {
         {/* ファンアート（4列 x 2行、クリック/ホバー無し） */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
           {items.map(({ src, author }, index) => (
-            <div
+            <motion.div
               key={`${src}-${index}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -35,7 +35,7 @@ export function GallerySection() {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-            </div>
+            </motion.div>
           ))}
         </div>
 

@@ -687,6 +687,44 @@ function bootstrap() {
     });
   }
 
+  // 動画生成ツール切り替え機能
+  function setupVideoToolToggle() {
+    const activeButtons = document.querySelectorAll('.video-tool-btn-active') as NodeListOf<HTMLButtonElement>
+    const inactiveButtons = document.querySelectorAll('.video-tool-btn-inactive') as NodeListOf<HTMLButtonElement>
+    const allButtons = [...Array.from(activeButtons), ...Array.from(inactiveButtons)]
+    const contents = document.querySelectorAll('.video-tool-content') as NodeListOf<HTMLElement>
+    if (allButtons.length === 0 || contents.length === 0) return
+
+    allButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTool = button.getAttribute('data-video-tool')
+        if (!targetTool) return
+
+        // ボタンのアクティブ状態を更新
+        allButtons.forEach(btn => {
+          const isTarget = btn.getAttribute('data-video-tool') === targetTool
+
+          if (isTarget) {
+            // アクティブスタイル
+            btn.className = 'video-tool-btn-active px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-purple-600 text-white'
+          } else {
+            // 非アクティブスタイル
+            btn.className = 'video-tool-btn-inactive px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-white/50 border border-purple-200 text-gray-800 hover:bg-purple-50'
+          }
+        })
+
+        // コンテンツの表示切り替え
+        contents.forEach(content => {
+          if (content.id === `video-content-${targetTool}`) {
+            content.classList.remove('hidden')
+          } else {
+            content.classList.add('hidden')
+          }
+        })
+      })
+    })
+  }
+
   // DOMContentLoaded で各種セットアップを実行
   document.addEventListener('DOMContentLoaded', () => {
     setupProfileToggle()
@@ -700,6 +738,7 @@ function bootstrap() {
     setupBlogDetailHydration() // BlogDetailV3 をハイドレート
     setupHeaderOtherDropdown() // Header: Other ドロップダウン
     setupMobileMenu() // Header: モバイルメニュー
+    setupVideoToolToggle() // 動画生成ツール切り替え
   })
 }
 

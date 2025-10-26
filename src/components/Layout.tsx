@@ -20,7 +20,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
       ? `${baseClass} text-purple-600 font-semibold` 
       : `${baseClass} text-gray-700 hover:text-purple-600`;
   };
-  const isOtherActive = ["/developer", "/dev_blog", "/tutorial"].some((p) => {
+  const isOtherActive = ["/developer", "/dev_blog"].some((p) => {
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     return clean === p || clean.startsWith(`${p}/`)
   })
@@ -64,7 +64,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath }:
             {/* Tutorial */}
             <a 
               href="/tutorial"
-              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/tutorial")}`}
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/tutorial", true)}`}
             >
               <span className="relative z-10">Tutorial</span>
               <motion.div
