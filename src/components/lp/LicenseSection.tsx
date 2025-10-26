@@ -7,18 +7,18 @@ export function LicenseSection() {
       <div className="container relative z-10 mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-14 items-stretch">
           {/* Left: Copy and CTAs */}
-          <div className="space-y-7">
+          <div className="space-y-7 text-center lg:text-left">
             <div>
               <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
                 生成AIでの利用もOK！<br />
               </h2>
-              <p className="mt-4 text-lg text-gray-700 leading-relaxed">
+              <p className="mt-4 text-lg text-gray-700 leading-relaxed text-left">
                 AIニケちゃんのVRMモデルはAI生成で利用可能なため、i2iやLoRAの作成などでご利用いただけます。
                 ガイドラインに沿って、創作・研究・配信など幅広い用途で活用してください。
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 gap-3 max-w-md mx-auto lg:mx-0">
               {[
                 "生成AI（i2i, LoRAなど） OK",
                 "二次創作 OK",
@@ -34,7 +34,7 @@ export function LicenseSection() {
               ))}
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-4 pt-2 justify-center lg:justify-start">
               <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white">
                 <a href="/tutorial">
                   生成AIを試してみよう！
@@ -50,7 +50,7 @@ export function LicenseSection() {
               </a>
             </div>
 
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 text-center lg:text-left">
               一部の利用は条件付きとなる場合があります。詳細はガイドラインをご確認ください。
             </p>
           </div>

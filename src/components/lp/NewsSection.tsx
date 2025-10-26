@@ -21,6 +21,19 @@ type NewsItem = {
 
 const newsItems: NewsItem[] = [
   {
+    id: "tutorial",
+    tag: "NEW",
+    date: "2025・10",
+    title: "画像・動画生成チュートリアルページを追加しました",
+    description:
+      "AIニケちゃんの画像と動画を簡単に生成するための手順を公開しました。",
+    cta: {
+      label: "チュートリアルを読む",
+      href: "/tutorial",
+      external: false,
+    },
+  },
+  {
     id: "voice-model",
     tag: "NEW",
     date: "2025・10",
