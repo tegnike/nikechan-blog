@@ -22,6 +22,7 @@ import {
   Star,
   Cpu,
   Code2,
+  Shield,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './lp/ui/card'
 import { Button } from './lp/ui/button'
@@ -290,6 +291,81 @@ export const AINikeProfile: FC = () => {
               </div>
               <p className="mt-2 text-zinc-700">AIニケちゃんの最新合成音声モデルをリリースし、お披露目MVを公開。</p>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Support */}
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-xl">
+            <Heart className="h-5 w-5 text-rose-600" /> Support
+          </CardTitle>
+          <CardDescription>AIニケちゃんの活動を応援いただける方へ</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div>
+            <p className="text-zinc-700">
+              AIニケちゃんの開発を支えてくださるスポンサーを募集しています。FANBOX経由での支援はすべて同じ特典設計となっており、オープンな運営方針で還元していきます。
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+              <li className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-purple-500" />
+                <span>どのプランでも特典は共通で、金額差での優劣はありません</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-purple-500" />
+                <span>支援金はモデル改良や運用環境の保守に活用します</span>
+              </li>
+            </ul>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Button
+                asChild
+                size="sm"
+                className="bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+              >
+                <a href="https://nikechan.fanbox.cc/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                  <Heart className="h-4 w-4" /> FANBOXで支援 <ExternalLink className="h-4 w-4 opacity-70" />
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="sm"
+                variant="outline"
+                className="border-indigo-200 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-700 transition-colors"
+              >
+                <a href="https://discord.gg/G4E5Sf3yj3" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                  <MessageCircle className="h-4 w-4" /> Discordコミュニティ <ExternalLink className="h-4 w-4 opacity-70" />
+                </a>
+              </Button>
+            </div>
+          </div>
+          <Separator />
+          <div className="rounded-lg border border-zinc-200 bg-white/80 p-4">
+            <div className="flex items-center gap-2 text-zinc-900">
+              <Shield className="h-4 w-4 text-indigo-600" />
+              <span className="text-base font-semibold">Discord スポンサーチャンネル</span>
+            </div>
+            <p className="mt-2 text-sm text-zinc-600">
+              スポンサーにはDiscord内の専用チャンネルをご案内します。ただし情報は可能な限り公開し、ここだけの専有情報は抑制する方針です。
+            </p>
+            <ul className="mt-3 space-y-2 text-sm text-zinc-600">
+              <li className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span>公開予定のアップデートを先行で共有</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span>AIニケちゃんの調整ログや作業配信の告知</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <span>スポンサー向けイベントの先行案内</span>
+              </li>
+            </ul>
+            <p className="mt-3 text-xs text-zinc-500">
+              参加手順やチャンネル構成の詳細はDiscord内の特設チャンネルでご案内します。
+            </p>
           </div>
         </CardContent>
       </Card>
