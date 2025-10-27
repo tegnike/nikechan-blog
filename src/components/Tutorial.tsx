@@ -6,7 +6,7 @@ export function Tutorial({ active = 'illustration' }: Props) {
   const tabCardBase =
     'group relative flex-1 w-full overflow-hidden rounded-2xl border-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-300';
   const tabCardActive = 'border-purple-500 shadow-lg shadow-purple-200/60';
-  const tabCardInactive = 'border-transparent hover:border-purple-300 hover:shadow-md';
+  const tabCardInactive = 'border-gray-300 hover:border-purple-300 hover:shadow-md';
   const tabLabelBase =
     'absolute inset-x-0 bottom-0 bg-black/60 px-3 py-2 text-center text-sm font-semibold text-white backdrop-blur-sm transition-colors md:text-base';
   const tabLabelActive = 'bg-purple-600/90';
@@ -45,21 +45,7 @@ export function Tutorial({ active = 'illustration' }: Props) {
         <h1 className="text-4xl md:text-5xl font-bold text-center">TUTORIAL</h1>
       </div>
 
-      <div className="container mx-auto max-w-5xl px-4 pb-16">
-        {/* はじめに（共通） */}
-        <div className="rounded-xl border border-gray-200 bg-white/80 p-5 shadow-sm mt-4 mb-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">はじめに</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            AIニケちゃんは、比較的ガイドラインが緩いキャラクターです。<br />
-            このページでは、AIを使ったニケちゃんの画像 および 動画を生成する方法をご紹介します。
-          </p>
-          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-            <p className="text-sm text-gray-700">
-              <strong>ポイント：</strong> AI初心者の方でも問題ありません！こちらの手順を参考にオリジナルキャラでも挑戦してみてください。
-            </p>
-          </div>
-        </div>
-
+      <div className="container mx-auto max-w-5xl px-4 pb-16 mt-2">
         {/* タブ切り替え */}
         <div className="mb-6 flex w-full flex-col items-center justify-center gap-4 md:flex-row md:items-stretch">
           <a
@@ -90,6 +76,20 @@ export function Tutorial({ active = 'illustration' }: Props) {
               動画を生成する
             </span>
           </a>
+        </div>
+
+        {/* はじめに（共通） */}
+        <div className="rounded-xl border border-gray-200 bg-white/80 p-5 shadow-sm mb-6">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">はじめに</h2>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            AIニケちゃんは、比較的ガイドラインが緩いキャラクターです。<br />
+            このページでは、AIを使ったニケちゃんの画像 および 動画を生成する方法をご紹介します。
+          </p>
+          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+            <p className="text-sm text-gray-700">
+              <strong>ポイント：</strong> AI初心者の方でも問題ありません！こちらの手順を参考にオリジナルキャラでも挑戦してみてください。
+            </p>
+          </div>
         </div>
 
         {active === 'illustration' ? (
