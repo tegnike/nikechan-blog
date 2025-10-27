@@ -6,7 +6,7 @@ export function Tutorial({ active = 'illustration' }: Props) {
   const tabCardBase =
     'group relative flex-1 w-full overflow-hidden rounded-2xl border-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-300';
   const tabCardActive = 'border-purple-500 shadow-lg shadow-purple-200/60';
-  const tabCardInactive = 'border-gray-300 hover:border-purple-300 hover:shadow-md';
+  const tabCardInactive = 'border-gray-300 shadow-md hover:border-purple-300 hover:shadow-lg';
   const tabLabelBase =
     'absolute inset-x-0 bottom-0 bg-black/60 px-3 py-2 text-center text-sm font-semibold text-white backdrop-blur-sm transition-colors md:text-base';
   const tabLabelActive = 'bg-purple-600/90';
