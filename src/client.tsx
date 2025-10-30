@@ -687,6 +687,57 @@ function bootstrap() {
     });
   }
 
+  // 動画チュートリアルの参照方法切り替え
+  function setupVideoModeToggle() {
+    const containers = document.querySelectorAll<HTMLElement>('[data-video-mode-container]')
+    if (containers.length === 0) return
+
+    containers.forEach(container => {
+      const triggers = Array.from(container.querySelectorAll<HTMLButtonElement>('[data-video-mode-trigger]'))
+      const contents = Array.from(container.querySelectorAll<HTMLElement>('[data-video-mode-content]'))
+      if (triggers.length === 0 || contents.length === 0) return
+
+      const applyMode = (mode: string) => {
+        contents.forEach(content => {
+          const isMatch = content.dataset.videoModeContent === mode
+          content.classList.toggle('hidden', !isMatch)
+        })
+
+        triggers.forEach(trigger => {
+          const isActive = trigger.dataset.videoModeTrigger === mode
+          const activeClasses = (trigger.dataset.activeClasses ?? '').split(' ').filter(Boolean)
+          const inactiveClasses = (trigger.dataset.inactiveClasses ?? '').split(' ').filter(Boolean)
+
+          if (activeClasses.length > 0 || inactiveClasses.length > 0) {
+            trigger.classList.remove(...activeClasses, ...inactiveClasses)
+            if (isActive && activeClasses.length > 0) {
+              trigger.classList.add(...activeClasses)
+            }
+            if (!isActive && inactiveClasses.length > 0) {
+              trigger.classList.add(...inactiveClasses)
+            }
+          }
+
+          trigger.setAttribute('aria-pressed', isActive ? 'true' : 'false')
+        })
+      }
+
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const mode = trigger.dataset.videoModeTrigger
+          if (!mode) return
+          applyMode(mode)
+        })
+      })
+
+      const defaultTrigger =
+        triggers.find(trigger => trigger.getAttribute('aria-pressed') === 'true') ?? triggers[0]
+      if (defaultTrigger?.dataset.videoModeTrigger) {
+        applyMode(defaultTrigger.dataset.videoModeTrigger)
+      }
+    })
+  }
+
   // 動画生成ツール切り替え機能
   function setupVideoToolToggle() {
     const activeButtons = document.querySelectorAll('.video-tool-btn-active') as NodeListOf<HTMLButtonElement>
@@ -738,6 +789,7 @@ function bootstrap() {
     setupBlogDetailHydration() // BlogDetailV3 をハイドレート
     setupHeaderOtherDropdown() // Header: Other ドロップダウン
     setupMobileMenu() // Header: モバイルメニュー
+    setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え
   })
 }
