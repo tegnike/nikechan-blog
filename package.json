@@ -73,6 +73,6 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "vite": "^5.2.12",
-    "wrangler": "^3.57.2"
+    "wrangler": "^4.45.4"
   }
 }

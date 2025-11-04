@@ -8,7 +8,7 @@ type Props = {
 
 export function NewsSection({ locale = 'ja' }: Props) {
   const t = getT(locale)
-  const newsItems = t('home:news.items') as any[]
+  const newsItems = t('home:news.items', { returnObjects: true }) as any[]
 
   return (
     <section
@@ -63,14 +63,12 @@ export function NewsSection({ locale = 'ja' }: Props) {
                   <div className="mt-6">
                     <Button
                       asChild
-                      variant={item.cta.external ? "default" : "outline"}
+                      variant="outline"
                       size="sm"
                       className="gap-2"
                     >
                       <a
-                        href={item.cta.external ? item.cta.href : `${item.cta.href}${locale !== 'ja' ? '?lang=' + locale : ''}`}
-                        target={item.cta.external ? "_blank" : undefined}
-                        rel={item.cta.external ? "noopener noreferrer" : undefined}
+                        href={`/${item.id}${locale !== 'ja' ? '?lang=' + locale : ''}`}
                       >
                         {item.cta}
                         <ArrowUpRight className="h-4 w-4" />

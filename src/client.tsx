@@ -267,6 +267,25 @@ function bootstrap() {
     })
   }
 
+  // 言語切り替え機能
+  function setupLanguageSwitcher() {
+    const desktopBtn = document.getElementById('language-switcher') as HTMLButtonElement | null
+    const mobileBtn = document.getElementById('mobile-language-switcher') as HTMLButtonElement | null
+    const buttons = [desktopBtn, mobileBtn].filter(Boolean) as HTMLButtonElement[]
+
+    if (buttons.length === 0) return
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const currentLocale = button.getAttribute('data-current-locale') || 'ja'
+        const newLocale = currentLocale === 'ja' ? 'en' : 'ja'
+        const url = new URL(window.location.href)
+        url.searchParams.set('lang', newLocale)
+        window.location.href = url.toString()
+      })
+    })
+  }
+
   // モバイルメニュー（Menuボタンの開閉）
   function setupMobileMenu() {
     const btn = document.getElementById('mobile-menu-button') as HTMLButtonElement | null
@@ -846,6 +865,7 @@ function bootstrap() {
     setupBlogDetailHydration() // BlogDetailV3 をハイドレート
     setupHeaderOtherDropdown() // Header: Other ドロップダウン
     setupMobileMenu() // Header: モバイルメニュー
+    setupLanguageSwitcher() // 言語切り替え
     setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え
   })

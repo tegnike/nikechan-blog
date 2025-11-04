@@ -30,14 +30,6 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
     return clean === p || clean.startsWith(`${p}/`)
   })
 
-  // Language switcher function
-  const toggleLanguage = () => {
-    const url = new URL(window.location.href)
-    const newLocale = locale === 'ja' ? 'en' : 'ja'
-    url.searchParams.set('lang', newLocale)
-    window.location.href = url.toString()
-  }
-
   return (
     <GalleryModalProvider>
       <header
@@ -143,7 +135,8 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
 
             {/* Language Switcher */}
             <button
-              onClick={toggleLanguage}
+              id="language-switcher"
+              data-current-locale={locale}
               className="relative px-3 py-2 font-medium transition-colors duration-300 text-gray-700 hover:text-purple-600 inline-flex items-center gap-2"
               aria-label={`Switch to ${locale === 'ja' ? 'English' : 'Japanese'}`}
             >
@@ -155,7 +148,8 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           <div className="flex items-center gap-2 md:hidden">
             {/* Mobile Language Switcher */}
             <button
-              onClick={toggleLanguage}
+              id="mobile-language-switcher"
+              data-current-locale={locale}
               className="px-3 py-2 text-sm font-medium border border-purple-200 hover:bg-purple-50 rounded-lg inline-flex items-center gap-1.5"
               aria-label={`Switch to ${locale === 'ja' ? 'English' : 'Japanese'}`}
             >
