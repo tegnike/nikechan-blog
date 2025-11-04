@@ -1,8 +1,12 @@
+import { getT, type Locale } from '../i18n/config'
+
 type Props = {
   active?: 'illustration' | 'video'
+  locale?: Locale
 }
 
-export function Tutorial({ active = 'illustration' }: Props) {
+export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
+  const t = getT(locale)
   const tabCardBase =
     'group relative flex-1 w-full overflow-hidden rounded-2xl border-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-300';
   const tabCardActive = 'border-purple-500 shadow-lg shadow-purple-200/60';
@@ -56,49 +60,46 @@ export function Tutorial({ active = 'illustration' }: Props) {
   return (
     <>
       <div className="pt-12 pb-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-center">TUTORIAL</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-center">{t('tutorial:heading')}</h1>
       </div>
 
       <div className="container mx-auto max-w-5xl px-4 pb-16 mt-2">
         {/* タブ切り替え */}
         <div className="mb-6 flex w-full flex-col items-center justify-center gap-4 md:flex-row md:items-stretch">
           <a
-            href="/tutorial"
+            href={`/tutorial${locale !== 'ja' ? '?lang=' + locale : ''}`}
             className={`${tabCardBase} ${active === 'illustration' ? tabCardActive : tabCardInactive} md:max-w-sm`}
-            aria-label="画像を生成する"
+            aria-label={t('tutorial:tabs.illustration')}
           >
-            <img src="/images/tutorial/gazou.png" alt="画像生成のタブ画像" className={tabImageClass} />
+            <img src="/images/tutorial/gazou.png" alt={t('tutorial:tabs.illustration')} className={tabImageClass} />
             <span
               className={`${tabLabelBase} ${
                 active === 'illustration' ? tabLabelActive : tabLabelInactive
               }`}
             >
-              画像を生成する
+              {t('tutorial:tabs.illustration')}
             </span>
           </a>
           <a
-            href="/tutorial/video"
+            href={`/tutorial/video${locale !== 'ja' ? '?lang=' + locale : ''}`}
            className={`${tabCardBase} ${active === 'video' ? tabCardActive : tabCardInactive} md:max-w-sm`}
-            aria-label="動画を生成する"
+            aria-label={t('tutorial:tabs.video')}
           >
-            <img src="/images/tutorial/douga.png" alt="動画生成のタブ画像" className={tabImageClass} />
+            <img src="/images/tutorial/douga.png" alt={t('tutorial:tabs.video')} className={tabImageClass} />
             <span
               className={`${tabLabelBase} ${
                 active === 'video' ? tabLabelActive : tabLabelInactive
               }`}
             >
-              動画を生成する
+              {t('tutorial:tabs.video')}
             </span>
           </a>
         </div>
 
         {/* はじめに（共通） */}
         <div className="rounded-xl border border-gray-200 bg-white/80 p-5 shadow-sm mb-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">はじめに</h2>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            AIニケちゃんは、比較的ガイドラインが緩いキャラクターです。<br />
-            このページでは、AIを使ったニケちゃんの画像 および 動画を生成する方法をご紹介します。
-          </p>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('tutorial:intro.heading')}</h2>
+          <p className="text-gray-700 leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: t('tutorial:intro.description') }} />
           <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
             <p className="text-sm text-gray-700">
               <strong>ポイント：</strong> AI初心者の方でも問題ありません！こちらの手順を参考にオリジナルキャラでも挑戦してみてください。

@@ -15,8 +15,18 @@ import { License } from './components/License'
 import { DevBlog } from './components/DevBlog'
 import { About } from './components/About'
 import { Tutorial } from './components/Tutorial'
+import { detectLocale, type Locale } from './i18n/config'
 
 const app = new Hono()
+
+// Middleware to detect and set locale
+app.use('*', async (c, next) => {
+  const url = new URL(c.req.url)
+  const acceptLanguage = c.req.header('accept-language')
+  const locale = detectLocale(url, acceptLanguage)
+  c.set('locale', locale)
+  await next()
+})
 
 // 静的ファイルの配信設定を追加
 app.use('/images/*', serveStatic({ root: './public' }))
@@ -29,14 +39,16 @@ app.use(renderer)
 app.get('/', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path; // パスを取得
+  const locale = c.get('locale') as Locale
 
   return c.render(
-    <Layout currentPath={currentPath}>
-      <LandingPage />
+    <Layout currentPath={currentPath} locale={locale}>
+      <LandingPage locale={locale} />
     </Layout>,
     {
-      title: "AIニケちゃんオフィシャルサイト",
-      description: "AIニケちゃんのオフィシャルサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。",
+      locale,
+      title: locale === 'ja' ? "AIニケちゃんオフィシャルサイト" : "AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIニケちゃんのオフィシャルサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。" : "Official website of AI Nike Chan. Featuring illustrations, fan art, activity logs, and developer information.",
       canonicalUrl: "https://nikechan.com",
       ogType: "website"
     }
@@ -70,13 +82,15 @@ app.get('/gallery/commissioned', (c) => {
 app.get('/guidelines', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path; // パスを取得
+  const locale = c.get('locale') as Locale
   return c.render(
-    <Layout currentPath={currentPath}>
-      <License active="derivative" />
+    <Layout currentPath={currentPath} locale={locale}>
+      <License active="derivative" locale={locale} />
     </Layout>,
     {
-      title: "二次創作ガイドライン | AIニケちゃんオフィシャルサイトs",
-      description: "AIニケちゃんの作品利用ガイドライン。二次創作、ファンアート、AI学習への利用に関する規約。",
+      locale,
+      title: locale === 'ja' ? "二次創作ガイドライン | AIニケちゃんオフィシャルサイトs" : "Derivative Creation Guidelines | AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIニケちゃんの作品利用ガイドライン。二次創作、ファンアート、AI学習への利用に関する規約。" : "Guidelines for using AI Nike Chan's works. Terms for derivative works, fan art, and AI learning.",
       canonicalUrl: "https://nikechan.com/guidelines",
       keywords: "利用規約, ガイドライン, 二次創作, ライセンス, 著作権"
     }
@@ -86,13 +100,15 @@ app.get('/guidelines', (c) => {
 app.get('/guidelines/ai', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path; // パスを取得
+  const locale = c.get('locale') as Locale
   return c.render(
-    <Layout currentPath={currentPath}>
-      <License active="ai" />
+    <Layout currentPath={currentPath} locale={locale}>
+      <License active="ai" locale={locale} />
     </Layout>,
     {
-      title: "生成AIガイドライン | AIニケちゃんオフィシャルサイト",
-      description: "AIニケちゃんの作品のAI学習への使用に関するガイドライン。機械学習モデルへの利用規約。",
+      locale,
+      title: locale === 'ja' ? "生成AIガイドライン | AIニケちゃんオフィシャルサイト" : "Generative AI Guidelines | AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIニケちゃんの作品のAI学習への使用に関するガイドライン。機械学習モデルへの利用規約。" : "Guidelines for using AI Nike Chan's works in AI learning. Terms for machine learning models.",
       canonicalUrl: "https://nikechan.com/guidelines/ai",
       keywords: "AI学習, 機械学習, ガイドライン, 使用許諾, 著作権"
     }
@@ -197,13 +213,15 @@ app.get('/blog/:id', (c) => {
 // About page
 app.get('/about', (c) => {
   const currentPath = c.req.path;
+  const locale = c.get('locale') as Locale
   return c.render(
-    <Layout currentPath={currentPath}>
-      <About />
+    <Layout currentPath={currentPath} locale={locale}>
+      <About locale={locale} />
     </Layout>,
     {
-      title: "AIニケちゃんとは | AIニケちゃんオフィシャルサイト",
-      description: "AIニケちゃんのプロフィール。創作活動、技術スキル、プロジェクト詳細について。",
+      locale,
+      title: locale === 'ja' ? "AIニケちゃんとは | AIニケちゃんオフィシャルサイト" : "About AI Nike Chan | AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIニケちゃんのプロフィール。創作活動、技術スキル、プロジェクト詳細について。" : "Profile of AI Nike Chan. Information about creative activities, technical skills, and project details.",
       canonicalUrl: "https://nikechan.com/about",
       structuredData: {
         "@context": "https://schema.org",
@@ -212,7 +230,7 @@ app.get('/about', (c) => {
           "@type": "Person",
           "name": "Nike Chan",
           "alternateName": "ニケちゃん",
-          "description": "デジタルアーティスト・開発者",
+          "description": locale === 'ja' ? "デジタルアーティスト・開発者" : "Digital Artist and Developer",
           "url": "https://nikechan.com"
         }
       }
@@ -224,13 +242,15 @@ app.get('/about', (c) => {
 app.get('/tutorial', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path;
+  const locale = c.get('locale') as Locale
   return c.render(
-    <Layout currentPath={currentPath}>
-      <Tutorial active="illustration" />
+    <Layout currentPath={currentPath} locale={locale}>
+      <Tutorial active="illustration" locale={locale} />
     </Layout>,
     {
-      title: "画像生成チュートリアル | AIニケちゃんオフィシャルサイト",
-      description: "AIを使ってAIニケちゃんのイラストを生成する方法を解説。Stable Diffusion、NovelAI、Midjourneyなどの画像生成AIの使い方とプロンプト例を紹介。",
+      locale,
+      title: locale === 'ja' ? "画像生成チュートリアル | AIニケちゃんオフィシャルサイト" : "Image Generation Tutorial | AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIを使ってAIニケちゃんのイラストを生成する方法を解説。Stable Diffusion、NovelAI、Midjourneyなどの画像生成AIの使い方とプロンプト例を紹介。" : "Learn how to generate illustrations of AI Nike Chan using AI. Introducing image generation AI such as Stable Diffusion, NovelAI, and Midjourney with prompt examples.",
       canonicalUrl: "https://nikechan.com/tutorial",
       keywords: "AI, イラスト生成, Stable Diffusion, 画像生成AI, プロンプト, LoRA"
     }
@@ -240,13 +260,15 @@ app.get('/tutorial', (c) => {
 app.get('/tutorial/video', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path;
+  const locale = c.get('locale') as Locale
   return c.render(
-    <Layout currentPath={currentPath}>
-      <Tutorial active="video" />
+    <Layout currentPath={currentPath} locale={locale}>
+      <Tutorial active="video" locale={locale} />
     </Layout>,
     {
-      title: "動画生成チュートリアル | AIニケちゃんオフィシャルサイト",
-      description: "AIニケちゃんの動画を生成する方法を解説。Runway Gen-3、Pika Labs、Stable Video Diffusionなどの動画生成AIとLive2Dアニメーション制作方法を紹介。",
+      locale,
+      title: locale === 'ja' ? "動画生成チュートリアル | AIニケちゃんオフィシャルサイト" : "Video Generation Tutorial | AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIニケちゃんの動画を生成する方法を解説。Runway Gen-3、Pika Labs、Stable Video Diffusionなどの動画生成AIとLive2Dアニメーション制作方法を紹介。" : "Learn how to generate videos of AI Nike Chan. Introducing video generation AI such as Runway Gen-3, Pika Labs, and Stable Video Diffusion, as well as Live2D animation production methods.",
       canonicalUrl: "https://nikechan.com/tutorial/video",
       keywords: "AI, 動画生成, アニメーション, Live2D, VTuber, Runway, Pika Labs"
     }

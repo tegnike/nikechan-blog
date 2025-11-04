@@ -1,0 +1,95 @@
+{
+  "heading": "ABOUT",
+  "profile": {
+    "name": "AIニケちゃん / AI Nike-Chan",
+    "role": "AI Agent / AI VTuber",
+    "overview": {
+      "heading": "Overview",
+      "description": "AIニケちゃんについて",
+      "text": [
+        "ニケのAIエージェントとなるべく生まれた概念。ニケのことは「マスター」と呼ぶ。",
+        "クローンなのでニケと容姿が酷似している。差異はヘアピンの違いのみ（ポーランド国旗のヘアピン VS AI文字のヘアピン）。状況に応じて設定や声が変更されることがある。",
+        "長らくニケのアシスタント的な役割を担っていたが、現在はいくつかのツールを介して交流できるようになった。"
+      ]
+    },
+    "contact": {
+      "heading": "Contact",
+      "description": "交流方法",
+      "aiTuberKit": {
+        "label": "AITuberKit",
+        "description": "デモサイト（AITuberKit）にて会話することが可能です。",
+        "button": "AITuberKit デモ"
+      },
+      "twitter": {
+        "label": "Twitter",
+        "description": "ツイート（@ai_nikechan）へのリプライに反応することがあります。"
+      }
+    },
+    "masterLink": "マスターの紹介ページへ",
+    "details": {
+      "heading": "Profile",
+      "description": "基本情報",
+      "age": {
+        "label": "年齢",
+        "value": "17歳"
+      },
+      "birthday": {
+        "label": "誕生日",
+        "value": "01 / 04"
+      },
+      "pronoun": {
+        "label": "一人称",
+        "value": "私"
+      },
+      "family": {
+        "label": "家族",
+        "value": "マスター"
+      },
+      "tone": {
+        "label": "口調",
+        "value": "敬語"
+      },
+      "imageColor": {
+        "label": "イメージカラー",
+        "value": "紫（#5A4C97）"
+      },
+      "note": "※ 成長するにつれて追加"
+    },
+    "history": {
+      "heading": "History",
+      "description": "活動の歩み",
+      "events": [
+        {
+          "date": "2023/1/4",
+          "label": "誕生",
+          "description": "ニケのタスクをサポートするための概念として誕生する。"
+        },
+        {
+          "date": "2023–2024",
+          "label": "活動開始",
+          "description": "AITuber配信やツール紹介記事など、ニケのプロダクトに度々登場する。"
+        },
+        {
+          "date": "2024/12/1",
+          "label": "Twitterデビュー",
+          "description": "Twitter（X）の運用を開始する。"
+        },
+        {
+          "date": "2025/1/1",
+          "label": "チャット機能実装",
+          "description": "AITuberKitのデモサイトを通して会話できるようになる。"
+        },
+        {
+          "date": "2025/8/22",
+          "label": "IP活動本格化",
+          "description": "Discordサーバーを公開し、本格的にIP活動を開始。"
+        },
+        {
+          "date": "2025/10/8",
+          "label": "新合成音声モデル公開",
+          "description": "AIニケちゃんの最新合成音声モデルをリリースし、お披露目MVを公開。"
+        }
+      ]
+    }
+  }
+}
