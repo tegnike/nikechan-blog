@@ -19,9 +19,15 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './lp/
 import { Badge } from './lp/ui/badge'
 import { Button } from './lp/ui/button'
 import { Separator } from './lp/ui/separator'
+import { Locale, getT } from '../i18n/config'
 // Use a native img for avatar to ensure network request in SSR + hydration
 
-export const NikeProfile: FC = () => {
+interface NikeProfileProps {
+  locale: Locale
+}
+
+export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
+  const t = getT(locale)
   const AVATAR_SRC = "/images/about/nikechan_icon.png";
   const AVATAR_FALLBACK_SRC = "/images/about/ai_nikechan_icon.png";
 
@@ -52,18 +58,18 @@ export const NikeProfile: FC = () => {
             </div>
             <div className="flex-1 text-center sm:text-left">
               <div className="inline-flex items-center gap-2">
-                <h1 className="text-balance text-2xl font-bold tracking-tight sm:text-3xl">ニケ / Nike</h1>
+                <h1 className="text-balance text-2xl font-bold tracking-tight sm:text-3xl">{t('developer:profile.name')}</h1>
               </div>
               <p className="mt-2 text-sm text-zinc-600">
-                AI Character & Agent Developer
+                {t('developer:profile.role')}
               </p>
               <div className="mt-3 flex items-center justify-center gap-3 text-sm text-zinc-500 dark:text-zinc-400 sm:justify-start">
                 <span className="inline-flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4" /> Poland
+                  <MapPin className="h-4 w-4" /> {t('developer:profile.location')}
                 </span>
                 <Separator orientation="vertical" className="mx-1 h-4" />
                 <span className="inline-flex items-center gap-1.5">
-                  <Languages className="h-4 w-4" /> JP, EN
+                  <Languages className="h-4 w-4" /> {t('developer:profile.languages')}
                 </span>
               </div>
 
@@ -109,20 +115,14 @@ export const NikeProfile: FC = () => {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <BookOpen className="h-5 w-5 text-purple-600" /> Overview
+              <BookOpen className="h-5 w-5 text-purple-600" /> {t('developer:profile.overview.heading')}
             </CardTitle>
-            <CardDescription>自己紹介と活動領域</CardDescription>
+            <CardDescription>{t('developer:profile.overview.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 leading-relaxed text-zinc-700">
-            <p>
-              ポーランド在住のWeb系フルスタック開発者として、数年間にわたりリモートワークを通して日本のプロジェクトに参画。
-            </p>
-            <p>
-              バックエンド開発を中心に経験を積む中で、現在はPythonやReactなどを用いたLLM応用の開発に携わるAIエンジニアとして活動中。最新のAI技術については常にキャッチアップし、定期的にSNSや技術記事を通して情報を発信している。
-            </p>
-            <p>
-              個人開発では「AITuberKit」などのAIツールを公開し、AIとWeb技術を組み合わせた新たなアプリケーションの可能性を探求している。また、AIキャラクター「AIニケちゃん」のマスターとして、開発やIP活動にも取り組んでいる。
-            </p>
+            {(t('developer:profile.overview.text', { returnObjects: true }) as string[]).map((text, index) => (
+              <p key={index}>{text}</p>
+            ))}
           </CardContent>
         </Card>
 
@@ -130,14 +130,14 @@ export const NikeProfile: FC = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-pink-600" /> Contact
+              <Mail className="h-5 w-5 text-pink-600" /> {t('developer:profile.contact.heading')}
             </CardTitle>
-            <CardDescription>お問い合わせ</CardDescription>
+            <CardDescription>{t('developer:profile.contact.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">
             <div>
-              <p className="font-medium">一般的なお問い合わせ</p>
-              <p className="text-zinc-600">Twitter（@tegnike）のDMにてご連絡ください。</p>
+              <p className="font-medium">{t('developer:profile.contact.general.label')}</p>
+              <p className="text-zinc-600">{t('developer:profile.contact.general.description')}</p>
               <Button
                 asChild
                 size="sm"
@@ -150,14 +150,14 @@ export const NikeProfile: FC = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2"
                 >
-                  <MessageCircle className="h-4 w-4" /> DMを送る
+                  <MessageCircle className="h-4 w-4" /> {t('developer:profile.contact.general.button')}
                 </a>
               </Button>
             </div>
             <Separator />
             <div>
-              <p className="font-medium">AITuberKit商用ガイドライン</p>
-              <p className="text-zinc-600">商用利用やガイドラインに関するお問い合わせ</p>
+              <p className="font-medium">{t('developer:profile.contact.aiTuberKit.label')}</p>
+              <p className="text-zinc-600">{t('developer:profile.contact.aiTuberKit.description')}</p>
               <Button
                 asChild
                 size="sm"
@@ -174,12 +174,12 @@ export const NikeProfile: FC = () => {
       </div>
 
       {/* AI Nike-chan Introduction Link */}
-      <a href="/about" className="block mt-6">
+      <a href={`/about${locale !== 'ja' ? '?lang=' + locale : ''}`} className="block mt-6">
         <Card className="transition-shadow hover:shadow-lg cursor-pointer">
           <CardContent className="p-6">
             <div className="flex items-center justify-center gap-2 text-lg font-medium">
               <Sparkles className="h-5 w-5 text-purple-600" />
-              AIニケちゃんの紹介ページへ
+              {t('developer:profile.aiNikeLink')}
             </div>
           </CardContent>
         </Card>
@@ -189,32 +189,32 @@ export const NikeProfile: FC = () => {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <Briefcase className="h-5 w-5 text-blue-600" /> Career
+            <Briefcase className="h-5 w-5 text-blue-600" /> {t('developer:profile.career.heading')}
           </CardTitle>
-          <CardDescription>これまでの経歴</CardDescription>
+          <CardDescription>{t('developer:profile.career.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="relative ml-2 space-y-8 border-l border-zinc-200 pl-6">
             <div className="absolute -left-[5px] top-1 size-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500" />
             <div>
               <div className="flex items-center gap-2 text-sm text-zinc-500">
-                <span>〜2023</span>
+                <span>{t('developer:profile.career.webDeveloper.period')}</span>
                 <Separator orientation="vertical" className="mx-1 h-4" />
-                <span className="inline-flex items-center gap-1"><Code2 className="h-3.5 w-3.5" /> Web Developer</span>
+                <span className="inline-flex items-center gap-1"><Code2 className="h-3.5 w-3.5" /> {t('developer:profile.career.webDeveloper.label')}</span>
               </div>
               <p className="mt-2 text-zinc-700">
-                フルリモートで日本のプロジェクトに参画。Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事。予約システム、ECサイト、オンラインくじサイトなど、様々なプロジェクトでリードエンジニアとして活躍。
+                {t('developer:profile.career.webDeveloper.description')}
               </p>
             </div>
             <div className="absolute -left-[5px] top-[calc(50%+2px)] size-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
             <div>
               <div className="flex items-center gap-2 text-sm text-zinc-500">
-                <span>2024〜</span>
+                <span>{t('developer:profile.career.aiEngineer.period')}</span>
                 <Separator orientation="vertical" className="mx-1 h-4" />
-                <span className="inline-flex items-center gap-1"><Rocket className="h-3.5 w-3.5" /> AI Engineer</span>
+                <span className="inline-flex items-center gap-1"><Rocket className="h-3.5 w-3.5" /> {t('developer:profile.career.aiEngineer.label')}</span>
               </div>
               <p className="mt-2 text-zinc-700">
-                日本および英語圏のプロジェクトにおいて、AIキャラクターやAIエージェントの開発に従事。PythonやTypeScriptなどを用い、LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当する。また、CursorやDevinなどのAIツールを駆使したAI駆動開発を積極的に取り入れている。
+                {t('developer:profile.career.aiEngineer.description')}
               </p>
             </div>
           </div>
@@ -225,9 +225,9 @@ export const NikeProfile: FC = () => {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <Rocket className="h-5 w-5 text-amber-600" /> Products
+            <Rocket className="h-5 w-5 text-amber-600" /> {t('developer:profile.products.heading')}
           </CardTitle>
-          <CardDescription>個人開発 / 公開プロジェクト</CardDescription>
+          <CardDescription>{t('developer:profile.products.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -235,26 +235,26 @@ export const NikeProfile: FC = () => {
             <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-semibold">AITuberKit (2024)</h3>
+                  <h3 className="font-semibold">{t('developer:profile.products.aiTuberKit.name')}</h3>
                   <p className="mt-1 text-sm text-zinc-600">
-                    誰でも手軽にAIキャラクターチャットやAITuberシステムを構築できるプロジェクト。多数のLLMやTTSサービスに対応し、柔軟なカスタマイズが可能。ReactとTypeScriptを採用。
+                    {t('developer:profile.products.aiTuberKit.description')}
                   </p>
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Button asChild size="sm" variant="outline">
                   <a href="https://github.com/tegnike/aituber-kit" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <Github className="h-4 w-4" /> GitHub <ExternalLink className="h-4 w-4 opacity-70" />
+                    <Github className="h-4 w-4" /> {t('developer:profile.products.aiTuberKit.buttons.github')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
                 <Button asChild size="sm" variant="outline">
                   <a href="https://aituberkit.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <Globe className="h-4 w-4" /> Demo <ExternalLink className="h-4 w-4 opacity-70" />
+                    <Globe className="h-4 w-4" /> {t('developer:profile.products.aiTuberKit.buttons.demo')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
                 <Button asChild size="sm" variant="outline">
                   <a href="https://note.com/nike_cha_n/n/ne98acb25e00f" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <BookOpen className="h-4 w-4" /> 紹介記事 <ExternalLink className="h-4 w-4 opacity-70" />
+                    <BookOpen className="h-4 w-4" /> {t('developer:profile.products.aiTuberKit.buttons.article')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
               </div>
@@ -264,19 +264,19 @@ export const NikeProfile: FC = () => {
             <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-semibold">AITuberList (2024)</h3>
-                  <p className="mt-1 text-sm text-zinc-600">YouTubeに投稿しているAITuberをまとめたサイト。</p>
+                  <h3 className="font-semibold">{t('developer:profile.products.aiTuberList.name')}</h3>
+                  <p className="mt-1 text-sm text-zinc-600">{t('developer:profile.products.aiTuberList.description')}</p>
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Button asChild size="sm" variant="outline">
                   <a href="https://github.com/tegnike/aituber-list" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <Github className="h-4 w-4" /> GitHub <ExternalLink className="h-4 w-4 opacity-70" />
+                    <Github className="h-4 w-4" /> {t('developer:profile.products.aiTuberList.buttons.github')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
                 <Button asChild size="sm" variant="outline">
                   <a href="https://aituberlist.net" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <Globe className="h-4 w-4" /> サイト <ExternalLink className="h-4 w-4 opacity-70" />
+                    <Globe className="h-4 w-4" /> {t('developer:profile.products.aiTuberList.buttons.site')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
               </div>
@@ -286,21 +286,21 @@ export const NikeProfile: FC = () => {
             <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-semibold">美少女OPInterpreter (2023)</h3>
+                  <h3 className="font-semibold">{t('developer:profile.products.bishojo.name')}</h3>
                   <p className="mt-1 text-sm text-zinc-600">
-                    Live2Dキャラクターとプログラミング実行環境を融合した対話型開発支援ツール。美少女キャラクターとの会話を通じて、直感的にプログラムの実行が可能。
+                    {t('developer:profile.products.bishojo.description')}
                   </p>
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Button asChild size="sm" variant="outline">
                   <a href="https://www.youtube.com/watch?v=Qw2w2UvxcQY&t=2s" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <LinkIcon className="h-4 w-4" /> デモ動画 <ExternalLink className="h-4 w-4 opacity-70" />
+                    <LinkIcon className="h-4 w-4" /> {t('developer:profile.products.bishojo.buttons.demo')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
                 <Button asChild size="sm" variant="outline">
                   <a href="https://note.com/nike_cha_n/n/nabcfeb7aaf3f" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <BookOpen className="h-4 w-4" /> 紹介記事 <ExternalLink className="h-4 w-4 opacity-70" />
+                    <BookOpen className="h-4 w-4" /> {t('developer:profile.products.bishojo.buttons.article')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
               </div>
@@ -310,21 +310,21 @@ export const NikeProfile: FC = () => {
             <div className="group rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 transition">
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-semibold">完全自動AIゲームプレイ&実況 (2023)</h3>
+                  <h3 className="font-semibold">{t('developer:profile.products.autoPlay.name')}</h3>
                   <p className="mt-1 text-sm text-zinc-600">
-                    AIが完全自動でゲームプレイと実況を実現するプロジェクト。ターン制ゲームの戦略策定から実況の生成まで、全工程を自動化。
+                    {t('developer:profile.products.autoPlay.description')}
                   </p>
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Button asChild size="sm" variant="outline">
                   <a href="https://www.youtube.com/watch?v=dRsVVPaOOVk" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <LinkIcon className="h-4 w-4" /> デモ動画 <ExternalLink className="h-4 w-4 opacity-70" />
+                    <LinkIcon className="h-4 w-4" /> {t('developer:profile.products.autoPlay.buttons.demo')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
                 <Button asChild size="sm" variant="outline">
                   <a href="https://note.com/nike_cha_n/n/n96515b745cd2" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                    <BookOpen className="h-4 w-4" /> 紹介記事 <ExternalLink className="h-4 w-4 opacity-70" />
+                    <BookOpen className="h-4 w-4" /> {t('developer:profile.products.autoPlay.buttons.article')} <ExternalLink className="h-4 w-4 opacity-70" />
                   </a>
                 </Button>
               </div>
@@ -334,12 +334,12 @@ export const NikeProfile: FC = () => {
       </Card>
 
       {/* blog Link */}
-      <a href="/dev_blog" className="block mt-6">
+      <a href={`/dev_blog${locale !== 'ja' ? '?lang=' + locale : ''}`} className="block mt-6">
         <Card className="transition-shadow hover:shadow-lg cursor-pointer">
           <CardContent className="p-6">
             <div className="flex items-center justify-center gap-2 text-lg font-medium">
               <BookOpen className="h-5 w-5 text-green-600" />
-              技術ブログはこちら
+              {t('developer:profile.blogLink')}
             </div>
           </CardContent>
         </Card>
@@ -349,23 +349,23 @@ export const NikeProfile: FC = () => {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <Heart className="h-5 w-5 text-rose-600" /> Support
+            <Heart className="h-5 w-5 text-rose-600" /> {t('developer:profile.support.heading')}
           </CardTitle>
-          <CardDescription>活動を応援いただける方へ</CardDescription>
+          <CardDescription>{t('developer:profile.support.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-zinc-700">
-            私の活動を応援していただけるスポンサーの方を募集しています。以下のプラットフォームからご支援いただけます。
+            {t('developer:profile.support.text')}
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
             <Button asChild className="bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 text-white hover:from-purple-700 hover:via-pink-600 hover:to-purple-700 transition-colors">
               <a href="https://github.com/sponsors/tegnike" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                <Github className="h-4 w-4" /> GitHub Sponsors <ExternalLink className="h-4 w-4 opacity-70" />
+                <Github className="h-4 w-4" /> {t('developer:profile.support.buttons.githubSponsors')} <ExternalLink className="h-4 w-4 opacity-70" />
               </a>
             </Button>
             <Button asChild variant="secondary" className="hover:bg-zinc-200 transition-colors">
               <a href="https://buymeacoffee.com/fDANV1k6iZ" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                ☕ Buy Me a Coffee <ExternalLink className="h-4 w-4 opacity-70" />
+                ☕ {t('developer:profile.support.buttons.buyMeCoffee')} <ExternalLink className="h-4 w-4 opacity-70" />
               </a>
             </Button>
           </div>

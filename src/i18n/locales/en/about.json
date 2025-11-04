@@ -90,6 +90,29 @@
           "description": "Released AI Nike Chan's latest voice synthesis model and published debut MV."
         }
       ]
+    },
+    "support": {
+      "heading": "Support",
+      "description": "For Those Who Want to Support AI Nike Chan's Activities",
+      "text": "We are looking for sponsors to support the development of AI Nike Chan. All support through FANBOX has the same benefits design, and we will give back with an open management policy.",
+      "features": [
+        "All plans have the same benefits, with no advantages based on amount",
+        "Support funds will be used for model improvements and operational environment maintenance"
+      ],
+      "buttons": {
+        "fanbox": "Support via FANBOX",
+        "discord": "Discord Community"
+      },
+      "sponsorChannel": {
+        "title": "Discord Sponsor Channel",
+        "description": "Sponsors will be invited to a dedicated channel on Discord. However, we aim to make information as public as possible, limiting exclusive information to this channel.",
+        "benefits": [
+          "Early sharing of upcoming updates",
+          "Announcements of AI Nike Chan's adjustment logs and work streams",
+          "Early announcements of sponsor events"
+        ],
+        "note": "Details on participation procedures and channel structure will be provided in a dedicated channel on Discord."
+      }
     }
   }
 }

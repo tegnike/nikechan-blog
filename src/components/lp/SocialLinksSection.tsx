@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
+import { getT, type Locale } from '../../i18n/config';
 
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
@@ -29,37 +30,43 @@ const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export function SocialLinksSection() {
+type Props = {
+  locale?: Locale;
+}
+
+export function SocialLinksSection({ locale = 'ja' }: Props) {
+  const t = getT(locale);
+
   const links = [
     {
-      label: "Twitter (X)",
-      handle: "@tegnike",
+      label: t('home:social.links.0.label'),
+      handle: t('home:social.links.0.handle'),
       href: "https://twitter.com/tegnike",
       Icon: XIcon,
       accent: "text-gray-900",
       ring: "ring-gray-300",
-      note: "管理者のアカウント",
+      note: t('home:social.links.0.note'),
     },
     {
-      label: "Twitter (X)",
-      handle: "@ai_nikechan",
+      label: t('home:social.links.1.label'),
+      handle: t('home:social.links.1.handle'),
       href: "https://twitter.com/ai_nikechan",
       Icon: XIcon,
       accent: "text-gray-900",
       ring: "ring-gray-300",
-      note: "AIニケちゃんのアカウント",
+      note: t('home:social.links.1.note'),
     },
     {
-      label: "Discord",
-      handle: "参加リンク",
+      label: t('home:social.links.2.label'),
+      handle: t('home:social.links.2.handle'),
       href: "https://discord.gg/G4E5Sf3yj3",
       Icon: DiscordIcon,
       accent: "text-indigo-600",
       ring: "ring-indigo-300",
     },
     {
-      label: "YouTube",
-      handle: "@nikechan",
+      label: t('home:social.links.3.label'),
+      handle: t('home:social.links.3.handle'),
       href: "https://www.youtube.com/@nikechan",
       Icon: YouTubeIcon,
       accent: "text-red-600",
@@ -72,7 +79,7 @@ export function SocialLinksSection() {
       <div className="container relative z-10 mx-auto max-w-6xl">
         <div className="text-center mb-10">
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
-            SNS
+            {t('home:social.heading')}
           </h2>
         </div>
 

@@ -1,8 +1,15 @@
 import { Button } from "./ui/button";
 import { Mail, MessageSquare, AtSign } from "lucide-react";
 import { motion } from "motion/react";
+import { getT, type Locale } from '../../i18n/config';
 
-export function ContactSupportSection() {
+type Props = {
+  locale?: Locale;
+}
+
+export function ContactSupportSection({ locale = 'ja' }: Props) {
+  const t = getT(locale);
+
   return (
     <section id="contact" className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
       <div className="container relative z-10 mx-auto max-w-6xl">
@@ -10,7 +17,7 @@ export function ContactSupportSection() {
           className="text-center mb-10"
         >
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
-            お問い合わせ
+            {t('home:contact.heading')}
           </h2>
         </div>
 
@@ -22,13 +29,13 @@ export function ContactSupportSection() {
                 <div className="flex items-center gap-3">
                   <AtSign className="w-4 h-4 text-gray-700" />
                   <div>
-                    <div className="text-sm text-gray-500">Twitter (X)</div>
-                    <div className="text-base font-semibold text-gray-900">DMでご連絡ください</div>
+                    <div className="text-sm text-gray-500">{t('home:contact.twitter.label')}</div>
+                    <div className="text-base font-semibold text-gray-900">{t('home:contact.twitter.description')}</div>
                   </div>
                 </div>
                 <Button asChild variant="outline" size="sm" className="gap-1.5">
                   <a href="https://twitter.com/tegnike" target="_blank" rel="noopener noreferrer">
-                    @tegnike
+                    {t('home:contact.twitter.handle')}
                   </a>
                 </Button>
               </div>
@@ -38,13 +45,13 @@ export function ContactSupportSection() {
                 <div className="flex items-center gap-3">
                   <MessageSquare className="w-4 h-4 text-indigo-600" />
                   <div>
-                    <div className="text-sm text-gray-500">Discord</div>
-                    <div className="text-base font-semibold text-gray-900">コミュニティ内でのご相談はこちら</div>
+                    <div className="text-sm text-gray-500">{t('home:contact.discord.label')}</div>
+                    <div className="text-base font-semibold text-gray-900">{t('home:contact.discord.description')}</div>
                   </div>
                 </div>
                 <Button asChild variant="outline" size="sm">
                   <a href="https://discord.gg/G4E5Sf3yj3" target="_blank" rel="noopener noreferrer">
-                    参加リンク
+                    {t('home:contact.discord.link')}
                   </a>
                 </Button>
               </div>
@@ -53,10 +60,10 @@ export function ContactSupportSection() {
               <div className="rounded-2xl border border-white/60 bg-white/60 p-4 backdrop-blur">
                 <div className="flex items-center gap-2 text-gray-700">
                   <Mail className="w-4 h-4" />
-                  <p className="font-medium">メール</p>
+                  <p className="font-medium">{t('home:contact.email.label')}</p>
                 </div>
                 <p className="mt-1 text-sm text-gray-600">
-                  メール窓口は現在準備中です。恐れ入りますが、当面は Twitter (X) または Discord よりご連絡ください。
+                  {t('home:contact.email.description')}
                 </p>
               </div>
             </div>

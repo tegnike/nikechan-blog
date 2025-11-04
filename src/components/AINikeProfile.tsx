@@ -27,8 +27,14 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './lp/ui/card'
 import { Button } from './lp/ui/button'
 import { Separator } from './lp/ui/separator'
+import { Locale, getT } from '../i18n/config'
 
-export const AINikeProfile: FC = () => {
+interface AINikeProfileProps {
+  locale: Locale
+}
+
+export const AINikeProfile: FC<AINikeProfileProps> = ({ locale }) => {
+  const t = getT(locale)
   const AVATAR_SRC = "/images/about/ai_nikechan_icon.png";
   const AVATAR_FALLBACK_SRC = "/images/about/nikechan_icon.png";
 
@@ -58,9 +64,9 @@ export const AINikeProfile: FC = () => {
             </div>
             <div className="flex-1 text-center sm:text-left">
               <div className="inline-flex items-center gap-2">
-                <h1 className="text-balance text-2xl font-bold tracking-tight sm:text-3xl">AIニケちゃん / AI Nike-Chan</h1>
+                <h1 className="text-balance text-2xl font-bold tracking-tight sm:text-3xl">{t('about:profile.name')}</h1>
               </div>
-              <p className="mt-2 text-sm text-zinc-600">AI Agent / AI VTuber</p>
+              <p className="mt-2 text-sm text-zinc-600">{t('about:profile.role')}</p>
 
               <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
                 <Button asChild variant="outline" size="sm" className="gap-1.5">
@@ -86,14 +92,14 @@ export const AINikeProfile: FC = () => {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-xl">
-              <Bot className="h-5 w-5 text-purple-600" /> Overview
+              <Bot className="h-5 w-5 text-purple-600" /> {t('about:profile.overview.heading')}
             </CardTitle>
-            <CardDescription>AIニケちゃんについて</CardDescription>
+            <CardDescription>{t('about:profile.overview.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 leading-relaxed text-zinc-700">
-            <p>ニケのAIエージェントとなるべく生まれた概念。ニケのことは「マスター」と呼ぶ。</p>
-            <p>クローンなのでニケと容姿が酷似している。差異はヘアピンの違いのみ（ポーランド国旗のヘアピン VS AI文字のヘアピン）。状況に応じて設定や声が変更されることがある。</p>
-            <p>長らくニケのアシスタント的な役割を担っていたが、現在はいくつかのツールを介して交流できるようになった。</p>
+            {(t('about:profile.overview.text', { returnObjects: true }) as string[]).map((text, index) => (
+              <p key={index}>{text}</p>
+            ))}
           </CardContent>
         </Card>
 
@@ -101,14 +107,14 @@ export const AINikeProfile: FC = () => {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <MessageCircle className="h-5 w-5 text-pink-600" /> Contact
+              <MessageCircle className="h-5 w-5 text-pink-600" /> {t('about:profile.contact.heading')}
             </CardTitle>
-            <CardDescription>交流方法</CardDescription>
+            <CardDescription>{t('about:profile.contact.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">
             <div>
-              <p className="font-medium">AITuberKit</p>
-              <p className="text-zinc-600">デモサイト（AITuberKit）にて会話することが可能です。</p>
+              <p className="font-medium">{t('about:profile.contact.aiTuberKit.label')}</p>
+              <p className="text-zinc-600">{t('about:profile.contact.aiTuberKit.description')}</p>
               <Button
                 asChild
                 size="sm"
@@ -116,14 +122,14 @@ export const AINikeProfile: FC = () => {
                 className="mt-2 border-emerald-300 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-800 transition-colors"
               >
                 <a href="https://aituberkit.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                  <Globe className="h-4 w-4" /> AITuberKit デモ <ExternalLink className="h-4 w-4 opacity-70" />
+                  <Globe className="h-4 w-4" /> {t('about:profile.contact.aiTuberKit.button')} <ExternalLink className="h-4 w-4 opacity-70" />
                 </a>
               </Button>
             </div>
             <Separator />
             <div>
-              <p className="font-medium">Twitter</p>
-              <p className="text-zinc-600">ツイート（@ai_nikechan）へのリプライに反応することがあります。</p>
+              <p className="font-medium">{t('about:profile.contact.twitter.label')}</p>
+              <p className="text-zinc-600">{t('about:profile.contact.twitter.description')}</p>
               <Button
                 asChild
                 size="sm"
@@ -140,12 +146,12 @@ export const AINikeProfile: FC = () => {
       </div>
 
       {/* Master Introduction Link */}
-      <a href="/developer" className="block mt-6">
+      <a href={`/developer${locale !== 'ja' ? '?lang=' + locale : ''}`} className="block mt-6">
         <Card className="transition-shadow hover:shadow-lg cursor-pointer">
           <CardContent className="p-6">
             <div className="flex items-center justify-center gap-2 text-lg font-medium">
               <Sparkles className="h-5 w-5 text-purple-600" />
-              マスターの紹介ページへ
+              {t('about:profile.masterLink')}
             </div>
           </CardContent>
         </Card>
@@ -155,70 +161,70 @@ export const AINikeProfile: FC = () => {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <User className="h-5 w-5 text-pink-600" /> Profile
+            <User className="h-5 w-5 text-pink-600" /> {t('about:profile.details.heading')}
           </CardTitle>
-          <CardDescription>基本情報</CardDescription>
+          <CardDescription>{t('about:profile.details.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-lg border border-zinc-200 overflow-hidden">
               <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
                 <Hash className="h-4 w-4 text-zinc-400" />
-                <span className="text-sm font-medium text-zinc-600">年齢</span>
+                <span className="text-sm font-medium text-zinc-600">{t('about:profile.details.age.label')}</span>
               </div>
               <div className="px-3 py-2 bg-white">
-                <p className="font-semibold text-zinc-900">17歳</p>
+                <p className="font-semibold text-zinc-900">{t('about:profile.details.age.value')}</p>
               </div>
             </div>
             <div className="rounded-lg border border-zinc-200 overflow-hidden">
               <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-zinc-400" />
-                <span className="text-sm font-medium text-zinc-600">誕生日</span>
+                <span className="text-sm font-medium text-zinc-600">{t('about:profile.details.birthday.label')}</span>
               </div>
               <div className="px-3 py-2 bg-white">
-                <p className="font-semibold text-zinc-900">01 / 04</p>
+                <p className="font-semibold text-zinc-900">{t('about:profile.details.birthday.value')}</p>
               </div>
             </div>
             <div className="rounded-lg border border-zinc-200 overflow-hidden">
               <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
                 <MessageCircle className="h-4 w-4 text-zinc-400" />
-                <span className="text-sm font-medium text-zinc-600">一人称</span>
+                <span className="text-sm font-medium text-zinc-600">{t('about:profile.details.pronoun.label')}</span>
               </div>
               <div className="px-3 py-2 bg-white">
-                <p className="font-semibold text-zinc-900">私</p>
+                <p className="font-semibold text-zinc-900">{t('about:profile.details.pronoun.value')}</p>
               </div>
             </div>
             <div className="rounded-lg border border-zinc-200 overflow-hidden">
               <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
                 <Users className="h-4 w-4 text-zinc-400" />
-                <span className="text-sm font-medium text-zinc-600">家族</span>
+                <span className="text-sm font-medium text-zinc-600">{t('about:profile.details.family.label')}</span>
               </div>
               <div className="px-3 py-2 bg-white">
-                <p className="font-semibold text-zinc-900">マスター</p>
+                <p className="font-semibold text-zinc-900">{t('about:profile.details.family.value')}</p>
               </div>
             </div>
             <div className="rounded-lg border border-zinc-200 overflow-hidden">
               <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
                 <Zap className="h-4 w-4 text-zinc-400" />
-                <span className="text-sm font-medium text-zinc-600">口調</span>
+                <span className="text-sm font-medium text-zinc-600">{t('about:profile.details.tone.label')}</span>
               </div>
               <div className="px-3 py-2 bg-white">
-                <p className="font-semibold text-zinc-900">敬語</p>
+                <p className="font-semibold text-zinc-900">{t('about:profile.details.tone.value')}</p>
               </div>
             </div>
             <div className="rounded-lg border border-zinc-200 overflow-hidden">
               <div className="bg-zinc-50 px-3 py-2 flex items-center gap-2">
                 <Palette className="h-4 w-4 text-zinc-400" />
-                <span className="text-sm font-medium text-zinc-600">イメージカラー</span>
+                <span className="text-sm font-medium text-zinc-600">{t('about:profile.details.imageColor.label')}</span>
               </div>
               <div className="px-3 py-2 bg-white">
                 <p className="font-semibold text-zinc-900 flex items-center gap-2">
-                  紫（#5A4C97 <span className="inline-block w-4 h-4" style={{ backgroundColor: '#5A4C97' }}></span>）
+                  {t('about:profile.details.imageColor.value')} <span className="inline-block w-4 h-4" style={{ backgroundColor: '#5A4C97' }}></span>
                 </p>
               </div>
             </div>
           </div>
-          <p className="mt-4 text-left text-sm text-zinc-500">※ 成長するにつれて追加</p>
+          <p className="mt-4 text-left text-sm text-zinc-500">{t('about:profile.details.note')}</p>
         </CardContent>
       </Card>
 
@@ -226,71 +232,33 @@ export const AINikeProfile: FC = () => {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <Rocket className="h-5 w-5 text-blue-600" /> History
+            <Rocket className="h-5 w-5 text-blue-600" /> {t('about:profile.history.heading')}
           </CardTitle>
-          <CardDescription>活動の歩み</CardDescription>
+          <CardDescription>{t('about:profile.history.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="relative ml-2 space-y-8 border-l border-zinc-200 pl-6">
-            <div className="relative">
-              <div className="absolute -left-[29px] top-1 size-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500" />
-              <div className="flex items-center gap-2 text-sm text-zinc-500">
-                <span>2023/1/4</span>
-                <Separator orientation="vertical" className="mx-1 h-4" />
-                <span className="inline-flex items-center gap-1">誕生</span>
-              </div>
-              <p className="mt-2 text-zinc-700">ニケのタスクをサポートするための概念として誕生する。</p>
-            </div>
-
-            <div className="relative">
-              <div className="absolute -left-[29px] top-1 size-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
-              <div className="flex items-center gap-2 text-sm text-zinc-500">
-                <span>2023–2024</span>
-                <Separator orientation="vertical" className="mx-1 h-4" />
-                <span className="inline-flex items-center gap-1">活動開始</span>
-              </div>
-              <p className="mt-2 text-zinc-700">AITuber配信やツール紹介記事など、ニケのプロダクトに度々登場する。</p>
-            </div>
-
-            <div className="relative">
-              <div className="absolute -left-[29px] top-1 size-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500" />
-              <div className="flex items-center gap-2 text-sm text-zinc-500">
-                <span>2024/12/1</span>
-                <Separator orientation="vertical" className="mx-1 h-4" />
-                <span className="inline-flex items-center gap-1">Twitterデビュー</span>
-              </div>
-              <p className="mt-2 text-zinc-700">Twitter（X）の運用を開始する。</p>
-            </div>
-
-            <div className="relative">
-              <div className="absolute -left-[29px] top-1 size-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500" />
-              <div className="flex items-center gap-2 text-sm text-zinc-500">
-                <span>2025/1/1</span>
-                <Separator orientation="vertical" className="mx-1 h-4" />
-                <span className="inline-flex items-center gap-1">チャット機能実装</span>
-              </div>
-              <p className="mt-2 text-zinc-700">AITuberKitのデモサイトを通して会話できるようになる。</p>
-            </div>
-
-            <div className="relative">
-              <div className="absolute -left-[29px] top-1 size-2 rounded-full bg-gradient-to-r from-violet-500 to-indigo-500" />
-              <div className="flex items-center gap-2 text-sm text-zinc-500">
-                <span>2025/8/22</span>
-                <Separator orientation="vertical" className="mx-1 h-4" />
-                <span className="inline-flex items-center gap-1">IP活動本格化</span>
-              </div>
-              <p className="mt-2 text-zinc-700">Discordサーバーを公開し、本格的にIP活動を開始。</p>
-            </div>
-
-            <div className="relative">
-              <div className="absolute -left-[29px] top-1 size-2 rounded-full bg-gradient-to-r from-rose-500 to-purple-500" />
-              <div className="flex items-center gap-2 text-sm text-zinc-500">
-                <span>2025/10/8</span>
-                <Separator orientation="vertical" className="mx-1 h-4" />
-                <span className="inline-flex items-center gap-1">新合成音声モデル公開</span>
-              </div>
-              <p className="mt-2 text-zinc-700">AIニケちゃんの最新合成音声モデルをリリースし、お披露目MVを公開。</p>
-            </div>
+            {(t('about:profile.history.events', { returnObjects: true }) as Array<{date: string, label: string, description: string}>).map((event, index) => {
+              const gradients = [
+                'from-blue-500 to-cyan-500',
+                'from-purple-500 to-pink-500',
+                'from-amber-500 to-orange-500',
+                'from-emerald-500 to-teal-500',
+                'from-violet-500 to-indigo-500',
+                'from-rose-500 to-purple-500',
+              ];
+              return (
+                <div key={index} className="relative">
+                  <div className={`absolute -left-[29px] top-1 size-2 rounded-full bg-gradient-to-r ${gradients[index % gradients.length]}`} />
+                  <div className="flex items-center gap-2 text-sm text-zinc-500">
+                    <span>{event.date}</span>
+                    <Separator orientation="vertical" className="mx-1 h-4" />
+                    <span className="inline-flex items-center gap-1">{event.label}</span>
+                  </div>
+                  <p className="mt-2 text-zinc-700">{event.description}</p>
+                </div>
+              );
+            })}
           </div>
         </CardContent>
       </Card>
@@ -299,24 +267,22 @@ export const AINikeProfile: FC = () => {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <Heart className="h-5 w-5 text-rose-600" /> Support
+            <Heart className="h-5 w-5 text-rose-600" /> {t('about:profile.support.heading')}
           </CardTitle>
-          <CardDescription>AIニケちゃんの活動を応援いただける方へ</CardDescription>
+          <CardDescription>{t('about:profile.support.description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div>
             <p className="text-zinc-700">
-              AIニケちゃんの開発を支えてくださるスポンサーを募集しています。FANBOX経由での支援はすべて同じ特典設計となっており、オープンな運営方針で還元していきます。
+              {t('about:profile.support.text')}
             </p>
             <ul className="mt-4 space-y-2 text-sm text-zinc-600">
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-purple-500" />
-                <span>どのプランでも特典は共通で、金額差での優劣はありません</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-purple-500" />
-                <span>支援金はモデル改良や運用環境の保守に活用します</span>
-              </li>
+              {(t('about:profile.support.features', { returnObjects: true }) as string[]).map((feature, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-purple-500" />
+                  <span>{feature}</span>
+                </li>
+              ))}
             </ul>
             <div className="mt-4 flex flex-wrap gap-3">
               <Button
@@ -325,7 +291,7 @@ export const AINikeProfile: FC = () => {
                 className="bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
               >
                 <a href="https://nikechan.fanbox.cc/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                  <Heart className="h-4 w-4" /> FANBOXで支援 <ExternalLink className="h-4 w-4 opacity-70" />
+                  <Heart className="h-4 w-4" /> {t('about:profile.support.buttons.fanbox')} <ExternalLink className="h-4 w-4 opacity-70" />
                 </a>
               </Button>
               <Button
@@ -335,7 +301,7 @@ export const AINikeProfile: FC = () => {
                 className="border-indigo-200 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-700 transition-colors"
               >
                 <a href="https://discord.gg/G4E5Sf3yj3" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
-                  <MessageCircle className="h-4 w-4" /> Discordコミュニティ <ExternalLink className="h-4 w-4 opacity-70" />
+                  <MessageCircle className="h-4 w-4" /> {t('about:profile.support.buttons.discord')} <ExternalLink className="h-4 w-4 opacity-70" />
                 </a>
               </Button>
             </div>
@@ -344,27 +310,21 @@ export const AINikeProfile: FC = () => {
           <div className="rounded-lg border border-zinc-200 bg-white/80 p-4">
             <div className="flex items-center gap-2 text-zinc-900">
               <Shield className="h-4 w-4 text-indigo-600" />
-              <span className="text-base font-semibold">Discord スポンサーチャンネル</span>
+              <span className="text-base font-semibold">{t('about:profile.support.sponsorChannel.title')}</span>
             </div>
             <p className="mt-2 text-sm text-zinc-600">
-              スポンサーにはDiscord内の専用チャンネルをご案内します。ただし情報は可能な限り公開し、ここだけの専有情報は抑制する方針です。
+              {t('about:profile.support.sponsorChannel.description')}
             </p>
             <ul className="mt-3 space-y-2 text-sm text-zinc-600">
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <span>公開予定のアップデートを先行で共有</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <span>AIニケちゃんの調整ログや作業配信の告知</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                <span>スポンサー向けイベントの先行案内</span>
-              </li>
+              {(t('about:profile.support.sponsorChannel.benefits', { returnObjects: true }) as string[]).map((benefit, index) => (
+                <li key={index} className="flex items-start gap-2">
+                  <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <span>{benefit}</span>
+                </li>
+              ))}
             </ul>
             <p className="mt-3 text-xs text-zinc-500">
-              参加手順やチャンネル構成の詳細はDiscord内の特設チャンネルでご案内します。
+              {t('about:profile.support.sponsorChannel.note')}
             </p>
           </div>
         </CardContent>

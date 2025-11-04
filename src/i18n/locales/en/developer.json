@@ -1,3 +1,93 @@
 {
-  "heading": "DEVELOPER"
+  "heading": "DEVELOPER",
+  "profile": {
+    "name": "ニケ / Nike",
+    "role": "AI Character & Agent Developer",
+    "location": "Poland",
+    "languages": "JP, EN",
+    "overview": {
+      "heading": "Overview",
+      "description": "Self Introduction & Activity Areas",
+      "text": [
+        "A full-stack web developer based in Poland, participating remotely in Japanese projects for several years.",
+        "Currently working as an AI Engineer specializing in LLM applications using Python, React, and more, while continuously catching up with the latest AI technologies and regularly sharing information through SNS and technical articles.",
+        "In personal development, I publish AI tools such as 'AITuberKit', exploring the possibilities of new applications combining AI and web technologies. Also engaged in development and IP activities as the master of AI character 'AI Nike-Chan'."
+      ]
+    },
+    "contact": {
+      "heading": "Contact",
+      "description": "Inquiries",
+      "general": {
+        "label": "General Inquiries",
+        "description": "Please contact me via Twitter DM (@tegnike).",
+        "button": "Send DM"
+      },
+      "aiTuberKit": {
+        "label": "AITuberKit Commercial Guidelines",
+        "description": "Inquiries about commercial use and guidelines"
+      }
+    },
+    "aiNikeLink": "View AI Nike Chan's Profile",
+    "career": {
+      "heading": "Career",
+      "description": "Work History",
+      "webDeveloper": {
+        "period": "~2023",
+        "label": "Web Developer",
+        "description": "Participated in Japanese projects fully remotely. Worked on web application development using Ruby on Rails, React, Vue.js, etc. Led various projects including reservation systems, e-commerce sites, and online lottery sites as a lead engineer."
+      },
+      "aiEngineer": {
+        "period": "2024~",
+        "label": "AI Engineer",
+        "description": "Working on AI character and AI agent development in Japanese and English-speaking projects. Using Python, TypeScript, etc., responsible for overall AI application development including implementing natural conversation systems using LLMs and designing unique memory mechanisms. Actively incorporating AI-driven development using tools like Cursor and Devin."
+      }
+    },
+    "products": {
+      "heading": "Products",
+      "description": "Personal Development / Public Projects",
+      "aiTuberKit": {
+        "name": "AITuberKit (2024)",
+        "description": "A project that allows anyone to easily build AI character chat and AITuber systems. Supports numerous LLMs and TTS services with flexible customization. Built with React and TypeScript.",
+        "buttons": {
+          "github": "GitHub",
+          "demo": "Demo",
+          "article": "Article"
+        }
+      },
+      "aiTuberList": {
+        "name": "AITuberList (2024)",
+        "description": "A site that compiles AITubers posting on YouTube.",
+        "buttons": {
+          "github": "GitHub",
+          "site": "Site"
+        }
+      },
+      "bishojo": {
+        "name": "Bishojo OPInterpreter (2023)",
+        "description": "An interactive development support tool that combines Live2D characters with a programming execution environment. Allows intuitive program execution through conversations with anime girl characters.",
+        "buttons": {
+          "demo": "Demo Video",
+          "article": "Article"
+        }
+      },
+      "autoPlay": {
+        "name": "Fully Automatic AI Gameplay & Commentary (2023)",
+        "description": "A project where AI achieves fully automatic gameplay and commentary. Automates all processes from turn-based game strategy formulation to commentary generation.",
+        "buttons": {
+          "demo": "Demo Video",
+          "article": "Article"
+        }
+      }
+    },
+    "blogLink": "View Technical Blog",
+    "support": {
+      "heading": "Support",
+      "description": "For Those Who Support Our Activities",
+      "text": "We are looking for sponsors to support my activities. You can support through the following platforms.",
+      "buttons": {
+        "githubSponsors": "GitHub Sponsors",
+        "buyMeCoffee": "Buy Me a Coffee"
+      }
+    }
+  }
 }
