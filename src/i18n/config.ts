@@ -8,6 +8,7 @@ import jaAbout from './locales/ja/about.json';
 import jaTutorial from './locales/ja/tutorial.json';
 import jaGuidelines from './locales/ja/guidelines.json';
 import jaDeveloper from './locales/ja/developer.json';
+import jaGallery from './locales/ja/gallery.json';
 
 import enNavigation from './locales/en/navigation.json';
 import enCommon from './locales/en/common.json';
@@ -16,6 +17,7 @@ import enAbout from './locales/en/about.json';
 import enTutorial from './locales/en/tutorial.json';
 import enGuidelines from './locales/en/guidelines.json';
 import enDeveloper from './locales/en/developer.json';
+import enGallery from './locales/en/gallery.json';
 
 export const defaultLocale = 'ja';
 export const supportedLocales = ['ja', 'en'] as const;
@@ -31,6 +33,7 @@ export const resources = {
     tutorial: jaTutorial,
     guidelines: jaGuidelines,
     developer: jaDeveloper,
+    gallery: jaGallery,
   },
   en: {
     navigation: enNavigation,
@@ -40,6 +43,7 @@ export const resources = {
     tutorial: enTutorial,
     guidelines: enGuidelines,
     developer: enDeveloper,
+    gallery: enGallery,
   },
 } as const;
 

@@ -178,11 +178,17 @@ app.get('/log/summary/:yearMonth', async (c) => {
 // Developer page
 app.get('/developer', (c) => {
   const currentPath = c.req.path; // パスを取得
+  const locale = c.get('locale') as Locale
   return c.render(
-    <Layout currentPath={currentPath}>
-      <Developer />
+    <Layout currentPath={currentPath} locale={locale}>
+      <Developer locale={locale} />
     </Layout>,
-    { title: "開発者情報 | AIニケちゃんオフィシャルサイト" }
+    {
+      locale,
+      title: locale === 'ja'
+        ? "開発者情報 | AIニケちゃんオフィシャルサイト"
+        : "Developer Info | AI Nike Chan Official Website"
+    }
   )
 })
 
