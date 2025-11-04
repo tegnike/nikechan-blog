@@ -13,7 +13,7 @@ export function LicenseSection() {
                 生成AIでの利用もOK！<br />
               </h2>
               <p className="mt-4 text-lg text-gray-700 leading-relaxed text-left">
-                AIニケちゃんのVRMモデルはAI生成で利用可能なため、i2iやLoRAの作成などでご利用いただけます。
+                AIニケちゃんのVRMモデルは生成AIで利用可能なため、i2iやLoRAの作成などでご利用いただけます。
                 ガイドラインに沿って、創作・研究・配信など幅広い用途で活用してください。
               </p>
             </div>

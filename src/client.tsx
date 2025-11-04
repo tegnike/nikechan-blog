@@ -211,6 +211,62 @@ function bootstrap() {
     })
   }
 
+  // ライセンスコピーボタンの機能
+  function setupLicenseCopyButton() {
+    const button = document.getElementById('copy-license-btn') as HTMLButtonElement | null
+    const content = document.getElementById('license-content') as HTMLElement | null
+    if (!button || !content) return
+
+    const originalHTML = button.innerHTML
+
+    button.addEventListener('click', async () => {
+      const text = content.textContent || ''
+      if (!text) return
+
+      button.disabled = true
+
+      const restore = () => {
+        setTimeout(() => {
+          button.innerHTML = originalHTML
+          button.disabled = false
+        }, 2000)
+      }
+
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text)
+        } else {
+          const textarea = document.createElement('textarea')
+          textarea.value = text
+          textarea.style.position = 'fixed'
+          textarea.style.top = '-9999px'
+          document.body.appendChild(textarea)
+          textarea.focus()
+          textarea.select()
+          document.execCommand('copy')
+          document.body.removeChild(textarea)
+        }
+
+        button.innerHTML = `
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          コピーしました！
+        `
+      } catch (err) {
+        console.error('Failed to copy license text', err)
+        button.innerHTML = `
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          コピーに失敗しました
+        `
+      } finally {
+        restore()
+      }
+    })
+  }
+
   // モバイルメニュー（Menuボタンの開閉）
   function setupMobileMenu() {
     const btn = document.getElementById('mobile-menu-button') as HTMLButtonElement | null
@@ -782,6 +838,7 @@ function bootstrap() {
     setupTranscriptToggle()
     setupTabs()
     setupCopyButtons()
+    setupLicenseCopyButton() // ライセンスコピーボタン
     setupBlogMonthTabs()
     setupCategoryTabs()
     setupTechBlogPagination()
