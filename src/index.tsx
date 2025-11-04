@@ -59,22 +59,34 @@ app.get('/', (c) => {
 app.get('/gallery', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path;
+  const locale = c.get('locale') as Locale
   return c.render(
-    <Layout currentPath={currentPath}>
-      <FanGallery />
+    <Layout currentPath={currentPath} locale={locale}>
+      <FanGallery locale={locale} />
     </Layout>,
-    { title: "ファンアート | AIニケちゃんオフィシャルサイト" }
+    {
+      locale,
+      title: locale === 'ja'
+        ? "ファンアート | AIニケちゃんオフィシャルサイト"
+        : "Fan Art | AI Nike Chan Official Website"
+    }
   )
 })
 
 app.get('/gallery/commissioned', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path;
+  const locale = c.get('locale') as Locale
   return c.render(
-    <Layout currentPath={currentPath}>
-      <Gallery />
+    <Layout currentPath={currentPath} locale={locale}>
+      <Gallery locale={locale} />
     </Layout>,
-    { title: "コミッションイラスト | AIニケちゃんオフィシャルサイト" }
+    {
+      locale,
+      title: locale === 'ja'
+        ? "コミッションイラスト | AIニケちゃんオフィシャルサイト"
+        : "Commissioned Works | AI Nike Chan Official Website"
+    }
   )
 })
 

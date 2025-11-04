@@ -1,0 +1,15 @@
+{
+  "heading": "GALLERY",
+  "toggle": {
+    "fan": "生成AIファンアート",
+    "commissioned": "コミッション作品"
+  },
+  "commissioned": {
+    "notice": "このページに掲載している「コミッション作品」は、作者との個別の契約に基づき制作・掲載している公式イラストです。これらの画像を学習用データセットとして使用したり、画像生成の参照素材（i2i / img2img）、LoRA などの学習・微調整、その他の生成系 AI の入力素材として利用することはできません。鑑賞用途のみにご利用ください。AI 生成を行う場合は、<a href=\"/guidelines\" class=\"underline underline-offset-2 decoration-amber-600 hover:opacity-80\">ガイドラインページ</a>に記載の VRM モデルをご利用ください。"
+  },
+  "fan": {
+    "notice": "当ページに掲載しているファンアートは、各作者の著作物です。二次利用・二次創作（再編集・加工、生成AIの入力や LoRA 学習、印刷・頒布 など）を行う場合は、必ず作者ご本人の許諾を得てください。画像をクリックすると作者の X プロフィールへのリンクが表示されます。許諾が得られない場合は二次利用を控えてください。",
+    "altText": "Fan art by {{author}}",
+    "caption": "Illus. {{author}}"
+  }
+}
