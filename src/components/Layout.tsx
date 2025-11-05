@@ -42,7 +42,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
         className="sticky top-0 z-50 w-full backdrop-blur-xl bg-white/80 border-b border-purple-200/50"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-blue-500/10"></div>
-        <div className="container relative flex h-20 items-center justify-between px-6 lg:px-8 mx-auto">
+        <div className="container relative flex h-16 md:h-20 items-center justify-between px-4 md:px-6 lg:px-8 mx-auto">
           <motion.div
             className="flex items-center"
             whileHover={{ scale: 1.05 }}
