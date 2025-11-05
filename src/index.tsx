@@ -101,7 +101,7 @@ app.get('/guidelines', (c) => {
     </Layout>,
     {
       locale,
-      title: locale === 'ja' ? "二次創作ガイドライン | AIニケちゃんオフィシャルサイトs" : "Derivative Creation Guidelines | AI Nike Chan Official Website",
+      title: locale === 'ja' ? "二次創作ガイドライン | AIニケちゃんオフィシャルサイト" : "Derivative Creation Guidelines | AI Nike Chan Official Website",
       description: locale === 'ja' ? "AIニケちゃんの作品利用ガイドライン。二次創作、ファンアート、AI学習への利用に関する規約。" : "Guidelines for using AI Nike Chan's works. Terms for derivative works, fan art, and AI learning.",
       canonicalUrl: "https://nikechan.com/guidelines",
       keywords: "利用規約, ガイドライン, 二次創作, ライセンス, 著作権"
