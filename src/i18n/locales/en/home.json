@@ -1,0 +1,143 @@
+{
+  "hero": {
+    "title": "AI Nike Chan Official Website",
+    "ariaLabel": "Hero Section"
+  },
+  "about": {
+    "heading": "AI Nike Chan",
+    "greeting": "\"Hello, my name is Nike. What's your name?\"",
+    "description": "AI Nike Chan loves new things and is curious about everything.<br />She's still learning, but that means her potential is limitless.<br />Your chats, illustrations, and videos shape who she is.<br />Why not join us in expanding her world?",
+    "profileLabel": {
+      "age": "Age",
+      "birthday": "Birthday",
+      "family": "Family",
+      "imageColor": "Image Color"
+    },
+    "profileValue": {
+      "age": "17 years old",
+      "birthday": "01 / 04",
+      "family": "Master",
+      "imageColor": "Purple (#5A4C97)"
+    },
+    "cta": {
+      "profile": "View Full Profile",
+      "gallery": "Go to Gallery"
+    }
+  },
+  "news": {
+    "heading": "Recent Updates",
+    "items": [
+      {
+        "id": "tutorial",
+        "tag": "NEW",
+        "date": "2025・10",
+        "title": "Added Image & Video Generation Tutorial Page",
+        "description": "We've published step-by-step instructions for easily generating images and videos of AI Nike Chan.",
+        "cta": "Read Tutorial"
+      },
+      {
+        "id": "voice-model",
+        "tag": "NEW",
+        "date": "2025・10",
+        "title": "New Voice Synthesis Model Completed",
+        "description": "We've created a new voice synthesis model for AI Nike Chan. Please watch the debut MV.",
+        "embedTitle": "New Voice Synthesis Model Debut MV"
+      },
+      {
+        "id": "distribution",
+        "tag": "NEW",
+        "date": "2025・9",
+        "title": "Derivative Creation Guidelines Published",
+        "description": "We've published guidelines for creating derivative works of AI Nike Chan. This covers rules for creating and distributing fan art and AI-generated works.",
+        "cta": "View Guidelines"
+      }
+    ]
+  },
+  "license": {
+    "heading": "Generative AI Usage OK!",
+    "description": "Nike Chan's VRM model can be used with generative AI, including i2i and LoRA creation. You can use it for a wide range of purposes such as creative work, research, and streaming, in accordance with our guidelines.",
+    "features": [
+      "Generative AI (i2i, LoRA, etc.) OK",
+      "Derivative Works OK",
+      "Social Media & Video Streaming OK"
+    ],
+    "cta": {
+      "tutorial": "Try Generative AI!",
+      "guidelines": "View Detailed Guidelines"
+    },
+    "disclaimer": "Some uses may be subject to conditions. Please check the guidelines for details.",
+    "example": {
+      "heading": "Example: i2i with nano banana",
+      "input": "input",
+      "output": "output",
+      "prompt": "Please redraw this girl in a punk rock style design."
+    }
+  },
+  "gallery": {
+    "heading": "Art Gallery",
+    "cta": "View Gallery"
+  },
+  "social": {
+    "heading": "Social Media",
+    "links": [
+      {
+        "label": "Twitter (X)",
+        "handle": "@tegnike",
+        "note": "Administrator's account"
+      },
+      {
+        "label": "Twitter (X)",
+        "handle": "@ai_nikechan",
+        "note": "AI Nike Chan's account"
+      },
+      {
+        "label": "Discord",
+        "handle": "Join Link"
+      },
+      {
+        "label": "YouTube",
+        "handle": "@nikechan"
+      }
+    ]
+  },
+  "support": {
+    "heading": "Support Our Activities",
+    "fanbox": {
+      "heading": "Support via FANBOX",
+      "description": "Your support will be used for ongoing activities and production costs. All support plans offer the same benefits - no difference based on amount.",
+      "features": [
+        "Same Benefits: All plans have the same content",
+        "Currently, payments are consolidated to FANBOX"
+      ],
+      "cta": "Support on FANBOX"
+    },
+    "discord": {
+      "heading": "About Discord",
+      "description": "Sponsors can join special Discord channels. However, our basic policy is to make information public and minimize exclusive content.",
+      "featuresHeading": "What you can see in public channels (examples)",
+      "features": [
+        "Early access to pre-release information",
+        "Administrator's work streams",
+        "More to be added as needed"
+      ],
+      "disclaimer": "Detailed participation instructions and channel structure will be provided in the special Discord channels."
+    }
+  },
+  "contact": {
+    "heading": "Contact Us",
+    "twitter": {
+      "label": "Twitter (X)",
+      "description": "Please contact us via DM",
+      "handle": "@tegnike"
+    },
+    "discord": {
+      "label": "Discord",
+      "description": "For community inquiries",
+      "link": "Join Link"
+    },
+    "email": {
+      "label": "Email",
+      "description": "Email contact is currently being prepared. Please contact us via Twitter (X) or Discord for now."
+    }
+  }
+}

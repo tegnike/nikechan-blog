@@ -1,0 +1,142 @@
+{
+  "hero": {
+    "title": "AIニケちゃんオフィシャルサイト",
+    "ariaLabel": "ヒーローセクション"
+  },
+  "about": {
+    "heading": "AIニケちゃん",
+    "greeting": "\"こんにちは、私の名前はニケです。あなたの名前は?\"",
+    "description": "新しいものが大好きで、どんなことにも興味津々なAIニケちゃん。<br />まだまだ未熟だけど、だからこそ可能性は無限大。<br />皆さんのチャットや、イラストや、動画が、彼女を創ります。<br />あなたも一緒に、彼女の世界を広げてみませんか？",
+    "profileLabel": {
+      "age": "年齢",
+      "birthday": "誕生日",
+      "family": "家族",
+      "imageColor": "イメージカラー"
+    },
+    "profileValue": {
+      "age": "17歳",
+      "birthday": "01 / 04",
+      "family": "マスター",
+      "imageColor": "紫（#5A4C97）"
+    },
+    "cta": {
+      "profile": "詳細プロフィールを見る",
+      "gallery": "ギャラリーへ"
+    }
+  },
+  "news": {
+    "heading": "最近のアップデート",
+    "items": [
+      {
+        "id": "tutorial",
+        "tag": "NEW",
+        "date": "2025・10",
+        "title": "画像・動画生成チュートリアルページを追加しました",
+        "description": "AIニケちゃんの画像と動画を簡単に生成するための手順を公開しました。",
+        "cta": "チュートリアルを読む"
+      },
+      {
+        "id": "voice-model",
+        "tag": "NEW",
+        "date": "2025・10",
+        "title": "新しい合成音声モデルが完成しました",
+        "description": "AIニケちゃんの新しい合成音声モデルを作成しました。披露目MVをご視聴ください。"
+      },
+      {
+        "id": "distribution",
+        "tag": "NEW",
+        "date": "2025・9",
+        "title": "二次創作ガイドラインを公開しました",
+        "description": "AIニケちゃんの二次創作に関するガイドラインを公開しました。ファンアートやAI作品などの制作・配布に関するルールをまとめています。",
+        "cta": "ガイドラインを確認する"
+      }
+    ]
+  },
+  "license": {
+    "heading": "生成AIでの利用もOK！",
+    "description": "AIニケちゃんのVRMモデルは生成AIで利用可能なため、i2iやLoRAの作成などでご利用いただけます。ガイドラインに沿って、創作・研究・配信など幅広い用途で活用してください。",
+    "features": [
+      "生成AI（i2i, LoRAなど） OK",
+      "二次創作 OK",
+      "SNS・動画配信 OK"
+    ],
+    "cta": {
+      "tutorial": "生成AIを試してみよう！",
+      "guidelines": "ガイドラインの詳細はこちら"
+    },
+    "disclaimer": "一部の利用は条件付きとなる場合があります。詳細はガイドラインをご確認ください。",
+    "example": {
+      "heading": "nano banana で i2i を試す例",
+      "input": "input",
+      "output": "output",
+      "prompt": "この女の子をパンク・ロック風のデザインで書き直してください。"
+    }
+  },
+  "gallery": {
+    "heading": "アートギャラリー",
+    "cta": "ギャラリーを見る"
+  },
+  "social": {
+    "heading": "SNS",
+    "links": [
+      {
+        "label": "Twitter (X)",
+        "handle": "@tegnike",
+        "note": "管理者のアカウント"
+      },
+      {
+        "label": "Twitter (X)",
+        "handle": "@ai_nikechan",
+        "note": "AIニケちゃんのアカウント"
+      },
+      {
+        "label": "Discord",
+        "handle": "参加リンク"
+      },
+      {
+        "label": "YouTube",
+        "handle": "@nikechan"
+      }
+    ]
+  },
+  "support": {
+    "heading": "活動のご支援について",
+    "fanbox": {
+      "heading": "FANBOX で支援",
+      "description": "活動の継続・制作費に充てさせていただきます。どの支援プランでも受けられる特典は同じで、金額で差が出ない設計です。",
+      "features": [
+        "同一特典：どのプランでも内容は共通",
+        "現在、決済はFANBOXに一本化"
+      ],
+      "cta": "FANBOXで支援する"
+    },
+    "discord": {
+      "heading": "Discord について",
+      "description": "スポンサーはDiscordの特設チャンネルに参加できます。ただし基本方針として情報は公にし、ここでしか得られない情報は極力設けません。",
+      "featuresHeading": "公開チャンネルで見られるもの（例）",
+      "features": [
+        "公開前情報の先出し",
+        "管理者の作業配信",
+        "必要に応じて今後も追加予定"
+      ],
+      "disclaimer": "詳細な参加手順やチャンネル構成は、Discord内の特設チャンネルでご案内します。"
+    }
+  },
+  "contact": {
+    "heading": "お問い合わせ",
+    "twitter": {
+      "label": "Twitter (X)",
+      "description": "DMでご連絡ください",
+      "handle": "@tegnike"
+    },
+    "discord": {
+      "label": "Discord",
+      "description": "コミュニティ内でのご相談はこちら",
+      "link": "参加リンク"
+    },
+    "email": {
+      "label": "メール",
+      "description": "メール窓口は現在準備中です。恐れ入りますが、当面は Twitter (X) または Discord よりご連絡ください。"
+    }
+  }
+}

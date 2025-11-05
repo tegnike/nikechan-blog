@@ -1,4 +1,12 @@
-export function WelcomeSection() {
+import { getT, type Locale } from '../../i18n/config'
+
+type Props = {
+  locale?: Locale;
+}
+
+export function WelcomeSection({ locale = 'ja' }: Props) {
+  const t = getT(locale)
+
   return (
     <section
       className="relative min-h-[calc(100svh-5rem)] flex items-center justify-center px-4 overflow-hidden"
@@ -8,7 +16,7 @@ export function WelcomeSection() {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
-      aria-label="ヒーローセクション"
+      aria-label={t('home:hero.ariaLabel')}
     >
       {/* White gradient overlay: subtle at top, stronger at bottom */}
       <div
@@ -21,10 +29,10 @@ export function WelcomeSection() {
 
       {/* Centered character image with hover and click interactions */}
       <div className="relative z-10 flex flex-col items-center justify-center">
-        <h1 className="sr-only">AIニケちゃんオフィシャルサイト</h1>
+        <h1 className="sr-only">{t('home:hero.title')}</h1>
         <img
           src="/images/lp/top.webp"
-          alt="Nike Chan（ニケちゃん）のメインビジュアル - デジタルアート作品"
+          alt={locale === 'ja' ? "Nike Chan（ニケちゃん）のメインビジュアル - デジタルアート作品" : "Nike Chan Main Visual - Digital Art"}
           className="w-full max-w-[576px] h-auto object-contain transition-transform duration-300 hover:scale-[1.02]"
           style={{
             filter: [

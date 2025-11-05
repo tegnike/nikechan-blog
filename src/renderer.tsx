@@ -1,5 +1,6 @@
 import { reactRenderer } from '@hono/react-renderer'
 import type { ReactNode } from 'react'
+import type { Locale } from './i18n/config'
 
 interface BaseProps {
   children: ReactNode
@@ -10,6 +11,7 @@ interface BaseProps {
   canonicalUrl?: string
   keywords?: string
   structuredData?: object
+  locale?: Locale
 }
 
 export const renderer = reactRenderer(({
@@ -20,11 +22,14 @@ export const renderer = reactRenderer(({
   ogType,
   canonicalUrl,
   keywords,
-  structuredData
+  structuredData,
+  locale = 'ja'
 }: BaseProps) => {
-  const defaultTitle = 'NIKELOG - Nike Chan Official Portfolio'
+  const defaultTitle = locale === 'ja' ? 'NIKELOG - Nike Chan Official Portfolio' : 'NIKELOG - Nike Chan Official Portfolio'
   const finalTitle = title || defaultTitle
-  const defaultDescription = 'Nike Chan（ニケちゃん）の公式ポートフォリオサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。創作活動とAIニケちゃんプロジェクトの最新情報をお届けします。'
+  const defaultDescription = locale === 'ja'
+    ? 'Nike Chan（ニケちゃん）の公式ポートフォリオサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。創作活動とAIニケちゃんプロジェクトの最新情報をお届けします。'
+    : 'Official portfolio site of Nike Chan. Featuring illustrations, fan art, activity logs, and developer information. Latest updates on creative activities and AI Nike Chan projects.'
   const finalDescription = description || defaultDescription
   const siteUrl = 'https://nikechan.com'
   const defaultOgImage = `${siteUrl}/images/ogp/ogp-default.png`
@@ -32,9 +37,11 @@ export const renderer = reactRenderer(({
   const finalCanonicalUrl = canonicalUrl || siteUrl
   const defaultKeywords = 'Nike Chan, ニケちゃん, AIニケちゃん, ポートフォリオ, イラスト, ファンアート, AI Art, Digital Art, Character Design, Blog'
   const finalKeywords = keywords || defaultKeywords
+  const ogLocale = locale === 'ja' ? 'ja_JP' : 'en_US'
+  const langCode = locale === 'ja' ? 'ja' : 'en'
 
   return (
-    <html lang="ja">
+    <html lang={langCode}>
       <head>
         <meta charSet="utf-8" />
         <title>{finalTitle}</title>
@@ -55,7 +62,8 @@ export const renderer = reactRenderer(({
         <meta property="og:image" content={finalOgImage} />
         <meta property="og:image:alt" content="Nike Chan Logo" />
         <meta property="og:site_name" content="NIKELOG" />
-        <meta property="og:locale" content="ja_JP" />
+        <meta property="og:locale" content={ogLocale} />
+        <meta property="og:locale:alternate" content={locale === 'ja' ? 'en_US' : 'ja_JP'} />
 
         {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -82,7 +90,7 @@ export const renderer = reactRenderer(({
             "alternateName": "Nike Chan Portfolio",
             "url": siteUrl,
             "description": finalDescription,
-            "inLanguage": "ja",
+            "inLanguage": langCode,
             "author": {
               "@type": "Person",
               "name": "Nike Chan",

@@ -2,20 +2,26 @@ import { GalleryToggle } from './GalleryToggle'
 import { GalleryItem } from './GalleryItem'
 import { fanArts } from '../utils/fanArtsData'
 import { shuffle } from '../utils/galleryData'
+import { getT, type Locale } from '../i18n/config'
 
-export function FanGallery() {
+type Props = {
+  locale?: Locale;
+}
+
+export function FanGallery({ locale = 'ja' }: Props) {
+  const t = getT(locale);
+
   return (
     <>
       <div className="pb-4">
         <div className="pt-12 pb-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">GALLERY</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">{t('gallery:heading')}</h1>
         </div>
-        <GalleryToggle active="fan" />
+        <GalleryToggle active="fan" locale={locale} />
         <div className="mx-auto mt-4 w-full max-w-4xl px-4">
           <div className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sky-900">
             <p className="text-sm leading-relaxed">
-              当ページに掲載しているファンアートは、各作者の著作物です。二次利用・二次創作（再編集・加工、生成AIの入力や LoRA 学習、印刷・頒布 など）を行う場合は、必ず作者ご本人の許諾を得てください。
-              画像をクリックすると作者の X プロフィールへのリンクが表示されます。許諾が得られない場合は二次利用を控えてください。
+              {t('gallery:fan.notice')}
             </p>
           </div>
         </div>
@@ -26,8 +32,8 @@ export function FanGallery() {
             <GalleryItem
               key={src}
               src={src}
-              alt={author.startsWith('xxx_') ? "" : `Fan art by ${author}`}
-              caption={author.startsWith('xxx_') ? "" : `Illus. ${author}`}
+              alt={author.startsWith('xxx_') ? "" : t('gallery:fan.altText', { author })}
+              caption={author.startsWith('xxx_') ? "" : t('gallery:fan.caption', { author })}
               url={author.startsWith('xxx_') ? undefined : `https://x.com/${encodeURIComponent(author)}`}
               className="aspect-square"
             />

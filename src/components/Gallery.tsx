@@ -2,6 +2,7 @@ import { GalleryItem } from './GalleryItem'
 import { useMemo } from 'react'
 import { shuffle, findItem, galleryItemsData, illustrators } from '../utils/galleryData'
 import { GalleryToggle } from './GalleryToggle'
+import { getT, type Locale } from '../i18n/config'
 
 // 連続する同一タイプの行を避けるために簡易的に整形
 const avoidConsecutiveDuplicates = <T extends { type: string }>(source: T[]): T[] => {
@@ -33,7 +34,12 @@ const avoidConsecutiveDuplicates = <T extends { type: string }>(source: T[]): T[
 
 
 
-export const Gallery = () => {
+type Props = {
+  locale?: Locale;
+}
+
+export const Gallery = ({ locale = 'ja' }: Props) => {
+  const t = getT(locale);
   // 行（レイアウトパターン毎）を定義
   const rows = useMemo(
     () => [
@@ -219,18 +225,12 @@ export const Gallery = () => {
     <>
       <div className="pb-4">
         <div className="pt-12 pb-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">GALLERY</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">{t('gallery:heading')}</h1>
         </div>
-        <GalleryToggle active="commissioned" />
+        <GalleryToggle active="commissioned" locale={locale} />
         <div className="mx-auto mt-4 w-full max-w-4xl px-4">
           <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900">
-            <p className="text-sm leading-relaxed">
-              このページに掲載している「コミッション作品」は、作者との個別の契約に基づき制作・掲載している公式イラストです。
-              これらの画像を学習用データセットとして使用したり、画像生成の参照素材（i2i / img2img）、LoRA などの学習・微調整、その他の生成系 AI の入力素材として利用することはできません。
-              鑑賞用途のみにご利用ください。AI 生成を行う場合は、
-              <a href="/guidelines" className="underline underline-offset-2 decoration-amber-600 hover:opacity-80">ガイドラインページ</a>
-              に記載の VRM モデルをご利用ください。
-            </p>
+            <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: t('gallery:commissioned.notice') }} />
           </div>
         </div>
       </div>

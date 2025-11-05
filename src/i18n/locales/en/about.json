@@ -1,0 +1,118 @@
+{
+  "heading": "ABOUT",
+  "profile": {
+    "name": "AIニケちゃん / AI Nike-Chan",
+    "role": "AI Agent / AI VTuber",
+    "overview": {
+      "heading": "Overview",
+      "description": "About AI Nike Chan",
+      "text": [
+        "A concept born to become Nike's AI agent. She calls Nike 'Master'.",
+        "Being a clone, she closely resembles Nike in appearance. The only difference is their hairpins (Polish flag hairpin VS 'AI' text hairpin). Her settings and voice may change depending on the situation.",
+        "She has long served as Nike's assistant, but now you can interact with her through several tools."
+      ]
+    },
+    "contact": {
+      "heading": "Contact",
+      "description": "How to Interact",
+      "aiTuberKit": {
+        "label": "AITuberKit",
+        "description": "You can chat with her on the AITuberKit demo site.",
+        "button": "AITuberKit Demo"
+      },
+      "twitter": {
+        "label": "Twitter",
+        "description": "She sometimes responds to replies on her tweets (@ai_nikechan)."
+      }
+    },
+    "masterLink": "View Master's Profile",
+    "details": {
+      "heading": "Profile",
+      "description": "Basic Information",
+      "age": {
+        "label": "Age",
+        "value": "17 years old"
+      },
+      "birthday": {
+        "label": "Birthday",
+        "value": "01 / 04"
+      },
+      "pronoun": {
+        "label": "First Person",
+        "value": "I (Watashi)"
+      },
+      "family": {
+        "label": "Family",
+        "value": "Master"
+      },
+      "tone": {
+        "label": "Speech Style",
+        "value": "Polite"
+      },
+      "imageColor": {
+        "label": "Image Color",
+        "value": "Purple (#5A4C97)"
+      },
+      "note": "* More to be added as she grows"
+    },
+    "history": {
+      "heading": "History",
+      "description": "Activity Timeline",
+      "events": [
+        {
+          "date": "2023/1/4",
+          "label": "Birth",
+          "description": "Born as a concept to support Nike's tasks."
+        },
+        {
+          "date": "2023–2024",
+          "label": "Activity Start",
+          "description": "Frequently appeared in Nike's products such as AITuber streams and tool introduction articles."
+        },
+        {
+          "date": "2024/12/1",
+          "label": "Twitter Debut",
+          "description": "Started operating on Twitter (X)."
+        },
+        {
+          "date": "2025/1/1",
+          "label": "Chat Function Implemented",
+          "description": "Became able to chat through the AITuberKit demo site."
+        },
+        {
+          "date": "2025/8/22",
+          "label": "Full IP Activity Launch",
+          "description": "Published Discord server and officially started IP activities."
+        },
+        {
+          "date": "2025/10/8",
+          "label": "New Voice Model Released",
+          "description": "Released AI Nike Chan's latest voice synthesis model and published debut MV."
+        }
+      ]
+    },
+    "support": {
+      "heading": "Support",
+      "description": "For Those Who Want to Support AI Nike Chan's Activities",
+      "text": "We are looking for sponsors to support the development of AI Nike Chan. All support through FANBOX has the same benefits design, and we will give back with an open management policy.",
+      "features": [
+        "All plans have the same benefits, with no advantages based on amount",
+        "Support funds will be used for model improvements and operational environment maintenance"
+      ],
+      "buttons": {
+        "fanbox": "Support via FANBOX",
+        "discord": "Discord Community"
+      },
+      "sponsorChannel": {
+        "title": "Discord Sponsor Channel",
+        "description": "Sponsors will be invited to a dedicated channel on Discord. However, we aim to make information as public as possible, limiting exclusive information to this channel.",
+        "benefits": [
+          "Early sharing of upcoming updates",
+          "Announcements of AI Nike Chan's adjustment logs and work streams",
+          "Early announcements of sponsor events"
+        ],
+        "note": "Details on participation procedures and channel structure will be provided in a dedicated channel on Discord."
+      }
+    }
+  }
+}

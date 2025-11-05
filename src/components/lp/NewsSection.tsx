@@ -1,66 +1,15 @@
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "./ui/button";
+import { getT, type Locale } from '../../i18n/config';
 
-type NewsItem = {
-  id: string;
-  tag: string;
-  date: string;
-  title: string;
-  description: string;
-  cta?: {
-    label: string;
-    href: string;
-    external: boolean;
-  };
-  embed?: {
-    type: "youtube";
-    id: string;
-    title?: string;
-  };
-};
+type Props = {
+  locale?: Locale;
+}
 
-const newsItems: NewsItem[] = [
-  {
-    id: "tutorial",
-    tag: "NEW",
-    date: "2025・10",
-    title: "画像・動画生成チュートリアルページを追加しました",
-    description:
-      "AIニケちゃんの画像と動画を簡単に生成するための手順を公開しました。",
-    cta: {
-      label: "チュートリアルを読む",
-      href: "/tutorial",
-      external: false,
-    },
-  },
-  {
-    id: "voice-model",
-    tag: "NEW",
-    date: "2025・10",
-    title: "新しい合成音声モデルが完成しました",
-    description:
-      "AIニケちゃんの新しい合成音声モデルを作成しました。披露目MVをご視聴ください。",
-    embed: {
-      type: "youtube",
-      id: "XGGP2Z0IFw0",
-    },
-  },
-  {
-    id: "distribution",
-    tag: "NEW",
-    date: "2025・9",
-    title: "二次創作ガイドラインを公開しました",
-    description:
-      "AIニケちゃんの二次創作に関するガイドラインを公開しました。ファンアートやAI作品などの制作・配布に関するルールをまとめています。",
-    cta: {
-      label: "ガイドラインを確認する",
-      href: "/guidelines#voice-model",
-      external: false,
-    },
-  },
-];
+export function NewsSection({ locale = 'ja' }: Props) {
+  const t = getT(locale)
+  const newsItems = t('home:news.items', { returnObjects: true }) as any[]
 
-export function NewsSection() {
   return (
     <section
       className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden"
@@ -72,12 +21,12 @@ export function NewsSection() {
             id="news-heading"
             className="mt-4 text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight"
           >
-            最近のアップデート
+            {t('home:news.heading')}
           </h2>
         </div>
 
         <div className="mt-10 space-y-10 max-w-4xl mx-auto">
-          {newsItems.map((item) => (
+          {newsItems.map((item: any) => (
             <article
               key={item.id}
               className="relative overflow-hidden border border-white/60 bg-white/80 backdrop-blur"
@@ -102,7 +51,7 @@ export function NewsSection() {
                     >
                       <iframe
                         src={`https://www.youtube.com/embed/${item.embed.id}?rel=0`}
-                        title={item.embed.title ?? item.title}
+                        title={item.embedTitle || item.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                         className="absolute inset-0 h-full w-full"
@@ -114,16 +63,14 @@ export function NewsSection() {
                   <div className="mt-6">
                     <Button
                       asChild
-                      variant={item.cta.external ? "default" : "outline"}
+                      variant="outline"
                       size="sm"
                       className="gap-2"
                     >
                       <a
-                        href={item.cta.href}
-                        target={item.cta.external ? "_blank" : undefined}
-                        rel={item.cta.external ? "noopener noreferrer" : undefined}
+                        href={`/${item.id}${locale !== 'ja' ? '?lang=' + locale : ''}`}
                       >
-                        {item.cta.label}
+                        {item.cta}
                         <ArrowUpRight className="h-4 w-4" />
                       </a>
                     </Button>

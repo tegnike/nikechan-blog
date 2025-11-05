@@ -1,0 +1,15 @@
+{
+  "heading": "GALLERY",
+  "toggle": {
+    "fan": "AI-Generated Fan Art",
+    "commissioned": "Commissioned Works"
+  },
+  "commissioned": {
+    "notice": "The \"Commissioned Works\" displayed on this page are official illustrations produced and published based on individual contracts with the artists. These images cannot be used as training datasets, reference materials for image generation (i2i / img2img), LoRA training/fine-tuning, or as input materials for other generative AI. Please use them for viewing purposes only. If you wish to perform AI generation, please use the VRM model described on the <a href=\"/guidelines?lang=en\" class=\"underline underline-offset-2 decoration-amber-600 hover:opacity-80\">Guidelines page</a>."
+  },
+  "fan": {
+    "notice": "The fan art displayed on this page is the copyrighted work of each artist. If you wish to make secondary use or create derivative works (re-editing, processing, using as input for generative AI or LoRA training, printing, distribution, etc.), you must obtain permission from the artist. Clicking on an image will display a link to the artist's X profile. Please refrain from secondary use if permission cannot be obtained.",
+    "altText": "Fan art by {{author}}",
+    "caption": "Illus. {{author}}"
+  }
+}

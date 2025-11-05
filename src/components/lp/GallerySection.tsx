@@ -4,8 +4,14 @@ import { useMemo } from "react";
 import { fanArts } from "../../utils/fanArtsData";
 import { shuffle } from "../../utils/galleryData";
 import { Button } from "./ui/button";
+import { getT, type Locale } from '../../i18n/config';
 
-export function GallerySection() {
+type Props = {
+  locale?: Locale;
+}
+
+export function GallerySection({ locale = 'ja' }: Props) {
+  const t = getT(locale);
   // ランダムに8件（4列 x 2行）を取得（ファンアート）
   const items = useMemo(() => shuffle([...fanArts]).slice(0, 8), []);
 
@@ -14,7 +20,7 @@ export function GallerySection() {
       <div className="container relative z-10 mx-auto max-w-6xl">
         <div className="text-center mb-10">
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight mb-6">
-            アートギャラリー
+            {t('home:gallery.heading')}
           </h2>
         </div>
 
@@ -44,9 +50,9 @@ export function GallerySection() {
           className="text-center mt-12"
         >
           <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white">
-            <a href="/gallery" className="inline-flex items-center gap-2">
+            <a href={`/gallery${locale !== 'ja' ? '?lang=' + locale : ''}`} className="inline-flex items-center gap-2">
               <ImageIcon className="w-5 h-5" />
-              <span>ギャラリーを見る</span>
+              <span>{t('home:gallery.cta')}</span>
             </a>
           </Button>
         </div>
