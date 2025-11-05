@@ -15,6 +15,12 @@ type Props = {
 export function Layout({ children, title = 'My Portfolio & Blog', currentPath, locale = 'ja' }: Props) {
   const t = getT(locale)
 
+  // 言語パラメータを保持したURLを生成するヘルパー関数
+  const addLangParam = (path: string) => {
+    if (locale === 'ja') return path // デフォルトが日本語の場合はパラメータ不要
+    return `${path}?lang=${locale}`
+  }
+
   const getLinkClass = (path: string, isBlog = false) => {
     const baseClass = "transition-colors";
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
@@ -42,7 +48,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
-            <a href="/" className="inline-flex items-center" aria-label="Nike Chan - Official Website">
+            <a href={addLangParam("/")} className="inline-flex items-center" aria-label="Nike Chan - Official Website">
               <img
                 src="/images/logos/logo_with_frame_and_shadow.png"
                 alt="Nike Chan Logo"
@@ -56,7 +62,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           <nav className="hidden md:flex items-center space-x-4">
             {/* About */}
             <a
-              href="/about"
+              href={addLangParam("/about")}
               className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/about")}`}
             >
               <span className="relative z-10">{t('navigation:about')}</span>
@@ -69,7 +75,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
 
             {/* Tutorial */}
             <a
-              href="/tutorial"
+              href={addLangParam("/tutorial")}
               className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/tutorial", true)}`}
             >
               <span className="relative z-10">{t('navigation:tutorial')}</span>
@@ -82,7 +88,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
 
             {/* Gallery (covers /gallery/*) */}
             <a
-              href="/gallery"
+              href={addLangParam("/gallery")}
               className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/gallery", true)}`}
             >
               <span className="relative z-10">{t('navigation:gallery')}</span>
@@ -95,7 +101,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
 
             {/* Guidelines (covers /guidelines/*) */}
             <a
-              href="/guidelines"
+              href={addLangParam("/guidelines")}
               className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/guidelines", true)}`}
             >
               <span className="relative z-10">{t('navigation:guidelines')}</span>
@@ -128,8 +134,8 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
                 aria-labelledby="other-menu-trigger"
                 className="absolute left-0 mt-2 w-44 rounded-lg border bg-white shadow-lg hidden"
               >
-                <a href="/developer" role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
-                <a href="/dev_blog" role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
+                <a href={addLangParam("/developer")} role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
+                <a href={addLangParam("/dev_blog")} role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
               </div>
             </div>
 
@@ -138,10 +144,10 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               id="language-switcher"
               data-current-locale={locale}
               className="relative px-3 py-2 font-medium transition-colors duration-300 text-gray-700 hover:text-purple-600 inline-flex items-center gap-2"
-              aria-label={`Switch to ${locale === 'ja' ? 'English' : 'Japanese'}`}
+              aria-label={`Current language: ${locale === 'ja' ? 'Japanese' : 'English'}. Click to switch to ${locale === 'ja' ? 'English' : 'Japanese'}`}
             >
               <Languages className="h-5 w-5" />
-              <span className="text-sm">{locale === 'ja' ? 'EN' : 'JA'}</span>
+              <span className="text-sm">{locale === 'ja' ? 'JA' : 'EN'}</span>
             </button>
           </nav>
 
@@ -151,10 +157,10 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               id="mobile-language-switcher"
               data-current-locale={locale}
               className="px-3 py-2 text-sm font-medium border border-purple-200 hover:bg-purple-50 rounded-lg inline-flex items-center gap-1.5"
-              aria-label={`Switch to ${locale === 'ja' ? 'English' : 'Japanese'}`}
+              aria-label={`Current language: ${locale === 'ja' ? 'Japanese' : 'English'}. Click to switch to ${locale === 'ja' ? 'English' : 'Japanese'}`}
             >
               <Languages className="h-4 w-4" />
-              <span>{locale === 'ja' ? 'EN' : 'JA'}</span>
+              <span>{locale === 'ja' ? 'JA' : 'EN'}</span>
             </button>
 
             <motion.div
@@ -173,13 +179,13 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
             className="md:hidden absolute left-0 right-0 top-full mt-2 px-4 hidden"
           >
             <div className="rounded-xl border bg-white shadow-lg divide-y">
-              <a href="/" className={`block px-4 py-3 ${getLinkClass('/')}`}>{t('navigation:home')}</a>
-              <a href="/about" className={`block px-4 py-3 ${getLinkClass('/about')}`}>{t('navigation:about')}</a>
-              <a href="/gallery" className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
-              <a href="/guidelines" className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
-              <a href="/tutorial" className={`block px-4 py-3 ${getLinkClass('/tutorial', true)}`}>{t('navigation:tutorial')}</a>
-              <a href="/developer" className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
-              <a href="/dev_blog" className={`block px-4 py-3 ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
+              <a href={addLangParam("/")} className={`block px-4 py-3 ${getLinkClass('/')}`}>{t('navigation:home')}</a>
+              <a href={addLangParam("/about")} className={`block px-4 py-3 ${getLinkClass('/about')}`}>{t('navigation:about')}</a>
+              <a href={addLangParam("/gallery")} className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
+              <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
+              <a href={addLangParam("/tutorial")} className={`block px-4 py-3 ${getLinkClass('/tutorial', true)}`}>{t('navigation:tutorial')}</a>
+              <a href={addLangParam("/developer")} className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
+              <a href={addLangParam("/dev_blog")} className={`block px-4 py-3 ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
             </div>
           </div>
         </div>
