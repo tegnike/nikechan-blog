@@ -12,7 +12,11 @@
       "Bash(find:*)",
       "Bash(sed:*)",
       "Bash(curl:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(bun install:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
     ],
     "deny": []
   }

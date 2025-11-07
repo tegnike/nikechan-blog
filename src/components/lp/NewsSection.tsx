@@ -68,7 +68,9 @@ export function NewsSection({ locale = 'ja' }: Props) {
                       className="gap-2"
                     >
                       <a
-                        href={`/${item.id}${locale !== 'ja' ? '?lang=' + locale : ''}`}
+                        href={item.externalLink || `/${item.id}${locale !== 'ja' ? '?lang=' + locale : ''}`}
+                        target={item.externalLink ? "_blank" : undefined}
+                        rel={item.externalLink ? "noopener noreferrer" : undefined}
                       >
                         {item.cta}
                         <ArrowUpRight className="h-4 w-4" />

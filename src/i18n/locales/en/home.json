@@ -28,6 +28,15 @@
     "heading": "Recent Updates",
     "items": [
       {
+        "id": "line-stamp",
+        "tag": "NEW",
+        "date": "2025・11",
+        "title": "LINE Stickers Now Available!",
+        "description": "AI Nike Chan LINE stickers are here! Get adorable stickers you can use every day.",
+        "cta": "View on LINE STORE",
+        "externalLink": "https://store.line.me/stickershop/product/32003839/ja"
+      },
+      {
         "id": "tutorial",
         "tag": "NEW",
         "date": "2025・10",

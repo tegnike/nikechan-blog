@@ -28,6 +28,15 @@
     "heading": "最近のアップデート",
     "items": [
       {
+        "id": "line-stamp",
+        "tag": "NEW",
+        "date": "2025・11",
+        "title": "LINEスタンプを販売開始しました！",
+        "description": "AIニケちゃんのLINEスタンプが登場！日常で使えるかわいいスタンプをぜひご利用ください。",
+        "cta": "LINE STOREで見る",
+        "externalLink": "https://store.line.me/stickershop/product/32003839/ja"
+      },
+      {
         "id": "tutorial",
         "tag": "NEW",
         "date": "2025・10",
