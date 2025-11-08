@@ -66,7 +66,7 @@
         "heading": "About Generative AI Randomness:",
         "description": "Generative AI has a strong element of randomness, and even using the same prompt produces different results each time.<br />Therefore, even with a perfect prompt, you may not get the expected output, so it's important to try patiently until you get results you like."
       },
-      "dancePrompt": "The character in this image is dancing.\nThe girl's features are as follows:\n- The hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it."
+      "dancePrompt": "The character in this image is dancing.\nThe girl's features are as follows:\n- The golden hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it."
     }
   },
   "video": {
@@ -178,8 +178,8 @@
         "heading": "About Generative AI Randomness:",
         "description": "Generative AI has a strong element of randomness, and even using the same prompt produces different results each time.<br />Therefore, even with a perfect prompt, you may not get the expected output, so it's important to try patiently until you get results you like."
       },
-      "videoPrompt": "A video of this girl as the protagonist of a famous Japanese anime.\n- High frame count\n- 24 fps\n- Fast cuts\nThe girl's features are as follows:\n- The hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it.",
-      "videoPrompt2": "The girl in the illustration is singing Japanese anime songs passionately in a karaoke box. Cuts change every 0.5 seconds. Natural animation.\nThe girl's features are as follows:\n- The hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it."
+      "videoPrompt": "A video of this girl as the protagonist of a famous Japanese anime.\n- High frame count\n- 24 fps\n- Fast cuts\nThe girl's features are as follows:\n- The golden hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it.",
+      "videoPrompt2": "The girl in the illustration is singing Japanese anime songs passionately in a karaoke box. Cuts change every 0.5 seconds. Natural animation.\nThe girl's features are as follows:\n- The golden hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it."
     }
   },
   "cta": {
