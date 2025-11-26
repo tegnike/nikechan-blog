@@ -113,53 +113,28 @@
       "videoPrompt3": "@ainikechan\nDressed as a wizard, riding on a broom.\nA magic battle with an evil wizard whose face cannot be seen in the darkness.\nFocused on combat without dialogue.\nDynamic combat action scenes.\nCombat switches every 0.5 seconds.\nFantastic field with a Halloween atmosphere."
     },
     "reference": {
-      "materials": {
-        "heading": "Prepare Reference Materials",
-        "description": "For video generation, a base still image is very important. Using the reference images below makes it easier to stabilize character modeling.",
-        "model3D": {
-          "alt": "AI Nike Chan 3D Model",
-          "downloadLabel": "Download",
-          "downloadHorizontal": "For horizontal video",
-          "ariaLabelHorizontal": "Download AI Nike Chan 3D Model Image (Horizontal)"
-        },
-        "aspectRatioWarning": {
-          "heading": "About Material Aspect Ratio:",
-          "description": "With Sora 2, if you don't prepare an image with an aspect ratio that matches the video to be generated, unintended cropping may occur and image reference may not work well.<br />When generating horizontal videos, use horizontal images, and when generating vertical videos, use vertical images."
-        },
-        "usageMaterialsWarning": {
-          "heading": "About Usable Materials:",
-          "description": "When creating AI Nike Chan videos, you can also use the above still images as materials.<br />Be sure to check the <a href=\"{guidelinesUrl}\" class=\"text-yellow-900 underline\">Guidelines page</a> for the usable range."
-        }
-      },
-      "prompts": {
-        "heading": "How to Write Prompts and Examples",
-        "description1": "In video generation AI, you can generate the desired video by entering instructions called \"prompts\".<br />With Sora 2, even simple instructions allow for some freedom of movement, but to get the results you want, it's important to give specific instructions.",
-        "description2": "Here are some examples.",
-        "basicExample": {
-          "heading": "Basic Prompt Example",
-          "copyButton": "Copy",
-          "copySuccess": "Copied"
-        },
-        "tips": {
-          "heading": "Prompt Tips:",
-          "description1": "Even when passing reference images, fine details may not be reflected well.<br />For AI Nike Chan, the hairpin shape and chest text often break down.<br />",
-          "description2": "Therefore, it's important to explicitly specify fine details as character features.<br />I always include the text below \"The girl's features are as follows.\" in the example above every time."
-        }
-      },
       "startingFrame": {
         "heading": "Prepare a Starting Frame",
-        "description": "Rather than passing the three-view drawing as is, passing an image with a natural pose as the first frame tends to produce better results.<br />It's good to generate images using Nano Banana. For image generation, please see the <a href=\"{tutorialUrl}\" class=\"underline\">Image Generation Tutorial page</a>.",
+        "description": "When referencing images, it's good to be mindful of the starting frame.<br />Rather than passing the three-view drawing as is, passing an image with a natural pose as the first frame tends to produce better results.<br />Use <strong class=\"text-purple-700\">NanoBanana</strong> or <strong class=\"text-purple-700\">NanoBanana Pro</strong> for images. For image generation, please see the <a href=\"{tutorialUrl}\" class=\"underline\">Image Generation Tutorial page</a>.",
         "basicExample": {
           "heading": "Basic Prompt Example",
           "copyButton": "Copy",
           "copySuccess": "Copied"
         }
+      },
+      "aspectRatioWarning": {
+        "heading": "About Material Aspect Ratio:",
+        "description": "With Sora 2, if you don't prepare an image with an aspect ratio that matches the video to be generated, unintended cropping may occur and image reference may not work well.<br />When generating horizontal videos, use horizontal images, and when generating vertical videos, use vertical images."
+      },
+      "tips": {
+        "heading": "Prompt Tips:",
+        "description1": "Even when passing reference images, fine details may not be reflected well.<br />For AI Nike Chan, the hairpin shape and chest text often break down.<br />",
+        "description2": "Therefore, it's important to explicitly specify fine details as character features.<br />By explicitly specifying character features, you can achieve more stable results."
       },
       "gachaWarning": {
         "heading": "About Generative AI Randomness:",
         "description": "Generative AI has a strong element of randomness, and even using the same prompt produces different results each time.<br />Therefore, even with a perfect prompt, you may not get the expected output, so it's important to try patiently until you get results you like."
       },
-      "videoPrompt": "A video of this girl as the protagonist of a famous Japanese anime.\n- High frame count\n- 24 fps\n- Fast cuts",
       "videoPrompt2": "The girl in the illustration is singing Japanese anime songs passionately in a karaoke box. Cuts change every 0.5 seconds. Natural animation."
     }
   },

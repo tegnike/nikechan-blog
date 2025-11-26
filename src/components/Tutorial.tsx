@@ -27,8 +27,6 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
   const characterFeatures = getCharacterFeatures(locale)
   const dancePromptBase = t('tutorial:illustration.prompts.dancePrompt')
   const dancePrompt = `${dancePromptBase}\n${characterFeatures}`
-  const videoPromptBase = t('tutorial:video.reference.videoPrompt')
-  const videoPrompt = `${videoPromptBase}\n${characterFeatures}`
   const videoPrompt2Base = t('tutorial:video.reference.videoPrompt2')
   const videoPrompt2 = `${videoPrompt2Base}\n${characterFeatures}`
   const videoPrompt3 = t('tutorial:video.cameo.videoPrompt3')
@@ -320,88 +318,6 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
 
                 <div data-video-mode-content="reference" className="space-y-8">
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">{t('tutorial:video.reference.materials.heading')}</h2>
-                    <p className="text-gray-700 mb-4 leading-relaxed">
-                      {t('tutorial:video.reference.materials.description')}
-                    </p>
-
-                    <div className="space-y-4">
-                      <div>
-                        <img src="/images/tutorial/nikechan_三面図.png" alt={t('tutorial:video.reference.materials.model3D.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
-                        <div className="flex flex-wrap items-center gap-2 text-sm text-gray-700">
-                          <span className="font-semibold">{t('tutorial:video.reference.materials.model3D.downloadLabel')}</span>
-                          <a
-                            href="/images/tutorial/nikechan_三面図.png"
-                            download
-                            className={downloadButtonClass}
-                            aria-label={t('tutorial:video.reference.materials.model3D.ariaLabelHorizontal')}
-                          >
-                            {t('tutorial:video.reference.materials.model3D.downloadHorizontal')}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-                      <p className="text-sm text-yellow-800 mb-2">
-                        <strong className="text-yellow-900">{t('tutorial:video.reference.materials.aspectRatioWarning.heading')}</strong>
-                      </p>
-                      <p className="text-sm text-yellow-800" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.materials.aspectRatioWarning.description') }} />
-                    </div>
-
-                    <div className="mt-4 bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-                      <p className="text-sm text-yellow-800 mb-2">
-                        <strong className="text-yellow-900">{t('tutorial:video.reference.materials.usageMaterialsWarning.heading')}</strong>
-                      </p>
-                      <p className="text-sm text-yellow-800" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.materials.usageMaterialsWarning.description').replace('{guidelinesUrl}', `/guidelines/ai${locale !== 'ja' ? '?lang=' + locale : ''}`) }} />
-                    </div>
-                  </div>
-
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">{t('tutorial:video.reference.prompts.heading')}</h2>
-                    <p className="text-gray-700 mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.prompts.description1') }} />
-
-                    <p className="text-gray-700 mb-4 leading-relaxed">
-                      {t('tutorial:video.reference.prompts.description2')}
-                    </p>
-
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">{t('tutorial:video.reference.prompts.basicExample.heading')}</h3>
-                        <div className="relative bg-gray-50 rounded-lg p-4 border border-gray-300 font-mono text-sm text-gray-800">
-                          <button
-                            type="button"
-                            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-600 shadow-sm transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                            data-copy-text={videoPrompt}
-                            data-copy-default={t('tutorial:video.reference.prompts.basicExample.copyButton')}
-                            data-copy-success={t('tutorial:video.reference.prompts.basicExample.copySuccess')}
-                          >
-                            {t('tutorial:video.reference.prompts.basicExample.copyButton')}
-                          </button>
-                          <p className="pr-12" style={{ whiteSpace: 'pre-line' }}>
-                            {videoPrompt}
-                          </p>
-                        </div>
-                      </div>
-
-                      <video
-                        src="/images/tutorial/sora.mp4"
-                        controls
-                        playsInline
-                        className="rounded-lg border border-gray-300 shadow-sm"
-                      />
-                    </div>
-
-                    <div className="mt-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
-                      <p className="text-sm text-gray-700 mb-2">
-                        <strong>{t('tutorial:video.reference.prompts.tips.heading')}</strong>
-                      </p>
-                      <p className="text-sm text-gray-700 mb-2" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.prompts.tips.description1') }} />
-                      <p className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.prompts.tips.description2') }} />
-                    </div>
-                  </div>
-
-                  <div>
                     <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">{t('tutorial:video.reference.startingFrame.heading')}</h2>
                     <p className="text-gray-700 mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.startingFrame.description').replace('{tutorialUrl}', `/tutorial${locale !== 'ja' ? '?lang=' + locale : ''}`) }} />
 
@@ -431,13 +347,29 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
                         className="rounded-lg border border-gray-300 shadow-sm"
                       />
                     </div>
+                  </div>
+                </div>
+                <div data-video-mode-content="reference" className="space-y-4">
+                  <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+                    <p className="text-sm text-yellow-800 mb-2">
+                      <strong className="text-yellow-900">{t('tutorial:video.reference.aspectRatioWarning.heading')}</strong>
+                    </p>
+                    <p className="text-sm text-yellow-800" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.aspectRatioWarning.description') }} />
+                  </div>
 
-                    <div className="mt-4 bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-                      <p className="text-sm text-yellow-800 mb-2">
-                        <strong className="text-yellow-900">{t('tutorial:video.reference.gachaWarning.heading')}</strong>
-                      </p>
-                      <p className="text-sm text-yellow-800" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.gachaWarning.description') }} />
-                    </div>
+                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <p className="text-sm text-gray-700 mb-2">
+                      <strong>{t('tutorial:video.reference.tips.heading')}</strong>
+                    </p>
+                    <p className="text-sm text-gray-700 mb-2" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.tips.description1') }} />
+                    <p className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.tips.description2') }} />
+                  </div>
+
+                  <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+                    <p className="text-sm text-yellow-800 mb-2">
+                      <strong className="text-yellow-900">{t('tutorial:video.reference.gachaWarning.heading')}</strong>
+                    </p>
+                    <p className="text-sm text-yellow-800" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.gachaWarning.description') }} />
                   </div>
                 </div>
               </div>
