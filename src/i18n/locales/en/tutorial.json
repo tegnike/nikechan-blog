@@ -13,7 +13,7 @@
   "illustration": {
     "recommendedAI": {
       "heading": "Recommended Image Generation AI",
-      "description": "Various AI image generation tools can be used to create images of AI Nike Chan.<br />Each tool has its own characteristics, and you can choose according to your needs and budget.<br />For beginners, we recommend the free <strong class=\"text-purple-700\">Nano Banana</strong> in Google AI Studio. Below we explain how to use it."
+      "description": "Various AI image generation tools can be used to create images of AI Nike Chan.<br />Each tool has its own characteristics, and you can choose according to your needs and budget.<br />For beginners, we recommend the free <strong class=\"text-purple-700\">NanoBanana</strong> or <strong class=\"text-purple-700\">NanoBanana Pro</strong> in Google AI Studio. Below we explain how to use it.<br />The following explanation is for NanoBanana, but it applies to NanoBanana Pro as well."
     },
     "nanoBanana": {
       "heading": "How to Use Nano Banana",
@@ -30,15 +30,8 @@
       "heading": "Prepare Reference Materials",
       "description": "While image generation is possible with text instructions alone, uploading reference images improves accuracy. Let's download the following images of AI Nike Chan.",
       "model3D": {
-        "heading": "3D Model",
         "alt": "AI Nike Chan 3D Model",
         "downloadLabel": "Download AI Nike Chan 3D Model Image",
-        "downloadButton": "Download Image"
-      },
-      "animeStyle": {
-        "heading": "Anime Style",
-        "alt": "AI Nike Chan Anime Style",
-        "downloadLabel": "Download AI Nike Chan Anime Style Image",
         "downloadButton": "Download Image"
       },
       "usageMaterialsWarning": {
@@ -66,7 +59,7 @@
         "heading": "About Generative AI Randomness:",
         "description": "Generative AI has a strong element of randomness, and even using the same prompt produces different results each time.<br />Therefore, even with a perfect prompt, you may not get the expected output, so it's important to try patiently until you get results you like."
       },
-      "dancePrompt": "The character in this image is dancing.\nThe girl's features are as follows:\n- The golden hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it."
+      "dancePrompt": "An illustration using the girl depicted in this three-view drawing. She is saying \"Let's do our best this week too!!\""
     }
   },
   "video": {
@@ -124,22 +117,10 @@
         "heading": "Prepare Reference Materials",
         "description": "For video generation, a base still image is very important. Using the reference images below makes it easier to stabilize character modeling.",
         "model3D": {
-          "heading": "3D Model",
           "alt": "AI Nike Chan 3D Model",
           "downloadLabel": "Download",
           "downloadHorizontal": "For horizontal video",
-          "downloadVertical": "For vertical video",
-          "ariaLabelHorizontal": "Download AI Nike Chan 3D Model Image (Horizontal)",
-          "ariaLabelVertical": "Download AI Nike Chan 3D Model Image (Vertical)"
-        },
-        "animeStyle": {
-          "heading": "Anime Style",
-          "alt": "AI Nike Chan Anime Style",
-          "downloadLabel": "Download",
-          "downloadHorizontal": "For horizontal video",
-          "downloadVertical": "For vertical video",
-          "ariaLabelHorizontal": "Download AI Nike Chan Anime Style Image (Horizontal)",
-          "ariaLabelVertical": "Download AI Nike Chan Anime Style Image (Vertical)"
+          "ariaLabelHorizontal": "Download AI Nike Chan 3D Model Image (Horizontal)"
         },
         "aspectRatioWarning": {
           "heading": "About Material Aspect Ratio:",
@@ -178,8 +159,8 @@
         "heading": "About Generative AI Randomness:",
         "description": "Generative AI has a strong element of randomness, and even using the same prompt produces different results each time.<br />Therefore, even with a perfect prompt, you may not get the expected output, so it's important to try patiently until you get results you like."
       },
-      "videoPrompt": "A video of this girl as the protagonist of a famous Japanese anime.\n- High frame count\n- 24 fps\n- Fast cuts\nThe girl's features are as follows:\n- The golden hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it.",
-      "videoPrompt2": "The girl in the illustration is singing Japanese anime songs passionately in a karaoke box. Cuts change every 0.5 seconds. Natural animation.\nThe girl's features are as follows:\n- The golden hairpin is shaped like the letters \"AI\".\n- A black scrunchie is used to tie a high ponytail.\n- The chest part of the T-shirt has \"AITuber\" written on it."
+      "videoPrompt": "A video of this girl as the protagonist of a famous Japanese anime.\n- High frame count\n- 24 fps\n- Fast cuts",
+      "videoPrompt2": "The girl in the illustration is singing Japanese anime songs passionately in a karaoke box. Cuts change every 0.5 seconds. Natural animation."
     }
   },
   "cta": {

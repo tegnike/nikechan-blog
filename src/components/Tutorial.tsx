@@ -1,4 +1,5 @@
 import { getT, type Locale } from '../i18n/config'
+import { getCharacterFeatures } from '../utils/characterFeatures'
 
 type Props = {
   active?: 'illustration' | 'video'
@@ -23,9 +24,13 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
   const videoModeButtonActive = 'border-purple-600 bg-purple-600 text-white shadow-lg shadow-purple-200/60';
   const videoModeButtonInactive =
     'border-gray-300 bg-white text-gray-700 hover:border-purple-300 hover:text-purple-600 hover:shadow-md';
-  const dancePrompt = t('tutorial:illustration.prompts.dancePrompt')
-  const videoPrompt = t('tutorial:video.reference.videoPrompt')
-  const videoPrompt2 = t('tutorial:video.reference.videoPrompt2')
+  const characterFeatures = getCharacterFeatures(locale)
+  const dancePromptBase = t('tutorial:illustration.prompts.dancePrompt')
+  const dancePrompt = `${dancePromptBase}\n${characterFeatures}`
+  const videoPromptBase = t('tutorial:video.reference.videoPrompt')
+  const videoPrompt = `${videoPromptBase}\n${characterFeatures}`
+  const videoPrompt2Base = t('tutorial:video.reference.videoPrompt2')
+  const videoPrompt2 = `${videoPrompt2Base}\n${characterFeatures}`
   const videoPrompt3 = t('tutorial:video.cameo.videoPrompt3')
 
   return (
@@ -118,27 +123,14 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
 
                 <div className="space-y-4">
                   <div>
-                    <h3 className="font-semibold text-gray-800 mb-2">{t('tutorial:illustration.materials.model3D.heading')}</h3>
-                    <img src="/images/tutorial/nikechan_三面図_vrm_outer.png" alt={t('tutorial:illustration.materials.model3D.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
+                    <img src="/images/tutorial/nikechan_三面図.png" alt={t('tutorial:illustration.materials.model3D.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
                     <a
-                      href="/images/tutorial/nikechan_三面図_vrm_outer.png"
+                      href="/images/tutorial/nikechan_三面図.png"
                       download
                       className={downloadButtonClass}
                       aria-label={t('tutorial:illustration.materials.model3D.downloadLabel')}
                     >
                       {t('tutorial:illustration.materials.model3D.downloadButton')}
-                    </a>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-800 mb-2">{t('tutorial:illustration.materials.animeStyle.heading')}</h3>
-                    <img src="/images/tutorial/nikechan_三面図_アニメ風.png" alt={t('tutorial:illustration.materials.animeStyle.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
-                    <a
-                      href="/images/tutorial/nikechan_三面図_アニメ風.png"
-                      download
-                      className={downloadButtonClass}
-                      aria-label={t('tutorial:illustration.materials.animeStyle.downloadLabel')}
-                    >
-                      {t('tutorial:illustration.materials.animeStyle.downloadButton')}
                     </a>
                   </div>
                 </div>
@@ -182,7 +174,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
                     </div>
                   </div>
 
-                  <img src="/images/tutorial/dance.png" alt={t('tutorial:illustration.prompts.basicExample.altImage')} className="rounded-lg border border-gray-300 shadow-sm" />
+                  <img src="/images/tutorial/ganbaru.png" alt={t('tutorial:illustration.prompts.basicExample.altImage')} className="rounded-lg border border-gray-300 shadow-sm" />
                 </div>
 
                 <div className="mt-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
@@ -335,48 +327,16 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
 
                     <div className="space-y-4">
                       <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">{t('tutorial:video.reference.materials.model3D.heading')}</h3>
-                        <img src="/images/tutorial/nikechan_三面図_vrm_outer.png" alt={t('tutorial:video.reference.materials.model3D.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
+                        <img src="/images/tutorial/nikechan_三面図.png" alt={t('tutorial:video.reference.materials.model3D.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
                         <div className="flex flex-wrap items-center gap-2 text-sm text-gray-700">
                           <span className="font-semibold">{t('tutorial:video.reference.materials.model3D.downloadLabel')}</span>
                           <a
-                            href="/images/tutorial/nikechan_三面図_vrm_outer.png"
+                            href="/images/tutorial/nikechan_三面図.png"
                             download
                             className={downloadButtonClass}
                             aria-label={t('tutorial:video.reference.materials.model3D.ariaLabelHorizontal')}
                           >
                             {t('tutorial:video.reference.materials.model3D.downloadHorizontal')}
-                          </a>
-                          <a
-                            href="/images/tutorial/nikechan_三面図_vrm_outer_縦.png"
-                            download
-                            className={downloadButtonClass}
-                            aria-label={t('tutorial:video.reference.materials.model3D.ariaLabelVertical')}
-                          >
-                            {t('tutorial:video.reference.materials.model3D.downloadVertical')}
-                          </a>
-                        </div>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">{t('tutorial:video.reference.materials.animeStyle.heading')}</h3>
-                        <img src="/images/tutorial/nikechan_三面図_アニメ風.png" alt={t('tutorial:video.reference.materials.animeStyle.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
-                        <div className="flex flex-wrap items-center gap-2 text-sm text-gray-700">
-                          <span className="font-semibold">{t('tutorial:video.reference.materials.animeStyle.downloadLabel')}</span>
-                          <a
-                            href="/images/tutorial/nikechan_三面図_アニメ風.png"
-                            download
-                            className={downloadButtonClass}
-                            aria-label={t('tutorial:video.reference.materials.animeStyle.ariaLabelHorizontal')}
-                          >
-                            {t('tutorial:video.reference.materials.animeStyle.downloadHorizontal')}
-                          </a>
-                          <a
-                            href="/images/tutorial/nikechan_三面図_アニメ風_縦.png"
-                            download
-                            className={downloadButtonClass}
-                            aria-label={t('tutorial:video.reference.materials.animeStyle.ariaLabelVertical')}
-                          >
-                            {t('tutorial:video.reference.materials.animeStyle.downloadVertical')}
                           </a>
                         </div>
                       </div>
