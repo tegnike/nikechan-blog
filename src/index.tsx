@@ -15,6 +15,9 @@ import { License } from './components/License'
 import { DevBlog } from './components/DevBlog'
 import { About } from './components/About'
 import { Tutorial } from './components/Tutorial'
+import { CharacterList } from './components/CharacterList'
+import { AINikeProfile } from './components/AINikeProfile'
+import { NikeProfile } from './components/NikeProfile'
 import { detectLocale, type Locale } from './i18n/config'
 
 const app = new Hono()
@@ -252,6 +255,70 @@ app.get('/about', (c) => {
           "url": "https://nikechan.com"
         }
       }
+    }
+  )
+})
+
+// Character pages
+app.get('/characters', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <CharacterList locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "キャラクター | AIニケちゃんオフィシャルサイト"
+        : "Characters | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "AIニケちゃんとマスター・ニケのキャラクター紹介ページ"
+        : "Character introduction page for AI Nikechan and Master Nike",
+      canonicalUrl: "https://nikechan.com/characters"
+    }
+  )
+})
+
+app.get('/characters/ainike', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <AINikeProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "AIニケちゃん | AIニケちゃんオフィシャルサイト"
+        : "AI Nikechan | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "AIニケちゃんのプロフィール。AIエージェント・AIVTuberとして活動中。"
+        : "Profile of AI Nikechan. Active as an AI Agent and AI VTuber.",
+      canonicalUrl: "https://nikechan.com/characters/ainike"
+    }
+  )
+})
+
+app.get('/characters/nike', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <NikeProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "ニケ | AIニケちゃんオフィシャルサイト"
+        : "Nike | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "ニケのプロフィール。AIキャラクター・エージェント開発者。"
+        : "Profile of Nike. AI Character and Agent Developer.",
+      canonicalUrl: "https://nikechan.com/characters/nike"
     }
   )
 })

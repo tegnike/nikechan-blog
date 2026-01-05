@@ -1,0 +1,439 @@
+import { FC, ReactNode } from 'react'
+import { Locale, getT } from '../i18n/config'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
+
+interface ProfileItem {
+  label: string
+  value: string | ReactNode
+}
+
+interface HistoryItem {
+  date: string
+  label: string
+  description: string
+}
+
+interface ProductItem {
+  name: string
+  year: string
+  description: string
+  links?: Array<{ label: string; url: string }>
+}
+
+interface SupportLink {
+  label: string
+  url: string
+  icon?: ReactNode
+}
+
+interface CharacterDetailProps {
+  locale: Locale
+  nameEn: string
+  nameJa: string
+  role: string
+  catchphrase: string
+  catchphraseEn?: string
+  image: string
+  icon: string
+  accentColor: string
+  profileItems: ProfileItem[]
+  description: string[]
+  youtubeVideoId?: string
+  links?: Array<{
+    label: string
+    url: string
+    icon?: ReactNode
+  }>
+  // Additional sections
+  historyItems?: HistoryItem[]
+  historyTitle?: string
+  products?: ProductItem[]
+  productsTitle?: string
+  supportLinks?: SupportLink[]
+  supportTitle?: string
+  supportDescription?: string
+  customSections?: ReactNode
+  otherCharacter: {
+    id: string
+    nameJa: string
+    icon: string
+    color: string
+  }
+  currentCharacterId: string
+}
+
+export const CharacterDetail: FC<CharacterDetailProps> = ({
+  locale,
+  nameEn,
+  nameJa,
+  role,
+  catchphrase,
+  catchphraseEn,
+  image,
+  icon,
+  accentColor,
+  profileItems,
+  description,
+  youtubeVideoId,
+  links,
+  historyItems,
+  historyTitle,
+  products,
+  productsTitle,
+  supportLinks,
+  supportTitle,
+  supportDescription,
+  customSections,
+  otherCharacter,
+  currentCharacterId,
+}) => {
+  const t = getT(locale)
+  const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
+  const displayCatchphrase = locale === 'ja' ? catchphrase : (catchphraseEn || catchphrase)
+
+  const characters = [
+    {
+      id: currentCharacterId,
+      nameJa,
+      icon,
+      color: accentColor,
+      current: true,
+    },
+    {
+      ...otherCharacter,
+      current: false,
+    },
+  ]
+
+  return (
+    <div className="character-page min-h-screen">
+      {/* Gradient Header */}
+      <div className="character-header relative overflow-hidden">
+        <div className="character-header-bg absolute inset-0" />
+        <div className="character-header-pattern absolute inset-0" />
+        <div className="relative z-10 pt-16 pb-8 text-center">
+          <h1 className="character-title text-6xl md:text-8xl font-black tracking-wider text-white drop-shadow-lg">
+            CHARACTER
+          </h1>
+        </div>
+      </div>
+
+      {/* Back Button */}
+      <div className="character-back-section relative z-20 -mt-4">
+        <div className="max-w-7xl mx-auto px-4">
+          <a
+            href={`/characters${langQuery}`}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:shadow-lg hover:bg-white transition-all duration-300 text-gray-700 hover:text-gray-900"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span className="text-sm font-medium">
+              {locale === 'ja' ? '一覧に戻る' : 'Back to List'}
+            </span>
+          </a>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="character-detail-main relative">
+        <div className="character-showcase-bg absolute inset-0" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-6">
+            {/* Left: Character Image + Catchphrase */}
+            <div className="character-image-section relative flex items-end justify-center">
+              {/* Vertical Catchphrase */}
+              <div
+                className="character-catchphrase hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 z-20"
+                style={{ writingMode: 'vertical-rl' }}
+              >
+                <p
+                  className="text-2xl font-bold tracking-widest"
+                  style={{ color: accentColor }}
+                >
+                  {displayCatchphrase}
+                </p>
+              </div>
+
+              {/* Mobile Catchphrase */}
+              <div className="lg:hidden text-center mb-4 w-full">
+                <p
+                  className="text-xl font-bold"
+                  style={{ color: accentColor }}
+                >
+                  「{displayCatchphrase}」
+                </p>
+              </div>
+
+              {/* Character Image */}
+              <div className="character-detail-image relative">
+                <div
+                  className="character-image-glow absolute inset-0 opacity-30 blur-3xl"
+                  style={{ background: `radial-gradient(circle, ${accentColor}40, transparent)` }}
+                />
+                <img
+                  src={image}
+                  alt={nameJa}
+                  className="relative z-10 w-full max-w-lg h-auto object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Right: Profile Panel */}
+            <div className="character-profile-section w-full lg:w-auto lg:max-w-md xl:max-w-lg">
+              <div className="glass-panel-strong p-6 md:p-8">
+                {/* Name Header */}
+                <div className="mb-6">
+                  <span className="text-sm tracking-[0.3em] text-gray-500 uppercase">
+                    {nameEn}
+                  </span>
+                  <h2
+                    className="text-4xl md:text-5xl font-black mt-1"
+                    style={{ color: accentColor }}
+                  >
+                    {nameJa}
+                  </h2>
+                  <p className="text-gray-600 mt-2">{role}</p>
+                </div>
+
+                {/* Profile Section */}
+                <div className="character-profile-data">
+                  <h3
+                    className="text-lg font-bold tracking-widest mb-4 pb-2 border-b-2"
+                    style={{ borderColor: accentColor, color: accentColor }}
+                  >
+                    PROFILE
+                  </h3>
+                  <dl className="space-y-3">
+                    {profileItems.map((item, index) => (
+                      <div key={index} className="flex items-start">
+                        <dt className="w-28 flex-shrink-0 text-sm text-gray-500 font-medium">
+                          {item.label}
+                        </dt>
+                        <dd className="text-gray-800 flex-1">
+                          {item.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+
+                {/* Description */}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  {description.map((paragraph, index) => (
+                    <p key={index} className="text-gray-700 leading-relaxed mb-3 last:mb-0">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+
+                {/* Links */}
+                {links && links.length > 0 && (
+                  <div className="mt-6 pt-6 border-t border-gray-200">
+                    <div className="flex flex-wrap gap-3">
+                      {links.map((link, index) => (
+                        <a
+                          key={index}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                          style={{ backgroundColor: accentColor }}
+                        >
+                          {link.icon}
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* YouTube Video */}
+                {youtubeVideoId && (
+                  <div className="mt-6 pt-6 border-t border-gray-200">
+                    <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
+                      <iframe
+                        src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+                        title="YouTube video"
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Additional Sections */}
+      {(historyItems || products || supportLinks || customSections) && (
+        <div className="character-additional-sections relative py-12">
+          <div className="max-w-5xl mx-auto px-4 space-y-12">
+            {/* History / Career Section */}
+            {historyItems && historyItems.length > 0 && (
+              <div className="glass-panel p-6 md:p-8">
+                <h3
+                  className="text-xl font-bold tracking-widest mb-6 pb-2 border-b-2"
+                  style={{ borderColor: accentColor, color: accentColor }}
+                >
+                  {historyTitle || 'HISTORY'}
+                </h3>
+                <div className="relative pl-6 border-l-2 border-gray-200 space-y-6">
+                  {historyItems.map((item, index) => (
+                    <div key={index} className="relative">
+                      <div
+                        className="absolute -left-[25px] w-4 h-4 rounded-full border-2 bg-white"
+                        style={{ borderColor: accentColor }}
+                      />
+                      <div className="text-sm text-gray-500 font-medium mb-1">
+                        {item.date}
+                      </div>
+                      <div className="font-bold text-gray-800 mb-1">
+                        {item.label}
+                      </div>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Products Section */}
+            {products && products.length > 0 && (
+              <div className="glass-panel p-6 md:p-8">
+                <h3
+                  className="text-xl font-bold tracking-widest mb-6 pb-2 border-b-2"
+                  style={{ borderColor: accentColor, color: accentColor }}
+                >
+                  {productsTitle || 'PRODUCTS'}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {products.map((product, index) => (
+                    <div
+                      key={index}
+                      className="p-5 rounded-xl bg-gradient-to-br from-white to-gray-50 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <h4 className="font-bold text-gray-800">
+                          {product.name}
+                        </h4>
+                        <span
+                          className="text-xs px-2 py-1 rounded-full text-white"
+                          style={{ backgroundColor: accentColor }}
+                        >
+                          {product.year}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                        {product.description}
+                      </p>
+                      {product.links && product.links.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {product.links.map((link, linkIndex) => (
+                            <a
+                              key={linkIndex}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                            >
+                              <ExternalLink className="w-3 h-3" />
+                              {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Custom Sections (e.g., LINE Stamp) */}
+            {customSections}
+
+            {/* Support Section */}
+            {supportLinks && supportLinks.length > 0 && (
+              <div className="glass-panel p-6 md:p-8">
+                <h3
+                  className="text-xl font-bold tracking-widest mb-4 pb-2 border-b-2"
+                  style={{ borderColor: accentColor, color: accentColor }}
+                >
+                  {supportTitle || 'SUPPORT'}
+                </h3>
+                {supportDescription && (
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {supportDescription}
+                  </p>
+                )}
+                <div className="flex flex-wrap gap-4">
+                  {supportLinks.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                      style={{ backgroundColor: accentColor }}
+                    >
+                      {link.icon}
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Character Navigation */}
+      <div className="character-nav-section relative py-12">
+        <div className="character-nav-bg absolute inset-0" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          <div className="flex justify-center gap-8">
+            {characters.map((char) => (
+              <a
+                key={char.id}
+                href={`/characters/${char.id}${langQuery}`}
+                className={`character-nav-item group flex flex-col items-center ${
+                  char.current ? 'opacity-100' : 'opacity-60 hover:opacity-100'
+                }`}
+              >
+                <div className="character-nav-icon relative">
+                  <div
+                    className={`absolute inset-0 rounded-full transition-all duration-300 ${
+                      char.current
+                        ? 'ring-4 ring-offset-2'
+                        : 'ring-0 group-hover:ring-4 group-hover:ring-offset-2'
+                    }`}
+                    style={{
+                      ringColor: char.color,
+                      ['--tw-ring-color' as string]: char.color
+                    }}
+                  />
+                  <img
+                    src={char.icon}
+                    alt={char.nameJa}
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shadow-lg"
+                  />
+                </div>
+                <span className="mt-3 text-sm font-medium text-gray-700">
+                  {char.nameJa}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Decorative Footer Gradient */}
+      <div className="character-footer h-24 relative overflow-hidden">
+        <div className="character-footer-gradient absolute inset-0" />
+      </div>
+    </div>
+  )
+}
