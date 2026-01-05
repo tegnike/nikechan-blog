@@ -161,11 +161,11 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
       {/* Main Content */}
       <div className="character-detail-main relative">
         <div className="character-showcase-bg absolute inset-0" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-6">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-6 md:py-8">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8">
             {/* Left: Character Image + Catchphrase */}
-            <div className="character-image-section relative flex items-end justify-center">
-              {/* Vertical Catchphrase */}
+            <div className="character-image-section relative flex flex-col lg:flex-row items-center justify-center w-full lg:w-auto">
+              {/* Vertical Catchphrase (Desktop) */}
               <div
                 className="character-catchphrase hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 z-20"
                 style={{ writingMode: 'vertical-rl' }}
@@ -179,9 +179,9 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
               </div>
 
               {/* Mobile Catchphrase */}
-              <div className="lg:hidden text-center mb-4 w-full">
+              <div className="lg:hidden text-center mb-2 w-full px-4">
                 <p
-                  className="text-xl font-bold"
+                  className="text-lg sm:text-xl font-bold"
                   style={{ color: accentColor }}
                 >
                   「{displayCatchphrase}」
@@ -189,7 +189,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
               </div>
 
               {/* Character Image */}
-              <div className="character-detail-image relative">
+              <div className="character-detail-image relative flex justify-center">
                 <div
                   className="character-image-glow absolute inset-0 opacity-30 blur-3xl"
                   style={{ background: `radial-gradient(circle, ${accentColor}40, transparent)` }}
@@ -197,15 +197,15 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                 <img
                   src={image}
                   alt={nameJa}
-                  className="relative z-10 w-full max-w-lg h-auto object-contain"
+                  className="relative z-10 w-full max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg h-auto object-contain"
                   style={{ filter: `drop-shadow(-15px 10px 8px ${accentColor})` }}
                 />
               </div>
             </div>
 
             {/* Right: Profile Panel */}
-            <div className="character-profile-section w-full lg:w-auto lg:max-w-md xl:max-w-lg">
-              <div className="glass-panel-strong p-6 md:p-8">
+            <div className="character-profile-section w-full lg:w-auto lg:max-w-md xl:max-w-lg px-2 sm:px-0">
+              <div className="glass-panel-strong p-4 sm:p-6 md:p-8">
                 {/* Name Header */}
                 <div className="mb-6">
                   <span className="text-sm tracking-[0.3em] text-gray-500 uppercase">
@@ -417,10 +417,44 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
       )}
 
       {/* Character Navigation */}
-      <div className="character-nav-section relative py-12">
+      <div className="character-nav-section relative py-8 md:py-12">
         <div className="character-nav-bg absolute inset-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4">
-          <div className="flex justify-center gap-8">
+          {/* Mobile: Centered */}
+          <div className="flex md:hidden flex-wrap justify-center gap-3 pb-4">
+            {characters.map((char) => (
+              <a
+                key={char.id}
+                href={`/characters/${char.id}${langQuery}`}
+                className={`character-nav-item group flex flex-col items-center flex-shrink-0 ${
+                  char.current ? 'opacity-100' : 'opacity-60 hover:opacity-100'
+                }`}
+              >
+                <div className="character-nav-icon relative">
+                  <div
+                    className={`absolute inset-0 rounded-full transition-all duration-300 ${
+                      char.current
+                        ? 'ring-3 ring-offset-2'
+                        : 'ring-0'
+                    }`}
+                    style={{
+                      ['--tw-ring-color' as string]: char.color
+                    }}
+                  />
+                  <img
+                    src={char.icon}
+                    alt={char.nameJa}
+                    className="w-14 h-14 rounded-full object-cover shadow-md"
+                  />
+                </div>
+                <span className="mt-2 text-xs font-medium text-gray-700 whitespace-nowrap">
+                  {char.nameJa}
+                </span>
+              </a>
+            ))}
+          </div>
+          {/* Desktop: Centered flex */}
+          <div className="hidden md:flex justify-center gap-6 lg:gap-8">
             {characters.map((char) => (
               <a
                 key={char.id}
@@ -437,14 +471,13 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                         : 'ring-0 group-hover:ring-4 group-hover:ring-offset-2'
                     }`}
                     style={{
-                      ringColor: char.color,
                       ['--tw-ring-color' as string]: char.color
                     }}
                   />
                   <img
                     src={char.icon}
                     alt={char.nameJa}
-                    className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shadow-lg"
+                    className="w-20 h-20 lg:w-24 lg:h-24 rounded-full object-cover shadow-lg"
                   />
                 </div>
                 <span className="mt-3 text-sm font-medium text-gray-700">
