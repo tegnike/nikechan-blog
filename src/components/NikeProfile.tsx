@@ -21,10 +21,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
           label: 'イメージカラー',
           value: (
             <span className="flex items-center gap-2">
-              コーラル
+              ピンク
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
-                style={{ backgroundColor: '#E87B7B' }}
+                style={{ backgroundColor: '#F9B1BC' }}
               />
             </span>
           ),
@@ -39,10 +39,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
           label: 'Image Color',
           value: (
             <span className="flex items-center gap-2">
-              Coral
+              Pink
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
-                style={{ backgroundColor: '#E87B7B' }}
+                style={{ backgroundColor: '#F9B1BC' }}
               />
             </span>
           ),
@@ -262,11 +262,11 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
       nameEn="NIKE"
       nameJa="ニケ"
       role="AI Character & Agent Developer"
-      catchphrase="AIキャラクターの可能性を追求する"
-      catchphraseEn="Pursuing the possibilities of AI characters"
-      image="/images/characters/nikechan.png"
-      icon="/images/about/nikechan_icon.png"
-      accentColor="#E87B7B"
+      catchphrase={<><span className="tcy">AI</span>キャラクターの可能性を追求する</>}
+      catchphraseEn={<>Pursuing the possibilities of <span className="tcy">AI</span> characters</>}
+      image="/images/characters/sprites/nikechan.png"
+      icon="/images/characters/icons/nikechan.png"
+      accentColor="#F9B1BC"
       profileItems={profileItems}
       description={description}
       links={links}
@@ -281,7 +281,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
       otherCharacter={{
         id: 'ainike',
         nameJa: 'AIニケちゃん',
-        icon: '/images/about/ai_nikechan_icon.png',
+        icon: '/images/characters/icons/ainikechan.png',
         color: '#5A4C97',
       }}
     />

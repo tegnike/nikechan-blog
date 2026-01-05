@@ -18,6 +18,9 @@ import { Tutorial } from './components/Tutorial'
 import { CharacterList } from './components/CharacterList'
 import { AINikeProfile } from './components/AINikeProfile'
 import { NikeProfile } from './components/NikeProfile'
+import { MikazeProfile } from './components/MikazeProfile'
+import { PunikeProfile } from './components/PunikeProfile'
+import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { detectLocale, type Locale } from './i18n/config'
 
 const app = new Hono()
@@ -319,6 +322,69 @@ app.get('/characters/nike', (c) => {
         ? "ニケのプロフィール。AIキャラクター・エージェント開発者。"
         : "Profile of Nike. AI Character and Agent Developer.",
       canonicalUrl: "https://nikechan.com/characters/nike"
+    }
+  )
+})
+
+app.get('/characters/mikaze', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <MikazeProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "ミカゼ | AIニケちゃんオフィシャルサイト"
+        : "Mikaze | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "ミカゼのプロフィール。"
+        : "Profile of Mikaze.",
+      canonicalUrl: "https://nikechan.com/characters/mikaze"
+    }
+  )
+})
+
+app.get('/characters/punike', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <PunikeProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "ぷにけ | AIニケちゃんオフィシャルサイト"
+        : "Punike | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "ぷにけのプロフィール。"
+        : "Profile of Punike.",
+      canonicalUrl: "https://nikechan.com/characters/punike"
+    }
+  )
+})
+
+app.get('/characters/today_norma', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <TodayNormaProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "今日は何の日bot | AIニケちゃんオフィシャルサイト"
+        : "Today Norma | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "今日は何の日botのプロフィール。"
+        : "Profile of Today Norma.",
+      canonicalUrl: "https://nikechan.com/characters/today_norma"
     }
   )
 })

@@ -31,8 +31,8 @@ interface CharacterDetailProps {
   nameEn: string
   nameJa: string
   role: string
-  catchphrase: string
-  catchphraseEn?: string
+  catchphrase: ReactNode
+  catchphraseEn?: ReactNode
   image: string
   icon: string
   accentColor: string
@@ -91,19 +91,44 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
   const displayCatchphrase = locale === 'ja' ? catchphrase : (catchphraseEn || catchphrase)
 
-  const characters = [
+  // 全キャラクターリスト（固定順序: AIニケ, ニケ, ミカゼ, ぷにけ, 今日は何の日bot）
+  const allCharacters = [
     {
-      id: currentCharacterId,
-      nameJa,
-      icon,
-      color: accentColor,
-      current: true,
+      id: 'ainike',
+      nameJa: 'AIニケちゃん',
+      icon: '/images/characters/icons/ainikechan.png',
+      color: '#5A4C97',
     },
     {
-      ...otherCharacter,
-      current: false,
+      id: 'nike',
+      nameJa: 'ニケ',
+      icon: '/images/characters/icons/nikechan.png',
+      color: '#F9B1BC',
+    },
+    {
+      id: 'mikaze',
+      nameJa: 'ミカゼ',
+      icon: '/images/characters/icons/mikaze.png',
+      color: '#61A0DF',
+    },
+    {
+      id: 'punike',
+      nameJa: 'ぷにけ',
+      icon: '/images/characters/icons/punike.png',
+      color: '#F48E84',
+    },
+    {
+      id: 'today_norma',
+      nameJa: '今日は何の日bot',
+      icon: '/images/characters/icons/today_norma.png',
+      color: '#199286',
     },
   ]
+
+  const characters = allCharacters.map((char) => ({
+    ...char,
+    current: char.id === currentCharacterId,
+  }))
 
   return (
     <div className="character-page min-h-screen">
@@ -111,7 +136,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
       <div className="character-header relative overflow-hidden">
         <div className="character-header-bg absolute inset-0" />
         <div className="character-header-pattern absolute inset-0" />
-        <div className="relative z-10 pt-16 pb-8 text-center">
+        <div className="relative z-10 py-8 text-center">
           <h1 className="character-title text-6xl md:text-8xl font-black tracking-wider text-white drop-shadow-lg">
             CHARACTER
           </h1>
@@ -173,6 +198,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                   src={image}
                   alt={nameJa}
                   className="relative z-10 w-full max-w-lg h-auto object-contain"
+                  style={{ filter: `drop-shadow(-15px 10px 8px ${accentColor})` }}
                 />
               </div>
             </div>

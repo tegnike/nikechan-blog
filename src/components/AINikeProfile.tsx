@@ -222,10 +222,10 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale }) => {
       nameEn="AI NIKECHAN"
       nameJa="AIニケちゃん"
       role="AI Agent / AI VTuber"
-      catchphrase="マスターをサポートする、AIエージェント"
-      catchphraseEn="AI Agent supporting the Master"
-      image="/images/characters/ainikechan.png"
-      icon="/images/about/ai_nikechan_icon.png"
+      catchphrase={<>マスターをサポートする、<span className="tcy">AI</span>エージェント</>}
+      catchphraseEn={<><span className="tcy">AI</span> Agent supporting the Master</>}
+      image="/images/characters/sprites/ainikechan.png"
+      icon="/images/characters/icons/ainikechan.png"
       accentColor="#5A4C97"
       profileItems={profileItems}
       description={description}
@@ -240,7 +240,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale }) => {
       otherCharacter={{
         id: 'nike',
         nameJa: 'ニケ',
-        icon: '/images/about/nikechan_icon.png',
+        icon: '/images/characters/icons/nikechan.png',
         color: '#E87B7B',
       }}
     />
