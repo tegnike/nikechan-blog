@@ -31,7 +31,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
       ? `${baseClass} text-purple-600 font-semibold`
       : `${baseClass} text-gray-700 hover:text-purple-600`;
   };
-  const isOtherActive = ["/developer", "/dev_blog"].some((p) => {
+  const isOtherActive = ["/news", "/developer", "/dev_blog"].some((p) => {
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     return clean === p || clean.startsWith(`${p}/`)
   })
@@ -134,6 +134,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
                 aria-labelledby="other-menu-trigger"
                 className="absolute left-0 mt-2 w-44 rounded-lg border bg-white shadow-lg hidden"
               >
+                <a href={addLangParam("/news")} role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/news', true)}`}>{t('navigation:news')}</a>
                 <a href={addLangParam("/developer")} role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
                 <a href={addLangParam("/dev_blog")} role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
               </div>
@@ -184,6 +185,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               <a href={addLangParam("/gallery")} className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
               <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
               <a href={addLangParam("/tutorial")} className={`block px-4 py-3 ${getLinkClass('/tutorial', true)}`}>{t('navigation:tutorial')}</a>
+              <a href={addLangParam("/news")} className={`block px-4 py-3 ${getLinkClass('/news', true)}`}>{t('navigation:news')}</a>
               <a href={addLangParam("/developer")} className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
               <a href={addLangParam("/dev_blog")} className={`block px-4 py-3 ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
             </div>

@@ -21,6 +21,7 @@ import { NikeProfile } from './components/NikeProfile'
 import { MikazeProfile } from './components/MikazeProfile'
 import { PunikeProfile } from './components/PunikeProfile'
 import { TodayNormaProfile } from './components/TodayNormaProfile'
+import { News } from './components/News'
 import { detectLocale, type Locale } from './i18n/config'
 
 const app = new Hono()
@@ -57,6 +58,28 @@ app.get('/', (c) => {
       description: locale === 'ja' ? "AIニケちゃんのオフィシャルサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。" : "Official website of AI Nike Chan. Featuring illustrations, fan art, activity logs, and developer information.",
       canonicalUrl: "https://nikechan.com",
       ogType: "website"
+    }
+  )
+})
+
+// News page
+app.get('/news', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <News locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "お知らせ | AIニケちゃんオフィシャルサイト"
+        : "News | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "AIニケちゃんの最新お知らせ・アップデート情報"
+        : "Latest news and updates about AI Nike Chan",
+      canonicalUrl: "https://nikechan.com/news"
     }
   )
 })
