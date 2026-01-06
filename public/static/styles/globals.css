@@ -3186,6 +3186,16 @@ body {
   background-color: rgb(253 242 248 / var(--tw-bg-opacity, 1));
 }
 
+.bg-pink-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 72 153 / var(--tw-bg-opacity, 1));
+}
+
+.bg-pink-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 168 212 / var(--tw-bg-opacity, 1));
+}
+
 .bg-opacity-0 {
   --tw-bg-opacity: 0;
 }
@@ -4970,6 +4980,11 @@ body {
   background-color: rgb(253 242 248 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-pink-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 39 119 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:bg-opacity-75:hover {
   --tw-bg-opacity: 0.75;
 }
@@ -5042,6 +5057,11 @@ body {
 .hover\:text-pink-500:hover {
   --tw-text-opacity: 1;
   color: rgb(236 72 153 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-pink-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(219 39 119 / var(--tw-text-opacity, 1));
 }
 
 .hover\:underline:hover {
@@ -5277,6 +5297,11 @@ body {
 
 .group:hover .group-hover\:bg-pink-400\/80 {
   background-color: rgb(244 114 182 / 0.8);
+}
+
+.group:hover .group-hover\:bg-pink-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 39 119 / var(--tw-bg-opacity, 1));
 }
 
 .group:hover .group-hover\:bg-opacity-30 {
@@ -6383,6 +6408,10 @@ body {
 
   .lg\:gap-8 {
     gap: 2rem;
+  }
+
+  .lg\:p-6 {
+    padding: 1.5rem;
   }
 
   .lg\:px-6 {
