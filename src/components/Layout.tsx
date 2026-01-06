@@ -59,13 +59,26 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
             </a>
           </motion.div>
 
-          <nav className="hidden md:flex items-center space-x-4">
+          <nav className="hidden lg:flex items-center space-x-4">
             {/* About */}
             <a
               href={addLangParam("/about")}
               className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/about")}`}
             >
               <span className="relative z-10">{t('navigation:about')}</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              />
+            </a>
+
+            {/* Character */}
+            <a
+              href={addLangParam("/characters")}
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/characters", true)}`}
+            >
+              <span className="relative z-10">{t('navigation:character')}</span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
                 whileHover={{ opacity: 1, scale: 1.05 }}
@@ -152,7 +165,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
             </button>
           </nav>
 
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             {/* Mobile Language Switcher */}
             <button
               id="mobile-language-switcher"
@@ -177,11 +190,12 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           {/* Mobile dropdown menu */}
           <div
             id="mobile-menu"
-            className="md:hidden absolute left-0 right-0 top-full mt-2 px-4 hidden"
+            className="lg:hidden absolute left-0 right-0 top-full mt-2 px-4 hidden"
           >
             <div className="rounded-xl border bg-white shadow-lg divide-y">
               <a href={addLangParam("/")} className={`block px-4 py-3 ${getLinkClass('/')}`}>{t('navigation:home')}</a>
               <a href={addLangParam("/about")} className={`block px-4 py-3 ${getLinkClass('/about')}`}>{t('navigation:about')}</a>
+              <a href={addLangParam("/characters")} className={`block px-4 py-3 ${getLinkClass('/characters', true)}`}>{t('navigation:character')}</a>
               <a href={addLangParam("/gallery")} className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
               <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
               <a href={addLangParam("/tutorial")} className={`block px-4 py-3 ${getLinkClass('/tutorial', true)}`}>{t('navigation:tutorial')}</a>

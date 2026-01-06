@@ -43,7 +43,7 @@ export const DevBlog = async () => {
       </div>
 
       {/* Decorative Footer Gradient */}
-      <div className="character-footer h-24 relative overflow-hidden">
+      <div className="character-footer h-16 relative overflow-hidden">
         <div className="character-footer-gradient absolute inset-0" />
       </div>
     </div>

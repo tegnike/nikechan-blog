@@ -321,7 +321,7 @@
   position: relative;
 }
 
-.character-profile-data dt::after {
+/* .character-profile-data dt::after {
   content: '';
   position: absolute;
   right: 0;
@@ -330,7 +330,7 @@
   width: 1px;
   height: 60%;
   background: rgba(0,0,0,0.1);
-}
+} */
 
 /* Animation for character images */
 @keyframes floatCharacter {

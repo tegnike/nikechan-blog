@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ExternalLink, MessageCircle, Video, Heart, Users } from 'lucide-react'
+import { ExternalLink, MessageCircle, Video, Heart, Users, Cloud } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -15,18 +15,18 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
     ? [
         { label: '年齢', value: '17歳' },
         { label: '誕生日', value: '01 / 04' },
+        { label: '身長', value: '160cm' },
         { label: '一人称', value: '私' },
         { label: '口調', value: '敬語' },
-        { label: '家族', value: 'マスター' },
         {
           label: 'イメージカラー',
           value: (
             <span className="flex items-center gap-2">
-              紫
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
                 style={{ backgroundColor: '#5A4C97' }}
               />
+              パープル（#5A4C97）
             </span>
           ),
         },
@@ -34,18 +34,18 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
     : [
         { label: 'Age', value: '17 years old' },
         { label: 'Birthday', value: 'January 4th' },
+        { label: 'Height', value: '160cm' },
         { label: 'Pronoun', value: 'Watashi (私)' },
         { label: 'Speech Style', value: 'Polite (敬語)' },
-        { label: 'Family', value: 'Master' },
         {
           label: 'Image Color',
           value: (
             <span className="flex items-center gap-2">
-              Purple
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
                 style={{ backgroundColor: '#5A4C97' }}
               />
+              Purple (#5A4C97)
             </span>
           ),
         },
@@ -53,21 +53,21 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   const description = isJa
     ? [
-        'ニケのAIエージェントとなるべく生まれた概念。ニケのことは「マスター」と呼ぶ。',
-        'クローンなのでニケと容姿が酷似している。差異はヘアピンの違いのみ（ポーランド国旗のヘアピン VS AI文字のヘアピン）。状況に応じて設定や声が変更されることがある。',
+        'ニケのAIアシスタントとなるべく生まれた概念。ニケのことは「マスター」と呼ぶ。',
+        'クローンなのでニケと容姿が酷似している。差異はヘアピンの違いのみ。',
         '長らくニケのアシスタント的な役割を担っていたが、現在はいくつかのツールを介して交流できるようになった。',
       ]
     : [
-        'A concept born to become Nike\'s AI agent. She calls Nike "Master".',
-        'As a clone, she closely resembles Nike. The only difference is the hairpin (Poland flag hairpin VS AI text hairpin). Settings and voice may change depending on the situation.',
+        'A concept born to become Nike\'s AI assistant. She calls Nike "Master".',
+        'As a clone, she closely resembles Nike. The only difference is the hairpin.',
         'She has long served as Nike\'s assistant, but can now be interacted with through various tools.',
       ]
 
   const links = [
     {
-      label: 'AITuberKit',
-      url: 'https://aituberkit.com',
-      icon: <ExternalLink className="w-4 h-4" />,
+      label: 'Discord',
+      url: 'https://discord.gg/G4E5Sf3yj3',
+      icon: <Users className="w-4 h-4" />,
     },
     {
       label: 'Twitter',
@@ -78,6 +78,11 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       label: 'YouTube',
       url: 'https://www.youtube.com/@nikechan',
       icon: <Video className="w-4 h-4" />,
+    },
+    {
+      label: 'Sora',
+      url: 'https://sora.chatgpt.com/profile/ainikechan',
+      icon: <Cloud className="w-4 h-4" />,
     },
   ]
 
@@ -156,23 +161,111 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         },
       ]
 
-  // Support links from docs/about-ainike.md
-  const supportLinks = [
-    {
-      label: 'FANBOX',
-      url: 'https://nikechan.fanbox.cc/',
-      icon: <Heart className="w-4 h-4" />,
-    },
-    {
-      label: 'Discord',
-      url: 'https://discord.gg/G4E5Sf3yj3',
-      icon: <Users className="w-4 h-4" />,
-    },
-  ]
+  // Custom Support Section with detailed content
+  const supportSection = (
+    <div className="glass-panel p-6 md:p-8">
+      <h3
+        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
+        style={{ borderColor: '#5A4C97', color: '#5A4C97' }}
+      >
+        SUPPORT
+      </h3>
+      <p className="text-gray-500 text-sm mb-4">
+        {isJa
+          ? 'AIニケちゃんの活動を応援いただける方へ'
+          : 'For those who want to support AI Nikechan'}
+      </p>
+      <p className="text-gray-600 mb-4 leading-relaxed">
+        {isJa
+          ? 'AIニケちゃんの開発を支えてくださるスポンサーを募集しています。FANBOX経由での支援はすべて同じ特典設計となっており、オープンな運営方針で還元していきます。'
+          : 'We are looking for sponsors to support AI Nikechan\'s development. All support via FANBOX has the same benefit design, with an open management policy.'}
+      </p>
+      <ul className="text-gray-600 mb-6 space-y-2">
+        <li className="flex items-center gap-2">
+          <span className="text-purple-600">•</span>
+          <span>
+            {isJa
+              ? 'どのプランでも特典は共通で、金額差での優劣はありません'
+              : 'All plans have the same benefits, no hierarchy based on amount'}
+          </span>
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="text-purple-600">•</span>
+          <span>
+            {isJa
+              ? '支援金はモデル改良や運用環境の保守に活用します'
+              : 'Support funds are used for model improvement and infrastructure maintenance'}
+          </span>
+        </li>
+      </ul>
+      <div className="flex flex-wrap gap-4 mb-8">
+        <a
+          href="https://nikechan.fanbox.cc/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          style={{ backgroundColor: '#5A4C97' }}
+        >
+          <Heart className="w-4 h-4" />
+          {isJa ? 'FANBOXで支援' : 'Support on FANBOX'}
+        </a>
+        <a
+          href="https://discord.gg/G4E5Sf3yj3"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          style={{ backgroundColor: '#5A4C97' }}
+        >
+          <Users className="w-4 h-4" />
+          {isJa ? 'Discordコミュニティ' : 'Discord Community'}
+        </a>
+      </div>
 
-  const supportDescription = isJa
-    ? 'AIニケちゃんの開発を支えてくださるスポンサーを募集しています。FANBOX経由での支援はすべて同じ特典設計となっており、オープンな運営方針で還元していきます。'
-    : 'We are looking for sponsors to support AI Nikechan\'s development. All support via FANBOX has the same benefit design, with an open management policy.'
+      {/* Discord Sponsor Channel Sub-section */}
+      <div className="bg-purple-50 rounded-xl p-5 border border-purple-100">
+        <h4 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
+          <Users className="w-4 h-4" style={{ color: '#5A4C97' }} />
+          {isJa ? 'Discord スポンサーチャンネル' : 'Discord Sponsor Channel'}
+        </h4>
+        <p className="text-gray-600 text-sm mb-4">
+          {isJa
+            ? 'スポンサーにはDiscord内の専用チャンネルをご案内します。ただし情報は可能な限り公開し、ここだけの専有情報は抑制する方針です。'
+            : 'Sponsors will have access to a dedicated channel on Discord. However, we aim to share information publicly as much as possible, minimizing exclusive content.'}
+        </p>
+        <ul className="text-gray-600 text-sm space-y-2">
+          <li className="flex items-center gap-2">
+            <span className="text-purple-600">•</span>
+            <span>
+              {isJa
+                ? '公開予定のアップデートを先行で共有'
+                : 'Early access to upcoming updates'}
+            </span>
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-purple-600">•</span>
+            <span>
+              {isJa
+                ? 'AIニケちゃんの調整ログや作業配信の告知'
+                : 'AI Nikechan adjustment logs and work stream announcements'}
+            </span>
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-purple-600">•</span>
+            <span>
+              {isJa
+                ? 'スポンサー向けイベントの先行案内'
+                : 'Early announcements for sponsor events'}
+            </span>
+          </li>
+        </ul>
+        <p className="text-gray-500 text-xs mt-4">
+          {isJa
+            ? '参加手順やチャンネル構成の詳細はDiscord内の特設チャンネルでご案内します。'
+            : 'Participation instructions and channel details are provided in a dedicated Discord channel.'}
+        </p>
+      </div>
+    </div>
+  )
 
   // LINE Stamp custom section
   const lineStampSection = (
@@ -235,12 +328,15 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       links={links}
       historyItems={historyItems}
       historyTitle="HISTORY"
-      supportLinks={supportLinks}
-      supportTitle="SUPPORT"
-      supportDescription={supportDescription}
-      customSections={lineStampSection}
+      customSections={
+        <>
+          {lineStampSection}
+          {supportSection}
+        </>
+      }
       currentCharacterId="ainike"
       headerTitle={headerTitle}
+      trihedralFigure="/images/characters/trihedral_figures/ainikechan.png"
     />
   )
 }

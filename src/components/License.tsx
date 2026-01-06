@@ -33,7 +33,7 @@ export function License({ active = 'derivative', locale = 'ja' }: Props) {
 
   return (
     <div className="character-page min-h-screen">
-      <PageHeader title="GUIDELINES" />
+      <PageHeader title="GUIDELINE" />
 
       {/* コピー用の非表示要素 */}
       <div id="license-content" className="hidden">{combinedContent}</div>
@@ -70,7 +70,7 @@ export function License({ active = 'derivative', locale = 'ja' }: Props) {
       </div>
 
       {/* Decorative Footer Gradient */}
-      <div className="character-footer h-24 relative overflow-hidden">
+      <div className="character-footer h-16 relative overflow-hidden">
         <div className="character-footer-gradient absolute inset-0" />
       </div>
     </div>

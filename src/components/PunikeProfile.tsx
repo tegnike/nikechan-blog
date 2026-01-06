@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Cloud } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -11,39 +12,37 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
 
   const profileItems = isJa
     ? [
-        { label: '年齢', value: '17歳' },
+        { label: '年齢', value: '不詳' },
         { label: '誕生日', value: '09 / 09' },
-        { label: '一人称', value: '私' },
-        { label: '口調', value: '敬語' },
-        { label: '家族', value: 'マスター' },
+        { label: '頭身', value: '2〜3頭身' },
+        { label: '性格', value: 'お調子者' },
         {
           label: 'イメージカラー',
           value: (
             <span className="flex items-center gap-2">
-              ピンク
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
                 style={{ backgroundColor: '#F48E84' }}
               />
+              コーラル（#F48E84）
             </span>
           ),
         },
       ]
     : [
-        { label: 'Age', value: '17 years old' },
-        { label: 'Birthday', value: 'January 4th' },
-        { label: 'Pronoun', value: 'Watashi (私)' },
-        { label: 'Speech Style', value: 'Polite (敬語)' },
-        { label: 'Family', value: 'Master' },
+        { label: 'Age', value: 'Unknown' },
+        { label: 'Birthday', value: 'September 9th' },
+        { label: 'Proportions', value: '2-3 heads tall' },
+        { label: 'Personality', value: 'Cheerful joker' },
         {
           label: 'Image Color',
           value: (
             <span className="flex items-center gap-2">
-              Pink
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
                 style={{ backgroundColor: '#F48E84' }}
               />
+              Coral (#F48E84)
             </span>
           ),
         },
@@ -51,20 +50,30 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
 
   const description = isJa
     ? [
-        'ぷにけのプロフィール説明文です。',
-        '詳細は後ほど追加されます。',
+        'AIニケちゃんの二次創作から生まれたマスコット的存在。',
+        '誕生経緯とその見た目から、いじられキャラとして利用されることが多い。',
+        'AIニケちゃんにそっくりな見た目をしているが、本人とは何の繋がりもない。',
       ]
     : [
-        'This is Punike\'s profile description.',
-        'Details will be added later.',
+        'A mascot character born from AI Nikechan fan creations.',
+        'Due to the origin and appearance, often used as a comedic punching bag character.',
+        'Looks just like AI Nikechan, but has no connection to her whatsoever.',
       ]
+
+  const links = [
+    {
+      label: 'Sora',
+      url: 'https://sora.chatgpt.com/profile/punike',
+      icon: <Cloud className="w-4 h-4" />,
+    },
+  ]
 
   return (
     <CharacterDetail
       locale={locale}
       nameEn="PUNIKE"
       nameJa="ぷにけ"
-      role="AI Character"
+      role="Creative Character"
       catchphrase="どしたん？話聞こか？"
       catchphraseEn="What\'s up? Do you want to talk?"
       catchphraseLines={['どしたん？ 話聞こか？']}
@@ -74,7 +83,9 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
       accentColor="#F48E84"
       profileItems={profileItems}
       description={description}
+      links={links}
       currentCharacterId="punike"
+      trihedralFigure="/images/characters/trihedral_figures/punike.png"
     />
   )
 }

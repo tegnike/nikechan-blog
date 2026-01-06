@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Cloud } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -13,37 +14,37 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
     ? [
         { label: '年齢', value: '不定' },
         { label: '誕生日', value: '04 / 27' },
-        { label: '一人称', value: '私' },
-        { label: '口調', value: '敬語' },
-        { label: '家族', value: 'マスター' },
+        { label: '身長', value: '不定' },
+        { label: '一人称', value: '不定' },
+        { label: '口調', value: '不定' },
         {
           label: 'イメージカラー',
           value: (
             <span className="flex items-center gap-2">
-              水色
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
                 style={{ backgroundColor: '#61A0DF' }}
               />
+              ライトブルー（#61A0DF）
             </span>
           ),
         },
       ]
     : [
-        { label: 'Age', value: '17 years old' },
-        { label: 'Birthday', value: 'January 4th' },
-        { label: 'Pronoun', value: 'Watashi (私)' },
-        { label: 'Speech Style', value: 'Polite (敬語)' },
-        { label: 'Family', value: 'Master' },
+        { label: 'Age', value: 'Varies' },
+        { label: 'Birthday', value: 'April 27th' },
+        { label: 'Height', value: 'Varies' },
+        { label: 'Pronoun', value: 'Varies' },
+        { label: 'Speech Style', value: 'Varies' },
         {
           label: 'Image Color',
           value: (
             <span className="flex items-center gap-2">
-              Light Blue
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
                 style={{ backgroundColor: '#61A0DF' }}
               />
+              Light Blue (#61A0DF)
             </span>
           ),
         },
@@ -51,30 +52,42 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
 
   const description = isJa
     ? [
-        'ミカゼのプロフィール説明文です。',
-        '詳細は後ほど追加されます。',
+        'AIニケちゃんの創作パートナーとして生まれた存在。',
+        '故に見た目以外の年齢や口調などほとんどの設定が決まっておらず、相棒役からモブ役、時には主役まで創作者が自由に決定できる。',
+        '名前の由来は「AI NIKE 2」のアナグラム。',
       ]
     : [
-        'This is Mikaze\'s profile description.',
-        'Details will be added later.',
+        'A character born as AI Nikechan\'s creative partner.',
+        'As such, most settings except appearance—like age and speech style—are undefined, allowing creators to freely cast her in any role from sidekick to background character, or even lead.',
+        'The name is an anagram of "AI NIKE 2".',
       ]
+
+  const links = [
+    {
+      label: 'Sora',
+      url: 'https://sora.chatgpt.com/profile/mikazechan',
+      icon: <Cloud className="w-4 h-4" />,
+    },
+  ]
 
   return (
     <CharacterDetail
       locale={locale}
       nameEn="MIKAZE"
       nameJa="ミカゼ"
-      role="AI Character"
+      role="Creative Character"
       catchphrase="ニケちゃん！今日は何して遊ぶ？"
-      catchphraseEn="What shall we play today, Nike-chan?"
+      catchphraseEn="Nike-chan! What shall we play today?"
       catchphraseLines={['ニケちゃん！', '今日は何して遊ぶ？']}
-      catchphraseLinesEn={['Nike-chan,', 'what shall we play today?']}
+      catchphraseLinesEn={['Nike-chan!', 'What shall we play today?']}
       image="/images/characters/sprites/mikaze.png"
       icon="/images/characters/icons/mikaze.png"
       accentColor="#61A0DF"
       profileItems={profileItems}
       description={description}
+      links={links}
       currentCharacterId="mikaze"
+      trihedralFigure="/images/characters/trihedral_figures/mikaze.png"
     />
   )
 }

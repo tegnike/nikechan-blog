@@ -10,14 +10,14 @@
     "profileLabel": {
       "age": "年齢",
       "birthday": "誕生日",
-      "family": "家族",
+      "height": "身長",
       "imageColor": "イメージカラー"
     },
     "profileValue": {
       "age": "17歳",
       "birthday": "01 / 04",
-      "family": "マスター",
-      "imageColor": "紫（#5A4C97）"
+      "height": "160cm",
+      "imageColor": "パープル（#5A4C97）"
     },
     "cta": {
       "profile": "詳細プロフィールを見る",

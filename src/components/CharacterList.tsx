@@ -205,12 +205,12 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
           <div className="character-description-panel mt-16 max-w-3xl mx-auto">
             <div className="glass-panel p-8 text-center">
               <h2 className="text-2xl font-bold mb-4" style={{ color: '#5A4C97' }}>
-                {locale === 'ja' ? 'AIニケちゃん & マスター' : 'AI Nikechan & Master'}
+                {locale === 'ja' ? 'AIニケちゃんファミリー' : 'AI Nikechan Family'}
               </h2>
               <p className="text-gray-700 leading-relaxed">
                 {locale === 'ja'
-                  ? 'AIエージェント「AIニケちゃん」と、その開発者であるマスター「ニケ」のプロフィールページです。AIニケちゃんは、ニケのタスクをサポートするために生まれたAIキャラクターで、現在はAITuberKitを通じて交流することができます。'
-                  : 'This is the profile page for AI agent "AI Nikechan" and her developer master "Nike". AI Nikechan is an AI character born to support Nike\'s tasks, and you can now interact with her through AITuberKit.'}
+                  ? 'AIキャラクター「AIニケちゃん」と、その仲間たちのプロフィールページです。全てのキャラクターがAIを活用した二次創作で利用できます。各キャラクターの詳細なプロフィールをぜひご覧ください。'
+                  : 'This is the profile page for AI character "AI Nikechan" and her companions. All characters are available for AI-powered fan creations. Please explore each character\'s detailed profile.'}
               </p>
             </div>
           </div>

@@ -10,13 +10,13 @@
     "profileLabel": {
       "age": "Age",
       "birthday": "Birthday",
-      "family": "Family",
+      "height": "Height",
       "imageColor": "Image Color"
     },
     "profileValue": {
       "age": "17 years old",
       "birthday": "01 / 04",
-      "family": "Master",
+      "height": "160cm",
       "imageColor": "Purple (#5A4C97)"
     },
     "cta": {

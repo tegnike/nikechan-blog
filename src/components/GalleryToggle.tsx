@@ -13,7 +13,7 @@ export function GalleryToggle({ active, locale = 'ja' }: Props) {
   const inactiveClass = 'bg-white/80 text-gray-600 border border-gray-300 hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-lg hover:scale-105';
 
   return (
-    <div className="w-full flex items-center justify-center gap-3 mt-2 mb-6">
+    <div className="w-full flex items-center justify-center gap-3 mb-6">
       <a
         href={`/gallery${locale !== 'ja' ? '?lang=' + locale : ''}`}
         className={`${baseClass} ${active === 'fan' ? activeClass : inactiveClass}`}

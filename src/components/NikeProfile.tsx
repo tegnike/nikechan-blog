@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ExternalLink, BookOpen, FileText, Video, Heart, Coffee } from 'lucide-react'
+import { BookOpen, FileText, Video, Heart, MessageCircle, Users, Cloud } from 'lucide-react'
 import { Github } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
@@ -16,17 +16,17 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
     ? [
         { label: '居住地', value: 'ポーランド' },
         { label: '言語', value: '日本語, 英語' },
-        { label: '職業', value: 'AIエンジニア' },
-        { label: '専門', value: 'LLM応用開発, AIキャラクター' },
+        { label: '職業', value: 'アプリ開発' },
+        { label: '興味', value: 'AIエージェント, AIキャラクター' },
         {
           label: 'イメージカラー',
           value: (
             <span className="flex items-center gap-2">
-              ピンク
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
                 style={{ backgroundColor: '#F9A3AB' }}
               />
+              ピンク（#F9A3AB）
             </span>
           ),
         },
@@ -34,17 +34,17 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
     : [
         { label: 'Location', value: 'Poland' },
         { label: 'Languages', value: 'Japanese, English' },
-        { label: 'Occupation', value: 'AI Engineer' },
-        { label: 'Specialty', value: 'LLM Applications, AI Characters' },
+        { label: 'Occupation', value: 'AI Developer' },
+        { label: 'Specialty', value: 'AI Agents, AI Characters' },
         {
           label: 'Image Color',
           value: (
             <span className="flex items-center gap-2">
-              Pink
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
                 style={{ backgroundColor: '#F9A3AB' }}
               />
+              Pink (#F9A3AB)
             </span>
           ),
         },
@@ -52,11 +52,13 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
 
   const description = isJa
     ? [
+        'AIニケちゃんの開発者でこのWebサイトの制作者。実在する人間。',
         'ポーランド在住のWeb系フルスタック開発者として、数年間にわたりリモートワークを通して日本のプロジェクトに参画。',
         'バックエンド開発を中心に経験を積む中で、現在はPythonやReactなどを用いたLLM応用の開発に携わるAIエンジニアとして活動中。最新のAI技術については常にキャッチアップし、定期的にSNSや技術記事を通して情報を発信している。',
         '個人開発では「AITuberKit」などのAIツールを公開し、AIとWeb技術を組み合わせた新たなアプリケーションの可能性を探求している。また、AIキャラクター「AIニケちゃん」のマスターとして、開発やIP活動にも取り組んでいる。',
       ]
     : [
+        'Developer of AI Nikechan and creator of this website. A real human.',
         'A full-stack web developer based in Poland, participating in Japanese projects through remote work for several years.',
         'While gaining experience primarily in backend development, currently active as an AI engineer working on LLM application development using Python, React, and more. Always keeping up with the latest AI technologies and regularly sharing information through SNS and technical articles.',
         'In personal development, publishing AI tools like "AITuberKit" and exploring new possibilities for applications combining AI and web technologies. Also working on development and IP activities as the master of AI character "AI Nikechan".',
@@ -66,7 +68,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
     {
       label: 'Twitter',
       url: 'https://twitter.com/tegnike',
-      icon: <ExternalLink className="w-4 h-4" />,
+      icon: <MessageCircle className="w-4 h-4" />,
     },
     {
       label: 'GitHub',
@@ -88,6 +90,11 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       url: 'https://note.com/nike_cha_n',
       icon: <FileText className="w-4 h-4" />,
     },
+    {
+      label: 'Sora',
+      url: 'https://sora.chatgpt.com/profile/tegnike',
+      icon: <Cloud className="w-4 h-4" />,
+    },
   ]
 
   // Career items from docs/about-nike.md
@@ -96,34 +103,78 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         {
           date: '〜2023',
           label: 'Web Developer',
-          description:
-            'フルリモートで日本のプロジェクトに参画。Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事。予約システム、ECサイト、オンラインくじサイトなど、様々なプロジェクトでリードエンジニアとして活躍。',
+          description: (
+            <>
+              フルリモートで日本のプロジェクトに参画。
+              <br />
+              Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事。
+              <br />
+              予約システム、ECサイト、オンラインくじサイトなど、様々なプロジェクトでリードエンジニアとして活躍。
+            </>
+          ),
         },
         {
           date: '2024〜',
-          label: 'AI Engineer',
-          description:
-            '日本および英語圏のプロジェクトにおいて、AIキャラクターやAIエージェントの開発に従事。PythonやTypeScriptなどを用い、LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当する。また、CursorやDevinなどのAIツールを駆使したAI駆動開発を積極的に取り入れている。',
+          label: 'AI Developer',
+          description: (
+            <>
+              日本および英語圏のプロジェクトにおいて、AIキャラクターやAIエージェントの開発に従事。
+              <br />
+              PythonやTypeScriptなどを用い、LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当する。
+              <br />
+              また、CursorやDevinなどのAIツールを駆使したAI駆動開発を積極的に取り入れている。
+            </>
+          ),
         },
       ]
     : [
         {
           date: '〜2023',
           label: 'Web Developer',
-          description:
-            'Participated in Japanese projects fully remotely. Engaged in web application development using Ruby on Rails, React, Vue.js, etc. Worked as a lead engineer on various projects including reservation systems, EC sites, and online lottery sites.',
+          description: (
+            <>
+              Participated in Japanese projects fully remotely.
+              <br />
+              Engaged in web application development using Ruby on Rails, React, Vue.js, etc.
+              <br />
+              Worked as a lead engineer on various projects including reservation systems, EC sites, and online lottery sites.
+            </>
+          ),
         },
         {
           date: '2024〜',
-          label: 'AI Engineer',
-          description:
-            'Working on AI character and AI agent development for projects in Japan and English-speaking countries. Using Python and TypeScript to implement natural conversation systems leveraging LLMs, design unique memory mechanisms, and handle general AI application development. Also actively adopting AI-driven development using tools like Cursor and Devin.',
+          label: 'AI Developer',
+          description: (
+            <>
+              Working on AI character and AI agent development for projects in Japan and English-speaking countries.
+              <br />
+              Using Python and TypeScript to implement natural conversation systems leveraging LLMs, design unique memory mechanisms, and handle general AI application development.
+              <br />
+              Also actively adopting AI-driven development using tools like Cursor and Devin.
+            </>
+          ),
         },
       ]
 
   // Products from docs/about-nike.md
   const products = isJa
     ? [
+        {
+          name: '生成動画AITuber',
+          year: '2025',
+          description:
+            '生成動画を用いて作成されたAITuberシステム。あらかじめ用意しておいた動画を組み合わせることで実際に喋っているように見せている。',
+          links: [
+            {
+              label: 'デモ動画',
+              url: 'https://www.youtube.com/watch?v=1aCqyt6aqus',
+            },
+            {
+              label: '紹介記事',
+              url: 'https://note.com/nike_cha_n/n/n5e15126ecba0',
+            },
+          ],
+        },
         {
           name: 'AITuberKit',
           year: '2024',
@@ -182,6 +233,22 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       ]
     : [
         {
+          name: 'Generated Video AITuber',
+          year: '2025',
+          description:
+            'An AITuber system created using generated videos. By combining pre-prepared videos, it appears as if the character is actually speaking.',
+          links: [
+            {
+              label: 'Demo Video',
+              url: 'https://www.youtube.com/watch?v=1aCqyt6aqus',
+            },
+            {
+              label: 'Article',
+              url: 'https://note.com/nike_cha_n/n/n5e15126ecba0',
+            },
+          ],
+        },
+        {
           name: 'AITuberKit',
           year: '2024',
           description:
@@ -239,23 +306,111 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
       ]
 
-  // Support links from docs/about-nike.md
-  const supportLinks = [
-    {
-      label: 'GitHub Sponsors',
-      url: 'https://github.com/sponsors/tegnike',
-      icon: <Heart className="w-4 h-4" />,
-    },
-    {
-      label: 'Buy Me a Coffee',
-      url: 'https://buymeacoffee.com/fDANV1k6iZ',
-      icon: <Coffee className="w-4 h-4" />,
-    },
-  ]
+  // Custom Support Section with detailed content (same as AI Nikechan)
+  const supportSection = (
+    <div className="glass-panel p-6 md:p-8">
+      <h3
+        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
+        style={{ borderColor: '#F9A3AB', color: '#F9A3AB' }}
+      >
+        SUPPORT
+      </h3>
+      <p className="text-gray-500 text-sm mb-4">
+        {isJa
+          ? 'AIニケちゃんの活動を応援いただける方へ'
+          : 'For those who want to support AI Nikechan'}
+      </p>
+      <p className="text-gray-600 mb-4 leading-relaxed">
+        {isJa
+          ? 'AIニケちゃんの開発を支えてくださるスポンサーを募集しています。FANBOX経由での支援はすべて同じ特典設計となっており、オープンな運営方針で還元していきます。'
+          : 'We are looking for sponsors to support AI Nikechan\'s development. All support via FANBOX has the same benefit design, with an open management policy.'}
+      </p>
+      <ul className="text-gray-600 mb-6 space-y-2">
+        <li className="flex items-center gap-2">
+          <span className="text-pink-400">•</span>
+          <span>
+            {isJa
+              ? 'どのプランでも特典は共通で、金額差での優劣はありません'
+              : 'All plans have the same benefits, no hierarchy based on amount'}
+          </span>
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="text-pink-400">•</span>
+          <span>
+            {isJa
+              ? '支援金はモデル改良や運用環境の保守に活用します'
+              : 'Support funds are used for model improvement and infrastructure maintenance'}
+          </span>
+        </li>
+      </ul>
+      <div className="flex flex-wrap gap-4 mb-8">
+        <a
+          href="https://nikechan.fanbox.cc/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          style={{ backgroundColor: '#F9A3AB' }}
+        >
+          <Heart className="w-4 h-4" />
+          {isJa ? 'FANBOXで支援' : 'Support on FANBOX'}
+        </a>
+        <a
+          href="https://discord.gg/G4E5Sf3yj3"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          style={{ backgroundColor: '#F9A3AB' }}
+        >
+          <Users className="w-4 h-4" />
+          {isJa ? 'Discordコミュニティ' : 'Discord Community'}
+        </a>
+      </div>
 
-  const supportDescription = isJa
-    ? '私の活動を応援していただけるスポンサーの方を募集しています。以下のプラットフォームからご支援いただけます。'
-    : 'I am looking for sponsors to support my activities. You can support me through the following platforms.'
+      {/* Discord Sponsor Channel Sub-section */}
+      <div className="bg-pink-50 rounded-xl p-5 border border-pink-100">
+        <h4 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
+          <Users className="w-4 h-4" style={{ color: '#F9A3AB' }} />
+          {isJa ? 'Discord スポンサーチャンネル' : 'Discord Sponsor Channel'}
+        </h4>
+        <p className="text-gray-600 text-sm mb-4">
+          {isJa
+            ? 'スポンサーにはDiscord内の専用チャンネルをご案内します。ただし情報は可能な限り公開し、ここだけの専有情報は抑制する方針です。'
+            : 'Sponsors will have access to a dedicated channel on Discord. However, we aim to share information publicly as much as possible, minimizing exclusive content.'}
+        </p>
+        <ul className="text-gray-600 text-sm space-y-2">
+          <li className="flex items-center gap-2">
+            <span className="text-pink-400">•</span>
+            <span>
+              {isJa
+                ? '公開予定のアップデートを先行で共有'
+                : 'Early access to upcoming updates'}
+            </span>
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-pink-400">•</span>
+            <span>
+              {isJa
+                ? 'AIニケちゃんの調整ログや作業配信の告知'
+                : 'AI Nikechan adjustment logs and work stream announcements'}
+            </span>
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-pink-400">•</span>
+            <span>
+              {isJa
+                ? 'スポンサー向けイベントの先行案内'
+                : 'Early announcements for sponsor events'}
+            </span>
+          </li>
+        </ul>
+        <p className="text-gray-500 text-xs mt-4">
+          {isJa
+            ? '参加手順やチャンネル構成の詳細はDiscord内の特設チャンネルでご案内します。'
+            : 'Participation instructions and channel details are provided in a dedicated Discord channel.'}
+        </p>
+      </div>
+    </div>
+  )
 
   return (
     <CharacterDetail
@@ -277,11 +432,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       historyTitle="CAREER"
       products={products}
       productsTitle="PRODUCTS"
-      supportLinks={supportLinks}
-      supportTitle="SUPPORT"
-      supportDescription={supportDescription}
+      customSections={supportSection}
       currentCharacterId="nike"
       headerTitle={headerTitle}
+      trihedralFigure="/images/characters/trihedral_figures/nikechan.png"
     />
   )
 }

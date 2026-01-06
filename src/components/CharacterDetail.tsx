@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react'
 import { Locale, getT } from '../i18n/config'
-import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Download } from 'lucide-react'
 import { PageHeader } from './PageHeader'
 
 interface ProfileItem {
@@ -11,7 +11,7 @@ interface ProfileItem {
 interface HistoryItem {
   date: string
   label: string
-  description: string
+  description: string | ReactNode
 }
 
 interface ProductItem {
@@ -58,6 +58,8 @@ interface CharacterDetailProps {
   customSections?: ReactNode
   currentCharacterId: string
   headerTitle?: string
+  // Trihedral figure (三面図) for fan art reference
+  trihedralFigure?: string
 }
 
 export const CharacterDetail: FC<CharacterDetailProps> = ({
@@ -85,6 +87,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   customSections,
   currentCharacterId,
   headerTitle = 'CHARACTER',
+  trihedralFigure,
 }) => {
   const t = getT(locale)
   const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
@@ -306,9 +309,39 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
       </div>
 
       {/* Additional Sections */}
-      {(historyItems || products || supportLinks || customSections) && (
-        <div className="character-additional-sections relative py-12">
-          <div className="max-w-5xl mx-auto px-4 space-y-12">
+      {(historyItems || products || supportLinks || customSections || trihedralFigure) && (
+        <div className="character-additional-sections relative pb-12">
+          <div className="max-w-5xl mx-auto px-4 space-y-6 md:space-y-8">
+            {/* Trihedral Figure Section (三面図) */}
+            {trihedralFigure && (
+              <div className="glass-panel p-6 md:p-8">
+                <h3
+                  className="text-xl font-bold tracking-widest mb-6 pb-2 border-b-2"
+                  style={{ borderColor: accentColor, color: accentColor }}
+                >
+                  {locale === 'ja' ? '三面図（二次創作用）' : 'Reference Sheet (Fan Art)'}
+                </h3>
+                {/* Image with Download Button Overlay */}
+                <div className="relative flex justify-center">
+                  <img
+                    src={trihedralFigure}
+                    alt={`${nameJa} ${locale === 'ja' ? '三面図' : 'Reference Sheet'}`}
+                    className="max-w-full h-auto rounded-xl shadow-lg border border-gray-100"
+                  />
+                  {/* Download Button - Top Right Overlay */}
+                  <a
+                    href={trihedralFigure}
+                    download
+                    className="absolute top-3 right-3 p-3 rounded-full text-white transition-all duration-300 hover:scale-110 hover:shadow-lg shadow-md"
+                    style={{ backgroundColor: accentColor }}
+                    title={locale === 'ja' ? 'ダウンロード' : 'Download'}
+                  >
+                    <Download className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+            )}
+
             {/* History / Career Section */}
             {historyItems && historyItems.length > 0 && (
               <div className="glass-panel p-6 md:p-8">
@@ -322,7 +355,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                   {historyItems.map((item, index) => (
                     <div key={index} className="relative">
                       <div
-                        className="absolute -left-[25px] w-4 h-4 rounded-full border-2 bg-white"
+                        className="absolute -left-[calc(1.5rem+1px)] -translate-x-1/2 w-4 h-4 rounded-full border-2 bg-white"
                         style={{ borderColor: accentColor }}
                       />
                       <div className="text-sm text-gray-500 font-medium mb-1">
@@ -503,7 +536,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
       </div>
 
       {/* Decorative Footer Gradient */}
-      <div className="character-footer h-24 relative overflow-hidden">
+      <div className="character-footer h-16 relative overflow-hidden">
         <div className="character-footer-gradient absolute inset-0" />
       </div>
     </div>

@@ -4,7 +4,7 @@ type Props = {
   locale?: Locale;
 }
 
-const profileItems = ['age', 'birthday', 'family', 'imageColor'] as const;
+const profileItems = ['age', 'birthday', 'height', 'imageColor'] as const;
 
 export function AboutSection({ locale = 'ja' }: Props) {
   const t = getT(locale);
@@ -46,9 +46,9 @@ export function AboutSection({ locale = 'ja' }: Props) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
                       </svg>
                     ),
-                    family: (
+                    height: (
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                       </svg>
                     ),
                     imageColor: (
@@ -60,7 +60,7 @@ export function AboutSection({ locale = 'ja' }: Props) {
                   return (
                     <div
                       key={key}
-                      className="bg-white/60 rounded-xl p-3 flex items-center gap-3 border border-white/80 shadow-sm"
+                      className="bg-white/60 rounded-xl p-3 flex items-center gap-3 border border-white/80 shadow-md"
                     >
                       <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center text-[#594A89]">
                         {icons[key]}
@@ -69,7 +69,13 @@ export function AboutSection({ locale = 'ja' }: Props) {
                         <span className="text-xs text-gray-500">
                           {t(`home:about.profileLabel.${key}`)}
                         </span>
-                        <span className="text-sm font-medium text-gray-800 truncate">
+                        <span className="text-sm font-medium text-gray-800 truncate flex items-center gap-1.5">
+                          {key === 'imageColor' && (
+                            <span
+                              className="inline-block w-3 h-3 rounded-full flex-shrink-0"
+                              style={{ backgroundColor: '#5A4C97' }}
+                            />
+                          )}
                           {t(`home:about.profileValue.${key}`)}
                         </span>
                       </div>
