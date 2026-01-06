@@ -165,7 +165,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                   displayCatchphraseLines.map((line, index) => (
                     <p
                       key={index}
-                      className="text-2xl font-bold tracking-widest"
+                      className={`${displayCatchphraseLines.length === 1 ? 'text-3xl' : 'text-2xl'} font-bold tracking-widest`}
                       style={{
                         color: accentColor,
                         WebkitTextStroke: '3px white',
@@ -178,7 +178,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                   ))
                 ) : (
                   <p
-                    className="text-2xl font-bold tracking-widest"
+                    className="text-3xl font-bold tracking-widest"
                     style={{
                       color: accentColor,
                       WebkitTextStroke: '3px white',
