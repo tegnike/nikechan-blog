@@ -16,6 +16,7 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
         { label: '誕生日', value: '09 / 09' },
         { label: '頭身', value: '2〜3頭身' },
         { label: '性格', value: 'お調子者' },
+        { label: '声', value: 'VOICEVOX春歌ナナ（音高: 0.07）' },
         {
           label: 'イメージカラー',
           value: (
@@ -34,6 +35,7 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
         { label: 'Birthday', value: 'September 9th' },
         { label: 'Proportions', value: '2-3 heads tall' },
         { label: 'Personality', value: 'Cheerful joker' },
+        { label: 'Voice', value: 'VOICEVOX Haruka Nana (Pitch: 0.07)' },
         {
           label: 'Image Color',
           value: (

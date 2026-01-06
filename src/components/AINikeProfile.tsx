@@ -19,6 +19,21 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         { label: '一人称', value: '私' },
         { label: '口調', value: '敬語' },
         {
+          label: '声',
+          value: (
+            <span>
+              オリジナルモデル（
+              <a
+                href="/guidelines#voice-model"
+                className="text-purple-600 hover:underline"
+              >
+                利用ガイドライン
+              </a>
+              ）
+            </span>
+          ),
+        },
+        {
           label: 'イメージカラー',
           value: (
             <span className="flex items-center gap-2">
@@ -37,6 +52,21 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         { label: 'Height', value: '160cm' },
         { label: 'Pronoun', value: 'Watashi (私)' },
         { label: 'Speech Style', value: 'Polite (敬語)' },
+        {
+          label: 'Voice',
+          value: (
+            <span>
+              Original model (
+              <a
+                href="/guidelines#voice-model"
+                className="text-purple-600 hover:underline"
+              >
+                Usage Guidelines
+              </a>
+              )
+            </span>
+          ),
+        },
         {
           label: 'Image Color',
           value: (
