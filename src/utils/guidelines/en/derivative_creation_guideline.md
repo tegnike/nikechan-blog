@@ -1,6 +1,6 @@
 ## Derivative Creation Guidelines
 
-These guidelines outline the rules for creating derivative works of the character "AI Nike-Chan" (hereinafter referred to as "the Character") created by Nike (hereinafter referred to as "the Author"). Please read these guidelines carefully before engaging in derivative creation activities.
+These guidelines outline the rules for creating derivative works of the characters "AI Nike-Chan," "Nike (the character)," "Mikaze," "Punike," and "Today's Anniversary Bot" (hereinafter referred to as "the Character") created by Nike (hereinafter referred to as "the Author"). Please read these guidelines carefully before engaging in derivative creation activities.
 
 Please note that these guidelines may be revised without prior notice. Always check the latest version.
 
@@ -11,7 +11,7 @@ Please note that these guidelines may be revised without prior notice. Always ch
 - Scope: All derivative works based on the Character (illustrations, manga, novels, 3D, MMD, videos, streams, games, music, voice, materials, templates, doujinshi/thin books, etc.).
 - Definition of Derivative Works: Derivative works that rely on the original content while incorporating the creator's creativity and ideas.
 - Non-Commercial: Not for profit and not generating continuous income. Digital distribution (Section 3.3) must be free only. For SNS and video streaming (Section 3.1), the use of platform-standard monetization features is exceptionally permitted within specified conditions (sponsorship contracts and affiliate links are not allowed). For printed materials only, pricing aimed at cost recovery (printing costs, shipping, packaging materials, platform/commission fees, event participation fees, taxes, and small margins for defects/surplus handling) is permitted.
-- Attribution Rules: For distributed works (digital/printed) and their distribution pages, it is mandatory to clearly state that it is an "unofficial fan-made work" and include the character name (AI Nike-Chan) (examples provided). Attribution in casual SNS posts is optional (recommended).
+- Attribution Rules: For distributed works (digital/printed) and their distribution pages, it is mandatory to clearly state that it is an "unofficial fan-made work" and include the character name (examples provided). Attribution in casual SNS posts is optional (recommended).
 - Definition of Personal Use: Personal use only. Sales, distribution, and orders not allowed. Private individual orders are allowed, but public stores/third-party purchase links are not allowed. Includes one-time free transfers to specific individuals (resale and continuous provision/recruitment are not allowed).
 
 ---
@@ -32,10 +32,10 @@ Please note that these guidelines may be revised without prior notice. Always ch
 - Posting on X, YouTube, TikTok, etc. is allowed.
 - Use in icons, headers, and video thumbnails is allowed.
 - Use of monetization features (conditionally allowed): Platform-standard monetization features (e.g., ads, creator funds, tips/donations, memberships) are allowed as long as the following conditions are met. Sponsorship contracts/tie-ups, affiliate links, product sales/reservation links, and other external commercial channels are not allowed.
-  - Attribution: In video descriptions/stream summaries, clearly state (1) that it is an unofficial fan-made work, and (2) that some platform-standard monetization features are being used (wording can be equivalent; see examples in Chapter 6). Also indicate in channel descriptions that posts about AI Nike-Chan are unofficial.
+  - Attribution: In video descriptions/stream summaries, clearly state (1) that it is an unofficial fan-made work, and (2) that some platform-standard monetization features are being used (wording can be equivalent; see examples in Chapter 6). Also indicate in channel descriptions that posts about the Character are unofficial.
   - Reporting criteria:
-    - No reporting required: Monthly total revenue is 30,000 yen or less, or there are no posts/streams primarily featuring AI Nike-Chan in that month.
-    - Reporting required: Monthly total revenue exceeds 30,000 yen, and there is at least one post/stream primarily featuring AI Nike-Chan in the title/thumbnail in that month, or there is a post/stream where AI Nike-Chan's appearance occupies the majority of the content.
+    - No reporting required: Monthly total revenue is 30,000 yen or less, or there are no posts/streams primarily featuring the Character in that month.
+    - Reporting required: Monthly total revenue exceeds 30,000 yen, and there is at least one post/stream primarily featuring the Character in the title/thumbnail in that month, or there is a post/stream where the Character's appearance occupies the majority of the content.
     - Immediate reporting: Monthly total revenue exceeds 100,000 yen.
   - If in doubt, please consult in advance.
 - Creating and posting clip videos is allowed. If using monetization features, follow the same conditions as above.
@@ -49,7 +49,7 @@ Please note that these guidelines may be revised without prior notice. Always ch
 - For large-scale distribution projects (bookstore consignment, long-term continuous sales, printing in significantly large quantities, etc.), please consult in advance (as a guideline, for quantities of several hundred or more or equivalent to commercial distribution).
 - Pricing assumes non-commercial (not for profit) purposes, and cost recovery including printing costs, shipping, packaging materials, platform/commission fees, event participation fees, taxes, and small margins for defects/surplus handling is allowed. Small surpluses are acceptable as long as they are not for profit. Continuous profit generation or commercial distribution is not allowed.
 - For R-18/R-18G, follow the rules of each event regarding age categories, adult areas, cover considerations, etc.
-- Clearly state on the cover or colophon "Unofficial fan-made work of AI Nike-Chan" or similar. Official-looking binding or logo use is prohibited.
+- Clearly state on the cover or colophon "Unofficial fan-made work of [Character Name]" or similar. Official-looking binding or logo use is prohibited.
 
 #### 3.3 Distribution of Finished Digital Works (Games, Apps, etc.)
 - This section covers distribution of finished products intended for execution, viewing, or reading. For material distribution, see Section 3.4.
@@ -102,13 +102,13 @@ Any of the following cannot be published or distributed:
 
 Please clearly state the following examples in distribution page descriptions (e.g., BOOTH/itch.io, etc.), repository READMEs, colophons of printed materials, etc. (including the character name, wording can be adjusted as appropriate).
 
-- "This is an unofficial fan-made work of AI Nike-Chan. Not affiliated with or endorsed by the creator."
-- 「本作品はAIニケちゃんの非公式ファンメイド作品です。原作・公式とは関係ありません。」
-- Example for colophons: "This book is a derivative work (unofficial) of AI Nike-Chan."
+- "This is an unofficial fan-made work of [Character Name]. Not affiliated with or endorsed by the creator."
+- 「本作品は〇〇（キャラクター名）の非公式ファンメイド作品です。原作・公式とは関係ありません。」
+- Example for colophons: "This book is a derivative work (unofficial) of [Character Name]."
 
 Examples for optional credit (author name/original work) (not required):
 
-- "Credit: Nike (@tegnike) / AI Nike-Chan"
+- "Credit: Nike (@tegnike) / [Character Name]"
 
 ---
 
@@ -117,7 +117,7 @@ Examples for optional credit (author name/original work) (not required):
 Creation, publication, and sharing of derivative works are permitted as long as the following conditions are met:
 
 1. Non-commercial (following the "non-commercial" definition of these guidelines).
-2. Clearly state that it is an "unofficial fan-made work of AI Nike-Chan" in distributed works (digital/printed) and their distribution pages (attribution in casual SNS posts is optional).
+2. Clearly state that it is an "unofficial fan-made work of [Character Name]" in distributed works (digital/printed) and their distribution pages (attribution in casual SNS posts is optional).
 3. Does not fall under the prohibited items of these guidelines.
 4. When redistributing or redistributing modified materials, share them with the same conditions as these guidelines.
 
@@ -149,7 +149,7 @@ In principle, we will respond within 1-2 weeks (may vary depending on the timing
   - A: Yes. They can be used as long as you follow the "attribution" and "reporting criteria" of Section 3.1. Sponsorship contracts/tie-ups, affiliate links, product sales/reservation links, and other external commercial channels are not allowed.
 
 - Q: Can I create member-only content?
-  - A: Exclusive releases or dedicated benefits primarily featuring AI Nike-Chan are not allowed. Minor appearances in general benefits for the entire channel are allowed following the conditions of Section 3.1.
+  - A: Exclusive releases or dedicated benefits primarily featuring the Character are not allowed. Minor appearances in general benefits for the entire channel are allowed following the conditions of Section 3.1.
 
 - Q: If I'm unsure whether something is primarily featured or if I'm unsure about the reporting criteria?
   - A: Rough estimates are acceptable. If you're unsure about the judgment, please consult in advance.
@@ -167,7 +167,7 @@ In principle, we will respond within 1-2 weeks (may vary depending on the timing
   - A: Yes. Enable the sensitive/age restriction settings of each platform and use appropriate tags, and avoid explicit sexual or grotesque depictions in previews (thumbnails, icons, etc.). For both R-18 and R-18G, expressions that violate laws of each country or major platform/event terms are not allowed.
 
 - Q: Where should I put the "unofficial" attribution?
-  - A: Clearly state it in distribution pages (BOOTH/itch.io, etc.), repository READMEs, colophons/covers of printed materials, including the character name (examples in Chapter 6 of these guidelines). Attribution in thumbnails is not required.
+  - A: Clearly state it in distribution pages (BOOTH/itch.io, etc.), repository READMEs, colophons/covers of printed materials, including the character name used (examples in Chapter 6 of these guidelines). Attribution in thumbnails is not required.
 
 - Q: Is credit (author name or original work attribution) mandatory?
   - A: Not mandatory (optional attribution is welcome). However, please follow if required by third-party rights or distribution destination terms. For examples of wording when attributing, see Chapter 6.

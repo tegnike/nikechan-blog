@@ -1,6 +1,6 @@
 ## Generative AI Guidelines
 
-These guidelines define the rules for "using generative AI" related to the character "AI Nike-Chan" (hereinafter referred to as "the Character") created by Nike (hereinafter referred to as "the Author"). For general rules such as non-commercial, R-18/R-18G, attribution, distribution/publication, takedown, etc., please follow the "Derivative Creation Guidelines."
+These guidelines define the rules for "using generative AI" related to the characters "AI Nike-Chan," "Nike (the character)," "Mikaze," "Punike," and "Today's Anniversary Bot" (hereinafter referred to as "the Character") created by Nike (hereinafter referred to as "the Author"). For general rules such as non-commercial, R-18/R-18G, attribution, distribution/publication, takedown, etc., please follow the "Derivative Creation Guidelines."
 
 Please note that these guidelines may be revised without prior notice. Always check the latest version.
 
