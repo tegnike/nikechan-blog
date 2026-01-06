@@ -1,5 +1,6 @@
 import { supabase } from '../lib/supabase'
 import { TechBlog } from './TechBlog'
+import { PageHeader } from './PageHeader'
 
 // 画像番号の配列をシャッフルする関数
 const shuffleArray = (array: number[]) => {
@@ -30,11 +31,21 @@ export const DevBlog = async () => {
   }
 
   return (
-    <>
-      <div className="pt-12 pb-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">DEV BLOG</h1>
+    <div className="character-page min-h-screen">
+      <PageHeader title="DEV BLOG" />
+
+      {/* Main Content */}
+      <div className="relative">
+        <div className="character-showcase-bg absolute inset-0" />
+        <div className="relative z-10">
+          <TechBlog articles={articles || []} shuffledImageNumbers={shuffledImageNumbers} />
+        </div>
       </div>
-      <TechBlog articles={articles || []} shuffledImageNumbers={shuffledImageNumbers} />
-    </>
+
+      {/* Decorative Footer Gradient */}
+      <div className="character-footer h-24 relative overflow-hidden">
+        <div className="character-footer-gradient absolute inset-0" />
+      </div>
+    </div>
   )
 }

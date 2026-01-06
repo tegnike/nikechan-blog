@@ -65,10 +65,10 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
       nameEn="PUNIKE"
       nameJa="ぷにけ"
       role="AI Character"
-      catchphrase="なんかくれるの？"
-      catchphraseEn="Will you give me something?"
-      catchphraseLines={['なんかくれるの？']}
-      catchphraseLinesEn={['Will you give me something?']}
+      catchphrase="どしたん？話聞こか？"
+      catchphraseEn="What\'s up? Do you want to talk?"
+      catchphraseLines={['どしたん？ 話聞こか？']}
+      catchphraseLinesEn={['What\'s up? Do you want to talk?']}
       image="/images/characters/sprites/punike.png"
       icon="/images/characters/icons/punike.png"
       accentColor="#F48E84"

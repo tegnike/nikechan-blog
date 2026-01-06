@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { Locale, getT } from '../i18n/config'
+import { PageHeader } from './PageHeader'
 
 interface CharacterListProps {
   locale: Locale
@@ -76,16 +77,7 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
 
   return (
     <div className="character-page min-h-screen">
-      {/* Gradient Header */}
-      <div className="character-header relative overflow-hidden">
-        <div className="character-header-bg absolute inset-0" />
-        <div className="character-header-pattern absolute inset-0" />
-        <div className="relative z-10 py-8 text-center">
-          <h1 className="character-title text-6xl md:text-8xl font-black tracking-wider text-white drop-shadow-lg">
-            CHARACTER
-          </h1>
-        </div>
-      </div>
+      <PageHeader title="CHARACTER" />
 
       {/* Character Showcase */}
       <div className="character-showcase relative -mt-8">

@@ -5,9 +5,10 @@ import { Locale } from '../i18n/config'
 
 interface AINikeProfileProps {
   locale: Locale
+  headerTitle?: string
 }
 
-export const AINikeProfile: FC<AINikeProfileProps> = ({ locale }) => {
+export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) => {
   const isJa = locale === 'ja'
 
   const profileItems = isJa
@@ -239,6 +240,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale }) => {
       supportDescription={supportDescription}
       customSections={lineStampSection}
       currentCharacterId="ainike"
+      headerTitle={headerTitle}
     />
   )
 }

@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react'
 import { Locale, getT } from '../i18n/config'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { PageHeader } from './PageHeader'
 
 interface ProfileItem {
   label: string
@@ -56,6 +57,7 @@ interface CharacterDetailProps {
   supportDescription?: string
   customSections?: ReactNode
   currentCharacterId: string
+  headerTitle?: string
 }
 
 export const CharacterDetail: FC<CharacterDetailProps> = ({
@@ -82,6 +84,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   supportDescription,
   customSections,
   currentCharacterId,
+  headerTitle = 'CHARACTER',
 }) => {
   const t = getT(locale)
   const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
@@ -129,16 +132,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
 
   return (
     <div className="character-page min-h-screen">
-      {/* Gradient Header */}
-      <div className="character-header relative overflow-hidden">
-        <div className="character-header-bg absolute inset-0" />
-        <div className="character-header-pattern absolute inset-0" />
-        <div className="relative z-10 py-8 text-center">
-          <h1 className="character-title text-6xl md:text-8xl font-black tracking-wider text-white drop-shadow-lg">
-            CHARACTER
-          </h1>
-        </div>
-      </div>
+      <PageHeader title={headerTitle} />
 
       {/* Back Button */}
       <div className="character-back-section relative z-20 -mt-4">

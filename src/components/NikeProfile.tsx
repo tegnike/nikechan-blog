@@ -6,9 +6,10 @@ import { Locale } from '../i18n/config'
 
 interface NikeProfileProps {
   locale: Locale
+  headerTitle?: string
 }
 
-export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
+export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
   const isJa = locale === 'ja'
 
   const profileItems = isJa
@@ -280,6 +281,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
       supportTitle="SUPPORT"
       supportDescription={supportDescription}
       currentCharacterId="nike"
+      headerTitle={headerTitle}
     />
   )
 }
