@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { ExternalLink } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -12,8 +11,8 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
 
   const profileItems = isJa
     ? [
-        { label: '年齢', value: '17歳' },
-        { label: '誕生日', value: '01 / 04' },
+        { label: '年齢', value: '不定' },
+        { label: '誕生日', value: '04 / 27' },
         { label: '一人称', value: '私' },
         { label: '口調', value: '敬語' },
         { label: '家族', value: 'マスター' },
@@ -60,35 +59,22 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
         'Details will be added later.',
       ]
 
-  const links = [
-    {
-      label: 'Twitter',
-      url: 'https://twitter.com/ai_nikechan',
-      icon: <ExternalLink className="w-4 h-4" />,
-    },
-  ]
-
   return (
     <CharacterDetail
       locale={locale}
       nameEn="MIKAZE"
       nameJa="ミカゼ"
       role="AI Character"
-      catchphrase="キャッチフレーズ"
-      catchphraseEn="Catchphrase"
+      catchphrase="ニケちゃん！今日は何して遊ぶ？"
+      catchphraseEn="What shall we play today, Nike-chan?"
+      catchphraseLines={['ニケちゃん！', '今日は何して遊ぶ？']}
+      catchphraseLinesEn={['Nike-chan,', 'what shall we play today?']}
       image="/images/characters/sprites/mikaze.png"
       icon="/images/characters/icons/mikaze.png"
       accentColor="#61A0DF"
       profileItems={profileItems}
       description={description}
-      links={links}
       currentCharacterId="mikaze"
-      otherCharacter={{
-        id: 'ainike',
-        nameJa: 'AIニケちゃん',
-        icon: '/images/characters/icons/ainikechan.png',
-        color: '#5A4C97',
-      }}
     />
   )
 }

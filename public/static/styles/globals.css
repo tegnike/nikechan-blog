@@ -2055,6 +2055,10 @@ body {
   height: 7rem;
 }
 
+.h-\[420px\] {
+  height: 420px;
+}
+
 .max-h-\[300px\] {
   max-height: 300px;
 }
@@ -2481,6 +2485,10 @@ body {
 
 .flex-row {
   flex-direction: row;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
 }
 
 .flex-col {

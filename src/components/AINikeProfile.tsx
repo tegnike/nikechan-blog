@@ -222,8 +222,10 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale }) => {
       nameEn="AI NIKECHAN"
       nameJa="AIニケちゃん"
       role="AI Agent / AI VTuber"
-      catchphrase={<>マスターをサポートする、<span className="tcy">AI</span>エージェント</>}
-      catchphraseEn={<><span className="tcy">AI</span> Agent supporting the Master</>}
+      catchphrase={<>こんにちは ニケです！今日は何をお手伝いしますか？</>}
+      catchphraseEn={<>Hello, I'm Nike! What can I help you with today?</>}
+      catchphraseLines={['こんにちは ニケです！', '今日は何をお手伝いしますか？']}
+      catchphraseLinesEn={['Hello, I\'m Nike!', 'What can I help you with today?']}
       image="/images/characters/sprites/ainikechan.png"
       icon="/images/characters/icons/ainikechan.png"
       accentColor="#5A4C97"
@@ -237,12 +239,6 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale }) => {
       supportDescription={supportDescription}
       customSections={lineStampSection}
       currentCharacterId="ainike"
-      otherCharacter={{
-        id: 'nike',
-        nameJa: 'ニケ',
-        icon: '/images/characters/icons/nikechan.png',
-        color: '#E87B7B',
-      }}
     />
   )
 }

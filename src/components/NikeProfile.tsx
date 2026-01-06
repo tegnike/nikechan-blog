@@ -24,7 +24,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
               ピンク
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
-                style={{ backgroundColor: '#F9B1BC' }}
+                style={{ backgroundColor: '#F9A3AB' }}
               />
             </span>
           ),
@@ -42,7 +42,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
               Pink
               <span
                 className="inline-block w-4 h-4 rounded-full border border-gray-300"
-                style={{ backgroundColor: '#F9B1BC' }}
+                style={{ backgroundColor: '#F9A3AB' }}
               />
             </span>
           ),
@@ -262,11 +262,13 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
       nameEn="NIKE"
       nameJa="ニケ"
       role="AI Character & Agent Developer"
-      catchphrase={<><span className="tcy">AI</span>キャラクターの可能性を追求する</>}
-      catchphraseEn={<>Pursuing the possibilities of <span className="tcy">AI</span> characters</>}
+      catchphrase={<>開発たのしい〜〜〜〜</>}
+      catchphraseEn={<>Development is so much fun~~~~</>}
+      catchphraseLines={['開発たのしい〜〜〜〜']}
+      catchphraseLinesEn={['Development is so much fun~~~~']}
       image="/images/characters/sprites/nikechan.png"
       icon="/images/characters/icons/nikechan.png"
-      accentColor="#F9B1BC"
+      accentColor="#F9A3AB"
       profileItems={profileItems}
       description={description}
       links={links}
@@ -278,12 +280,6 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale }) => {
       supportTitle="SUPPORT"
       supportDescription={supportDescription}
       currentCharacterId="nike"
-      otherCharacter={{
-        id: 'ainike',
-        nameJa: 'AIニケちゃん',
-        icon: '/images/characters/icons/ainikechan.png',
-        color: '#5A4C97',
-      }}
     />
   )
 }

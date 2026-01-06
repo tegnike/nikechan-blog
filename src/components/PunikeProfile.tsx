@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { ExternalLink } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -13,7 +12,7 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
   const profileItems = isJa
     ? [
         { label: '年齢', value: '17歳' },
-        { label: '誕生日', value: '01 / 04' },
+        { label: '誕生日', value: '09 / 09' },
         { label: '一人称', value: '私' },
         { label: '口調', value: '敬語' },
         { label: '家族', value: 'マスター' },
@@ -60,35 +59,22 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
         'Details will be added later.',
       ]
 
-  const links = [
-    {
-      label: 'Twitter',
-      url: 'https://twitter.com/ai_nikechan',
-      icon: <ExternalLink className="w-4 h-4" />,
-    },
-  ]
-
   return (
     <CharacterDetail
       locale={locale}
       nameEn="PUNIKE"
       nameJa="ぷにけ"
       role="AI Character"
-      catchphrase="キャッチフレーズ"
-      catchphraseEn="Catchphrase"
+      catchphrase="なんかくれるの？"
+      catchphraseEn="Will you give me something?"
+      catchphraseLines={['なんかくれるの？']}
+      catchphraseLinesEn={['Will you give me something?']}
       image="/images/characters/sprites/punike.png"
       icon="/images/characters/icons/punike.png"
       accentColor="#F48E84"
       profileItems={profileItems}
       description={description}
-      links={links}
       currentCharacterId="punike"
-      otherCharacter={{
-        id: 'ainike',
-        nameJa: 'AIニケちゃん',
-        icon: '/images/characters/icons/ainikechan.png',
-        color: '#5A4C97',
-      }}
     />
   )
 }

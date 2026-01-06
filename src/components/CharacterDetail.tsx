@@ -33,6 +33,8 @@ interface CharacterDetailProps {
   role: string
   catchphrase: ReactNode
   catchphraseEn?: ReactNode
+  catchphraseLines?: string[]
+  catchphraseLinesEn?: string[]
   image: string
   icon: string
   accentColor: string
@@ -53,12 +55,6 @@ interface CharacterDetailProps {
   supportTitle?: string
   supportDescription?: string
   customSections?: ReactNode
-  otherCharacter: {
-    id: string
-    nameJa: string
-    icon: string
-    color: string
-  }
   currentCharacterId: string
 }
 
@@ -69,8 +65,9 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   role,
   catchphrase,
   catchphraseEn,
+  catchphraseLines,
+  catchphraseLinesEn,
   image,
-  icon,
   accentColor,
   profileItems,
   description,
@@ -84,12 +81,12 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   supportTitle,
   supportDescription,
   customSections,
-  otherCharacter,
   currentCharacterId,
 }) => {
   const t = getT(locale)
   const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
   const displayCatchphrase = locale === 'ja' ? catchphrase : (catchphraseEn || catchphrase)
+  const displayCatchphraseLines = locale === 'ja' ? catchphraseLines : (catchphraseLinesEn || catchphraseLines)
 
   // 全キャラクターリスト（固定順序: AIニケ, ニケ, ミカゼ, ぷにけ, 今日は何の日bot）
   const allCharacters = [
@@ -167,15 +164,37 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
             <div className="character-image-section relative flex flex-col lg:flex-row items-center justify-center w-full lg:w-auto">
               {/* Vertical Catchphrase (Desktop) */}
               <div
-                className="character-catchphrase hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 z-20"
+                className="character-catchphrase hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 z-20 h-[420px]"
                 style={{ writingMode: 'vertical-rl' }}
               >
-                <p
-                  className="text-2xl font-bold tracking-widest"
-                  style={{ color: accentColor }}
-                >
-                  {displayCatchphrase}
-                </p>
+                {displayCatchphraseLines ? (
+                  displayCatchphraseLines.map((line, index) => (
+                    <p
+                      key={index}
+                      className="text-2xl font-bold tracking-widest"
+                      style={{
+                        color: accentColor,
+                        WebkitTextStroke: '3px white',
+                        paintOrder: 'stroke fill',
+                        textShadow: `0 0 10px white, 0 0 20px white, 0 0 40px rgba(255,255,255,0.8)`,
+                      }}
+                    >
+                      {line}
+                    </p>
+                  ))
+                ) : (
+                  <p
+                    className="text-2xl font-bold tracking-widest"
+                    style={{
+                      color: accentColor,
+                      WebkitTextStroke: '3px white',
+                      paintOrder: 'stroke fill',
+                      textShadow: `0 0 10px white, 0 0 20px white, 0 0 40px rgba(255,255,255,0.8)`,
+                    }}
+                  >
+                    {displayCatchphrase}
+                  </p>
+                )}
               </div>
 
               {/* Mobile Catchphrase */}
