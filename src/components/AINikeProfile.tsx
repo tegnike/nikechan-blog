@@ -22,7 +22,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           label: '声',
           value: (
             <span>
-              オリジナルモデル（
+              オリジナル（
               <a
                 href="/guidelines#voice-model"
                 className="text-purple-600 hover:underline"
@@ -56,7 +56,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           label: 'Voice',
           value: (
             <span>
-              Original model (
+              Original (
               <a
                 href="/guidelines#voice-model"
                 className="text-purple-600 hover:underline"
