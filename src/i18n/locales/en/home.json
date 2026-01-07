@@ -10,13 +10,13 @@
     "profileLabel": {
       "age": "Age",
       "birthday": "Birthday",
-      "family": "Family",
+      "height": "Height",
       "imageColor": "Image Color"
     },
     "profileValue": {
       "age": "17 years old",
       "birthday": "01 / 04",
-      "family": "Master",
+      "height": "160cm",
       "imageColor": "Purple (#5A4C97)"
     },
     "cta": {
@@ -27,6 +27,14 @@
   "news": {
     "heading": "Recent Updates",
     "items": [
+      {
+        "id": "character-page",
+        "tag": "NEW",
+        "date": "2026・1",
+        "title": "Character Page Added",
+        "description": "We launched refreshed character profiles for the AI Nike Chan family and updated the overall website experience.",
+        "cta": "View Characters"
+      },
       {
         "id": "line-stamp",
         "tag": "NEW",
@@ -59,6 +67,15 @@
         "title": "Derivative Creation Guidelines Published",
         "description": "We've published guidelines for creating derivative works of AI Nike Chan. This covers rules for creating and distributing fan art and AI-generated works.",
         "cta": "View Guidelines"
+      },
+      {
+        "id": "discord-server",
+        "tag": "NEW",
+        "date": "2025・8",
+        "title": "AI Nike Chan Discord Server Launched",
+        "description": "We've opened a Discord server as a fan community for AI Nike Chan. Use it to stay updated on the latest news and connect with other fans.",
+        "cta": "Join Discord",
+        "externalLink": "https://discord.gg/G4E5Sf3yj3"
       }
     ]
   },

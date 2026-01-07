@@ -15,6 +15,13 @@ import { License } from './components/License'
 import { DevBlog } from './components/DevBlog'
 import { About } from './components/About'
 import { Tutorial } from './components/Tutorial'
+import { CharacterList } from './components/CharacterList'
+import { AINikeProfile } from './components/AINikeProfile'
+import { NikeProfile } from './components/NikeProfile'
+import { MikazeProfile } from './components/MikazeProfile'
+import { PunikeProfile } from './components/PunikeProfile'
+import { TodayNormaProfile } from './components/TodayNormaProfile'
+import { News } from './components/News'
 import { detectLocale, type Locale } from './i18n/config'
 
 const app = new Hono()
@@ -51,6 +58,28 @@ app.get('/', (c) => {
       description: locale === 'ja' ? "AIニケちゃんのオフィシャルサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。" : "Official website of AI Nike Chan. Featuring illustrations, fan art, activity logs, and developer information.",
       canonicalUrl: "https://nikechan.com",
       ogType: "website"
+    }
+  )
+})
+
+// News page
+app.get('/news', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <News locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "お知らせ | AIニケちゃんオフィシャルサイト"
+        : "News | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "AIニケちゃんの最新お知らせ・アップデート情報"
+        : "Latest news and updates about AI Nike Chan",
+      canonicalUrl: "https://nikechan.com/news"
     }
   )
 })
@@ -252,6 +281,133 @@ app.get('/about', (c) => {
           "url": "https://nikechan.com"
         }
       }
+    }
+  )
+})
+
+// Character pages
+app.get('/characters', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <CharacterList locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "キャラクター | AIニケちゃんオフィシャルサイト"
+        : "Characters | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "AIニケちゃんとマスター・ニケのキャラクター紹介ページ"
+        : "Character introduction page for AI Nikechan and Master Nike",
+      canonicalUrl: "https://nikechan.com/characters"
+    }
+  )
+})
+
+app.get('/characters/ainike', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <AINikeProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "AIニケちゃん | AIニケちゃんオフィシャルサイト"
+        : "AI Nikechan | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "AIニケちゃんのプロフィール。AIエージェント・AIVTuberとして活動中。"
+        : "Profile of AI Nikechan. Active as an AI Agent and AI VTuber.",
+      canonicalUrl: "https://nikechan.com/characters/ainike"
+    }
+  )
+})
+
+app.get('/characters/nike', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <NikeProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "ニケ | AIニケちゃんオフィシャルサイト"
+        : "Nike | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "ニケのプロフィール。AIキャラクター・エージェント開発者。"
+        : "Profile of Nike. AI Character and Agent Developer.",
+      canonicalUrl: "https://nikechan.com/characters/nike"
+    }
+  )
+})
+
+app.get('/characters/mikaze', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <MikazeProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "ミカゼ | AIニケちゃんオフィシャルサイト"
+        : "Mikaze | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "ミカゼのプロフィール。"
+        : "Profile of Mikaze.",
+      canonicalUrl: "https://nikechan.com/characters/mikaze"
+    }
+  )
+})
+
+app.get('/characters/punike', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <PunikeProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "ぷにけ | AIニケちゃんオフィシャルサイト"
+        : "Punike | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "ぷにけのプロフィール。"
+        : "Profile of Punike.",
+      canonicalUrl: "https://nikechan.com/characters/punike"
+    }
+  )
+})
+
+app.get('/characters/today_norma', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <TodayNormaProfile locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? "今日は何の日bot | AIニケちゃんオフィシャルサイト"
+        : "Today Norma | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "今日は何の日botのプロフィール。"
+        : "Profile of Today Norma.",
+      canonicalUrl: "https://nikechan.com/characters/today_norma"
     }
   )
 })

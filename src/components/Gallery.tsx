@@ -2,6 +2,7 @@ import { GalleryItem } from './GalleryItem'
 import { useMemo } from 'react'
 import { shuffle, findItem, galleryItemsData, illustrators } from '../utils/galleryData'
 import { GalleryToggle } from './GalleryToggle'
+import { PageHeader } from './PageHeader'
 import { getT, type Locale } from '../i18n/config'
 
 // 連続する同一タイプの行を避けるために簡易的に整形
@@ -222,21 +223,34 @@ export const Gallery = ({ locale = 'ja' }: Props) => {
   const shuffledRows = useMemo(() => avoidConsecutiveDuplicates(shuffle(rows)), [rows])
 
   return (
-    <>
-      <div className="pb-4">
-        <div className="pt-12 pb-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-center text-foreground">{t('gallery:heading')}</h1>
-        </div>
-        <GalleryToggle active="commissioned" locale={locale} />
-        <div className="mx-auto mt-4 w-full max-w-4xl px-4">
-          <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900">
-            <p className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: t('gallery:commissioned.notice') }} />
+    <div className="character-page min-h-screen">
+      <PageHeader title="GALLERY" />
+
+      {/* Main Content */}
+      <div className="relative">
+        <div className="character-showcase-bg absolute inset-0" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+          {/* Toggle */}
+          <GalleryToggle active="commissioned" locale={locale} />
+
+          {/* Notice */}
+          <div className="mx-auto mt-6 w-full max-w-4xl">
+            <div className="glass-panel px-6 py-4">
+              <p className="text-sm leading-relaxed text-gray-700" dangerouslySetInnerHTML={{ __html: t('gallery:commissioned.notice') }} />
+            </div>
+          </div>
+
+          {/* Gallery Grid */}
+          <div className="mt-8">
+            {shuffledRows.map((row) => row.element)}
           </div>
         </div>
       </div>
-      <div className="container mx-auto px-4">
-        {shuffledRows.map((row) => row.element)}
+
+      {/* Decorative Footer Gradient */}
+      <div className="character-footer h-16 relative overflow-hidden">
+        <div className="character-footer-gradient absolute inset-0" />
       </div>
-    </>
+    </div>
   )
 }

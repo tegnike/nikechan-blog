@@ -1,5 +1,6 @@
 import { getT, type Locale } from '../i18n/config'
 import { getCharacterFeatures } from '../utils/characterFeatures'
+import { PageHeader } from './PageHeader'
 
 type Props = {
   active?: 'illustration' | 'video'
@@ -9,21 +10,21 @@ type Props = {
 export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
   const t = getT(locale)
   const tabCardBase =
-    'group relative flex-1 w-full overflow-hidden rounded-2xl border-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-purple-300';
-  const tabCardActive = 'border-purple-500 shadow-lg shadow-purple-200/60';
-  const tabCardInactive = 'border-gray-300 shadow-md hover:border-purple-300 hover:shadow-lg';
+    'group relative flex-1 w-full overflow-hidden rounded-2xl border-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300';
+  const tabCardActive = 'border-pink-400 shadow-lg shadow-pink-200/60';
+  const tabCardInactive = 'border-gray-300 shadow-md hover:border-pink-300 hover:shadow-lg';
   const tabLabelBase =
     'absolute inset-x-0 bottom-0 bg-black/60 px-3 py-2 text-center text-sm font-semibold text-white backdrop-blur-sm transition-colors md:text-base';
-  const tabLabelActive = 'bg-purple-600/90';
-  const tabLabelInactive = 'group-hover:bg-purple-500/80';
+  const tabLabelActive = 'bg-pink-500/90';
+  const tabLabelInactive = 'group-hover:bg-pink-400/80';
   const tabImageClass = 'w-full object-cover aspect-[16/9]';
   const downloadButtonClass =
-    'inline-flex items-center gap-2 rounded-md border border-purple-200 bg-white px-3 py-1.5 text-sm font-medium text-purple-600 shadow-sm transition hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:ring-offset-2';
+    'inline-flex items-center gap-2 rounded-full border border-pink-200 bg-white px-4 py-2 text-sm font-medium text-pink-500 shadow-sm transition hover:bg-pink-50 hover:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-offset-2';
   const videoModeButtonBase =
-    'flex-1 rounded-lg border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-300 focus-visible:ring-offset-2 md:text-base';
-  const videoModeButtonActive = 'border-purple-600 bg-purple-600 text-white shadow-lg shadow-purple-200/60';
+    'flex-1 rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-300 focus-visible:ring-offset-2 md:text-base';
+  const videoModeButtonActive = 'border-pink-400 bg-white text-pink-500 shadow-lg';
   const videoModeButtonInactive =
-    'border-gray-300 bg-white text-gray-700 hover:border-purple-300 hover:text-purple-600 hover:shadow-md';
+    'border-gray-300 bg-white/80 text-gray-600 hover:border-pink-300 hover:text-pink-500 hover:shadow-md';
   const characterFeatures = getCharacterFeatures(locale)
   const dancePromptBase = t('tutorial:illustration.prompts.dancePrompt')
   const dancePrompt = `${dancePromptBase}\n${characterFeatures}`
@@ -32,12 +33,13 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
   const videoPrompt3 = t('tutorial:video.cameo.videoPrompt3')
 
   return (
-    <>
-      <div className="pt-12 pb-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-center">{t('tutorial:heading')}</h1>
-      </div>
+    <div className="character-page min-h-screen">
+      <PageHeader title="TUTORIAL" />
 
-      <div className="container mx-auto max-w-5xl px-4 pb-16 mt-2">
+      {/* Main Content */}
+      <div className="relative">
+        <div className="character-showcase-bg absolute inset-0" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 py-8">
         {/* タブ切り替え */}
         <div className="mb-6 flex w-full flex-col items-center justify-center gap-4 md:flex-row md:items-stretch">
           <a
@@ -71,10 +73,10 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
         </div>
 
         {/* はじめに（共通） */}
-        <div className="rounded-xl border border-gray-200 bg-white/80 p-5 shadow-sm mb-6">
+        <div className="glass-panel p-6 md:p-8 mb-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('tutorial:intro.heading')}</h2>
           <p className="text-gray-700 leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: t('tutorial:intro.description') }} />
-          <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+          <div className="bg-pink-50 rounded-lg p-4 border border-pink-200">
             <p className="text-sm text-gray-700">
               <strong>{t('tutorial:intro.point')}</strong> {t('tutorial:intro.pointDescription')}
             </p>
@@ -82,7 +84,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
         </div>
 
         {active === 'illustration' ? (
-          <div className="rounded-xl border border-gray-200 bg-white/80 p-5 shadow-sm">
+          <div className="glass-panel p-6 md:p-8">
             {/* 画像生成コンテンツ */}
             <div className="space-y-8">
 
@@ -121,7 +123,15 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
 
                 <div className="space-y-4">
                   <div>
-                    <img src="/images/tutorial/nikechan_三面図.png" alt={t('tutorial:illustration.materials.model3D.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
+                    <img
+                      src="/images/tutorial/nikechan_三面図.png"
+                      alt={t('tutorial:illustration.materials.model3D.alt')}
+                      width={2048}
+                      height={1143}
+                      loading="lazy"
+                      decoding="async"
+                      className="rounded-lg border border-gray-300 shadow-sm mb-2"
+                    />
                     <a
                       href="/images/tutorial/nikechan_三面図.png"
                       download
@@ -193,7 +203,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
             </div>
           </div>
         ) : (
-          <div className="rounded-xl border border-gray-200 bg-white/80 p-5 shadow-sm">
+          <div className="glass-panel p-6 md:p-8">
             {/* 動画生成コンテンツ */}
             <div className="space-y-8">
               <div>
@@ -379,7 +389,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
         )}
 
         {/* Call to Action */}
-        <div className="text-center rounded-xl border border-gray-200 bg-white/80 p-5 shadow-sm mt-6">
+        <div className="glass-panel p-6 md:p-8 mt-6 text-center">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             {t('tutorial:cta.heading')}
           </h2>
@@ -387,19 +397,25 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href={`/gallery${locale !== 'ja' ? '?lang=' + locale : ''}`}
-              className="inline-block bg-purple-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors"
+              className="inline-block bg-white text-pink-500 font-semibold px-8 py-3 rounded-full border border-pink-200 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
             >
               {t('tutorial:cta.viewGallery')}
             </a>
             <a
               href={`/guidelines/ai${locale !== 'ja' ? '?lang=' + locale : ''}`}
-              className="inline-block bg-white border-2 border-purple-600 text-purple-600 font-semibold px-8 py-3 rounded-lg hover:bg-purple-50 transition-colors"
+              className="inline-block bg-white/80 border border-gray-300 text-gray-600 font-semibold px-8 py-3 rounded-full hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-md transition-all duration-200"
             >
               {t('tutorial:cta.viewGuidelines')}
             </a>
           </div>
         </div>
+        </div>
       </div>
-    </>
+
+      {/* Decorative Footer Gradient */}
+      <div className="character-footer h-16 relative overflow-hidden">
+        <div className="character-footer-gradient absolute inset-0" />
+      </div>
+    </div>
   )
 }

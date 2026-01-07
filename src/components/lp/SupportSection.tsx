@@ -1,6 +1,3 @@
-import { Heart, ExternalLink, Shield } from "lucide-react";
-import { motion } from "motion/react";
-import { Button } from "./ui/button";
 import { getT, type Locale } from '../../i18n/config';
 
 type Props = {
@@ -9,81 +6,102 @@ type Props = {
 
 export function SupportSection({ locale = 'ja' }: Props) {
   const t = getT(locale);
-  const fanboxFeatures = [
-    t('home:support.fanbox.features.0'),
-    t('home:support.fanbox.features.1'),
-  ];
-  const discordFeatures = [
-    t('home:support.discord.features.0'),
-    t('home:support.discord.features.1'),
-    t('home:support.discord.features.2'),
-  ];
+  const fanboxFeatures = t('home:support.fanbox.features', { returnObjects: true }) as string[];
+  const discordFeatures = t('home:support.discord.features', { returnObjects: true }) as string[];
 
   return (
-    <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
-      <div className="container relative z-10 mx-auto max-w-6xl">
-        <div
-          className="text-center mb-10"
-        >
-          <h2 className="mt-3 text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
-            {t('home:support.heading')}
-          </h2>
-        </div>
+    <section className="py-10 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* 見出し */}
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#594A89] text-center mb-12">
+          {t('home:support.heading')}
+        </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
-          {/* Left: FANBOX policy and CTA */}
-          <div>
-            <div className="h-full rounded-3xl border border-white/60 bg-white/80 backdrop-blur">
-              <h3 className="text-2xl font-bold text-gray-900">{t('home:support.fanbox.heading')}</h3>
-              <p className="mt-3 text-gray-700 leading-relaxed">
-                {t('home:support.fanbox.description')}
-              </p>
-              <ul className="mt-6 space-y-3 text-gray-800">
-                {fanboxFeatures.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <span className="mt-1 inline-block h-2 w-2 rounded-full bg-indigo-500" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                  <a href="https://nikechan.fanbox.cc/" target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-5 w-5" />
-                    {t('home:support.fanbox.cta')}
-                  </a>
-                </Button>
+        {/* 2カラムグリッド */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* FANBOX カード */}
+          <div className="glass-panel p-6 sm:p-8 flex flex-col h-full">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+                <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
               </div>
+              <h3 className="text-xl font-bold text-gray-800">
+                {t('home:support.fanbox.heading')}
+              </h3>
+            </div>
+
+            <p className="text-gray-600 leading-relaxed mb-4">
+              {t('home:support.fanbox.description')}
+            </p>
+
+            <ul className="space-y-2 mb-6">
+              {fanboxFeatures.map((feature, index) => (
+                <li key={index} className="flex items-start gap-2 text-gray-700">
+                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center mt-0.5">
+                    <svg className="w-3 h-3 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </span>
+                  <span className="text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto">
+              <a
+                href="https://nikechan.fanbox.cc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/80 border border-gray-300 text-gray-700 font-medium hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-lg hover:scale-105 transition-all duration-300"
+              >
+                {t('home:support.fanbox.cta')}
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
             </div>
           </div>
 
-          {/* Right: Discord policy */}
-          <div>
-            <div className="h-full rounded-3xl border border-white/60 bg-white/80 backdrop-blur">
-              <div className="flex items-center gap-2 text-gray-900">
-                <Shield className="h-5 w-5 text-indigo-600" />
-                <h3 className="text-2xl font-bold">{t('home:support.discord.heading')}</h3>
+          {/* Discord カード */}
+          <div className="glass-panel p-6 sm:p-8 flex flex-col h-full">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                <svg className="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+                </svg>
               </div>
-              <p className="mt-3 text-gray-700 leading-relaxed">
-                {t('home:support.discord.description')}
-              </p>
-              <div className="mt-6 rounded-2xl border border-gray-200 bg-white/70 p-5">
-                <div className="text-sm font-semibold text-gray-800 mb-2">{t('home:support.discord.featuresHeading')}</div>
-                <ul className="space-y-2 text-gray-700">
-                  {discordFeatures.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <p className="mt-4 text-sm text-gray-500">
-                {t('home:support.discord.disclaimer')}
-              </p>
+              <h3 className="text-xl font-bold text-gray-800">
+                {t('home:support.discord.heading')}
+              </h3>
             </div>
+
+            <p className="text-gray-600 leading-relaxed mb-4">
+              {t('home:support.discord.description')}
+            </p>
+
+            <div className="mb-4">
+              <p className="text-sm font-medium text-gray-700 mb-2">
+                {t('home:support.discord.featuresHeading')}
+              </p>
+              <ul className="space-y-2">
+                {discordFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start gap-2 text-gray-700">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center mt-0.5">
+                      <svg className="w-3 h-3 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    </span>
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="text-xs text-gray-500 italic mt-auto">
+              {t('home:support.discord.disclaimer')}
+            </p>
           </div>
         </div>
       </div>

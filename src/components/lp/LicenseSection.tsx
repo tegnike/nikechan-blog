@@ -1,5 +1,3 @@
-import { Download, CheckCircle2, ArrowRight } from "lucide-react";
-import { Button } from "./ui/button";
 import { getT, type Locale } from '../../i18n/config';
 
 type Props = {
@@ -8,99 +6,115 @@ type Props = {
 
 export function LicenseSection({ locale = 'ja' }: Props) {
   const t = getT(locale);
-  const features = [
-    t('home:license.features.0'),
-    t('home:license.features.1'),
-    t('home:license.features.2'),
-  ];
+  const features = t('home:license.features', { returnObjects: true }) as string[];
 
   return (
-    <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
-      <div className="container relative z-10 mx-auto max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-14 items-stretch">
-          {/* Left: Copy and CTAs */}
-          <div className="space-y-7 text-center lg:text-left">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
-                {t('home:license.heading')}<br />
+    <section className="py-10 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="glass-panel p-6 sm:p-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+            {/* 左カラム: テキスト */}
+            <div className="space-y-6">
+              {/* 見出し */}
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#594A89]">
+                {t('home:license.heading')}
               </h2>
-              <p className="mt-4 text-lg text-gray-700 leading-relaxed text-left">
+
+              {/* 説明文 */}
+              <p className="text-gray-700 leading-relaxed">
                 {t('home:license.description')}
+              </p>
+
+              {/* 機能リスト */}
+              <ul className="space-y-3">
+                {features.map((feature, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-green-400 to-emerald-400 flex items-center justify-center">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </span>
+                    <span className="text-gray-700 font-medium">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <a
+                  href="/tutorial"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white/80 border border-gray-300 text-gray-700 font-medium hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                >
+                  {t('home:license.cta.tutorial')}
+                </a>
+                <a
+                  href="/guidelines"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white/80 border border-gray-300 text-gray-700 font-medium hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                >
+                  {t('home:license.cta.guidelines')}
+                </a>
+              </div>
+
+              {/* 注意書き */}
+              <p className="text-sm text-gray-500 italic">
+                {t('home:license.disclaimer')}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 max-w-md mx-auto lg:mx-0">
-              {features.map((feature) => (
-                <div
-                  key={feature}
-                  className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white/80 p-3 shadow-sm"
-                >
-                  <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                  <span className="font-semibold text-gray-800">{feature}</span>
-                </div>
-              ))}
-            </div>
+            {/* 右カラム: i2i例パネル */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-[#594A89] mb-4">
+                {t('home:license.example.heading')}
+              </h3>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2 justify-center lg:justify-start">
-              <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white">
-                <a href={`/tutorial${locale !== 'ja' ? '?lang=' + locale : ''}`}>
-                  {t('home:license.cta.tutorial')}
-                  <ArrowRight className="ml-1 h-4 w-4" />
-                </a>
-              </Button>
-              <a
-                href={`/guidelines${locale !== 'ja' ? '?lang=' + locale : ''}`}
-                className="inline-flex items-center text-indigo-700 font-semibold hover:text-indigo-800"
-              >
-                {t('home:license.cta.guidelines')}
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </a>
-            </div>
-
-            <p className="text-xs text-gray-500 text-center lg:text-left">
-              {t('home:license.disclaimer')}
-            </p>
-          </div>
-
-          {/* Right: i2i example */}
-          <div className="relative">
-            <div className="rounded-3xl border border-white/60 bg-white/80 shadow-xl backdrop-blur p-5 h-full flex flex-col">
-              <div className="flex items-center justify-between mb-4">
-                <div className="text-sm font-semibold text-gray-800">{t('home:license.example.heading')}</div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-2xl overflow-hidden border border-white/60 bg-white/80 backdrop-blur">
-                  <div className="flex items-center justify-between px-3 py-2 text-xs text-gray-600">
-                    <span>{t('home:license.example.input')}</span>
-                  </div>
-                  <div className="aspect-[4/5] w-full">
+              {/* i2i例画像 */}
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="space-y-2">
+                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('home:license.example.input')}
+                  </span>
+                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-md">
                     <img
                       src="/images/lp/guideline1.webp"
-                      alt="i2i input"
-                      className="h-full w-full object-cover"
+                      alt="i2i input example"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
                 </div>
-
-                <div className="rounded-2xl overflow-hidden border border-white/60 bg-white/80 backdrop-blur">
-                  <div className="flex items-center justify-between px-3 py-2 text-xs text-gray-600">
-                    <span>{t('home:license.example.output')}</span>
-                  </div>
-                  <div className="aspect-[4/5] w-full">
+                <div className="space-y-2">
+                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {t('home:license.example.output')}
+                  </span>
+                  <div className="relative aspect-square rounded-xl overflow-hidden shadow-md">
                     <img
                       src="/images/lp/guideline2.webp"
-                      alt="i2i output"
-                      className="h-full w-full object-cover"
+                      alt="i2i output example"
+                      className="w-full h-full object-cover"
                       loading="lazy"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="mt-5 rounded-xl border border-gray-200 bg-white/70 p-4 text-sm text-gray-700 leading-relaxed">
-                {t('home:license.example.prompt')}
+              {/* プロンプト例 */}
+              <div className="bg-white/60 rounded-xl p-4">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wider block mb-2">
+                  Prompt
+                </span>
+                <p className="text-gray-700 text-sm italic">
+                  "{t('home:license.example.prompt')}"
+                </p>
               </div>
             </div>
           </div>

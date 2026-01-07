@@ -1,10 +1,5 @@
-import { ImageIcon } from "lucide-react";
-import { motion } from "motion/react";
-import { useMemo } from "react";
-import { fanArts } from "../../utils/fanArtsData";
-import { shuffle } from "../../utils/galleryData";
-import { Button } from "./ui/button";
 import { getT, type Locale } from '../../i18n/config';
+import { getRandomGalleryItems } from '../../utils/galleryData';
 
 type Props = {
   locale?: Locale;
@@ -12,49 +7,65 @@ type Props = {
 
 export function GallerySection({ locale = 'ja' }: Props) {
   const t = getT(locale);
-  // ランダムに8件（4列 x 2行）を取得（ファンアート）
-  const items = useMemo(() => shuffle([...fanArts]).slice(0, 8), []);
+  const galleryItems = getRandomGalleryItems(8);
 
   return (
-    <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
-      <div className="container relative z-10 mx-auto max-w-6xl">
-        <div className="text-center mb-10">
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight mb-6">
-            {t('home:gallery.heading')}
-          </h2>
-        </div>
+    <section className="py-10 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* 見出し */}
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#594A89] text-center mb-12">
+          {t('home:gallery.heading')}
+        </h2>
 
-        {/* ファンアート（4列 x 2行、クリック/ホバー無し） */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
-          {items.map(({ src, author }, index) => (
-            <motion.div
-              key={`${src}-${index}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05, duration: 0.5 }}
-              viewport={{ once: true }}
-              className="aspect-square overflow-hidden rounded-lg"
+        {/* ギャラリーグリッド */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          {galleryItems.map((item, index) => (
+            <div
+              key={item.id}
+              className="relative aspect-square rounded-xl overflow-hidden shadow-lg group cursor-pointer"
+              style={{
+                animationDelay: `${index * 0.05}s`,
+              }}
             >
               <img
-                src={src}
-                alt={`Fan art by ${author}`}
-                className="w-full h-full object-cover"
+                src={item.src}
+                alt={item.alt}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
               />
-            </motion.div>
+              {/* オーバーレイ */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              {/* キャプション */}
+              <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-white text-xs sm:text-sm font-medium truncate">
+                  {item.caption}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* ギャラリーへのリンク */}
-        <div
-          className="text-center mt-12"
-        >
-          <Button asChild size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white">
-            <a href={`/gallery${locale !== 'ja' ? '?lang=' + locale : ''}`} className="inline-flex items-center gap-2">
-              <ImageIcon className="w-5 h-5" />
-              <span>{t('home:gallery.cta')}</span>
-            </a>
-          </Button>
+        {/* CTA */}
+        <div className="flex justify-center mt-10">
+          <a
+            href="/gallery"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-white/80 border border-gray-300 text-gray-700 font-medium hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-lg hover:scale-105 transition-all duration-300"
+          >
+            {t('home:gallery.cta')}
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </a>
         </div>
       </div>
     </section>

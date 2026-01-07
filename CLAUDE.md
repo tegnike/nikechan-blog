@@ -96,6 +96,10 @@ Set these in Cloudflare Pages environment variables for both Production and Prev
 - TailwindCSS for all styling
 - Global styles in `src/styles/globals.css`
 - Avoid inline styles unless dynamic
+- **Design System**: See `docs/DESIGN_SYSTEM.md` for unified page design patterns
+  - All pages use "character-page" design with gradient headers, glass panels, and footer gradients
+  - Use `PageHeader` component for page titles
+  - Use `glass-panel` class for content containers
 
 ## Key File Structure
 

@@ -16,7 +16,21 @@
       "Bash(bun install:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_close",
+      "WebFetch(domain:pjsekai.sega.jp)",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_take_screenshot",
+      "Skill(frontend-design:frontend-design)",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_press_key",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_resize",
+      "mcp__playwright__browser_hover",
+      "Bash(cat:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": []
   }

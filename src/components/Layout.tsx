@@ -31,7 +31,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
       ? `${baseClass} text-purple-600 font-semibold`
       : `${baseClass} text-gray-700 hover:text-purple-600`;
   };
-  const isOtherActive = ["/developer", "/dev_blog"].some((p) => {
+  const isOtherActive = ["/news", "/developer", "/dev_blog"].some((p) => {
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     return clean === p || clean.startsWith(`${p}/`)
   })
@@ -59,13 +59,26 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
             </a>
           </motion.div>
 
-          <nav className="hidden md:flex items-center space-x-4">
+          <nav className="hidden lg:flex items-center space-x-4">
             {/* About */}
             <a
               href={addLangParam("/about")}
               className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/about")}`}
             >
               <span className="relative z-10">{t('navigation:about')}</span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
+                whileHover={{ opacity: 1, scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              />
+            </a>
+
+            {/* Character */}
+            <a
+              href={addLangParam("/characters")}
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/characters", true)}`}
+            >
+              <span className="relative z-10">{t('navigation:character')}</span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
                 whileHover={{ opacity: 1, scale: 1.05 }}
@@ -134,6 +147,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
                 aria-labelledby="other-menu-trigger"
                 className="absolute left-0 mt-2 w-44 rounded-lg border bg-white shadow-lg hidden"
               >
+                <a href={addLangParam("/news")} role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/news', true)}`}>{t('navigation:news')}</a>
                 <a href={addLangParam("/developer")} role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
                 <a href={addLangParam("/dev_blog")} role="menuitem" className={`block px-4 py-2 text-sm ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
               </div>
@@ -151,7 +165,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
             </button>
           </nav>
 
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             {/* Mobile Language Switcher */}
             <button
               id="mobile-language-switcher"
@@ -176,14 +190,16 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           {/* Mobile dropdown menu */}
           <div
             id="mobile-menu"
-            className="md:hidden absolute left-0 right-0 top-full mt-2 px-4 hidden"
+            className="lg:hidden absolute left-0 right-0 top-full mt-2 px-4 hidden"
           >
             <div className="rounded-xl border bg-white shadow-lg divide-y">
               <a href={addLangParam("/")} className={`block px-4 py-3 ${getLinkClass('/')}`}>{t('navigation:home')}</a>
               <a href={addLangParam("/about")} className={`block px-4 py-3 ${getLinkClass('/about')}`}>{t('navigation:about')}</a>
+              <a href={addLangParam("/characters")} className={`block px-4 py-3 ${getLinkClass('/characters', true)}`}>{t('navigation:character')}</a>
               <a href={addLangParam("/gallery")} className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
               <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
               <a href={addLangParam("/tutorial")} className={`block px-4 py-3 ${getLinkClass('/tutorial', true)}`}>{t('navigation:tutorial')}</a>
+              <a href={addLangParam("/news")} className={`block px-4 py-3 ${getLinkClass('/news', true)}`}>{t('navigation:news')}</a>
               <a href={addLangParam("/developer")} className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
               <a href={addLangParam("/dev_blog")} className={`block px-4 py-3 ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
             </div>

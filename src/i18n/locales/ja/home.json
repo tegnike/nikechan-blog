@@ -10,14 +10,14 @@
     "profileLabel": {
       "age": "年齢",
       "birthday": "誕生日",
-      "family": "家族",
+      "height": "身長",
       "imageColor": "イメージカラー"
     },
     "profileValue": {
       "age": "17歳",
       "birthday": "01 / 04",
-      "family": "マスター",
-      "imageColor": "紫（#5A4C97）"
+      "height": "160cm",
+      "imageColor": "パープル（#5A4C97）"
     },
     "cta": {
       "profile": "詳細プロフィールを見る",
@@ -27,6 +27,14 @@
   "news": {
     "heading": "最近のアップデート",
     "items": [
+      {
+        "id": "character-page",
+        "tag": "NEW",
+        "date": "2026・1",
+        "title": "キャラクターページを追加しました",
+        "description": "AIニケちゃんファミリーの各キャラクター紹介ページを公開し、サイト全体のビジュアルやコンテンツをアップデートしました。",
+        "cta": "キャラクターページを見る"
+      },
       {
         "id": "line-stamp",
         "tag": "NEW",
@@ -58,6 +66,15 @@
         "title": "二次創作ガイドラインを公開しました",
         "description": "AIニケちゃんの二次創作に関するガイドラインを公開しました。ファンアートやAI作品などの制作・配布に関するルールをまとめています。",
         "cta": "ガイドラインを確認する"
+      },
+      {
+        "id": "discord-server",
+        "tag": "NEW",
+        "date": "2025・8",
+        "title": "AIニケちゃんのDiscordサーバーを立ち上げました",
+        "description": "AIニケちゃんのファンコミュニティとしてDiscordサーバーを開設しました。最新情報のお知らせや、ファン同士の交流の場としてご活用ください。",
+        "cta": "Discordに参加する",
+        "externalLink": "https://discord.gg/G4E5Sf3yj3"
       }
     ]
   },

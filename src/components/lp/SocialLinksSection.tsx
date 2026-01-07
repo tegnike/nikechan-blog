@@ -1,124 +1,125 @@
-import * as React from "react";
-import { ExternalLink } from "lucide-react";
-import { motion } from "motion/react";
 import { getT, type Locale } from '../../i18n/config';
-
-const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-    <path
-      fill="currentColor"
-      d="M18.146 2H21l-6.5 7.43L22 22h-6.8l-4.25-5.57L5.9 22H3l6.94-7.93L2 2h6.86l3.87 5.2L18.146 2Zm-1.19 18h1.92L7.12 4h-1.9l11.736 16Z"
-    />
-  </svg>
-);
-
-const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-    <path
-      fill="currentColor"
-      d="M20 5.54A17.2 17.2 0 0 0 15.7 4l-.23.47a15.3 15.3 0 0 1 3.46 1.3c-3.23-1.52-6.84-1.52-10.07 0 .36-.2.74-.36 1.13-.52L9.7 4C8.48 4.33 7.3 4.8 6.18 5.4 3.8 8.95 3.2 12.4 3.46 15.82c1.25.92 2.6 1.63 4.03 2.12l.86-1.81c-.47-.18-.92-.4-1.34-.66l.3-.23c2.59 1.2 5.57 1.2 8.16 0l.3.23c-.42.26-.87.48-1.34.66l.86 1.81c1.43-.49 2.78-1.2 4.03-2.12.33-4.17-.38-7.57-1.7-10.28ZM9.72 13.88c-.8 0-1.45-.75-1.45-1.68 0-.93.64-1.68 1.45-1.68.8 0 1.45.75 1.45 1.68 0 .93-.65 1.68-1.45 1.68Zm4.56 0c-.8 0-1.45-.75-1.45-1.68 0-.93.65-1.68 1.45-1.68s1.45.75 1.45 1.68c0 .93-.64 1.68-1.45 1.68Z"
-    />
-  </svg>
-);
-
-const YouTubeIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-    <path
-      fill="currentColor"
-      d="M23 7.5c0-1.4-1.1-2.5-2.4-2.7C18.7 4.3 15.6 4 12 4s-6.7.3-8.6.8C2.1 5 1 6.1 1 7.5 1 9 1 11 1 12.5S1 16 1 17.5c0 1.4 1.1 2.5 2.4 2.7C5.3 20.7 8.4 21 12 21s6.7-.3 8.6-.8c1.3-.2 2.4-1.3 2.4-2.7 0-1.5 0-3.5 0-5s0-3.5 0-5Zm-13 7.7V8.8l6.2 3.2-6.2 3.2Z"
-    />
-  </svg>
-);
 
 type Props = {
   locale?: Locale;
 }
 
+const socialLinks = [
+  {
+    platform: 'twitter',
+    url: 'https://twitter.com/tegnike',
+    bgColor: 'bg-gray-100 group-hover:bg-gray-200',
+    iconColor: 'text-gray-700',
+    icon: (
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+  {
+    platform: 'twitter',
+    url: 'https://twitter.com/ai_nikechan',
+    bgColor: 'bg-gray-100 group-hover:bg-gray-200',
+    iconColor: 'text-gray-700',
+    icon: (
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+  {
+    platform: 'discord',
+    url: 'https://discord.gg/G4E5Sf3yj3',
+    bgColor: 'bg-indigo-100 group-hover:bg-indigo-200',
+    iconColor: 'text-indigo-500',
+    icon: (
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+      </svg>
+    ),
+  },
+  {
+    platform: 'youtube',
+    url: 'https://www.youtube.com/@nikechan',
+    bgColor: 'bg-red-100 group-hover:bg-red-200',
+    iconColor: 'text-red-500',
+    icon: (
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    ),
+  },
+];
+
 export function SocialLinksSection({ locale = 'ja' }: Props) {
   const t = getT(locale);
-
-  const links = [
-    {
-      label: t('home:social.links.0.label'),
-      handle: t('home:social.links.0.handle'),
-      href: "https://twitter.com/tegnike",
-      Icon: XIcon,
-      accent: "text-gray-900",
-      ring: "ring-gray-300",
-      note: t('home:social.links.0.note'),
-    },
-    {
-      label: t('home:social.links.1.label'),
-      handle: t('home:social.links.1.handle'),
-      href: "https://twitter.com/ai_nikechan",
-      Icon: XIcon,
-      accent: "text-gray-900",
-      ring: "ring-gray-300",
-      note: t('home:social.links.1.note'),
-    },
-    {
-      label: t('home:social.links.2.label'),
-      handle: t('home:social.links.2.handle'),
-      href: "https://discord.gg/G4E5Sf3yj3",
-      Icon: DiscordIcon,
-      accent: "text-indigo-600",
-      ring: "ring-indigo-300",
-    },
-    {
-      label: t('home:social.links.3.label'),
-      handle: t('home:social.links.3.handle'),
-      href: "https://www.youtube.com/@nikechan",
-      Icon: YouTubeIcon,
-      accent: "text-red-600",
-      ring: "ring-red-300",
-    },
-  ] as const;
+  const socialData = t('home:social.links', { returnObjects: true }) as Array<{
+    label: string;
+    handle: string;
+    note?: string;
+  }>;
 
   return (
-    <section className="relative pt-10 pb-10 sm:pb-20 px-6 sm:px-10 overflow-hidden">
-      <div className="container relative z-10 mx-auto max-w-6xl">
-        <div className="text-center mb-10">
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">
-            {t('home:social.heading')}
-          </h2>
-        </div>
+    <section className="py-10 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* 見出し */}
+        <h2 className="text-3xl sm:text-4xl font-bold text-[#594A89] text-center mb-12">
+          {t('home:social.heading')}
+        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {links.map(({ label, handle, href, Icon, accent, ring, note }, i) => (
-            <div
-              key={href}
-              className="group"
-            >
+        {/* SNSカード */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+          {socialLinks.map((link, index) => {
+            const data = socialData[index];
+            return (
               <a
-                href={href}
+                key={`${link.platform}-${index}`}
+                href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${label} ${handle} を開く`}
-                className={`block relative overflow-hidden rounded-2xl border border-white/60 bg-white/90 backdrop-blur ring-2 ${ring} shadow-md transition-all cursor-pointer focus:outline-none focus-visible:ring-4 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0`}
+                className="glass-panel p-5 flex items-center gap-4 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group"
               >
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm border ${ring}`}>
-                        <Icon className={`h-6 w-6 ${accent}`} />
-                      </div>
-                      <div>
-                        <div className="text-sm text-gray-500">{label}</div>
-                        <div className="text-xl font-bold text-gray-900">{handle}</div>
-                        {note && (
-                          <div className="text-sm text-gray-600">{note}</div>
-                        )}
-                      </div>
-                    </div>
-                    {/* Visual affordance: pill-like CTA that reinforces clickability */}
-                    <span className="inline-flex items-center self-center rounded-md bg-indigo-600 p-2 text-white shadow-sm transition-colors group-hover:bg-indigo-700">
-                      <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                {/* アイコン */}
+                <div className={`flex-shrink-0 w-12 h-12 rounded-full ${link.bgColor} flex items-center justify-center ${link.iconColor} transition-colors`}>
+                  {link.icon}
+                </div>
+
+                {/* テキスト */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-gray-800">
+                      {data.label}
                     </span>
+                    {data.note && (
+                      <span className="text-xs text-gray-500">
+                        ({data.note})
+                      </span>
+                    )}
                   </div>
+                  <span className="text-sm text-gray-600 truncate block">
+                    {data.handle}
+                  </span>
+                </div>
+
+                {/* 外部リンクアイコン */}
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-200 transition-colors">
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
                 </div>
               </a>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
