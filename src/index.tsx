@@ -300,7 +300,7 @@ app.get('/characters', (c) => {
         ? "キャラクター | AIニケちゃんオフィシャルサイト"
         : "Characters | AI Nike Chan Official Website",
       description: locale === 'ja'
-        ? "AIニケちゃんとマスター・ニケのキャラクター紹介ページ"
+        ? "AIニケちゃんファミリー紹介ページ"
         : "Character introduction page for AI Nikechan and Master Nike",
       canonicalUrl: "https://nikechan.com/characters"
     }
