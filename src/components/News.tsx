@@ -6,6 +6,7 @@ type Props = {
 }
 
 const newsLinks: Record<string, string> = {
+  'character-page': '/characters',
   'line-stamp': 'https://store.line.me/stickershop/product/32003839/ja',
   'tutorial': '/tutorial',
   'distribution': '/guidelines',

@@ -28,6 +28,14 @@
     "heading": "Recent Updates",
     "items": [
       {
+        "id": "character-page",
+        "tag": "NEW",
+        "date": "2026・1",
+        "title": "Character Page Added",
+        "description": "We launched refreshed character profiles for the AI Nike Chan family and updated the overall website experience.",
+        "cta": "View Characters"
+      },
+      {
         "id": "line-stamp",
         "tag": "NEW",
         "date": "2025・11",
