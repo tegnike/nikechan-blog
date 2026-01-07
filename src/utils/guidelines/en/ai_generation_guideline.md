@@ -26,11 +26,7 @@ Please note that these guidelines may be revised without prior notice. Always ch
 
 #### Three-View Drawing
 
-![Three-View Drawing](/images/guidlines/threeviewdrawing.png)
-
-#### Three-View Drawing (With Outer Garment)
-
-![Three-View Drawing (With Outer Garment)](/images/guidlines/threeviewdrawingouter.png)
+<img src="/images/guidlines/threeviewdrawing.png" alt="Three-View Drawing" width="2048" height="1143" loading="lazy" decoding="async" />
 
 #### Terms of Use for Voice Synthesis Models
 

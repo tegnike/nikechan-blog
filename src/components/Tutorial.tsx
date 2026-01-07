@@ -123,7 +123,15 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
 
                 <div className="space-y-4">
                   <div>
-                    <img src="/images/tutorial/nikechan_三面図.png" alt={t('tutorial:illustration.materials.model3D.alt')} className="rounded-lg border border-gray-300 shadow-sm mb-2" />
+                    <img
+                      src="/images/tutorial/nikechan_三面図.png"
+                      alt={t('tutorial:illustration.materials.model3D.alt')}
+                      width={2048}
+                      height={1143}
+                      loading="lazy"
+                      decoding="async"
+                      className="rounded-lg border border-gray-300 shadow-sm mb-2"
+                    />
                     <a
                       href="/images/tutorial/nikechan_三面図.png"
                       download
