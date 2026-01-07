@@ -102,6 +102,8 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
                   <img
                     src={char.icon}
                     alt={char.nameJa}
+                    width={500}
+                    height={500}
                     className="w-full h-full rounded-full object-cover shadow-md group-hover:scale-105 transition-transform duration-300"
                     style={{
                       boxShadow: `0 4px 14px ${char.color}40`,
@@ -155,6 +157,8 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
                       <img
                         src={char.image}
                         alt={char.nameJa}
+                        width={1792}
+                        height={2400}
                         className="character-sprite relative z-10 w-full max-w-xs lg:max-w-md h-auto object-contain transform group-hover:scale-105 group-hover:-translate-y-2 transition-all duration-500 ease-out"
                         style={{
                           '--char-color': char.color,
@@ -215,60 +219,12 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
             </div>
           </div>
 
-          {/* Character Navigation */}
-          <div className="character-nav mt-12 md:mt-16">
-            {/* Mobile: Centered */}
-            <div className="flex md:hidden flex-wrap justify-center gap-4 pb-4">
-              {navCharacters.map((char) => (
-                <a
-                  key={char.id}
-                  href={`/characters/${char.id}${langQuery}`}
-                  className="character-nav-item group flex-shrink-0"
-                  style={{ '--accent-color': char.color } as React.CSSProperties}
-                >
-                  <div className="character-nav-icon relative">
-                    <div className="character-nav-ring absolute inset-0 rounded-full border-3 border-transparent group-hover:border-current transition-colors duration-300" style={{ color: char.color }} />
-                    <img
-                      src={char.icon}
-                      alt={char.nameJa}
-                      className="w-14 h-14 rounded-full object-cover shadow-md group-hover:shadow-lg transition-shadow duration-300"
-                    />
-                  </div>
-                  <span className="mt-2 text-xs font-medium text-gray-600 group-hover:text-gray-900 transition-colors whitespace-nowrap">
-                    {char.nameJa}
-                  </span>
-                </a>
-              ))}
-            </div>
-            {/* Desktop: Centered flex */}
-            <div className="hidden md:flex justify-center gap-6 lg:gap-8">
-              {navCharacters.map((char) => (
-                <a
-                  key={char.id}
-                  href={`/characters/${char.id}${langQuery}`}
-                  className="character-nav-item group"
-                  style={{ '--accent-color': char.color } as React.CSSProperties}
-                >
-                  <div className="character-nav-icon relative">
-                    <div className="character-nav-ring absolute inset-0 rounded-full border-4 border-transparent group-hover:border-current transition-colors duration-300" style={{ color: char.color }} />
-                    <img
-                      src={char.icon}
-                      alt={char.nameJa}
-                      className="w-16 h-16 lg:w-20 lg:h-20 rounded-full object-cover shadow-lg group-hover:shadow-xl transition-shadow duration-300"
-                    />
-                  </div>
-                  <span className="mt-2 text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">
-                    {char.nameJa}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
+          {/* Bottom navigation removed per request */}
         </div>
       </div>
 
       {/* Decorative Footer Gradient */}
-      <div className="character-footer h-32 relative overflow-hidden">
+      <div className="character-footer h-16 relative overflow-hidden">
         <div className="character-footer-gradient absolute inset-0" />
       </div>
     </div>

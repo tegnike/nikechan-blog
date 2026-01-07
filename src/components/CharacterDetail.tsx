@@ -213,6 +213,8 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                 <img
                   src={image}
                   alt={nameJa}
+                  width={1792}
+                  height={2400}
                   className="relative z-10 w-full max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-lg h-auto object-contain"
                   style={{ filter: `drop-shadow(-15px 10px 8px ${accentColor})` }}
                 />
@@ -326,6 +328,8 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                   <img
                     src={trihedralFigure}
                     alt={`${nameJa} ${locale === 'ja' ? '三面図' : 'Reference Sheet'}`}
+                    width={5504}
+                    height={3072}
                     className="max-w-full h-auto rounded-xl shadow-lg border border-gray-100"
                   />
                   {/* Download Button - Top Right Overlay */}
@@ -490,6 +494,8 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                   <img
                     src={char.icon}
                     alt={char.nameJa}
+                    width={500}
+                    height={500}
                     className="w-14 h-14 rounded-full object-cover shadow-md"
                   />
                 </div>
@@ -523,6 +529,8 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                   <img
                     src={char.icon}
                     alt={char.nameJa}
+                    width={500}
+                    height={500}
                     className="w-20 h-20 lg:w-24 lg:h-24 rounded-full object-cover shadow-lg"
                   />
                 </div>
