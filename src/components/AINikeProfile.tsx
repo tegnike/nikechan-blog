@@ -110,7 +110,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       icon: <Video className="w-4 h-4" />,
     },
     {
-      label: 'Sora',
+      label: 'Sora Cameo',
       url: 'https://sora.chatgpt.com/profile/ainikechan',
       icon: <Cloud className="w-4 h-4" />,
     },

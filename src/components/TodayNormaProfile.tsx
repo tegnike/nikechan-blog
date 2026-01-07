@@ -82,7 +82,7 @@ export const TodayNormaProfile: FC<TodayNormaProfileProps> = ({ locale }) => {
       icon: <ExternalLink className="w-4 h-4" />,
     },
     {
-      label: 'Sora',
+      label: 'Sora Cameo',
       url: 'https://sora.chatgpt.com/profile/today_norma',
       icon: <Cloud className="w-4 h-4" />,
     },

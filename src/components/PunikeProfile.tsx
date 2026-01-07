@@ -64,7 +64,7 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
 
   const links = [
     {
-      label: 'Sora',
+      label: 'Sora Cameo',
       url: 'https://sora.chatgpt.com/profile/punike',
       icon: <Cloud className="w-4 h-4" />,
     },

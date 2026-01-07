@@ -64,7 +64,7 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
 
   const links = [
     {
-      label: 'Sora',
+      label: 'Sora Cameo',
       url: 'https://sora.chatgpt.com/profile/mikazechan',
       icon: <Cloud className="w-4 h-4" />,
     },
