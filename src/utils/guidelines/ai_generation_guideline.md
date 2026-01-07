@@ -28,10 +28,6 @@
 
 ![三面図](/images/guidlines/threeviewdrawing.png)
 
-#### 三面図（羽織有り）
-
-![三面図（羽織有り）](/images/guidlines/threeviewdrawingouter.png)
-
 #### 合成音声モデルの利用条件
 
 - 2025年10月に公開した最新の合成音声モデルは、AIニケちゃんを題材にした非営利の二次創作（動画・配信・音声作品・デモ等）に限り利用できます。
