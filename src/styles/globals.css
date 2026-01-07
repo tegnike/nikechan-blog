@@ -195,6 +195,14 @@
   align-items: center;
   text-decoration: none;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* 固定幅を設定して画像読み込み前のレイアウトシフトを防止 */
+  width: 320px;
+}
+
+@media (min-width: 1024px) {
+  .character-card {
+    width: 448px;
+  }
 }
 
 .character-card:hover {
@@ -203,6 +211,9 @@
 
 .character-card-image {
   position: relative;
+  /* アスペクト比を設定して画像読み込み前のスペースを確保 */
+  aspect-ratio: 1792 / 2400;
+  width: 100%;
 }
 
 .character-card-glow {
@@ -305,6 +316,27 @@
 
 .character-detail-image {
   position: relative;
+  /* 固定サイズを設定して画像読み込み前のレイアウトシフトを防止 */
+  width: 280px;
+  aspect-ratio: 1792 / 2400;
+}
+
+@media (min-width: 640px) {
+  .character-detail-image {
+    width: 384px; /* max-w-sm */
+  }
+}
+
+@media (min-width: 768px) {
+  .character-detail-image {
+    width: 448px; /* max-w-md */
+  }
+}
+
+@media (min-width: 1024px) {
+  .character-detail-image {
+    width: 512px; /* max-w-lg */
+  }
 }
 
 .character-profile-section {
