@@ -42,6 +42,7 @@ export const TodayNormaProfile: FC<TodayNormaProfileProps> = ({ locale }) => {
             </span>
           ),
         },
+        { label: 'ハッシュタグ', value: '#ノルカス' },
       ]
     : [
         { label: 'Age', value: `${age} years old` },
@@ -61,6 +62,7 @@ export const TodayNormaProfile: FC<TodayNormaProfileProps> = ({ locale }) => {
             </span>
           ),
         },
+        { label: 'Hashtag', value: '#ノルカス' },
       ]
 
   const description = isJa

@@ -29,6 +29,7 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
             </span>
           ),
         },
+        { label: 'ハッシュタグ', value: '#ぷにけ' },
       ]
     : [
         { label: 'Age', value: 'Unknown' },
@@ -48,6 +49,7 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
             </span>
           ),
         },
+        { label: 'Hashtag', value: '#ぷにけ' },
       ]
 
   const description = isJa

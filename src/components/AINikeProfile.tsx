@@ -45,6 +45,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
             </span>
           ),
         },
+        { label: 'ハッシュタグ', value: '#AIニケちゃん' },
       ]
     : [
         { label: 'Age', value: '17 years old' },
@@ -79,6 +80,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
             </span>
           ),
         },
+        { label: 'Hashtag', value: '#AIニケちゃん' },
       ]
 
   const description = isJa

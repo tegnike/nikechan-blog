@@ -29,6 +29,7 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
             </span>
           ),
         },
+        { label: 'ハッシュタグ', value: '#ミカゼちゃん' },
       ]
     : [
         { label: 'Age', value: 'Varies' },
@@ -48,6 +49,7 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
             </span>
           ),
         },
+        { label: 'Hashtag', value: '#ミカゼちゃん' },
       ]
 
   const description = isJa
