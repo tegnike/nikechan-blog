@@ -39,6 +39,7 @@ app.use('*', async (c, next) => {
 app.use('/images/*', serveStatic({ root: './public' }))
 app.use('/static/*', serveStatic({ root: './public' }))
 app.use('/svg/*', serveStatic({ root: './public' }))
+app.use('/icons/*', serveStatic({ root: './public' }))
 
 app.use(renderer)
 

@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { ExternalLink, Cloud } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -79,14 +78,14 @@ export const TodayNormaProfile: FC<TodayNormaProfileProps> = ({ locale }) => {
 
   const links = [
     {
-      label: 'Twitter',
+      label: 'X',
       url: 'https://twitter.com/today_norma',
-      icon: <ExternalLink className="w-4 h-4" />,
+      icon: <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />,
     },
     {
       label: 'Sora Cameo',
       url: 'https://sora.chatgpt.com/profile/today_norma',
-      icon: <Cloud className="w-4 h-4" />,
+      icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
     },
   ]
 

@@ -1,6 +1,5 @@
 import { FC } from 'react'
-import { BookOpen, FileText, Video, Heart, MessageCircle, Users, Cloud } from 'lucide-react'
-import { Github } from 'lucide-react'
+import { Heart } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -66,34 +65,34 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
 
   const links = [
     {
-      label: 'Twitter',
+      label: 'X',
       url: 'https://twitter.com/tegnike',
-      icon: <MessageCircle className="w-4 h-4" />,
+      icon: <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />,
     },
     {
       label: 'GitHub',
       url: 'https://github.com/tegnike',
-      icon: <Github className="w-4 h-4" />,
+      icon: <img src="/icons/github.svg" alt="GitHub" className="w-4 h-4 brightness-0 invert" />,
     },
     {
       label: 'YouTube',
       url: 'https://www.youtube.com/@nikechan',
-      icon: <Video className="w-4 h-4" />,
+      icon: <img src="/icons/youtube.svg" alt="YouTube" className="w-4 h-4 brightness-0 invert" />,
     },
     {
       label: 'Zenn',
       url: 'https://zenn.dev/nikechan',
-      icon: <BookOpen className="w-4 h-4" />,
+      icon: <img src="/icons/zenn.svg" alt="Zenn" className="w-4 h-4 brightness-0 invert" />,
     },
     {
       label: 'note',
       url: 'https://note.com/nike_cha_n',
-      icon: <FileText className="w-4 h-4" />,
+      icon: <img src="/icons/note.svg" alt="note" className="w-4 h-4 brightness-0 invert" />,
     },
     {
       label: 'Sora',
       url: 'https://sora.chatgpt.com/profile/tegnike',
-      icon: <Cloud className="w-4 h-4" />,
+      icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
     },
   ]
 
@@ -361,7 +360,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{ backgroundColor: '#F9A3AB' }}
         >
-          <Users className="w-4 h-4" />
+          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />
           {isJa ? 'Discordコミュニティ' : 'Discord Community'}
         </a>
       </div>
@@ -369,7 +368,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       {/* Discord Sponsor Channel Sub-section */}
       <div className="bg-pink-50 rounded-xl p-5 border border-pink-100">
         <h4 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
-          <Users className="w-4 h-4" style={{ color: '#F9A3AB' }} />
+          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 opacity-70" />
           {isJa ? 'Discord スポンサーチャンネル' : 'Discord Sponsor Channel'}
         </h4>
         <p className="text-gray-600 text-sm mb-4">

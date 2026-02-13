@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { Cloud } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -68,7 +67,7 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
     {
       label: 'Sora Cameo',
       url: 'https://sora.chatgpt.com/profile/mikazechan',
-      icon: <Cloud className="w-4 h-4" />,
+      icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
     },
   ]
 

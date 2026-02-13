@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { ExternalLink, MessageCircle, Video, Heart, Users, Cloud } from 'lucide-react'
+import { ExternalLink, Heart } from 'lucide-react'
 import { CharacterDetail } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
@@ -99,22 +99,22 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
     {
       label: 'Discord',
       url: 'https://discord.gg/G4E5Sf3yj3',
-      icon: <Users className="w-4 h-4" />,
+      icon: <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />,
     },
     {
-      label: 'Twitter',
+      label: 'X',
       url: 'https://twitter.com/ai_nikechan',
-      icon: <MessageCircle className="w-4 h-4" />,
+      icon: <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />,
     },
     {
       label: 'YouTube',
       url: 'https://www.youtube.com/@nikechan',
-      icon: <Video className="w-4 h-4" />,
+      icon: <img src="/icons/youtube.svg" alt="YouTube" className="w-4 h-4 brightness-0 invert" />,
     },
     {
       label: 'Sora Cameo',
       url: 'https://sora.chatgpt.com/profile/ainikechan',
-      icon: <Cloud className="w-4 h-4" />,
+      icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
     },
   ]
 
@@ -248,7 +248,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{ backgroundColor: '#5A4C97' }}
         >
-          <Users className="w-4 h-4" />
+          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />
           {isJa ? 'Discordコミュニティ' : 'Discord Community'}
         </a>
       </div>
@@ -256,7 +256,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       {/* Discord Sponsor Channel Sub-section */}
       <div className="bg-purple-50 rounded-xl p-5 border border-purple-100">
         <h4 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
-          <Users className="w-4 h-4" style={{ color: '#5A4C97' }} />
+          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 opacity-70" />
           {isJa ? 'Discord スポンサーチャンネル' : 'Discord Sponsor Channel'}
         </h4>
         <p className="text-gray-600 text-sm mb-4">
