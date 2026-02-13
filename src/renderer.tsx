@@ -65,7 +65,7 @@ export const renderer = reactRenderer(({
         <meta property="og:locale" content={ogLocale} />
         <meta property="og:locale:alternate" content={locale === 'ja' ? 'en_US' : 'ja_JP'} />
 
-        {/* Twitter Card Tags */}
+        {/* X (Twitter) Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={finalTitle} />
         <meta name="twitter:description" content={finalDescription} />
@@ -96,7 +96,7 @@ export const renderer = reactRenderer(({
               "name": "Nike Chan",
               "url": siteUrl,
               "sameAs": [
-                "https://twitter.com/nikechan_ai",
+                "https://x.com/nikechan_ai",
                 "https://github.com/nikechan"
               ]
             }

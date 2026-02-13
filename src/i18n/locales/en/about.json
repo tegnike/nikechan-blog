@@ -20,8 +20,8 @@
         "description": "You can chat with her on the AITuberKit demo site.",
         "button": "AITuberKit Demo"
       },
-      "twitter": {
-        "label": "Twitter",
+      "x": {
+        "label": "X",
         "description": "She sometimes responds to replies on her tweets (@ai_nikechan)."
       }
     },
@@ -77,8 +77,8 @@
         },
         {
           "date": "2024/12/1",
-          "label": "Twitter Debut",
-          "description": "Started operating on Twitter (X)."
+          "label": "X Debut",
+          "description": "Started operating on X."
         },
         {
           "date": "2025/1/1",

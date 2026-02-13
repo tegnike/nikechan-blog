@@ -107,12 +107,12 @@
     "heading": "Social Media",
     "links": [
       {
-        "label": "Twitter (X)",
+        "label": "X",
         "handle": "@tegnike",
         "note": "Administrator's account"
       },
       {
-        "label": "Twitter (X)",
+        "label": "X",
         "handle": "@ai_nikechan",
         "note": "AI Nike Chan's account"
       },
@@ -151,8 +151,8 @@
   },
   "contact": {
     "heading": "Contact Us",
-    "twitter": {
-      "label": "Twitter (X)",
+    "x": {
+      "label": "X",
       "description": "Please contact us via DM",
       "handle": "@tegnike"
     },
@@ -163,7 +163,7 @@
     },
     "email": {
       "label": "Email",
-      "description": "Email contact is currently being prepared. Please contact us via Twitter (X) or Discord for now."
+      "description": "Email contact is currently being prepared. Please contact us via X or Discord for now."
     }
   }
 }

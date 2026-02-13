@@ -19,7 +19,7 @@
       "description": "お問い合わせ",
       "general": {
         "label": "一般的なお問い合わせ",
-        "description": "Twitter（@tegnike）のDMにてご連絡ください。",
+        "description": "X（@tegnike）のDMにてご連絡ください。",
         "button": "DMを送る"
       },
       "aiTuberKit": {

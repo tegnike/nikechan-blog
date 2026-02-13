@@ -72,7 +72,7 @@ For conditions regarding generation, training, and distribution using AI, please
 
 #### 3.6 Use of Voice Synthesis Models {#voice-model}
 - AI Nike-Chan's voice synthesis model can be used only for non-commercial derivative works featuring AI Nike-Chan (streams, videos, voice works, demos, etc.).
-- Distribution of model data is subject to application. Please contact us via [Twitter (X) DM](https://twitter.com/tegnike) or [Discord Community](https://discord.gg/G4E5Sf3yj3) with details of your intended use (publication location, expected genre, presence of monetization features, etc.).
+- Distribution of model data is subject to application. Please contact us via [X DM](https://x.com/tegnike) or [Discord Community](https://discord.gg/G4E5Sf3yj3) with details of your intended use (publication location, expected genre, presence of monetization features, etc.).
 - Redistribution, transfer to third parties, or sale of distributed data is prohibited. When publishing works using the voice model, follow the attribution rules and prohibited items of these guidelines.
 
 ---

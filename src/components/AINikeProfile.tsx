@@ -103,7 +103,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
     },
     {
       label: 'X',
-      url: 'https://twitter.com/ai_nikechan',
+      url: 'https://x.com/ai_nikechan',
       icon: <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />,
     },
     {
@@ -134,8 +134,8 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         },
         {
           date: '2024/12/1',
-          label: 'Twitterデビュー',
-          description: 'Twitter（X）の運用を開始する。',
+          label: 'Xデビュー',
+          description: 'Xの運用を開始する。',
         },
         {
           date: '2025/1/1',
@@ -170,8 +170,8 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         },
         {
           date: 'Dec 1, 2024',
-          label: 'Twitter Debut',
-          description: 'Started operating Twitter (X) account.',
+          label: 'X Debut',
+          description: 'Started operating X account.',
         },
         {
           date: 'Jan 1, 2025',

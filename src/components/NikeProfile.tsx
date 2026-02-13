@@ -66,7 +66,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
   const links = [
     {
       label: 'X',
-      url: 'https://twitter.com/tegnike',
+      url: 'https://x.com/tegnike',
       icon: <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />,
     },
     {

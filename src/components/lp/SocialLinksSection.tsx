@@ -6,8 +6,8 @@ type Props = {
 
 const socialLinks = [
   {
-    platform: 'twitter',
-    url: 'https://twitter.com/tegnike',
+    platform: 'x',
+    url: 'https://x.com/tegnike',
     bgColor: 'bg-gray-100 group-hover:bg-gray-200',
     iconColor: 'text-gray-700',
     icon: (
@@ -17,8 +17,8 @@ const socialLinks = [
     ),
   },
   {
-    platform: 'twitter',
-    url: 'https://twitter.com/ai_nikechan',
+    platform: 'x',
+    url: 'https://x.com/ai_nikechan',
     bgColor: 'bg-gray-100 group-hover:bg-gray-200',
     iconColor: 'text-gray-700',
     icon: (

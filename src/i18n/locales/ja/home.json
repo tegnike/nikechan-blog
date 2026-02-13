@@ -106,12 +106,12 @@
     "heading": "SNS",
     "links": [
       {
-        "label": "Twitter (X)",
+        "label": "X",
         "handle": "@tegnike",
         "note": "管理者のアカウント"
       },
       {
-        "label": "Twitter (X)",
+        "label": "X",
         "handle": "@ai_nikechan",
         "note": "AIニケちゃんのアカウント"
       },
@@ -150,8 +150,8 @@
   },
   "contact": {
     "heading": "お問い合わせ",
-    "twitter": {
-      "label": "Twitter (X)",
+    "x": {
+      "label": "X",
       "description": "DMでご連絡ください",
       "handle": "@tegnike"
     },
@@ -162,7 +162,7 @@
     },
     "email": {
       "label": "メール",
-      "description": "メール窓口は現在準備中です。恐れ入りますが、当面は Twitter (X) または Discord よりご連絡ください。"
+      "description": "メール窓口は現在準備中です。恐れ入りますが、当面は X または Discord よりご連絡ください。"
     }
   }
 }

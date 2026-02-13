@@ -20,8 +20,8 @@
         "description": "デモサイト（AITuberKit）にて会話することが可能です。",
         "button": "AITuberKit デモ"
       },
-      "twitter": {
-        "label": "Twitter",
+      "x": {
+        "label": "X",
         "description": "ツイート（@ai_nikechan）へのリプライに反応することがあります。"
       }
     },
@@ -77,8 +77,8 @@
         },
         {
           "date": "2024/12/1",
-          "label": "Twitterデビュー",
-          "description": "Twitter（X）の運用を開始する。"
+          "label": "Xデビュー",
+          "description": "Xの運用を開始する。"
         },
         {
           "date": "2025/1/1",

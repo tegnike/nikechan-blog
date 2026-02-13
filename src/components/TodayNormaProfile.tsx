@@ -66,12 +66,12 @@ export const TodayNormaProfile: FC<TodayNormaProfileProps> = ({ locale }) => {
 
   const description = isJa
     ? [
-        '今日が何の日かを伝えるTwitter(X) bot。ニケの創作のネタ切れを解消するために即席で作成された。',
+        '今日が何の日かを伝えるX bot。ニケの創作のネタ切れを解消するために即席で作成された。',
         'システムに不具合があるので、稀に誤った日や存在しない日を伝えてしまうことがある。',
         'ニケが生み出したという点で、AIニケちゃんとは姉弟に当たる。通称「ノルカス」。',
       ]
     : [
-        'A Twitter(X) bot that tells you what day it is today. Created on the spot to help Nike overcome creative blocks.',
+        'An X bot that tells you what day it is today. Created on the spot to help Nike overcome creative blocks.',
         'Due to system bugs, it occasionally reports incorrect or non-existent days.',
         'As a system derived from Nike, considered a sibling of AI Nikechan. Nicknamed "Norukasu".',
       ]
@@ -79,7 +79,7 @@ export const TodayNormaProfile: FC<TodayNormaProfileProps> = ({ locale }) => {
   const links = [
     {
       label: 'X',
-      url: 'https://twitter.com/today_norma',
+      url: 'https://x.com/today_norma',
       icon: <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />,
     },
     {

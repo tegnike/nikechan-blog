@@ -31,7 +31,7 @@ Please note that these guidelines may be revised without prior notice. Always ch
 #### Terms of Use for Voice Synthesis Models
 
 - The latest voice synthesis model published in October 2025 can be used only for non-commercial derivative works featuring AI Nike-Chan (videos, streams, voice works, demos, etc.).
-- Model data is distributed individually upon application. Please contact us via [Twitter (X) DM](https://twitter.com/tegnike) or [Discord Community](https://discord.gg/G4E5Sf3yj3) with details of your intended use (publication destination, expected genre, presence of monetization features, etc.).
+- Model data is distributed individually upon application. Please contact us via [X DM](https://x.com/tegnike) or [Discord Community](https://discord.gg/G4E5Sf3yj3) with details of your intended use (publication destination, expected genre, presence of monetization features, etc.).
 - The following acts are prohibited:
   - Redistribution, transfer to third parties, or sale of model data
   - Recreation of models using synthesized voice obtained from model data

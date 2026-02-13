@@ -17,9 +17,9 @@ export function ContactSupportSection({ locale = 'ja' }: Props) {
 
         {/* 連絡先カード */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {/* Twitter */}
+          {/* X */}
           <a
-            href="https://twitter.com/tegnike"
+            href="https://x.com/tegnike"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-panel p-6 text-center hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group"
@@ -30,13 +30,13 @@ export function ContactSupportSection({ locale = 'ja' }: Props) {
               </svg>
             </div>
             <h3 className="font-bold text-gray-800 mb-1">
-              {t('home:contact.twitter.label')}
+              {t('home:contact.x.label')}
             </h3>
             <p className="text-sm text-gray-500 mb-2">
-              {t('home:contact.twitter.description')}
+              {t('home:contact.x.description')}
             </p>
             <span className="text-sm text-pink-500 font-medium">
-              {t('home:contact.twitter.handle')}
+              {t('home:contact.x.handle')}
             </span>
           </a>
 
