@@ -248,15 +248,9 @@ app.get('/dev_blog', async (c) => {
 app.get('/dev/blog', (c) => c.redirect('/dev_blog', 301))
 
 // Backward-compatible redirects from old blog paths
-app.get('/blog', (c) => c.redirect('/log', 301))
-app.get('/blog/summary/:yearMonth', (c) => {
-  const ym = c.req.param('yearMonth')
-  return c.redirect(`/log/summary/${ym}`, 301)
-})
-app.get('/blog/:id', (c) => {
-  const id = c.req.param('id')
-  return c.redirect(`/log/${id}`, 301)
-})
+app.get('/blog', (c) => c.redirect('/dev_blog', 301))
+app.get('/blog/summary/:yearMonth', (c) => c.redirect('/dev_blog', 301))
+app.get('/blog/:id', (c) => c.redirect('/dev_blog', 301))
 
 // About page
 app.get('/about', (c) => {
