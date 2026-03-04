@@ -28,6 +28,24 @@
     "heading": "Recent Updates",
     "items": [
       {
+        "id": "x-bot-restart",
+        "tag": "NEW",
+        "date": "2026・3",
+        "title": "AI Nike Chan X Bot Upgraded and Relaunched",
+        "description": "After about a month of downtime, the AI Nike Chan X bot (@ai_nikechan) has been upgraded and relaunched. In addition to autonomous tweets, it now responds to replies on AI Nike Chan's posts and mentions to @ai_nikechan. Overall conversation quality has also been improved.",
+        "cta": "View on X",
+        "externalLink": "https://x.com/ai_nikechan"
+      },
+      {
+        "id": "discord-bot",
+        "tag": "NEW",
+        "date": "2026・2",
+        "title": "AI Nike Chan Bot Added to Discord",
+        "description": "We've added an AI Nike Chan bot to our Discord server, allowing you to chat with AI Nike Chan. All members can view conversations, while posting is currently available to supporters only.",
+        "cta": "Join Discord",
+        "externalLink": "https://discord.gg/nikechan"
+      },
+      {
         "id": "character-page",
         "tag": "NEW",
         "date": "2026・1",

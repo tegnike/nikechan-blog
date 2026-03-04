@@ -28,6 +28,24 @@
     "heading": "最近のアップデート",
     "items": [
       {
+        "id": "x-bot-restart",
+        "tag": "NEW",
+        "date": "2026・3",
+        "title": "AIニケちゃんX botがアップグレードして再始動しました",
+        "description": "約1ヶ月の休止期間を経て、AIニケちゃんのX bot（@ai_nikechan）がアップグレードして再開しました。自律的なツイートに加え、AIニケちゃんの投稿へのリプライや@ai_nikechanへのメンションにも応答します。発話内容のクオリティも全体的に向上しています。",
+        "cta": "Xで見る",
+        "externalLink": "https://x.com/ai_nikechan"
+      },
+      {
+        "id": "discord-bot",
+        "tag": "NEW",
+        "date": "2026・2",
+        "title": "DiscordにAIニケちゃんbotを導入しました",
+        "description": "DiscordサーバーにAIニケちゃんbotを導入し、AIニケちゃんとお話できるようになりました。閲覧は全メンバー可能で、書き込みは現在サポーターのみとなっています。",
+        "cta": "Discordに参加する",
+        "externalLink": "https://discord.gg/nikechan"
+      },
+      {
         "id": "character-page",
         "tag": "NEW",
         "date": "2026・1",
