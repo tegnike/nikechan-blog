@@ -7,6 +7,8 @@ type Props = {
 export function ContactSupportSection({ locale = 'ja' }: Props) {
   const t = getT(locale);
 
+  const examples = t('home:contact.collaboration.examples', { returnObjects: true }) as string[];
+
   return (
     <section className="py-10 sm:py-16 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
@@ -14,6 +16,24 @@ export function ContactSupportSection({ locale = 'ja' }: Props) {
         <h2 className="text-3xl sm:text-4xl font-bold text-[#594A89] text-center mb-12">
           {t('home:contact.heading')}
         </h2>
+
+        {/* コラボレーション */}
+        <div className="glass-panel p-6 sm:p-8 mb-8">
+          <h3 className="text-lg font-bold text-[#594A89] mb-3">
+            {t('home:contact.collaboration.heading')}
+          </h3>
+          <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+            {t('home:contact.collaboration.description')}
+          </p>
+          <ul className="text-gray-600 text-sm space-y-2">
+            {examples.map((example, i) => (
+              <li key={i} className="flex items-center gap-2">
+                <span className="text-purple-600">•</span>
+                <span>{example}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* 連絡先カード */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

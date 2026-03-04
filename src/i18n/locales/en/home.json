@@ -169,6 +169,16 @@
   },
   "contact": {
     "heading": "Contact Us",
+    "collaboration": {
+      "heading": "Collaboration",
+      "description": "Interested in collaborating with AI Nike Chan? Feel free to reach out. We welcome inquiries from both businesses and individuals.",
+      "examples": [
+        "Appearances in streams & videos",
+        "Music & voice collaboration",
+        "Merchandise & product development"
+      ],
+      "cta": "Contact via X DM"
+    },
     "x": {
       "label": "X",
       "description": "Please contact us via DM",

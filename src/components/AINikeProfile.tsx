@@ -26,6 +26,12 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       note: string
     }
   }
+  const collaboration = t('about:profile.collaboration', { returnObjects: true }) as {
+    description: string
+    text: string
+    examples: string[]
+    cta: string
+  }
   const lineStamp = t('about:profile.lineStamp', { returnObjects: true }) as {
     heading: string
     text: string
@@ -105,9 +111,6 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       >
         SUPPORT
       </h3>
-      <p className="text-gray-500 text-sm mb-4">
-        {support.description}
-      </p>
       <p className="text-gray-600 mb-4 leading-relaxed">
         {support.text}
       </p>
@@ -163,6 +166,39 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           {support.sponsorChannel.note}
         </p>
       </div>
+    </div>
+  )
+
+  // Collaboration Section
+  const collaborationSection = (
+    <div className="glass-panel p-6 md:p-8">
+      <h3
+        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
+        style={{ borderColor: '#5A4C97', color: '#5A4C97' }}
+      >
+        COLLABORATION
+      </h3>
+      <p className="text-gray-600 mb-4 leading-relaxed">
+        {collaboration.text}
+      </p>
+      <ul className="text-gray-600 mb-6 space-y-2">
+        {collaboration.examples.map((example, i) => (
+          <li key={i} className="flex items-center gap-2">
+            <span className="text-purple-600">•</span>
+            <span>{example}</span>
+          </li>
+        ))}
+      </ul>
+      <a
+        href="https://x.com/tegnike"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+        style={{ backgroundColor: '#5A4C97' }}
+      >
+        <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
+        {collaboration.cta}
+      </a>
     </div>
   )
 
@@ -225,6 +261,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       historyTitle="HISTORY"
       customSections={
         <>
+          {collaborationSection}
           {lineStampSection}
           {supportSection}
         </>

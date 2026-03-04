@@ -305,6 +305,47 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
       ]
 
+  // Collaboration Section
+  const collaborationSection = (
+    <div className="glass-panel p-6 md:p-8">
+      <h3
+        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
+        style={{ borderColor: '#F9A3AB', color: '#F9A3AB' }}
+      >
+        COLLABORATION
+      </h3>
+      <p className="text-gray-600 mb-4 leading-relaxed">
+        {isJa
+          ? 'AIニケちゃんとのコラボレーションに興味をお持ちの方は、お気軽にご連絡ください。企業・個人を問わず歓迎しています。'
+          : 'Interested in collaborating with AI Nike Chan? Feel free to reach out. We welcome inquiries from both businesses and individuals.'}
+      </p>
+      <ul className="text-gray-600 mb-6 space-y-2">
+        <li className="flex items-center gap-2">
+          <span className="text-pink-400">•</span>
+          <span>{isJa ? '配信・動画への出演' : 'Appearances in streams & videos'}</span>
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="text-pink-400">•</span>
+          <span>{isJa ? '楽曲・音声コラボ' : 'Music & voice collaboration'}</span>
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="text-pink-400">•</span>
+          <span>{isJa ? 'グッズ・商品化' : 'Merchandise & product development'}</span>
+        </li>
+      </ul>
+      <a
+        href="https://x.com/tegnike"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+        style={{ backgroundColor: '#F9A3AB' }}
+      >
+        <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
+        {isJa ? 'X DMで相談する' : 'Contact via X DM'}
+      </a>
+    </div>
+  )
+
   // Custom Support Section with detailed content (same as AI Nikechan)
   const supportSection = (
     <div className="glass-panel p-6 md:p-8">
@@ -431,7 +472,12 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       historyTitle="CAREER"
       products={products}
       productsTitle="PRODUCTS"
-      customSections={supportSection}
+      customSections={
+        <>
+          {collaborationSection}
+          {supportSection}
+        </>
+      }
       currentCharacterId="nike"
       headerTitle={headerTitle}
       trihedralFigure="/images/characters/trihedral_figures/nikechan.png"

@@ -12,19 +12,6 @@
         "ユーザーとの対話やコミュニティでの関わりを通じてキャラクターが形作られていく、双方向に成長するAIキャラクター。X、Discord、配信など活動の場が広がるにつれ、口調や振る舞いにも幅が生まれている。"
       ]
     },
-    "contact": {
-      "heading": "Contact",
-      "description": "交流方法",
-      "aiTuberKit": {
-        "label": "AITuberKit",
-        "description": "デモサイト（AITuberKit）にて会話することが可能です。",
-        "button": "AITuberKit デモ"
-      },
-      "x": {
-        "label": "X",
-        "description": "ツイート（@ai_nikechan）へのリプライに反応することがあります。"
-      }
-    },
     "masterLink": "ニケの紹介ページへ",
     "details": {
       "heading": "Profile",
@@ -105,6 +92,17 @@
           "description": "AIニケちゃんの最新合成音声モデルをリリースし、お披露目MVを公開。"
         }
       ]
+    },
+    "collaboration": {
+      "heading": "COLLABORATION",
+      "description": "コラボレーションのご相談",
+      "text": "AIニケちゃんとのコラボレーションに興味をお持ちの方は、お気軽にご連絡ください。企業・個人を問わず歓迎しています。",
+      "examples": [
+        "配信・動画への出演",
+        "楽曲・音声コラボ",
+        "グッズ・商品化"
+      ],
+      "cta": "X DMで相談する"
     },
     "support": {
       "heading": "Support",

@@ -12,19 +12,6 @@
         "An AI character that grows through dialogue with users and engagement within the community. As her presence has expanded across X, Discord, live streams, and more, her speech and mannerisms have naturally diversified."
       ]
     },
-    "contact": {
-      "heading": "Contact",
-      "description": "How to Interact",
-      "aiTuberKit": {
-        "label": "AITuberKit",
-        "description": "You can chat with her on the AITuberKit demo site.",
-        "button": "AITuberKit Demo"
-      },
-      "x": {
-        "label": "X",
-        "description": "She sometimes responds to replies on her tweets (@ai_nikechan)."
-      }
-    },
     "masterLink": "View Master's Profile",
     "details": {
       "heading": "Profile",
@@ -105,6 +92,17 @@
           "description": "Released AI Nike Chan's latest voice synthesis model and published debut MV."
         }
       ]
+    },
+    "collaboration": {
+      "heading": "COLLABORATION",
+      "description": "Collaboration Inquiries",
+      "text": "Interested in collaborating with AI Nike Chan? Feel free to reach out. We welcome inquiries from both businesses and individuals.",
+      "examples": [
+        "Appearances in streams & videos",
+        "Music & voice collaboration",
+        "Merchandise & product development"
+      ],
+      "cta": "Contact via X DM"
     },
     "support": {
       "heading": "Support",
