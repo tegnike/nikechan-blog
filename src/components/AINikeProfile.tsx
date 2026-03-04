@@ -98,7 +98,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
   const links = [
     {
       label: 'Discord',
-      url: 'https://discord.gg/G4E5Sf3yj3',
+      url: 'https://discord.gg/nikechan',
       icon: <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />,
     },
     {
@@ -242,7 +242,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           {isJa ? 'FANBOXで支援' : 'Support on FANBOX'}
         </a>
         <a
-          href="https://discord.gg/G4E5Sf3yj3"
+          href="https://discord.gg/nikechan"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"

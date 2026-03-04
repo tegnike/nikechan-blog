@@ -354,7 +354,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
           {isJa ? 'FANBOXで支援' : 'Support on FANBOX'}
         </a>
         <a
-          href="https://discord.gg/G4E5Sf3yj3"
+          href="https://discord.gg/nikechan"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"

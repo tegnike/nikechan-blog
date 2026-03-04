@@ -42,7 +42,7 @@ export function ContactSupportSection({ locale = 'ja' }: Props) {
 
           {/* Discord */}
           <a
-            href="https://discord.gg/G4E5Sf3yj3"
+            href="https://discord.gg/nikechan"
             target="_blank"
             rel="noopener noreferrer"
             className="glass-panel p-6 text-center hover:-translate-y-1 hover:shadow-xl transition-all duration-300 group"

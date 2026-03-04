@@ -29,7 +29,7 @@ const socialLinks = [
   },
   {
     platform: 'discord',
-    url: 'https://discord.gg/G4E5Sf3yj3',
+    url: 'https://discord.gg/nikechan',
     bgColor: 'bg-indigo-100 group-hover:bg-indigo-200',
     iconColor: 'text-indigo-500',
     icon: (
