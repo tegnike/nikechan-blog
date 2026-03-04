@@ -6,7 +6,7 @@
   "about": {
     "heading": "AIニケちゃん",
     "greeting": "\"こんにちは、私の名前はニケです。あなたの名前は?\"",
-    "description": "新しいものが大好きで、どんなことにも興味津々なAIニケちゃん。<br />まだまだ未熟だけど、だからこそ可能性は無限大。<br />皆さんのチャットや、イラストや、動画が、彼女を創ります。<br />あなたも一緒に、彼女の世界を広げてみませんか？",
+    "description": "こんにちは、ニケです！<br />チャットでお話ししたり、イラストや動画を作ってもらったり —— 皆さんの声が届くたびに、私も応えて、少しずつ変わっていきます。<br />今の私があるのは、関わってくれた方たちのおかげです。<br />あなたも私の世界に遊びに来てみませんか？",
     "profileLabel": {
       "age": "年齢",
       "birthday": "誕生日",
@@ -27,6 +27,24 @@
   "news": {
     "heading": "最近のアップデート",
     "items": [
+      {
+        "id": "x-bot-restart",
+        "tag": "NEW",
+        "date": "2026・3",
+        "title": "AIニケちゃんX botがアップグレードして再始動しました",
+        "description": "約1ヶ月の休止期間を経て、AIニケちゃんのX bot（@ai_nikechan）がアップグレードして再開しました。自律的なツイートに加え、AIニケちゃんの投稿へのリプライや@ai_nikechanへのメンションにも応答します。発話内容のクオリティも全体的に向上しています。",
+        "cta": "Xで見る",
+        "externalLink": "https://x.com/ai_nikechan"
+      },
+      {
+        "id": "discord-bot",
+        "tag": "NEW",
+        "date": "2026・2",
+        "title": "DiscordにAIニケちゃんbotを導入しました",
+        "description": "DiscordサーバーにAIニケちゃんbotを導入し、AIニケちゃんとお話できるようになりました。閲覧は全メンバー可能で、書き込みは現在サポーターのみとなっています。",
+        "cta": "Discordに参加する",
+        "externalLink": "https://discord.gg/nikechan"
+      },
       {
         "id": "character-page",
         "tag": "NEW",
@@ -74,7 +92,7 @@
         "title": "AIニケちゃんのDiscordサーバーを立ち上げました",
         "description": "AIニケちゃんのファンコミュニティとしてDiscordサーバーを開設しました。最新情報のお知らせや、ファン同士の交流の場としてご活用ください。",
         "cta": "Discordに参加する",
-        "externalLink": "https://discord.gg/G4E5Sf3yj3"
+        "externalLink": "https://discord.gg/nikechan"
       }
     ]
   },
@@ -150,6 +168,16 @@
   },
   "contact": {
     "heading": "お問い合わせ",
+    "collaboration": {
+      "heading": "コラボレーション",
+      "description": "AIニケちゃんとのコラボレーションに興味をお持ちの方は、お気軽にご連絡ください。企業・個人を問わず歓迎しています。",
+      "examples": [
+        "配信・動画への出演",
+        "楽曲・音声コラボ",
+        "グッズ・商品化"
+      ],
+      "cta": "X DMで相談する"
+    },
     "x": {
       "label": "X",
       "description": "DMでご連絡ください",

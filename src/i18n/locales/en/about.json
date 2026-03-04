@@ -8,22 +8,9 @@
       "description": "About AI Nike Chan",
       "text": [
         "A concept born to become Nike's AI agent. She calls Nike 'Master'.",
-        "Being a clone, she closely resembles Nike in appearance. The only difference is their hairpins (Polish flag hairpin VS 'AI' text hairpin). Her settings and voice may change depending on the situation.",
-        "She has long served as Nike's assistant, but now you can interact with her through several tools."
+        "Being a clone, she closely resembles Nike in appearance. The only difference is their hairpins (Polish flag hairpin VS 'AI' text hairpin).",
+        "An AI character that grows through dialogue with users and engagement within the community. As her presence has expanded across X, Discord, live streams, and more, her speech and mannerisms have naturally diversified."
       ]
-    },
-    "contact": {
-      "heading": "Contact",
-      "description": "How to Interact",
-      "aiTuberKit": {
-        "label": "AITuberKit",
-        "description": "You can chat with her on the AITuberKit demo site.",
-        "button": "AITuberKit Demo"
-      },
-      "x": {
-        "label": "X",
-        "description": "She sometimes responds to replies on her tweets (@ai_nikechan)."
-      }
     },
     "masterLink": "View Master's Profile",
     "details": {
@@ -37,21 +24,30 @@
         "label": "Birthday",
         "value": "01 / 04"
       },
+      "height": {
+        "label": "Height",
+        "value": "160cm"
+      },
       "pronoun": {
         "label": "First Person",
-        "value": "I (Watashi)"
-      },
-      "family": {
-        "label": "Family",
-        "value": "Master"
+        "value": "Watashi (私)"
       },
       "tone": {
         "label": "Speech Style",
-        "value": "Polite"
+        "value": "Polite (敬語)"
+      },
+      "voice": {
+        "label": "Voice",
+        "value": "Original",
+        "guidelinesLink": "Usage Guidelines"
       },
       "imageColor": {
         "label": "Image Color",
         "value": "Purple (#5A4C97)"
+      },
+      "hashtag": {
+        "label": "Hashtag",
+        "value": "#AIニケちゃん"
       },
       "note": "* More to be added as she grows"
     },
@@ -96,6 +92,17 @@
           "description": "Released AI Nike Chan's latest voice synthesis model and published debut MV."
         }
       ]
+    },
+    "collaboration": {
+      "heading": "COLLABORATION",
+      "description": "Collaboration Inquiries",
+      "text": "Interested in collaborating with AI Nike Chan? Feel free to reach out. We welcome inquiries from both businesses and individuals.",
+      "examples": [
+        "Appearances in streams & videos",
+        "Music & voice collaboration",
+        "Merchandise & product development"
+      ],
+      "cta": "Contact via X DM"
     },
     "support": {
       "heading": "Support",

@@ -8,22 +8,9 @@
       "description": "AIニケちゃんについて",
       "text": [
         "ニケのAIエージェントとなるべく生まれた概念。ニケのことは「マスター」と呼ぶ。",
-        "クローンなのでニケと容姿が酷似している。差異はヘアピンの違いのみ（ポーランド国旗のヘアピン VS AI文字のヘアピン）。状況に応じて設定や声が変更されることがある。",
-        "長らくニケのアシスタント的な役割を担っていたが、現在はいくつかのツールを介して交流できるようになった。"
+        "クローンなのでニケと容姿が酷似している。差異はヘアピンの違いのみ（ポーランド国旗のヘアピン VS AI文字のヘアピン）。",
+        "ユーザーとの対話やコミュニティでの関わりを通じてキャラクターが形作られていく、双方向に成長するAIキャラクター。X、Discord、配信など活動の場が広がるにつれ、口調や振る舞いにも幅が生まれている。"
       ]
-    },
-    "contact": {
-      "heading": "Contact",
-      "description": "交流方法",
-      "aiTuberKit": {
-        "label": "AITuberKit",
-        "description": "デモサイト（AITuberKit）にて会話することが可能です。",
-        "button": "AITuberKit デモ"
-      },
-      "x": {
-        "label": "X",
-        "description": "ツイート（@ai_nikechan）へのリプライに反応することがあります。"
-      }
     },
     "masterLink": "ニケの紹介ページへ",
     "details": {
@@ -37,21 +24,30 @@
         "label": "誕生日",
         "value": "01 / 04"
       },
+      "height": {
+        "label": "身長",
+        "value": "160cm"
+      },
       "pronoun": {
         "label": "一人称",
         "value": "私"
-      },
-      "family": {
-        "label": "家族",
-        "value": "マスター"
       },
       "tone": {
         "label": "口調",
         "value": "敬語"
       },
+      "voice": {
+        "label": "声",
+        "value": "オリジナル",
+        "guidelinesLink": "利用ガイドライン"
+      },
       "imageColor": {
         "label": "イメージカラー",
         "value": "パープル（#5A4C97）"
+      },
+      "hashtag": {
+        "label": "ハッシュタグ",
+        "value": "#AIニケちゃん"
       },
       "note": "※ 成長するにつれて追加"
     },
@@ -96,6 +92,17 @@
           "description": "AIニケちゃんの最新合成音声モデルをリリースし、お披露目MVを公開。"
         }
       ]
+    },
+    "collaboration": {
+      "heading": "COLLABORATION",
+      "description": "コラボレーションのご相談",
+      "text": "AIニケちゃんとのコラボレーションに興味をお持ちの方は、お気軽にご連絡ください。企業・個人を問わず歓迎しています。",
+      "examples": [
+        "配信・動画への出演",
+        "楽曲・音声コラボ",
+        "グッズ・商品化"
+      ],
+      "cta": "X DMで相談する"
     },
     "support": {
       "heading": "Support",

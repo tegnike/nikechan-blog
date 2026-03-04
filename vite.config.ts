@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
     ssr: {
       // React系パッケージを外部化
       external: [
-        'react', 
+        'react',
         'react-dom',
         'react-dom/client',
         'react-dom/server'
@@ -41,6 +41,16 @@ export default defineConfig(({ mode }) => {
       }
     },
     plugins: [
+      // i18n JSONファイル変更時にブラウザをフルリロード
+      {
+        name: 'i18n-reload',
+        handleHotUpdate({ file, server }) {
+          if (file.includes('/i18n/locales/') && file.endsWith('.json')) {
+            server.ws.send({ type: 'full-reload' })
+            return []
+          }
+        }
+      },
       build(),
       devServer({
         adapter,

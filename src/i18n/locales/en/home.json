@@ -6,7 +6,7 @@
   "about": {
     "heading": "AI Nike Chan",
     "greeting": "\"Hello, my name is Nike. What's your name?\"",
-    "description": "AI Nike Chan loves new things and is curious about everything.<br />She's still learning, but that means her potential is limitless.<br />Your chats, illustrations, and videos shape who she is.<br />Why not join us in expanding her world?",
+    "description": "Hi, I'm Nike!<br />Whether it's chatting together, or having illustrations and videos made of me —— every time your voice reaches me, I respond and grow little by little.<br />I am who I am today thanks to everyone who has been part of my journey.<br />Why not come and be part of my world too?",
     "profileLabel": {
       "age": "Age",
       "birthday": "Birthday",
@@ -27,6 +27,24 @@
   "news": {
     "heading": "Recent Updates",
     "items": [
+      {
+        "id": "x-bot-restart",
+        "tag": "NEW",
+        "date": "2026・3",
+        "title": "AI Nike Chan X Bot Upgraded and Relaunched",
+        "description": "After about a month of downtime, the AI Nike Chan X bot (@ai_nikechan) has been upgraded and relaunched. In addition to autonomous tweets, it now responds to replies on AI Nike Chan's posts and mentions to @ai_nikechan. Overall conversation quality has also been improved.",
+        "cta": "View on X",
+        "externalLink": "https://x.com/ai_nikechan"
+      },
+      {
+        "id": "discord-bot",
+        "tag": "NEW",
+        "date": "2026・2",
+        "title": "AI Nike Chan Bot Added to Discord",
+        "description": "We've added an AI Nike Chan bot to our Discord server, allowing you to chat with AI Nike Chan. All members can view conversations, while posting is currently available to supporters only.",
+        "cta": "Join Discord",
+        "externalLink": "https://discord.gg/nikechan"
+      },
       {
         "id": "character-page",
         "tag": "NEW",
@@ -75,7 +93,7 @@
         "title": "AI Nike Chan Discord Server Launched",
         "description": "We've opened a Discord server as a fan community for AI Nike Chan. Use it to stay updated on the latest news and connect with other fans.",
         "cta": "Join Discord",
-        "externalLink": "https://discord.gg/G4E5Sf3yj3"
+        "externalLink": "https://discord.gg/nikechan"
       }
     ]
   },
@@ -151,6 +169,16 @@
   },
   "contact": {
     "heading": "Contact Us",
+    "collaboration": {
+      "heading": "Collaboration",
+      "description": "Interested in collaborating with AI Nike Chan? Feel free to reach out. We welcome inquiries from both businesses and individuals.",
+      "examples": [
+        "Appearances in streams & videos",
+        "Music & voice collaboration",
+        "Merchandise & product development"
+      ],
+      "cta": "Contact via X DM"
+    },
     "x": {
       "label": "X",
       "description": "Please contact us via DM",
