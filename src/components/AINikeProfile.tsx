@@ -98,6 +98,11 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       url: 'https://sora.chatgpt.com/profile/ainikechan',
       icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
     },
+    {
+      label: 'AITuberKit',
+      url: 'https://aituberkit.com',
+      icon: <img src="/icons/aituberkit.png" alt="AITuberKit" className="w-4 h-4 brightness-0 invert" />,
+    },
   ]
 
   const historyItems = history.events

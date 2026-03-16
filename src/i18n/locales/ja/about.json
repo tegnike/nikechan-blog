@@ -90,6 +90,26 @@
           "date": "2025/10/8",
           "label": "新合成音声モデル公開",
           "description": "AIニケちゃんの最新合成音声モデルをリリースし、お披露目MVを公開。"
+        },
+        {
+          "date": "2025/11",
+          "label": "LINEスタンプ販売開始",
+          "description": "AIニケちゃんのLINEスタンプを販売開始。"
+        },
+        {
+          "date": "2026/2",
+          "label": "Discord bot導入",
+          "description": "DiscordサーバーにAIニケちゃんbotを導入し、サーバー内で対話可能に。"
+        },
+        {
+          "date": "2026/3",
+          "label": "X botアップグレード再始動",
+          "description": "X bot（@ai_nikechan）がアップグレードし、リプライやメンションにも応答可能に。"
+        },
+        {
+          "date": "2026/3",
+          "label": "AITuberKitデモサイト対話機能",
+          "description": "AITuberKitのデモサイトでAIニケちゃんとリアルタイムで対話できるように。"
         }
       ]
     },

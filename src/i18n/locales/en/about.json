@@ -90,6 +90,26 @@
           "date": "2025/10/8",
           "label": "New Voice Model Released",
           "description": "Released AI Nike Chan's latest voice synthesis model and published debut MV."
+        },
+        {
+          "date": "2025/11",
+          "label": "LINE Stickers Launched",
+          "description": "Started selling AI Nike Chan LINE stickers."
+        },
+        {
+          "date": "2026/2",
+          "label": "Discord Bot Introduced",
+          "description": "Added AI Nike Chan bot to the Discord server, enabling in-server conversations."
+        },
+        {
+          "date": "2026/3",
+          "label": "X Bot Upgraded & Relaunched",
+          "description": "X bot (@ai_nikechan) upgraded to respond to replies and mentions."
+        },
+        {
+          "date": "2026/3",
+          "label": "AITuberKit Demo Site Chat",
+          "description": "Enabled real-time conversations with AI Nike Chan on the AITuberKit demo site."
         }
       ]
     },
