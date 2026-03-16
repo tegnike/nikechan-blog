@@ -28,11 +28,20 @@
     "heading": "Recent Updates",
     "items": [
       {
+        "id": "aituberkit-demo",
+        "tag": "NEW",
+        "date": "2026・3",
+        "title": "Chat with AI Nike Chan on the AITuberKit Demo Site",
+        "description": "You can now talk with AI Nike Chan in real time on the demo site of AITuberKit, an open-source project for interacting with AI characters. Try it directly from your browser.",
+        "cta": "Try the Demo",
+        "externalLink": "https://aituberkit.com"
+      },
+      {
         "id": "x-bot-restart",
         "tag": "NEW",
         "date": "2026・3",
         "title": "AI Nike Chan X Bot Upgraded and Relaunched",
-        "description": "After about a month of downtime, the AI Nike Chan X bot (@ai_nikechan) has been upgraded and relaunched. In addition to autonomous tweets, it now responds to replies on AI Nike Chan's posts and mentions to @ai_nikechan. Overall conversation quality has also been improved.",
+        "description": "After about a month of downtime, the AI Nike Chan X bot has been upgraded and relaunched. In addition to autonomous tweets, it now responds to replies on AI Nike Chan's posts and mentions to @ai_nikechan. Overall conversation quality has also been improved.",
         "cta": "View on X",
         "externalLink": "https://x.com/ai_nikechan"
       },
@@ -57,7 +66,7 @@
         "id": "line-stamp",
         "tag": "NEW",
         "date": "2025・11",
-        "title": "LINE Stickers Now Available!",
+        "title": "LINE Stickers Now Available",
         "description": "AI Nike Chan LINE stickers are here! Get adorable stickers you can use every day.",
         "cta": "View on LINE STORE",
         "externalLink": "https://store.line.me/stickershop/product/32003839/ja"
