@@ -21,6 +21,9 @@ import { MikazeProfile } from './components/MikazeProfile'
 import { PunikeProfile } from './components/PunikeProfile'
 import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { News } from './components/News'
+import { PostDetail } from './components/PostDetail'
+import { getPostBySlug, getAllPosts } from './utils/posts'
+import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
 
 const app = new Hono()
@@ -233,6 +236,37 @@ app.get('/dev_blog', async (c) => {
       canonicalUrl: "https://nikechan.com/dev_blog",
       ogType: "blog",
       keywords: "技術ブログ, プログラミング, Web開発, AI, コーディング"
+    }
+  )
+})
+
+// Blog post detail page
+app.get('/dev_blog/:slug', (c) => {
+  const slug = c.req.param('slug')
+  const post = getPostBySlug(slug)
+  if (!post) {
+    return c.text('Not Found', 404)
+  }
+
+  const html = mdToHtml(post.content)
+  const toc = extractToc(post.content)
+  const posts = getAllPosts()
+  const index = posts.findIndex((p) => p.slug === slug)
+  const prevPost = index < posts.length - 1 ? { slug: posts[index + 1].slug, title: posts[index + 1].title } : undefined
+  const nextPost = index > 0 ? { slug: posts[index - 1].slug, title: posts[index - 1].title } : undefined
+
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <PostDetail post={post} html={html} toc={toc} prevPost={prevPost} nextPost={nextPost} />
+    </Layout>,
+    {
+      title: `${post.title} | AIニケちゃんオフィシャルサイト`,
+      description: post.description,
+      canonicalUrl: `https://nikechan.com/dev_blog/${slug}`,
+      ogType: "article",
+      keywords: post.tags.join(', ')
     }
   )
 })

@@ -851,6 +851,22 @@ function bootstrap() {
     })
   }
 
+  // コードブロックのコピーボタン
+  function setupCodeCopyButtons() {
+    document.querySelectorAll('.code-copy-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const codeBlock = btn.closest('.code-block')
+        const code = codeBlock?.querySelector('code')?.textContent
+        if (code) {
+          navigator.clipboard.writeText(code).then(() => {
+            btn.textContent = 'Copied!'
+            setTimeout(() => { btn.textContent = 'Copy' }, 1500)
+          })
+        }
+      })
+    })
+  }
+
   // DOMContentLoaded で各種セットアップを実行
   document.addEventListener('DOMContentLoaded', () => {
     setupProfileToggle()
@@ -868,6 +884,7 @@ function bootstrap() {
     setupLanguageSwitcher() // 言語切り替え
     setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え
+    setupCodeCopyButtons() // コードブロックコピーボタン
   })
 }
 

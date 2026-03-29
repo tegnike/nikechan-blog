@@ -27,6 +27,19 @@ function applyInlineTransforms(str: string): string {
   return str
 }
 
+export type TocItem = {
+  level: number
+  text: string
+  id: string
+}
+
+function generateId(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\u3000-\u9fff\uff00-\uffef]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
 export function mdToHtml(md: string): string {
   const lines = md.replace(/\r\n?/g, '\n').split('\n')
 
@@ -197,13 +210,15 @@ export function mdToHtml(md: string): string {
           }
           case 'heading': {
             const text = applyInlineTransforms(escapeHtml(node.text))
-            const idAttr = node.id ? ` id="${node.id}"` : ''
-            return `<h${node.level}${idAttr}>${text}</h${node.level}>`
+            const id = node.id || generateId(node.text)
+            return `<h${node.level} id="${id}">${text}</h${node.level}>`
           }
           case 'hr':
             return '<hr />'
-          case 'code':
-            return `<pre><code${node.language ? ` class="language-${node.language}"` : ''}>${escapeHtml(node.content)}</code></pre>`
+          case 'code': {
+            const langLabel = node.language ? `<div class="code-lang">${node.language}</div>` : ''
+            return `<div class="code-block">${langLabel}<button class="code-copy-btn" type="button">Copy</button><pre><code${node.language ? ` class="language-${node.language}"` : ''}>${escapeHtml(node.content)}</code></pre></div>`
+          }
           case 'blockquote':
             return `<blockquote>${renderNodes(node.children)}</blockquote>`
           case 'list': {
@@ -226,4 +241,34 @@ export function mdToHtml(md: string): string {
 
   const { nodes } = parseBlocks(0, 0)
   return renderNodes(nodes)
+}
+
+export function extractToc(md: string): TocItem[] {
+  const toc: TocItem[] = []
+  const lines = md.replace(/\r\n?/g, '\n').split('\n')
+  let inCodeBlock = false
+
+  for (const line of lines) {
+    if (/^```/.test(line)) {
+      inCodeBlock = !inCodeBlock
+      continue
+    }
+    if (inCodeBlock) continue
+
+    const match = line.match(/^(#{2,3})\s+(.+)\s*$/)
+    if (match) {
+      let text = match[2].trim()
+      let id: string
+      const idMatch = text.match(/\s*\{#([A-Za-z0-9\-_]+)\}\s*$/)
+      if (idMatch) {
+        id = idMatch[1]
+        text = text.replace(/\s*\{#[A-Za-z0-9\-_]+\}\s*$/, '').trim()
+      } else {
+        id = generateId(text)
+      }
+      toc.push({ level: match[1].length, text, id })
+    }
+  }
+
+  return toc
 }
