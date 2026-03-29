@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { serveStatic } from '@hono/node-server/serve-static'
 import { renderer } from './renderer'
 import { Layout } from './components/Layout'
 import { LandingPage } from './components/LandingPage'
@@ -34,12 +33,6 @@ app.use('*', async (c, next) => {
   c.set('locale', locale)
   await next()
 })
-
-// 静的ファイルの配信設定を追加
-app.use('/images/*', serveStatic({ root: './public' }))
-app.use('/static/*', serveStatic({ root: './public' }))
-app.use('/svg/*', serveStatic({ root: './public' }))
-app.use('/icons/*', serveStatic({ root: './public' }))
 
 app.use(renderer)
 
@@ -442,6 +435,15 @@ app.get('/tutorial/video', (c) => {
       keywords: "AI, 動画生成, アニメーション, Live2D, VTuber, Runway, Pika Labs"
     }
   )
+})
+
+app.notFound((c) => {
+  return c.text('Not Found', 404)
+})
+
+app.onError((err, c) => {
+  console.error(err)
+  return c.text('Internal Server Error', 500)
 })
 
 export default app

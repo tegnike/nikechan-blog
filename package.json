@@ -7,9 +7,9 @@
     "dev": "concurrently \"npm run watch:css\" \"vite\"",
     "build:server": "npm run build:css && vite build",
     "build:client": "vite build --mode client",
-    "build": "npm run build:css && npm run build:client && vite build",
-    "preview": "wrangler pages dev",
-    "deploy": "npm run build && wrangler pages deploy"
+    "build": "npm run build:css && npm run build:client && vite build && cp -r public/* dist/assets/",
+    "preview": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",

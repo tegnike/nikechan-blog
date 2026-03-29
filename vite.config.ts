@@ -1,4 +1,4 @@
-import build from '@hono/vite-build/cloudflare-pages'
+import build from '@hono/vite-build/cloudflare-workers'
 import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/cloudflare'
 import { defineConfig } from 'vite'
@@ -12,8 +12,8 @@ export default defineConfig(({ mode }) => {
           // クライアント側エントリ
           input: './src/client.tsx',
           output: {
-            // Cloudflare Pages では `/static/*` がそのまま配信されるため
-            dir: './dist/static',
+            // Cloudflare Workers の static assets として配信
+            dir: './dist/assets/static',
             entryFileNames: 'client.js'
           }
         },
@@ -26,6 +26,10 @@ export default defineConfig(({ mode }) => {
 
   // server ビルド & dev サーバー設定
   return {
+    build: {
+      // public/ のコピーはbuildスクリプトで dist/assets/ に行う
+      copyPublicDir: false
+    },
     ssr: {
       // React系パッケージを外部化
       external: [
@@ -51,7 +55,11 @@ export default defineConfig(({ mode }) => {
           }
         }
       },
-      build(),
+      build({
+        entryContentAfterHooks: [
+          (appName) => `${appName}.notFound((c) => c.text('Not Found', 404))`
+        ]
+      }),
       devServer({
         adapter,
         entry: 'src/index.tsx'
