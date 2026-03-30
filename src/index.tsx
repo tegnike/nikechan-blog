@@ -22,7 +22,7 @@ import { PunikeProfile } from './components/PunikeProfile'
 import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { News } from './components/News'
 import { PostDetail } from './components/PostDetail'
-import { getPostBySlug, getAllPosts } from './utils/posts'
+import { getPostBySlug, getAllPosts, getOgpCache } from './utils/posts'
 import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
 
@@ -248,7 +248,7 @@ app.get('/dev_blog/:slug', (c) => {
     return c.text('Not Found', 404)
   }
 
-  const html = mdToHtml(post.content)
+  const html = mdToHtml(post.content, getOgpCache())
   const toc = extractToc(post.content)
   const posts = getAllPosts()
   const index = posts.findIndex((p) => p.slug === slug)

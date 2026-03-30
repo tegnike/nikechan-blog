@@ -40,7 +40,9 @@ function generateId(text: string): string {
     .replace(/^-|-$/g, '')
 }
 
-export function mdToHtml(md: string): string {
+import type { OgpData } from './posts'
+
+export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string {
   const lines = md.replace(/\r\n?/g, '\n').split('\n')
 
   type Node =
@@ -50,6 +52,7 @@ export function mdToHtml(md: string): string {
     | { type: 'code'; language: string; content: string }
     | { type: 'blockquote'; children: Node[] }
     | { type: 'list'; ordered: boolean; items: Array<{ text: string; children: Node[] }> }
+    | { type: 'ogp-card'; url: string; data: OgpData }
 
   function parseBlocks(startIndex: number, indent: number): { nodes: Node[]; nextIndex: number } {
     const nodes: Node[] = []
@@ -157,6 +160,20 @@ export function mdToHtml(md: string): string {
         continue
       }
 
+      // OGP card: [url](url) where text === href, or bare URL line
+      if (ogpCache) {
+        const linkMatch = content.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+        const bareUrlMatch = content.match(/^(https?:\/\/\S+)$/)
+        const ogpUrl = linkMatch && linkMatch[1] === linkMatch[2] ? linkMatch[1]
+          : bareUrlMatch ? bareUrlMatch[1]
+          : null
+        if (ogpUrl && ogpCache[ogpUrl]) {
+          nodes.push({ type: 'ogp-card', url: ogpUrl, data: ogpCache[ogpUrl] })
+          i++
+          continue
+        }
+      }
+
       // Paragraph
       const paragraphLines: string[] = [content]
       i++
@@ -233,6 +250,19 @@ export function mdToHtml(md: string): string {
               })
               .join('')
             return `<${tag}>${items}</${tag}>`
+          }
+          case 'ogp-card': {
+            const { data } = node
+            if (data.type === 'twitter-embed' && data.embedHtml) {
+              return `<div class="twitter-embed">${data.embedHtml}</div>`
+            }
+            const domain = (() => {
+              try { return new URL(data.url).hostname } catch { return data.url }
+            })()
+            const imageHtml = data.image
+              ? `<div class="ogp-card-image"><img src="${escapeHtml(data.image)}" alt="" loading="lazy" /></div>`
+              : ''
+            return `<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener noreferrer" class="ogp-card">${imageHtml}<div class="ogp-card-content"><div class="ogp-card-title">${escapeHtml(data.title)}</div>${data.description ? `<div class="ogp-card-description">${escapeHtml(data.description)}</div>` : ''}<div class="ogp-card-meta">${data.favicon ? `<img src="${escapeHtml(data.favicon)}" alt="" class="ogp-card-favicon" width="14" height="14" />` : ''}<span>${escapeHtml(domain)}</span></div></div></a>`
           }
         }
       })

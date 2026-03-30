@@ -56,6 +56,51 @@ function parsePost(filePath: string, raw: string): Post {
   }
 }
 
+// OGPキャッシュをビルド時にバンドルに含める
+export type OgpData = {
+  title: string
+  description: string
+  image: string
+  siteName: string
+  url: string
+  favicon: string
+  type?: 'ogp' | 'twitter-embed'
+  embedHtml?: string
+}
+
+let _ogpCache: Record<string, OgpData> | null = null
+
+function loadOgpCache(): Record<string, OgpData> {
+  if (_ogpCache) return _ogpCache
+  try {
+    const raw = ogpCacheModule as string
+    _ogpCache = JSON.parse(raw)
+    return _ogpCache!
+  } catch {
+    _ogpCache = {}
+    return _ogpCache
+  }
+}
+
+const ogpCacheModule = import.meta.glob('/content/ogp-cache.json', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>
+
+export function getOgpCache(): Record<string, OgpData> {
+  const files = Object.values(ogpCacheModule)
+  if (files.length === 0) return {}
+  if (_ogpCache) return _ogpCache
+  try {
+    _ogpCache = JSON.parse(files[0])
+    return _ogpCache!
+  } catch {
+    _ogpCache = {}
+    return _ogpCache
+  }
+}
+
 let _posts: Post[] | null = null
 
 export function getAllPosts(): Post[] {

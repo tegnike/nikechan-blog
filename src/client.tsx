@@ -867,6 +867,17 @@ function bootstrap() {
     })
   }
 
+  function setupTwitterEmbeds() {
+    const twitterEmbeds = document.querySelectorAll('.twitter-embed')
+    if (twitterEmbeds.length > 0) {
+      const script = document.createElement('script')
+      script.src = 'https://platform.twitter.com/widgets.js'
+      script.async = true
+      script.charset = 'utf-8'
+      document.body.appendChild(script)
+    }
+  }
+
   // DOMContentLoaded で各種セットアップを実行
   document.addEventListener('DOMContentLoaded', () => {
     setupProfileToggle()
@@ -885,6 +896,7 @@ function bootstrap() {
     setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え
     setupCodeCopyButtons() // コードブロックコピーボタン
+    setupTwitterEmbeds() // Twitter埋め込みウィジェット
   })
 }
 

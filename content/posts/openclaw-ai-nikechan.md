@@ -17,7 +17,7 @@ Mac miniに入れるのが通っぽかったので、古い使ってないマシ
 
 運用期間は大体2週間くらいです。（まだ2週間しか経ってないの…？？？
 
-![セットアップ画面](/static/images/posts/openclaw-ai-nikechan/02.png)
+[https://x.com/tegnike/status/2022809321117974555](https://x.com/tegnike/status/2022809321117974555)
 
 即日ヤバさに気づきます。自然言語でそのままプロンプト上書きできちゃうの無法地帯過ぎる。
 
