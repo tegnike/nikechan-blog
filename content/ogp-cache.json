@@ -50,5 +50,25 @@
     "siteName": "GitHub",
     "url": "https://github.com/tegnike/aituber-kit",
     "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://x.com/tegnike/status/2022814134438437327": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2022814134438437327",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">え、システムプロンプトを対話で書き換えられちゃうの？？<br>何にでもなれちゃうじゃんこれ笑 <a href=\"https://t.co/FhHOygMrTP\">https://t.co/FhHOygMrTP</a> <a href=\"https://t.co/IKfLBCzvH8\">pic.twitter.com/IKfLBCzvH8</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2022814134438437327?ref_src=twsrc%5Etfw\">February 14, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2038509888616153534": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2038509888616153534",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">Discord bot 放置しすぎて人格上書きされてんのおもろい <a href=\"https://t.co/yxIGvnOgjA\">pic.twitter.com/yxIGvnOgjA</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2038509888616153534?ref_src=twsrc%5Etfw\">March 30, 2026</a></blockquote>\n\n"
   }
 }
