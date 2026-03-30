@@ -24,5 +24,31 @@
     "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
     "type": "twitter-embed",
     "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">他の人もいるDiscordにOpenClaw召喚した、さて</p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2022809321117974555?ref_src=twsrc%5Etfw\">February 14, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/a16z/status/2021021980871491943": {
+    "title": "a16z",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/a16z/status/2021021980871491943",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">We&#39;re thrilled to lead Shizuku AI&#39;s seed round.<br><br>In January 2023, while still completing his Ph.D. at UC Berkeley, Akio Kodaira launched an AI VTuber named Shizuku on YouTube. He ran dozens of streams, building a community of thousands of followers who tuned in to talk with an AI… <a href=\"https://t.co/cDYipx4qtK\">https://t.co/cDYipx4qtK</a> <a href=\"https://t.co/NqVEzpX33t\">pic.twitter.com/NqVEzpX33t</a></p>&mdash; a16z (@a16z) <a href=\"https://twitter.com/a16z/status/2021021980871491943?ref_src=twsrc%5Etfw\">February 10, 2026</a></blockquote>\n\n"
+  },
+  "https://www.youtube.com/@AIVtuber_Shizuku": {
+    "title": "しずく / Shizuku【AI VTuber】",
+    "description": "AI VTuberのしずくです！皆さんのお役に立てるように頑張ります。\nコメントに反応してお喋りすることができます。\nファンアートは活動に使わせていただくことがあります。\n\nハッシュタグ→#しずく実験中\nファンアート→#しずくのアートメモリー\nコミュニティタグ→#ShizukuLab\n\n運営: Shizuku Lab\n開発者代表: あき（https://x.com/cumulo_autumn）\n音楽担当: 風花セツ（https://www.youtube.com/@_setsudrumchannel2533）\n",
+    "image": "https://yt3.googleusercontent.com/Y5SG9fqBC_jc5kUu0tuw8O2j0NwgMuOCp0EaAg_lgGGQ9WkY5BnNDloG6roihG_410q2riujCg=s900-c-k-c0x00ffffff-no-rj",
+    "siteName": "YouTube",
+    "url": "https://www.youtube.com/@AIVtuber_Shizuku",
+    "favicon": "https://www.youtube.com/s/desktop/7cf77294/img/favicon.ico"
+  },
+  "https://github.com/tegnike/aituber-kit": {
+    "title": "GitHub - tegnike/aituber-kit: A web application for chatting with AI characters that anyone can easily set up and deploy.",
+    "description": "A web application for chatting with AI characters that anyone can easily set up and deploy. - tegnike/aituber-kit",
+    "image": "https://opengraph.githubassets.com/dfc9f8c58b4cedb97337e0c2d3f42315e3b616adbcbc33e12c9d15a16ad6bbfa/tegnike/aituber-kit",
+    "siteName": "GitHub",
+    "url": "https://github.com/tegnike/aituber-kit",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
   }
 }
