@@ -60,7 +60,7 @@ export const renderer = reactRenderer(({
         <meta property="og:type" content={ogType || 'website'} />
         <meta property="og:url" content={finalCanonicalUrl} />
         <meta property="og:image" content={finalOgImage} />
-        <meta property="og:image:alt" content="Nike Chan Logo" />
+        <meta property="og:image:alt" content={finalTitle} />
         <meta property="og:site_name" content="NIKELOG" />
         <meta property="og:locale" content={ogLocale} />
         <meta property="og:locale:alternate" content={locale === 'ja' ? 'en_US' : 'ja_JP'} />
