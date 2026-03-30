@@ -223,6 +223,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
         switch (node.type) {
           case 'paragraph': {
             const text = applyInlineTransforms(escapeHtml(node.text))
+              .replace(/\n/g, '<br />')
             return `<p>${text}</p>`
           }
           case 'heading': {
