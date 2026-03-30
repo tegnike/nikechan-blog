@@ -869,10 +869,9 @@ function bootstrap() {
 
   function setupShareButtons() {
     // Xでシェア
-    const shareXBtn = document.querySelector('[data-share-x]') as HTMLElement | null
-    if (shareXBtn) {
-      shareXBtn.addEventListener('click', () => {
-        const title = shareXBtn.getAttribute('data-title') || ''
+    document.querySelectorAll<HTMLElement>('[data-share-x]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const title = btn.getAttribute('data-title') || ''
         const url = window.location.href
         const text = `${title}\n${url}`
         window.open(
@@ -881,40 +880,39 @@ function bootstrap() {
           'noopener,noreferrer'
         )
       })
-    }
+    })
 
     // URLコピー
-    const copyUrlBtn = document.querySelector('[data-share-copy-url]') as HTMLElement | null
-    if (copyUrlBtn) {
-      copyUrlBtn.addEventListener('click', () => {
+    document.querySelectorAll<HTMLElement>('[data-share-copy-url]').forEach((btn) => {
+      btn.addEventListener('click', () => {
         navigator.clipboard.writeText(window.location.href).then(() => {
-          const svg = copyUrlBtn.querySelector('svg')
+          const svg = btn.querySelector('svg')
           if (svg) svg.style.display = 'none'
-          copyUrlBtn.insertAdjacentHTML('beforeend', '<span class="text-xs font-medium">Copied!</span>')
+          btn.insertAdjacentHTML('beforeend', '<span class="text-xs font-medium">Copied!</span>')
           setTimeout(() => {
-            const span = copyUrlBtn.querySelector('span')
+            const span = btn.querySelector('span')
             if (span) span.remove()
             if (svg) svg.style.display = ''
           }, 1500)
         })
       })
-    }
+    })
   }
 
   function setupMarkdownCopyButton() {
-    const btn = document.querySelector('[data-copy-markdown]') as HTMLElement | null
-    if (!btn) return
-    btn.addEventListener('click', () => {
-      const markdown = btn.getAttribute('data-markdown') || ''
-      navigator.clipboard.writeText(markdown).then(() => {
-        const svg = btn.querySelector('svg')
-        if (svg) svg.style.display = 'none'
-        btn.insertAdjacentHTML('beforeend', '<span class="text-xs font-medium">Copied!</span>')
-        setTimeout(() => {
-          const span = btn.querySelector('span')
-          if (span) span.remove()
-          if (svg) svg.style.display = ''
-        }, 1500)
+    document.querySelectorAll<HTMLElement>('[data-copy-markdown]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const markdown = btn.getAttribute('data-markdown') || ''
+        navigator.clipboard.writeText(markdown).then(() => {
+          const svg = btn.querySelector('svg')
+          if (svg) svg.style.display = 'none'
+          btn.insertAdjacentHTML('beforeend', '<span class="text-xs font-medium">Copied!</span>')
+          setTimeout(() => {
+            const span = btn.querySelector('span')
+            if (span) span.remove()
+            if (svg) svg.style.display = ''
+          }, 1500)
+        })
       })
     })
   }
