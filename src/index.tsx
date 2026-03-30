@@ -34,6 +34,7 @@ app.use('*', async (c, next) => {
   const acceptLanguage = c.req.header('accept-language')
   const locale = detectLocale(url, acceptLanguage)
   c.set('locale', locale)
+  c.header('X-Build-Sha', import.meta.env.VITE_BUILD_SHA || 'unknown')
   await next()
 })
 

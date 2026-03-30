@@ -30,6 +30,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(env.VITE_SUPABASE_URL),
       'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(env.VITE_SUPABASE_ANON_KEY),
+      'import.meta.env.VITE_BUILD_SHA': JSON.stringify(env.VITE_BUILD_SHA),
     },
     build: {
       // public/ のコピーはbuildスクリプトで dist/assets/ に行う

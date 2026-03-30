@@ -43,6 +43,7 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_BUILD_SHA: ${{ github.sha }}
 
       - name: Verify Supabase config in bundle
         run: |
@@ -82,6 +83,15 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Verify build fingerprint in bundle
+        run: |
+          if grep -q "${GITHUB_SHA}" dist/index.js; then
+            echo "✅ Build SHA found in bundle"
+          else
+            echo "❌ Build SHA NOT found in bundle"
+            exit 1
+          fi
 
       - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy
