@@ -30,6 +30,19 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Verify Supabase URL in bundle
+        run: |
+          if grep -q "supabase.co" dist/index.js; then
+            echo "✅ Supabase URL found in bundle"
+          else
+            echo "❌ Supabase URL NOT found in bundle!"
+            echo "--- .env file contents (masked) ---"
+            cat .env | sed 's/=.*/=***/'
+            echo "--- Checking import.meta.env in bundle ---"
+            grep -c "import.meta.env" dist/index.js || echo "No import.meta.env references"
+            exit 1
+          fi
+
       - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy
         env:
