@@ -867,6 +867,40 @@ function bootstrap() {
     })
   }
 
+  function setupShareButtons() {
+    // Xでシェア
+    const shareXBtn = document.querySelector('[data-share-x]') as HTMLElement | null
+    if (shareXBtn) {
+      shareXBtn.addEventListener('click', () => {
+        const title = shareXBtn.getAttribute('data-title') || ''
+        const url = window.location.href
+        const text = `${title}\n${url}`
+        window.open(
+          `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`,
+          '_blank',
+          'noopener,noreferrer'
+        )
+      })
+    }
+
+    // URLコピー
+    const copyUrlBtn = document.querySelector('[data-share-copy-url]') as HTMLElement | null
+    if (copyUrlBtn) {
+      copyUrlBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          const svg = copyUrlBtn.querySelector('svg')
+          if (svg) svg.style.display = 'none'
+          copyUrlBtn.insertAdjacentHTML('beforeend', '<span class="text-xs font-medium">Copied!</span>')
+          setTimeout(() => {
+            const span = copyUrlBtn.querySelector('span')
+            if (span) span.remove()
+            if (svg) svg.style.display = ''
+          }, 1500)
+        })
+      })
+    }
+  }
+
   function setupMarkdownCopyButton() {
     const btn = document.querySelector('[data-copy-markdown]') as HTMLElement | null
     if (!btn) return
@@ -914,6 +948,7 @@ function bootstrap() {
     setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え
     setupCodeCopyButtons() // コードブロックコピーボタン
+    setupShareButtons() // 記事シェアボタン
     setupMarkdownCopyButton() // Markdownコピーボタン
     setupTwitterEmbeds() // Twitter埋め込みウィジェット
   })

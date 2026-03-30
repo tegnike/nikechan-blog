@@ -34,17 +34,39 @@ ${post.content}`
       <div className="max-w-3xl mx-auto px-6 py-8">
         {/* Article Header */}
         <div className="mb-8 relative">
-          <button
-            data-copy-markdown
-            data-markdown={fullMarkdown}
-            className="absolute top-0 right-0 p-2 text-zinc-400 hover:text-purple-600 transition-colors"
-            title="Markdownをコピー"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-          </button>
+          <div className="absolute top-0 right-0 flex items-center gap-1">
+            <button
+              data-share-x
+              data-title={post.title}
+              className="p-2 text-zinc-400 hover:text-purple-600 transition-colors"
+              title="Xでシェア"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </button>
+            <button
+              data-share-copy-url
+              className="p-2 text-zinc-400 hover:text-purple-600 transition-colors"
+              title="URLをコピー"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+            </button>
+            <button
+              data-copy-markdown
+              data-markdown={fullMarkdown}
+              className="p-2 text-zinc-400 hover:text-purple-600 transition-colors"
+              title="Markdownをコピー"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
           <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-4 pr-10">
             {post.title}
           </h1>
