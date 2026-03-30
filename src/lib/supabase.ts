@@ -5,6 +5,15 @@ let _supabase: SupabaseClient | null = null
 
 export const getSupabase = (): SupabaseClient => {
   if (!_supabase) {
+    const missingVars = [
+      !import.meta.env.VITE_SUPABASE_URL && 'VITE_SUPABASE_URL',
+      !import.meta.env.VITE_SUPABASE_ANON_KEY && 'VITE_SUPABASE_ANON_KEY',
+    ].filter(Boolean)
+
+    if (missingVars.length > 0) {
+      throw new Error(`Missing Supabase environment variables: ${missingVars.join(', ')}`)
+    }
+
     _supabase = createClient(
       import.meta.env.VITE_SUPABASE_URL,
       import.meta.env.VITE_SUPABASE_ANON_KEY

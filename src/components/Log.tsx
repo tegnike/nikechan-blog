@@ -16,26 +16,32 @@ export const Log = async () => {
   const imageNumbers = Array.from({ length: 23 }, (_, i) => i + 1)
   const shuffledImageNumbers = shuffleArray(imageNumbers)
 
-  // 活動記録（日別サマリ）を取得
-  const { data: summaries, error } = await supabase
-    .from('daily_summaries')
-    .select('*')
-    .order('target_date', { ascending: false })
-    .limit(130)
+  try {
+    // 活動記録（日別サマリ）を取得
+    const { data: summaries, error } = await supabase
+      .from('daily_summaries')
+      .select('*')
+      .order('target_date', { ascending: false })
+      .limit(130)
 
-  if (error) {
+    if (error) {
+      return (
+        <div className="text-center py-8 text-red-500">エラーが発生しました</div>
+      )
+    }
+
+    return (
+      <>
+        <div className="pt-12 pb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-center text-white">LOG</h1>
+        </div>
+        <NikeLog summaries={summaries || []} shuffledImageNumbers={shuffledImageNumbers} />
+      </>
+    )
+  } catch (error) {
+    console.error('Failed to load log data', error)
     return (
       <div className="text-center py-8 text-red-500">エラーが発生しました</div>
     )
   }
-
-  return (
-    <>
-      <div className="pt-12 pb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-white">LOG</h1>
-      </div>
-      <NikeLog summaries={summaries || []} shuffledImageNumbers={shuffledImageNumbers} />
-    </>
-  )
 }
-

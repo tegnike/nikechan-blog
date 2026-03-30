@@ -27,10 +27,21 @@ jobs:
           echo "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}" >> .env
           echo "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}" >> .env
 
+      - name: Validate Supabase build env
+        run: |
+          if ! grep -Eq '^VITE_SUPABASE_URL=https://.+\.supabase\.co$' .env; then
+            echo "❌ VITE_SUPABASE_URL is missing or invalid"
+            exit 1
+          fi
+          if ! grep -Eq '^VITE_SUPABASE_ANON_KEY=.+$' .env; then
+            echo "❌ VITE_SUPABASE_ANON_KEY is missing"
+            exit 1
+          fi
+
       - name: Build
         run: bun run build
 
-      - name: Verify Supabase URL in bundle
+      - name: Verify Supabase config in bundle
         run: |
           if grep -q "supabase.co" dist/index.js; then
             echo "✅ Supabase URL found in bundle"
@@ -40,6 +51,12 @@ jobs:
             cat .env | sed 's/=.*/=***/'
             echo "--- Checking import.meta.env in bundle ---"
             grep -c "import.meta.env" dist/index.js || echo "No import.meta.env references"
+            exit 1
+          fi
+          if grep -q "Missing Supabase environment variables" dist/index.js; then
+            echo "✅ Supabase env guard found in bundle"
+          else
+            echo "❌ Supabase env guard NOT found in bundle!"
             exit 1
           fi
 
