@@ -32,4 +32,10 @@ lerna-debug.log*
 # misc
 .DS_Store
 
+# build artifacts
+public/static/styles/globals.css
+
+# claude
+.claude/settings.local.json
+
 .playwright-mcp/

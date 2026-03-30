@@ -851,6 +851,51 @@ function bootstrap() {
     })
   }
 
+  // コードブロックのコピーボタン
+  function setupCodeCopyButtons() {
+    document.querySelectorAll('.code-copy-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const codeBlock = btn.closest('.code-block')
+        const code = codeBlock?.querySelector('code')?.textContent
+        if (code) {
+          navigator.clipboard.writeText(code).then(() => {
+            btn.textContent = 'Copied!'
+            setTimeout(() => { btn.textContent = 'Copy' }, 1500)
+          })
+        }
+      })
+    })
+  }
+
+  function setupMarkdownCopyButton() {
+    const btn = document.querySelector('[data-copy-markdown]') as HTMLElement | null
+    if (!btn) return
+    btn.addEventListener('click', () => {
+      const markdown = btn.getAttribute('data-markdown') || ''
+      navigator.clipboard.writeText(markdown).then(() => {
+        const svg = btn.querySelector('svg')
+        if (svg) svg.style.display = 'none'
+        btn.insertAdjacentHTML('beforeend', '<span class="text-xs font-medium">Copied!</span>')
+        setTimeout(() => {
+          const span = btn.querySelector('span')
+          if (span) span.remove()
+          if (svg) svg.style.display = ''
+        }, 1500)
+      })
+    })
+  }
+
+  function setupTwitterEmbeds() {
+    const twitterEmbeds = document.querySelectorAll('.twitter-embed')
+    if (twitterEmbeds.length > 0) {
+      const script = document.createElement('script')
+      script.src = 'https://platform.twitter.com/widgets.js'
+      script.async = true
+      script.charset = 'utf-8'
+      document.body.appendChild(script)
+    }
+  }
+
   // DOMContentLoaded で各種セットアップを実行
   document.addEventListener('DOMContentLoaded', () => {
     setupProfileToggle()
@@ -868,6 +913,9 @@ function bootstrap() {
     setupLanguageSwitcher() // 言語切り替え
     setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え
+    setupCodeCopyButtons() // コードブロックコピーボタン
+    setupMarkdownCopyButton() // Markdownコピーボタン
+    setupTwitterEmbeds() // Twitter埋め込みウィジェット
   })
 }
 

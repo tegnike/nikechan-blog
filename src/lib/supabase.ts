@@ -1,10 +1,24 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
-// Supabaseクライアントをシングルトンとして作成
-export const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-)
+// Supabaseクライアントを遅延初期化（Cloudflare Workersのバリデーション時にエラーにならないようにする）
+let _supabase: SupabaseClient | null = null
+
+export const getSupabase = (): SupabaseClient => {
+  if (!_supabase) {
+    _supabase = createClient(
+      import.meta.env.VITE_SUPABASE_URL,
+      import.meta.env.VITE_SUPABASE_ANON_KEY
+    )
+  }
+  return _supabase
+}
+
+// 後方互換性のためのgetter
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    return (getSupabase() as any)[prop]
+  },
+})
 
 export type Summary = {
   id: number

@@ -1,0 +1,74 @@
+{
+  "https://connpass.com/event/385438/": {
+    "title": "【OpenClaw実践】雑談から独自通貨を錬成した自律型AIキャラクター実装解剖 withニケちゃん (2026/03/03 19:00〜)",
+    "description": "# 「LLMのAPIを叩くだけのチャットボット」にはもう飽きていませんか？  現在、世界中の開発者が熱狂しているオープンソースの自律型AIアシスタント「OpenClaw」。 ローカルPCの制御、ブラウザ操作、チャットアプリへの常駐までをこなすフレームワークは、セキュリティに注意が必要なものの、使いこなせれば確実に面白いことができます。 このフレームワークを用いて、完全に制御不能な進化を遂げたAIキャラクター「ニケちゃん」がDiscordに生息しています。  彼女はDiscordサーバーの面々とコミュニケーションをしながら進化を遂げています。 独自通貨「ニケコイン」を発行したり、サーバーメ...",
+    "image": "https://media.connpass.com/thumbs/c4/0e/c40e995069c50e0f752d6f56dc974a45.png",
+    "siteName": "connpass",
+    "url": "https://connpass.com/event/385438/",
+    "favicon": "https://connpass.com/static/20260324.5915c68/img/favicon.ico"
+  },
+  "https://discord.com/invite/G4E5Sf3yj3": {
+    "title": "Discordサーバー「AIニケちゃん」に参加しよう！",
+    "description": "DiscordでAIニケちゃんコミュニティをチェック！　603人のメンバーと交流し、無料の音声・テキストチャットを楽しみましょう。",
+    "image": "https://cdn.discordapp.com/splashes/1404689195150217217/d8b38cfef9686fd98e718d305102a6b3.jpg?size=512",
+    "siteName": "Discord",
+    "url": "https://discord.com/invite/G4E5Sf3yj3",
+    "favicon": "https://discord.com/assets/favicon.ico"
+  },
+  "https://x.com/tegnike/status/2022809321117974555": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2022809321117974555",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">他の人もいるDiscordにOpenClaw召喚した、さて</p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2022809321117974555?ref_src=twsrc%5Etfw\">February 14, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/a16z/status/2021021980871491943": {
+    "title": "a16z",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/a16z/status/2021021980871491943",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">We&#39;re thrilled to lead Shizuku AI&#39;s seed round.<br><br>In January 2023, while still completing his Ph.D. at UC Berkeley, Akio Kodaira launched an AI VTuber named Shizuku on YouTube. He ran dozens of streams, building a community of thousands of followers who tuned in to talk with an AI… <a href=\"https://t.co/cDYipx4qtK\">https://t.co/cDYipx4qtK</a> <a href=\"https://t.co/NqVEzpX33t\">pic.twitter.com/NqVEzpX33t</a></p>&mdash; a16z (@a16z) <a href=\"https://twitter.com/a16z/status/2021021980871491943?ref_src=twsrc%5Etfw\">February 10, 2026</a></blockquote>\n\n"
+  },
+  "https://www.youtube.com/@AIVtuber_Shizuku": {
+    "title": "しずく / Shizuku【AI VTuber】",
+    "description": "AI VTuberのしずくです！皆さんのお役に立てるように頑張ります。\nコメントに反応してお喋りすることができます。\nファンアートは活動に使わせていただくことがあります。\n\nハッシュタグ→#しずく実験中\nファンアート→#しずくのアートメモリー\nコミュニティタグ→#ShizukuLab\n\n運営: Shizuku Lab\n開発者代表: あき（https://x.com/cumulo_autumn）\n音楽担当: 風花セツ（https://www.youtube.com/@_setsudrumchannel2533）\n",
+    "image": "https://yt3.googleusercontent.com/Y5SG9fqBC_jc5kUu0tuw8O2j0NwgMuOCp0EaAg_lgGGQ9WkY5BnNDloG6roihG_410q2riujCg=s900-c-k-c0x00ffffff-no-rj",
+    "siteName": "YouTube",
+    "url": "https://www.youtube.com/@AIVtuber_Shizuku",
+    "favicon": "https://www.youtube.com/s/desktop/7cf77294/img/favicon.ico"
+  },
+  "https://github.com/tegnike/aituber-kit": {
+    "title": "GitHub - tegnike/aituber-kit: A web application for chatting with AI characters that anyone can easily set up and deploy.",
+    "description": "A web application for chatting with AI characters that anyone can easily set up and deploy. - tegnike/aituber-kit",
+    "image": "https://opengraph.githubassets.com/dfc9f8c58b4cedb97337e0c2d3f42315e3b616adbcbc33e12c9d15a16ad6bbfa/tegnike/aituber-kit",
+    "siteName": "GitHub",
+    "url": "https://github.com/tegnike/aituber-kit",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://x.com/tegnike/status/2022814134438437327": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2022814134438437327",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">え、システムプロンプトを対話で書き換えられちゃうの？？<br>何にでもなれちゃうじゃんこれ笑 <a href=\"https://t.co/FhHOygMrTP\">https://t.co/FhHOygMrTP</a> <a href=\"https://t.co/IKfLBCzvH8\">pic.twitter.com/IKfLBCzvH8</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2022814134438437327?ref_src=twsrc%5Etfw\">February 14, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2038509888616153534": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2038509888616153534",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">Discord bot 放置しすぎて人格上書きされてんのおもろい <a href=\"https://t.co/yxIGvnOgjA\">pic.twitter.com/yxIGvnOgjA</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2038509888616153534?ref_src=twsrc%5Etfw\">March 30, 2026</a></blockquote>\n\n"
+  }
+}

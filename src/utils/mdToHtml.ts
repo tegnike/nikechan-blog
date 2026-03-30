@@ -22,12 +22,27 @@ function applyInlineTransforms(str: string): string {
   str = str.replace(/`([^`]+)`/g, (_m, code) => `<code>${code}</code>`)
   // bold **text** or __text__
   str = str.replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>')
-  // italics *text* or _text_
-  str = str.replace(/(\*|_)([^*_].*?)\1/g, '<em>$2</em>')
+  // italics *text* (only asterisk, not underscore — underscore conflicts with HTML attributes like target="_blank")
+  str = str.replace(/(?<!\*)\*(?!\*)([^*]+?)\*(?!\*)/g, '<em>$1</em>')
   return str
 }
 
-export function mdToHtml(md: string): string {
+export type TocItem = {
+  level: number
+  text: string
+  id: string
+}
+
+function generateId(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\u3000-\u9fff\uff00-\uffef]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
+import type { OgpData } from './posts'
+
+export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string {
   const lines = md.replace(/\r\n?/g, '\n').split('\n')
 
   type Node =
@@ -37,6 +52,7 @@ export function mdToHtml(md: string): string {
     | { type: 'code'; language: string; content: string }
     | { type: 'blockquote'; children: Node[] }
     | { type: 'list'; ordered: boolean; items: Array<{ text: string; children: Node[] }> }
+    | { type: 'ogp-card'; url: string; data: OgpData }
 
   function parseBlocks(startIndex: number, indent: number): { nodes: Node[]; nextIndex: number } {
     const nodes: Node[] = []
@@ -144,6 +160,20 @@ export function mdToHtml(md: string): string {
         continue
       }
 
+      // OGP card: [url](url) where text === href, or bare URL line
+      if (ogpCache) {
+        const linkMatch = content.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+        const bareUrlMatch = content.match(/^(https?:\/\/\S+)$/)
+        const ogpUrl = linkMatch && linkMatch[1] === linkMatch[2] ? linkMatch[1]
+          : bareUrlMatch ? bareUrlMatch[1]
+          : null
+        if (ogpUrl && ogpCache[ogpUrl]) {
+          nodes.push({ type: 'ogp-card', url: ogpUrl, data: ogpCache[ogpUrl] })
+          i++
+          continue
+        }
+      }
+
       // Paragraph
       const paragraphLines: string[] = [content]
       i++
@@ -193,17 +223,20 @@ export function mdToHtml(md: string): string {
         switch (node.type) {
           case 'paragraph': {
             const text = applyInlineTransforms(escapeHtml(node.text))
+              .replace(/\n/g, '<br />')
             return `<p>${text}</p>`
           }
           case 'heading': {
             const text = applyInlineTransforms(escapeHtml(node.text))
-            const idAttr = node.id ? ` id="${node.id}"` : ''
-            return `<h${node.level}${idAttr}>${text}</h${node.level}>`
+            const id = node.id || generateId(node.text)
+            return `<h${node.level} id="${id}">${text}</h${node.level}>`
           }
           case 'hr':
             return '<hr />'
-          case 'code':
-            return `<pre><code${node.language ? ` class="language-${node.language}"` : ''}>${escapeHtml(node.content)}</code></pre>`
+          case 'code': {
+            const langLabel = node.language ? `<div class="code-lang">${node.language}</div>` : ''
+            return `<div class="code-block">${langLabel}<button class="code-copy-btn" type="button">Copy</button><pre><code${node.language ? ` class="language-${node.language}"` : ''}>${escapeHtml(node.content)}</code></pre></div>`
+          }
           case 'blockquote':
             return `<blockquote>${renderNodes(node.children)}</blockquote>`
           case 'list': {
@@ -219,6 +252,19 @@ export function mdToHtml(md: string): string {
               .join('')
             return `<${tag}>${items}</${tag}>`
           }
+          case 'ogp-card': {
+            const { data } = node
+            if (data.type === 'twitter-embed' && data.embedHtml) {
+              return `<div class="twitter-embed">${data.embedHtml}</div>`
+            }
+            const domain = (() => {
+              try { return new URL(data.url).hostname } catch { return data.url }
+            })()
+            const imageHtml = data.image
+              ? `<div class="ogp-card-image"><img src="${escapeHtml(data.image)}" alt="" loading="lazy" /></div>`
+              : ''
+            return `<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener noreferrer" class="ogp-card">${imageHtml}<div class="ogp-card-content"><div class="ogp-card-title">${escapeHtml(data.title)}</div>${data.description ? `<div class="ogp-card-description">${escapeHtml(data.description)}</div>` : ''}<div class="ogp-card-meta">${data.favicon ? `<img src="${escapeHtml(data.favicon)}" alt="" class="ogp-card-favicon" width="14" height="14" />` : ''}<span>${escapeHtml(domain)}</span></div></div></a>`
+          }
         }
       })
       .join('\n')
@@ -226,4 +272,34 @@ export function mdToHtml(md: string): string {
 
   const { nodes } = parseBlocks(0, 0)
   return renderNodes(nodes)
+}
+
+export function extractToc(md: string): TocItem[] {
+  const toc: TocItem[] = []
+  const lines = md.replace(/\r\n?/g, '\n').split('\n')
+  let inCodeBlock = false
+
+  for (const line of lines) {
+    if (/^```/.test(line)) {
+      inCodeBlock = !inCodeBlock
+      continue
+    }
+    if (inCodeBlock) continue
+
+    const match = line.match(/^(#{2,3})\s+(.+)\s*$/)
+    if (match) {
+      let text = match[2].trim()
+      let id: string
+      const idMatch = text.match(/\s*\{#([A-Za-z0-9\-_]+)\}\s*$/)
+      if (idMatch) {
+        id = idMatch[1]
+        text = text.replace(/\s*\{#[A-Za-z0-9\-_]+\}\s*$/, '').trim()
+      } else {
+        id = generateId(text)
+      }
+      toc.push({ level: match[1].length, text, id })
+    }
+  }
+
+  return toc
 }

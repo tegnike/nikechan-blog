@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { serveStatic } from '@hono/node-server/serve-static'
 import { renderer } from './renderer'
 import { Layout } from './components/Layout'
 import { LandingPage } from './components/LandingPage'
@@ -22,6 +21,9 @@ import { MikazeProfile } from './components/MikazeProfile'
 import { PunikeProfile } from './components/PunikeProfile'
 import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { News } from './components/News'
+import { PostDetail } from './components/PostDetail'
+import { getPostBySlug, getAllPosts, getOgpCache } from './utils/posts'
+import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
 
 const app = new Hono()
@@ -34,12 +36,6 @@ app.use('*', async (c, next) => {
   c.set('locale', locale)
   await next()
 })
-
-// 静的ファイルの配信設定を追加
-app.use('/images/*', serveStatic({ root: './public' }))
-app.use('/static/*', serveStatic({ root: './public' }))
-app.use('/svg/*', serveStatic({ root: './public' }))
-app.use('/icons/*', serveStatic({ root: './public' }))
 
 app.use(renderer)
 
@@ -244,6 +240,38 @@ app.get('/dev_blog', async (c) => {
   )
 })
 
+// Blog post detail page
+app.get('/dev_blog/:slug', (c) => {
+  const slug = c.req.param('slug')
+  const post = getPostBySlug(slug)
+  if (!post) {
+    return c.text('Not Found', 404)
+  }
+
+  const html = mdToHtml(post.content, getOgpCache())
+  const toc = extractToc(post.content)
+  const posts = getAllPosts()
+  const index = posts.findIndex((p) => p.slug === slug)
+  const prevPost = index < posts.length - 1 ? { slug: posts[index + 1].slug, title: posts[index + 1].title } : undefined
+  const nextPost = index > 0 ? { slug: posts[index - 1].slug, title: posts[index - 1].title } : undefined
+
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <PostDetail post={post} html={html} toc={toc} prevPost={prevPost} nextPost={nextPost} />
+    </Layout>,
+    {
+      title: `${post.title} | AIニケちゃんオフィシャルサイト`,
+      description: post.description,
+      canonicalUrl: `https://nikechan.com/dev_blog/${slug}`,
+      ogType: "article",
+      ogImage: post.thumbnail ? `https://nikechan.com${post.thumbnail}` : undefined,
+      keywords: post.tags.join(', ')
+    }
+  )
+})
+
 // Backward-compatible redirect
 app.get('/dev/blog', (c) => c.redirect('/dev_blog', 301))
 
@@ -442,6 +470,15 @@ app.get('/tutorial/video', (c) => {
       keywords: "AI, 動画生成, アニメーション, Live2D, VTuber, Runway, Pika Labs"
     }
   )
+})
+
+app.notFound((c) => {
+  return c.text('Not Found', 404)
+})
+
+app.onError((err, c) => {
+  console.error(err)
+  return c.text('Internal Server Error', 500)
 })
 
 export default app
