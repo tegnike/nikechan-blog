@@ -5,3 +5,7 @@ main = "./dist/index.js"
 
 [assets]
 directory = "./dist/assets"
+
+[[routes]]
+pattern = "nikechan.com"
+custom_domain = true
