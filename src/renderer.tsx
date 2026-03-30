@@ -25,7 +25,7 @@ export const renderer = reactRenderer(({
   structuredData,
   locale = 'ja'
 }: BaseProps) => {
-  const defaultTitle = locale === 'ja' ? 'NIKELOG - Nike Chan Official Portfolio' : 'NIKELOG - Nike Chan Official Portfolio'
+  const defaultTitle = locale === 'ja' ? 'AIニケちゃんオフィシャルサイト' : 'AI Nike Chan Official Website'
   const finalTitle = title || defaultTitle
   const defaultDescription = locale === 'ja'
     ? 'Nike Chan（ニケちゃん）の公式ポートフォリオサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。創作活動とAIニケちゃんプロジェクトの最新情報をお届けします。'
@@ -61,7 +61,7 @@ export const renderer = reactRenderer(({
         <meta property="og:url" content={finalCanonicalUrl} />
         <meta property="og:image" content={finalOgImage} />
         <meta property="og:image:alt" content={finalTitle} />
-        <meta property="og:site_name" content="NIKELOG" />
+        <meta property="og:site_name" content="AIニケちゃんオフィシャルサイト" />
         <meta property="og:locale" content={ogLocale} />
         <meta property="og:locale:alternate" content={locale === 'ja' ? 'en_US' : 'ja_JP'} />
 
@@ -86,8 +86,8 @@ export const renderer = reactRenderer(({
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "NIKELOG",
-            "alternateName": "Nike Chan Portfolio",
+            "name": "AIニケちゃんオフィシャルサイト",
+            "alternateName": "AI Nike Chan Official Website",
             "url": siteUrl,
             "description": finalDescription,
             "inLanguage": langCode,
