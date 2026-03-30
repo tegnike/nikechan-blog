@@ -1,5 +1,6 @@
 import type { Post } from '../utils/posts'
 import type { TocItem } from '../utils/mdToHtml'
+import type { Locale } from '../i18n/config'
 
 type PostDetailProps = {
   post: Post
@@ -7,11 +8,12 @@ type PostDetailProps = {
   toc: TocItem[]
   prevPost?: { slug: string; title: string }
   nextPost?: { slug: string; title: string }
+  locale?: Locale
 }
 
-export const PostDetail = ({ post, html, toc, prevPost, nextPost }: PostDetailProps) => {
+export const PostDetail = ({ post, html, toc, prevPost, nextPost, locale = 'ja' }: PostDetailProps) => {
   const formatDate = (dateString: string) => {
-    return new Intl.DateTimeFormat('ja-JP', {
+    return new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : 'ja-JP', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
@@ -97,7 +99,7 @@ ${post.content}`
         {/* TOC */}
         {toc.length > 0 && (
           <div className="mb-8 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
-            <h2 className="text-base font-bold text-zinc-800 mb-2">目次</h2>
+            <h2 className="text-base font-bold text-zinc-800 mb-2">{locale === 'en' ? 'Table of Contents' : '目次'}</h2>
             <nav>
               <ul className="space-y-1">
                 {toc.map((item) => (
@@ -134,7 +136,7 @@ ${post.content}`
               href={`/dev_blog/${prevPost.slug}`}
               className="flex-1 p-3 rounded-lg hover:bg-zinc-50 transition-colors group"
             >
-              <div className="text-xs text-zinc-500 mb-1">← 前の記事</div>
+              <div className="text-xs text-zinc-500 mb-1">← {locale === 'en' ? 'Previous' : '前の記事'}</div>
               <div className="text-sm font-medium text-zinc-700 group-hover:text-purple-600 line-clamp-1">
                 {prevPost.title}
               </div>
@@ -147,7 +149,7 @@ ${post.content}`
               href={`/dev_blog/${nextPost.slug}`}
               className="flex-1 p-3 rounded-lg hover:bg-zinc-50 transition-colors text-right group"
             >
-              <div className="text-xs text-zinc-500 mb-1">次の記事 →</div>
+              <div className="text-xs text-zinc-500 mb-1">{locale === 'en' ? 'Next' : '次の記事'} →</div>
               <div className="text-sm font-medium text-zinc-700 group-hover:text-purple-600 line-clamp-1">
                 {nextPost.title}
               </div>
@@ -163,7 +165,7 @@ ${post.content}`
             href="/dev_blog"
             className="inline-block px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-colors"
           >
-            記事一覧に戻る
+            {locale === 'en' ? 'Back to Articles' : '記事一覧に戻る'}
           </a>
         </div>
       </div>

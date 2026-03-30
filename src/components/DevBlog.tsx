@@ -1,7 +1,8 @@
 import { supabase } from '../lib/supabase'
 import { TechBlog } from './TechBlog'
 import { PageHeader } from './PageHeader'
-import { getAllPosts } from '../utils/posts'
+import { getPostsByLocale } from '../utils/posts'
+import { type Locale } from '../i18n/config'
 
 // 画像番号の配列をシャッフルする関数
 const shuffleArray = (array: number[]) => {
@@ -13,7 +14,7 @@ const shuffleArray = (array: number[]) => {
   return shuffled
 }
 
-export const DevBlog = async () => {
+export const DevBlog = async (locale: Locale = 'ja') => {
   // 1から23までの画像番号の配列をシャッフル
   const imageNumbers = Array.from({ length: 23 }, (_, i) => i + 1)
   const shuffledImageNumbers = shuffleArray(imageNumbers)
@@ -26,8 +27,8 @@ export const DevBlog = async () => {
       .or('status.eq.published,status.eq.public')
       .order('published_at', { ascending: false })
 
-    // 自前記事を取得
-    const posts = getAllPosts()
+    // 自前記事を取得（localeでフィルタリング）
+    const posts = getPostsByLocale(locale)
 
     if (error) {
       return (
@@ -68,7 +69,7 @@ export const DevBlog = async () => {
                       )}
                       <div className="p-4">
                       <div className="text-zinc-500 text-sm mb-2">
-                        {new Date(post.date).toLocaleDateString('ja-JP', {
+                        {new Date(post.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'ja-JP', {
                           year: 'numeric',
                           month: '2-digit',
                           day: '2-digit',

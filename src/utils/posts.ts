@@ -113,6 +113,13 @@ export function getAllPosts(): Post[] {
   return _posts
 }
 
+/** slugの-enサフィックスでlocaleフィルタリング */
+export function getPostsByLocale(locale: string): Post[] {
+  return getAllPosts().filter((p) =>
+    locale === 'en' ? p.slug.endsWith('-en') : !p.slug.endsWith('-en')
+  )
+}
+
 export function getPostBySlug(slug: string): Post | undefined {
   return getAllPosts().find((p) => p.slug === slug)
 }

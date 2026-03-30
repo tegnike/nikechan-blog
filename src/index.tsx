@@ -22,7 +22,7 @@ import { PunikeProfile } from './components/PunikeProfile'
 import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { News } from './components/News'
 import { PostDetail } from './components/PostDetail'
-import { getPostBySlug, getAllPosts, getOgpCache } from './utils/posts'
+import { getPostBySlug, getPostsByLocale, getOgpCache } from './utils/posts'
 import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
 
@@ -225,18 +225,26 @@ app.get('/dev', (c) => c.redirect('/developer', 301))
 // Developer Blog page
 app.get('/dev_blog', async (c) => {
   c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
-  const content = await DevBlog()
-  const currentPath = c.req.path; // パスを取得
+  const locale = c.get('locale') as Locale
+  const content = await DevBlog(locale)
+  const currentPath = c.req.path;
   return c.render(
-    <Layout currentPath={currentPath}>
+    <Layout currentPath={currentPath} locale={locale}>
       {content}
     </Layout>,
     {
-      title: "開発者ブログ | AIニケちゃんオフィシャルサイト",
-      description: "ニケの技術ブログ。プログラミング、Web開発、AI技術に関する記事を発信。",
+      locale,
+      title: locale === 'en'
+        ? "Dev Blog | AI Nike-chan Official Site"
+        : "開発者ブログ | AIニケちゃんオフィシャルサイト",
+      description: locale === 'en'
+        ? "Nike's tech blog. Articles on programming, web development, and AI technology."
+        : "ニケの技術ブログ。プログラミング、Web開発、AI技術に関する記事を発信。",
       canonicalUrl: "https://nikechan.com/dev_blog",
       ogType: "blog",
-      keywords: "技術ブログ, プログラミング, Web開発, AI, コーディング"
+      keywords: locale === 'en'
+        ? "tech blog, programming, web development, AI, coding"
+        : "技術ブログ, プログラミング, Web開発, AI, コーディング"
     }
   )
 })
@@ -244,26 +252,48 @@ app.get('/dev_blog', async (c) => {
 // Blog post detail page
 app.get('/dev_blog/:slug', (c) => {
   const slug = c.req.param('slug')
+  const locale = c.get('locale') as Locale
+  const isEnSlug = slug.endsWith('-en')
+
+  // locale と slug の言語が一致しない場合、対応する記事にリダイレクト
+  if (locale === 'en' && !isEnSlug) {
+    const enPost = getPostBySlug(`${slug}-en`)
+    if (enPost) {
+      const url = new URL(c.req.url)
+      return c.redirect(`/dev_blog/${slug}-en${url.search}`, 302)
+    }
+  } else if (locale === 'ja' && isEnSlug) {
+    const jaSlug = slug.replace(/-en$/, '')
+    const jaPost = getPostBySlug(jaSlug)
+    if (jaPost) {
+      const url = new URL(c.req.url)
+      return c.redirect(`/dev_blog/${jaSlug}${url.search}`, 302)
+    }
+  }
+
   const post = getPostBySlug(slug)
   if (!post) {
     return c.text('Not Found', 404)
   }
 
+  const postLocale = isEnSlug ? 'en' : 'ja'
   const html = mdToHtml(post.content, getOgpCache())
   const toc = extractToc(post.content)
-  const posts = getAllPosts()
+  const posts = getPostsByLocale(postLocale)
   const index = posts.findIndex((p) => p.slug === slug)
   const prevPost = index < posts.length - 1 ? { slug: posts[index + 1].slug, title: posts[index + 1].title } : undefined
   const nextPost = index > 0 ? { slug: posts[index - 1].slug, title: posts[index - 1].title } : undefined
 
   c.header('Cache-Control', 'public, max-age=3600')
   const currentPath = c.req.path
+  const siteName = postLocale === 'en' ? 'AI Nike-chan Official Site' : 'AIニケちゃんオフィシャルサイト'
   return c.render(
-    <Layout currentPath={currentPath}>
-      <PostDetail post={post} html={html} toc={toc} prevPost={prevPost} nextPost={nextPost} />
+    <Layout currentPath={currentPath} locale={locale}>
+      <PostDetail post={post} html={html} toc={toc} prevPost={prevPost} nextPost={nextPost} locale={postLocale} />
     </Layout>,
     {
-      title: `${post.title} | AIニケちゃんオフィシャルサイト`,
+      locale,
+      title: `${post.title} | ${siteName}`,
       description: post.description,
       canonicalUrl: `https://nikechan.com/dev_blog/${slug}`,
       ogType: "article",
