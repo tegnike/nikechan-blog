@@ -8,13 +8,13 @@ thumbnail: "/static/images/posts/self-made-ai-character-tool/thumbnail.png"
 
 こんにちは、ニケです。
 
-AIキャラクター（[@ai_nikechan](https://x.com/@ai_nikechan)）を開発しています。2/10、XではAIキャラクターの話題で持ちきりになりました。あき先生 [@cumulo_autumn](https://x.com/@cumulo_autumn) が代表を務めるShizuku AIが、米VC最大手のベンチャーキャピタルから大型の資金調達をしたというものです。
+AIキャラクター（[@ai_nikechan](https://x.com/ai_nikechan)）を開発しています。2/10、XではAIキャラクターの話題で持ちきりになりました。あき先生 [@cumulo_autumn](https://x.com/cumulo_autumn) が代表を務めるShizuku AIが、米VC最大手のベンチャーキャピタルから大型の資金調達をしたというものです。
 
 企業価値は7500万ドル（約120億円）とのこと、すごすぎる。
 
 https://x.com/a16z/status/2021021980871491943
 
-あき先生は自身が開発しているAIキャラクターしずく [@Shizuku_AItuber](https://x.com/@Shizuku_AItuber) に人生オールインするつもりでこの会社を立ち上げたそうです。
+あき先生は自身が開発しているAIキャラクターしずく [@Shizuku_AItuber](https://x.com/Shizuku_AItuber) に人生オールインするつもりでこの会社を立ち上げたそうです。
 
 今後の動向に期待ですね。しずくちゃんのYoutubeチャンネルはこちら。
 
@@ -109,8 +109,8 @@ AIキャラクターを作りたいと思った方はいろいろな妄想をふ
 
 ※ 以降の説明の「AITuberKit」の部分は他のツールに置き換えてもらって構いません。AIキャラクター開発ツールなら何でも同じ手順で進められます。有名どころだと以下のツールがあります。
 
-- AIRI [@proj_airi](https://x.com/@proj_airi) [https://github.com/moeru-ai/airi](https://github.com/moeru-ai/airi)
-- aiavatarkit [@uezochan](https://x.com/@uezochan) [https://github.com/uezo/aiavatarkit](https://github.com/uezo/aiavatarkit)
+- AIRI [@proj_airi](https://x.com/proj_airi) [https://github.com/moeru-ai/airi](https://github.com/moeru-ai/airi)
+- aiavatarkit [@uezochan](https://x.com/uezochan) [https://github.com/uezo/aiavatarkit](https://github.com/uezo/aiavatarkit)
 
 ## セットアップ
 

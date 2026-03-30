@@ -17,10 +17,20 @@ function isTwitterUrl(url: string): boolean {
   return /^https?:\/\/(x\.com|twitter\.com)\/\w+\/status\/\d+/.test(url)
 }
 
+async function fetchWithTimeout(input: string, init: RequestInit = {}, timeoutMs = 10000) {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    return await fetch(input, { ...init, signal: controller.signal })
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
 async function fetchTwitterEmbed(url: string): Promise<OgpData | null> {
   try {
     const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(url)}&omit_script=true`
-    const response = await fetch(oembedUrl)
+    const response = await fetchWithTimeout(oembedUrl)
     if (!response.ok) return null
 
     const data = await response.json() as {
@@ -89,11 +99,7 @@ function extractFavicon(html: string, baseUrl: string): string {
 
   if (iconMatch) {
     const href = iconMatch[1]
-    if (href.startsWith('http')) return href
-    if (href.startsWith('//')) return `https:${href}`
-    const url = new URL(baseUrl)
-    if (href.startsWith('/')) return `${url.origin}${href}`
-    return `${url.origin}/${href}`
+    return new URL(href, baseUrl).toString()
   }
 
   // Fallback to /favicon.ico
@@ -103,7 +109,7 @@ function extractFavicon(html: string, baseUrl: string): string {
 
 async function fetchOgp(url: string): Promise<OgpData | null> {
   try {
-    const response = await fetch(url, {
+    const response = await fetchWithTimeout(url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; OGPBot/1.0)',
         'Accept': 'text/html',
@@ -114,12 +120,14 @@ async function fetchOgp(url: string): Promise<OgpData | null> {
     if (!response.ok) return null
 
     const html = await response.text()
+    const finalUrl = response.url || url
 
     const title = extractMetaContent(html, 'og:title') || extractTitle(html)
     const description = extractMetaContent(html, 'og:description') || extractMetaContent(html, 'description')
-    const image = extractMetaContent(html, 'og:image')
+    const rawImage = extractMetaContent(html, 'og:image')
+    const image = rawImage ? new URL(rawImage, finalUrl).toString() : ''
     const siteName = extractMetaContent(html, 'og:site_name')
-    const favicon = extractFavicon(html, url)
+    const favicon = extractFavicon(html, finalUrl)
 
     return { title, description, image, siteName, url, favicon }
   } catch (e) {

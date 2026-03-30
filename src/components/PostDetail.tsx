@@ -11,19 +11,20 @@ type PostDetailProps = {
 
 export const PostDetail = ({ post, html, toc, prevPost, nextPost }: PostDetailProps) => {
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('ja-JP', {
+    return new Intl.DateTimeFormat('ja-JP', {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
-    })
+      timeZone: 'UTC',
+    }).format(new Date(`${dateString}T00:00:00Z`))
   }
 
   // frontmatter + content as full markdown
   const fullMarkdown = `---
-title: "${post.title}"
-date: "${post.date}"
-tags: [${post.tags.map(t => `"${t}"`).join(', ')}]
-description: "${post.description}"
+title: ${JSON.stringify(post.title)}
+date: ${JSON.stringify(post.date)}
+tags: ${JSON.stringify(post.tags)}
+description: ${JSON.stringify(post.description)}
 ---
 
 ${post.content}`
