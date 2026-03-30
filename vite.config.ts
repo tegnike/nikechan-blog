@@ -1,10 +1,11 @@
 import build from '@hono/vite-build/cloudflare-workers'
 import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/cloudflare'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 
 // mode が `client` のときはクライアントスクリプト専用ビルド設定を返す
 export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), 'VITE_')
   if (mode === 'client') {
     return {
       build: {
@@ -26,6 +27,10 @@ export default defineConfig(({ mode }) => {
 
   // server ビルド & dev サーバー設定
   return {
+    define: {
+      'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(env.VITE_SUPABASE_URL),
+      'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(env.VITE_SUPABASE_ANON_KEY),
+    },
     build: {
       // public/ のコピーはbuildスクリプトで dist/assets/ に行う
       copyPublicDir: false
