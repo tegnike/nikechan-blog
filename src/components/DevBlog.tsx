@@ -52,7 +52,7 @@ export const DevBlog = async (locale: Locale = 'ja') => {
                   {posts.map((post) => (
                     <a
                       key={post.slug}
-                      href={`/dev_blog/${post.slug}`}
+                      href={`/dev_blog/${post.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
                       className="block rounded-xl border bg-white/60 ring-1 ring-black/5 shadow-sm
                         hover:shadow-md transition-all duration-300 ease-in-out transform
                         hover:-translate-y-1 hover:scale-[1.02] overflow-hidden"

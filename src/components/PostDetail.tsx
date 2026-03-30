@@ -133,7 +133,7 @@ ${post.content}`
         <div className="flex justify-between items-center gap-4 mb-8">
           {prevPost ? (
             <a
-              href={`/dev_blog/${prevPost.slug}`}
+              href={`/dev_blog/${prevPost.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
               className="flex-1 p-3 rounded-lg hover:bg-zinc-50 transition-colors group"
             >
               <div className="text-xs text-zinc-500 mb-1">← {locale === 'en' ? 'Previous' : '前の記事'}</div>
@@ -146,7 +146,7 @@ ${post.content}`
           )}
           {nextPost ? (
             <a
-              href={`/dev_blog/${nextPost.slug}`}
+              href={`/dev_blog/${nextPost.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
               className="flex-1 p-3 rounded-lg hover:bg-zinc-50 transition-colors text-right group"
             >
               <div className="text-xs text-zinc-500 mb-1">{locale === 'en' ? 'Next' : '次の記事'} →</div>
@@ -162,7 +162,7 @@ ${post.content}`
         {/* Back to list */}
         <div className="text-center">
           <a
-            href="/dev_blog"
+            href={`/dev_blog${locale !== 'ja' ? `?lang=${locale}` : ''}`}
             className="inline-block px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-colors"
           >
             {locale === 'en' ? 'Back to Articles' : '記事一覧に戻る'}
