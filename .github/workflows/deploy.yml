@@ -40,25 +40,48 @@ jobs:
 
       - name: Build
         run: bun run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       - name: Verify Supabase config in bundle
         run: |
-          if grep -q "supabase.co" dist/index.js; then
-            echo "✅ Supabase URL found in bundle"
-          else
-            echo "❌ Supabase URL NOT found in bundle!"
-            echo "--- .env file contents (masked) ---"
-            cat .env | sed 's/=.*/=***/'
-            echo "--- Checking import.meta.env in bundle ---"
-            grep -c "import.meta.env" dist/index.js || echo "No import.meta.env references"
-            exit 1
-          fi
-          if grep -q "Missing Supabase environment variables" dist/index.js; then
-            echo "✅ Supabase env guard found in bundle"
-          else
-            echo "❌ Supabase env guard NOT found in bundle!"
-            exit 1
-          fi
+          node <<'EOF'
+          const fs = require('fs')
+
+          const bundle = fs.readFileSync('dist/index.js', 'utf8')
+          const marker = 'Missing Supabase environment variables'
+          const markerIndex = bundle.indexOf(marker)
+
+          if (markerIndex === -1) {
+            console.error('❌ Supabase env guard NOT found in bundle!')
+            process.exit(1)
+          }
+
+          const snippet = bundle.slice(Math.max(0, markerIndex - 300), markerIndex + 900)
+          console.log('--- Supabase bundle snippet ---')
+          console.log(snippet)
+
+          if (!snippet.includes(process.env.VITE_SUPABASE_URL)) {
+            console.error('❌ Supabase URL is not inlined near getSupabase()')
+            process.exit(1)
+          }
+
+          if (!snippet.includes(process.env.VITE_SUPABASE_ANON_KEY)) {
+            console.error('❌ Supabase anon key is not inlined near getSupabase()')
+            process.exit(1)
+          }
+
+          if (snippet.includes('VITE_SUPABASE_URL') || snippet.includes('VITE_SUPABASE_ANON_KEY')) {
+            console.error('❌ import.meta.env placeholders remain near getSupabase()')
+            process.exit(1)
+          }
+
+          console.log('✅ Supabase URL and anon key are inlined near getSupabase()')
+          EOF
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy
