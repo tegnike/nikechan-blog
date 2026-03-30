@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 NIKECHAN BLOG is a portfolio & blog site built with Hono (API) + React (SSR) architecture. It uses server-side rendering for performance while maintaining selective client-side interactivity. The application runs on Cloudflare Pages with edge computing and uses Supabase for backend services.
 
+## Workflow
+
+- **開発サーバーは常時起動しておく**: 作業開始時に `bun run dev` をバックグラウンドで起動し、ユーザーがいつでも最新の状態を確認できるようにすること。ユーザーに言われる前に起動する。
+
 ## Common Commands
 
 ### Development
