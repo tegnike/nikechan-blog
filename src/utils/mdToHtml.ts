@@ -22,8 +22,8 @@ function applyInlineTransforms(str: string): string {
   str = str.replace(/`([^`]+)`/g, (_m, code) => `<code>${code}</code>`)
   // bold **text** or __text__
   str = str.replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>')
-  // italics *text* or _text_
-  str = str.replace(/(\*|_)([^*_].*?)\1/g, '<em>$2</em>')
+  // italics *text* (only asterisk, not underscore — underscore conflicts with HTML attributes like target="_blank")
+  str = str.replace(/(?<!\*)\*(?!\*)([^*]+?)\*(?!\*)/g, '<em>$1</em>')
   return str
 }
 
