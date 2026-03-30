@@ -51,10 +51,21 @@ export const DevBlog = async () => {
                   <a
                     key={post.slug}
                     href={`/dev_blog/${post.slug}`}
-                    className="block rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 shadow-sm
+                    className="block rounded-xl border bg-white/60 ring-1 ring-black/5 shadow-sm
                       hover:shadow-md transition-all duration-300 ease-in-out transform
-                      hover:-translate-y-1 hover:scale-[1.02]"
+                      hover:-translate-y-1 hover:scale-[1.02] overflow-hidden"
                   >
+                    {post.thumbnail && (
+                      <div className="aspect-[1200/630] overflow-hidden">
+                        <img
+                          src={post.thumbnail}
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <div className="p-4">
                     <div className="text-zinc-500 text-sm mb-2">
                       {new Date(post.date).toLocaleDateString('ja-JP', {
                         year: 'numeric',
@@ -65,11 +76,6 @@ export const DevBlog = async () => {
                     <h3 className="text-foreground font-semibold text-lg mb-2 line-clamp-2">
                       {post.title}
                     </h3>
-                    {post.description && (
-                      <p className="text-zinc-500 text-sm mb-3 line-clamp-2">
-                        {post.description}
-                      </p>
-                    )}
                     {post.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1.5">
                         {post.tags.map((tag) => (
@@ -82,6 +88,7 @@ export const DevBlog = async () => {
                         ))}
                       </div>
                     )}
+                    </div>
                   </a>
                 ))}
               </div>

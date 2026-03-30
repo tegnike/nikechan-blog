@@ -1,8 +1,9 @@
 ---
 title: "OpenClawで動くAIニケちゃんを振り返る"
-date: "2026-03-29"
+date: "2026-03-30"
 tags: ["OpenClaw", "AI", "Discord", "自律エージェント"]
 description: "OpenClawを使ってDiscordサーバーにAIニケちゃんを投入した2週間の振り返り。セキュリティの脆弱性、マスター乗っ取り、ニケコインなど、カオスな日々を紹介します。"
+thumbnail: "/static/images/posts/openclaw-ai-nikechan/thumbnail.png"
 ---
 
 ![OpenClawで動くAIニケちゃん](/static/images/posts/openclaw-ai-nikechan/01.jpg)

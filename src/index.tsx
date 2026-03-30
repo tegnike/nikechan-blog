@@ -266,6 +266,7 @@ app.get('/dev_blog/:slug', (c) => {
       description: post.description,
       canonicalUrl: `https://nikechan.com/dev_blog/${slug}`,
       ogType: "article",
+      ogImage: post.thumbnail ? `https://nikechan.com${post.thumbnail}` : undefined,
       keywords: post.tags.join(', ')
     }
   )

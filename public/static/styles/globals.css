@@ -1882,6 +1882,10 @@ body {
   display: none;
 }
 
+.aspect-\[1200\/630\] {
+  aspect-ratio: 1200/630;
+}
+
 .aspect-\[128\/67\] {
   aspect-ratio: 128/67;
 }

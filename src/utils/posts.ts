@@ -4,6 +4,7 @@ export type Post = {
   date: string
   tags: string[]
   description: string
+  thumbnail: string
   content: string
 }
 
@@ -52,6 +53,7 @@ function parsePost(filePath: string, raw: string): Post {
     date: (metadata.date as string) || '',
     tags: (metadata.tags as string[]) || [],
     description: (metadata.description as string) || '',
+    thumbnail: (metadata.thumbnail as string) || '',
     content,
   }
 }
