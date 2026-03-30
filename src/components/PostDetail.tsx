@@ -18,12 +18,33 @@ export const PostDetail = ({ post, html, toc, prevPost, nextPost }: PostDetailPr
     })
   }
 
+  // frontmatter + content as full markdown
+  const fullMarkdown = `---
+title: "${post.title}"
+date: "${post.date}"
+tags: [${post.tags.map(t => `"${t}"`).join(', ')}]
+description: "${post.description}"
+---
+
+${post.content}`
+
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-3xl mx-auto px-6 py-8">
         {/* Article Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-4">
+        <div className="mb-8 relative">
+          <button
+            data-copy-markdown
+            data-markdown={fullMarkdown}
+            className="absolute top-0 right-0 p-2 text-zinc-400 hover:text-purple-600 transition-colors"
+            title="Markdownをコピー"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+          <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-4 pr-10">
             {post.title}
           </h1>
           <div className="flex items-center gap-4 text-sm text-zinc-500 mb-4">
