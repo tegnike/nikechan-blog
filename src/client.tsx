@@ -928,6 +928,40 @@ function bootstrap() {
     }
   }
 
+  // Worldページ: 軌道アイコンクリックで詳細パネル切り替え
+  function setupWorldPlatformMap() {
+    const planets = document.querySelectorAll<HTMLElement>('.world-planet')
+    const detailCards = document.querySelectorAll<HTMLElement>('.world-detail-card')
+    if (planets.length === 0) return
+
+    function selectPlatform(id: string | null) {
+      planets.forEach(p => {
+        p.classList.toggle('active', p.getAttribute('data-platform') === id)
+      })
+      detailCards.forEach(card => {
+        card.classList.toggle('active', card.getAttribute('data-detail') === id)
+      })
+    }
+
+    planets.forEach(planet => {
+      planet.addEventListener('click', () => {
+        const id = planet.getAttribute('data-platform')
+        const wasActive = planet.classList.contains('active')
+        selectPlatform(wasActive ? null : id)
+      })
+    })
+
+    document.addEventListener('click', (e) => {
+      if (!(e.target as HTMLElement).closest('.world-planet') && !(e.target as HTMLElement).closest('.world-detail-card')) {
+        selectPlatform(null)
+      }
+    })
+
+    // Show first platform by default
+    const firstId = planets[0]?.getAttribute('data-platform')
+    if (firstId) selectPlatform(firstId)
+  }
+
   // DOMContentLoaded で各種セットアップを実行
   document.addEventListener('DOMContentLoaded', () => {
     setupProfileToggle()
@@ -949,6 +983,7 @@ function bootstrap() {
     setupShareButtons() // 記事シェアボタン
     setupMarkdownCopyButton() // Markdownコピーボタン
     setupTwitterEmbeds() // Twitter埋め込みウィジェット
+    setupWorldPlatformMap() // Worldページ放射状プラットフォームマップ
   })
 }
 

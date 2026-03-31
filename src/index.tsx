@@ -13,6 +13,7 @@ import { Developer } from './components/Developer'
 import { License } from './components/License'
 import { DevBlog } from './components/DevBlog'
 import { About } from './components/About'
+import { World } from './components/World'
 import { Tutorial } from './components/Tutorial'
 import { CharacterList } from './components/CharacterList'
 import { AINikeProfile } from './components/AINikeProfile'
@@ -335,6 +336,24 @@ app.get('/about', (c) => {
           "url": "https://nikechan.com"
         }
       }
+    }
+  )
+})
+
+// World page
+app.get('/world', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <World locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja' ? "ニケちゃんの世界 | AIニケちゃんオフィシャルサイト" : "Nike-chan's World | AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIニケちゃんはプラットフォームを超えて同じ記憶を持ち活動しています。つながる世界をご覧ください。" : "AI Nike-chan operates across platforms sharing the same memory. Explore her connected worlds.",
+      canonicalUrl: "https://nikechan.com/world"
     }
   )
 })

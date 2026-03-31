@@ -589,3 +589,267 @@
     height: 5rem;
   }
 }
+
+/* ============================
+   World Page — Orbiting UI v5
+   Magic UI-inspired orbit animation
+   ============================ */
+
+.world-orbit-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 1;
+  margin: 2rem auto;
+  container-type: inline-size;
+  overflow: visible;
+}
+
+/* Orbit path rings (visible circles) */
+.world-orbit-path {
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  border: 2px dashed rgba(0,0,0,0.2);
+  pointer-events: none;
+}
+.world-orbit-path--inner {
+  --size: 62%;
+  width: var(--size); height: var(--size);
+  transform: translate(-50%,-50%);
+}
+.world-orbit-path--outer {
+  --size: 84%;
+  width: var(--size); height: var(--size);
+  transform: translate(-50%,-50%);
+}
+
+/* Center node */
+.world-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.world-center__img {
+  position: relative;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f472b6, #38bdf8);
+  padding: 2.5px;
+  box-shadow: 0 4px 24px rgba(244,114,182,0.18), 0 0 0 6px rgba(244,114,182,0.06);
+}
+.world-center__img img {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: white;
+}
+.world-center__label {
+  margin-top: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+/* Orbiting planet — shared */
+.world-planet {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  z-index: 12;
+  /* orbit: rotate to angle → move outward → counter-rotate to stay upright */
+  animation: world-orbit var(--duration) linear infinite;
+  will-change: transform;
+}
+.world-planet--inner {
+  --radius: 31cqi;
+  --duration: 50s;
+}
+.world-planet--outer {
+  --radius: 42cqi;
+  --duration: 70s;
+  animation-direction: reverse;
+}
+
+@keyframes world-orbit {
+  from {
+    transform:
+      rotate(calc(var(--angle) * 1deg))
+      translateX(calc(var(--radius)))
+      rotate(calc(var(--angle) * -1deg));
+  }
+  to {
+    transform:
+      rotate(calc(var(--angle) * 1deg + 360deg))
+      translateX(calc(var(--radius)))
+      rotate(calc(var(--angle) * -1deg - 360deg));
+  }
+}
+
+/* Pause only the hovered planet */
+.world-planet:hover,
+.world-planet.active {
+  animation-play-state: paused;
+}
+
+/* Planet icon badge */
+.world-planet__body {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: -1.375rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 2px solid color-mix(in srgb, var(--accent) 30%, white);
+  color: var(--accent);
+  font-size: 1.05rem;
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.06),
+    0 0 0 4px rgba(255,255,255,0.8);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.world-planet__body:hover {
+  transform: scale(1.2);
+  border-color: var(--accent);
+  box-shadow:
+    0 4px 16px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 0 0 4px rgba(255,255,255,0.9);
+}
+
+/* "Coming soon" dot indicator */
+.world-planet__soon {
+  position: absolute;
+  top: -2px; right: -2px;
+  width: 10px; height: 10px;
+  background: #fbbf24;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Tooltip card on hover */
+.world-planet__tooltip {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  width: 150px;
+  background: white;
+  border-radius: 12px;
+  padding: 0.6rem 0.7rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-top: 2.5px solid var(--accent);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 20;
+}
+.world-planet__body:hover + .world-planet__tooltip,
+.world-planet.active .world-planet__tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.world-planet__tooltip-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 0.15rem;
+}
+.world-planet__tooltip-desc {
+  font-size: 0.62rem;
+  color: #9ca3af;
+  line-height: 1.4;
+}
+.world-planet__tooltip-link {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.world-planet__tooltip-link:hover {
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .world-orbit-wrap {
+    max-width: 520px;
+  }
+  .world-center__img {
+    width: 5.5rem;
+    height: 5.5rem;
+    box-shadow: 0 4px 28px rgba(244,114,182,0.2), 0 0 0 8px rgba(244,114,182,0.06);
+  }
+  .world-center__label {
+    font-size: 0.72rem;
+  }
+  .world-planet__body {
+    width: 3.25rem;
+    height: 3.25rem;
+    margin: -1.625rem;
+    font-size: 1.2rem;
+  }
+  .world-planet__tooltip {
+    width: 170px;
+    padding: 0.7rem 0.8rem;
+  }
+}
+
+/* Accessibility */
+/* Detail panel below orbit */
+.world-detail-panel {
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 100px;
+}
+.world-detail-card {
+  display: none;
+  animation: world-detail-enter 0.3s ease-out;
+}
+.world-detail-card.active {
+  display: block;
+}
+@keyframes world-detail-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.world-detail-card > div {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* FAQ accordion */
+.world-faq-item {
+  overflow: hidden;
+}
+.world-faq-item summary {
+  list-style: none;
+}
+.world-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .world-planet {
+    animation-duration: 0s !important;
+  }
+}
