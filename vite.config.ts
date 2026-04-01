@@ -68,7 +68,22 @@ export default defineConfig(({ mode }) => {
       }),
       devServer({
         adapter,
-        entry: 'src/index.tsx'
+        entry: 'src/index.tsx',
+        exclude: [
+          /.*\.css$/,
+          /.*\.ts$/,
+          /.*\.tsx$/,
+          /^\/@.+$/,
+          /\?t\=\d+$/,
+          /^\/favicon\.ico$/,
+          /^\/static\/.+/,
+          /^\/node_modules\/.*/,
+          /^\/images\/.+/,
+          /^\/icons\/.+/,
+          /^\/manifest\.json$/,
+          /^\/robots\.txt$/,
+          /^\/sitemap\.xml$/,
+        ]
       })
     ]
   }

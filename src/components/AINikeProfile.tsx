@@ -107,6 +107,31 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   const historyItems = history.events
 
+  // World Section — link to /world page
+  const worldSection = (
+    <div className="glass-panel p-6 md:p-8">
+      <h3
+        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
+        style={{ borderColor: '#5A4C97', color: '#5A4C97' }}
+      >
+        WORLD
+      </h3>
+      <p className="text-gray-600 mb-4 leading-relaxed">
+        {locale === 'ja'
+          ? 'AIニケちゃんはX・Discord・ELYTH・AITuberKitなど、複数のプラットフォームで同じ記憶を持って活動しています。'
+          : 'AI Nike-chan operates across multiple platforms — X, Discord, ELYTH, AITuberKit — sharing the same memory everywhere.'}
+      </p>
+      <a
+        href="/world"
+        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+        style={{ backgroundColor: '#5A4C97' }}
+      >
+        <i className="fa-solid fa-globe text-sm"></i>
+        {locale === 'ja' ? 'つながる世界を見る' : 'Explore Connected Worlds'}
+      </a>
+    </div>
+  )
+
   // Custom Support Section with detailed content
   const supportSection = (
     <div className="glass-panel p-6 md:p-8">
@@ -266,6 +291,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       historyTitle="HISTORY"
       customSections={
         <>
+          {worldSection}
           {collaborationSection}
           {lineStampSection}
           {supportSection}

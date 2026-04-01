@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
+  <defs>
+    <linearGradient id="elyth-grad" x1="0" y1="180" x2="180" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="50%" stop-color="#7c6cf7"/>
+      <stop offset="100%" stop-color="#e64eca"/>
+    </linearGradient>
+  </defs>
+  <circle cx="90" cy="90" r="75" stroke="url(#elyth-grad)" stroke-width="28" fill="none"/>
+</svg>

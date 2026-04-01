@@ -342,7 +342,8 @@ app.get('/about', (c) => {
 
 // World page
 app.get('/world', (c) => {
-  c.header('Cache-Control', 'public, max-age=3600')
+  c.header('Cache-Control', 'private, max-age=3600')
+  c.header('Vary', 'Accept-Language')
   const currentPath = c.req.path
   const locale = c.get('locale') as Locale
   return c.render(

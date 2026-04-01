@@ -70,7 +70,7 @@ export const renderer = reactRenderer(({
         <meta name="twitter:title" content={finalTitle} />
         <meta name="twitter:description" content={finalDescription} />
         <meta name="twitter:image" content={finalOgImage} />
-        <meta name="twitter:creator" content="@nikechan_ai" />
+        <meta name="twitter:creator" content="@ai_nikechan" />
 
         {/* Structured Data (JSON-LD) */}
         {structuredData && (
@@ -96,7 +96,7 @@ export const renderer = reactRenderer(({
               "name": "Nike Chan",
               "url": siteUrl,
               "sameAs": [
-                "https://x.com/nikechan_ai",
+                "https://x.com/ai_nikechan",
                 "https://github.com/nikechan"
               ]
             }

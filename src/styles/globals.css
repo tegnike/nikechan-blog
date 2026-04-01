@@ -639,9 +639,9 @@
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #f472b6, #38bdf8);
+  background: #5A4C97;
   padding: 2.5px;
-  box-shadow: 0 4px 24px rgba(244,114,182,0.18), 0 0 0 6px rgba(244,114,182,0.06);
+  box-shadow: 0 4px 24px rgba(90,76,151,0.18), 0 0 0 6px rgba(90,76,151,0.06);
 }
 .world-center__img img {
   border-radius: 50%;
@@ -657,6 +657,11 @@
   color: #6b7280;
   white-space: nowrap;
 }
+.world-center__sublabel {
+  font-size: 0.55rem;
+  color: #9ca3af;
+  white-space: nowrap;
+}
 
 /* Orbiting planet — shared */
 .world-planet {
@@ -664,6 +669,9 @@
   top: 50%; left: 50%;
   width: 0; height: 0;
   z-index: 12;
+  background: none;
+  border: none;
+  padding: 0;
   /* orbit: rotate to angle → move outward → counter-rotate to stay upright */
   animation: world-orbit var(--duration) linear infinite;
   will-change: transform;
@@ -792,7 +800,7 @@
   .world-center__img {
     width: 5.5rem;
     height: 5.5rem;
-    box-shadow: 0 4px 28px rgba(244,114,182,0.2), 0 0 0 8px rgba(244,114,182,0.06);
+    box-shadow: 0 4px 28px rgba(90,76,151,0.2), 0 0 0 8px rgba(90,76,151,0.06);
   }
   .world-center__label {
     font-size: 0.72rem;

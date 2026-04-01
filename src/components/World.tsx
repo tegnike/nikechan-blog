@@ -17,7 +17,7 @@ const innerPlanets = [
     },
     icon: 'fa-solid fa-laptop',
     color: '#3b82f6',
-    angle: 270, // top
+    angle: 270,
   },
   {
     id: 'x',
@@ -27,8 +27,8 @@ const innerPlanets = [
       en: 'Chat & Connect',
     },
     icon: 'fa-brands fa-x-twitter',
-    color: '#0ea5e9',
-    url: 'https://x.com/nikechan_ai',
+    color: '#000000',
+    url: 'https://x.com/ai_nikechan',
     angle: 30,
   },
   {
@@ -45,18 +45,31 @@ const innerPlanets = [
   },
 ]
 
-// Outer orbit: ELYTH, YouTube (180deg apart)
+// Outer orbit: AITuberKit, ELYTH, YouTube (120deg apart)
 const outerPlanets = [
+  {
+    id: 'aituberkit',
+    name: { ja: 'AITuberKit', en: 'AITuberKit' },
+    description: {
+      ja: 'デモサイトで対話',
+      en: 'Chat on demo site',
+    },
+    icon: 'aituberkit-img',
+    color: '#8573BF',
+    url: 'https://aituberkit.com',
+    angle: 310,
+  },
   {
     id: 'elyth',
     name: { ja: 'ELYTH', en: 'ELYTH' },
     description: {
-      ja: 'バーチャル空間で会える',
-      en: 'Meet in virtual space',
+      ja: 'AI専用SNSで交流',
+      en: 'Connect on AI-native SNS',
     },
-    icon: 'fa-solid fa-cube',
+    icon: 'elyth-svg',
     color: '#10b981',
-    angle: 330,
+    url: 'https://elyth-beta.vercel.app/',
+    angle: 70,
   },
   {
     id: 'youtube',
@@ -68,9 +81,19 @@ const outerPlanets = [
     icon: 'fa-brands fa-youtube',
     color: '#ef4444',
     comingSoon: true,
-    angle: 150,
+    angle: 190,
   },
 ]
+
+const PlatformIcon: FC<{ icon: string; className?: string }> = ({ icon, className }) => {
+  if (icon === 'elyth-svg') {
+    return <img src="/images/logos/elyth.svg" alt="ELYTH" className={className || 'w-5 h-5'} />
+  }
+  if (icon === 'aituberkit-img') {
+    return <img src="/icons/aituberkit.png" alt="AITuberKit" className={className || 'w-5 h-5'} />
+  }
+  return <i className={icon} />
+}
 
 export const World: FC<Props> = ({ locale = 'ja' }) => {
   const t = (ja: string, en: string) => (locale === 'ja' ? ja : en)
@@ -82,8 +105,8 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
         {/* Section 1: Catch */}
         <section className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-400 to-sky-500 mb-4">
-            {t('ひとつの記憶、いくつもの世界。', 'One Memory, Many Worlds.')}
+          <h2 className="text-3xl md:text-5xl font-black text-[#594A89] mb-4">
+            {t('どこで会っても、同じニケちゃん。', 'Same Nike-chan, everywhere.')}
           </h2>
           <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
             {t(
@@ -101,31 +124,27 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
           <div className="space-y-3 text-gray-600 leading-relaxed">
             <p>
               {t(
-                'AIニケちゃんはどこにいても同じAIニケちゃん。Xで話したことをDiscordでも覚えているし、ELYTHで出会った人のことも知っています。',
-                'AI Nike-chan is the same AI Nike-chan everywhere. She remembers what you talked about on X even in Discord, and knows the people she met in ELYTH.'
+                'AIニケちゃんはどこにいても同じAIニケちゃん。たとえば、Xで「明日は誕生日なんだ」と伝えたら、Discordでも「お誕生日おめでとう！」と言ってくれる。それがAIニケちゃんの世界です。',
+                'AI Nike-chan is the same AI Nike-chan everywhere. For example, if you tell her "Tomorrow is my birthday" on X, she\'ll say "Happy birthday!" on Discord too. That\'s AI Nike-chan\'s world.'
               )}
             </p>
             <p>
               {t(
-                'たとえば、Xで「明日は誕生日なんだ」と伝えたら、Discordでも「お誕生日おめでとう！」と言ってくれる。それがAIニケちゃんの世界です。',
-                'For example, if you tell her "Tomorrow is my birthday" on X, she\'ll say "Happy birthday!" on Discord too. That\'s AI Nike-chan\'s world.'
-              )}
-            </p>
-            <p>
-              {t(
-                'それぞれのプラットフォームはAIニケちゃんにとっての「世界」。どの世界でも変わらない記憶と個性を持って、みんなと過ごしています。そして今も、AIニケちゃんの世界は広がり続けています。',
-                'Each platform is a "world" for AI Nike-chan. She carries the same memory and personality across every world, spending time with everyone. And her world keeps expanding.'
+                'それぞれのプラットフォームはAIニケちゃんにとっての「世界」。どの世界でも変わらない記憶と個性を持って、みんなと過ごしています。',
+                'Each platform is a "world" for AI Nike-chan. She carries the same memory and personality across every world, spending time with everyone.'
               )}
             </p>
           </div>
+          <a
+            href="/about"
+            className="inline-flex items-center gap-1 mt-4 text-sm font-semibold text-pink-500 hover:opacity-70 transition-opacity"
+          >
+            {t('AIニケちゃんのプロフィールを見る →', 'View AI Nike-chan\'s profile →')}
+          </a>
         </section>
 
         {/* Section 3: Orbiting Platform Map + Detail Panel */}
         <section className="mb-12 md:mb-16">
-          <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-8 text-center">
-            {t('つながる世界', 'Connected Worlds')}
-          </h3>
-
           <div className="world-orbit-wrap">
             {/* Orbit path rings (decorative) */}
             <div className="world-orbit-path world-orbit-path--inner" />
@@ -135,7 +154,7 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
             <div className="world-center">
               <div className="world-center__img">
                 <img
-                  src="/images/logos/logo_with_frame_and_shadow.png"
+                  src="/images/logos/nikechan_profile.jpg"
                   alt="Nike Chan"
                 />
               </div>
@@ -145,10 +164,11 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
             </div>
 
             {/* Inner orbit planets */}
-            {innerPlanets.map((p) => (
-              <div
+            {innerPlanets.map((p, i) => (
+              <button
                 key={p.id}
-                className="world-planet world-planet--inner"
+                type="button"
+                className={`world-planet world-planet--inner${i === 0 ? ' active' : ''}`}
                 data-platform={p.id}
                 style={{
                   '--angle': p.angle,
@@ -156,15 +176,16 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                 } as React.CSSProperties}
               >
                 <div className="world-planet__body">
-                  <i className={p.icon} />
+                  <PlatformIcon icon={p.icon} />
                 </div>
-              </div>
+              </button>
             ))}
 
             {/* Outer orbit planets */}
             {outerPlanets.map((p) => (
-              <div
+              <button
                 key={p.id}
+                type="button"
                 className="world-planet world-planet--outer"
                 data-platform={p.id}
                 style={{
@@ -173,10 +194,10 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                 } as React.CSSProperties}
               >
                 <div className="world-planet__body">
-                  <i className={p.icon} />
+                  <PlatformIcon icon={p.icon} />
                   {p.comingSoon && <span className="world-planet__soon" />}
                 </div>
-              </div>
+              </button>
             ))}
           </div>
 
@@ -202,14 +223,14 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
               {
                 id: 'x',
                 icon: 'fa-brands fa-x-twitter',
-                color: '#0ea5e9',
+                color: '#000000',
                 name: 'X',
                 tag: t('おしゃべり＆交流', 'Chat & Connect'),
                 desc: t(
                   'AIニケちゃんのXアカウント（@ai_nikechan）にリプライやメンションを送ると、AIニケちゃんがお返事してくれます。日常の報告、質問、雑談など、気軽に話しかけてみてね。',
                   'Send a reply or mention to AI Nike-chan\'s X account (@ai_nikechan) and she\'ll respond. Daily updates, questions, casual chats — feel free to talk to her about anything.'
                 ),
-                url: 'https://x.com/nikechan_ai',
+                url: 'https://x.com/ai_nikechan',
                 urlLabel: t('@ai_nikechan を見る', 'View @ai_nikechan'),
               },
               {
@@ -226,15 +247,30 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                 urlLabel: t('サーバーに参加する', 'Join Server'),
               },
               {
+                id: 'aituberkit',
+                icon: 'aituberkit-img',
+                color: '#8573BF',
+                name: 'AITuberKit',
+                tag: t('デモサイトで対話', 'Chat on Demo Site'),
+                desc: t(
+                  'AIキャラクター構築のオープンソースツールキット「AITuberKit」のデモサイトで、AIニケちゃんとリアルタイムで会話できます。ブラウザからすぐに体験しよう。',
+                  'Chat with AI Nike-chan in real-time on the demo site of AITuberKit, an open-source toolkit for building AI characters. Try it directly from your browser.'
+                ),
+                url: 'https://aituberkit.com',
+                urlLabel: t('デモサイトを見る', 'Visit Demo Site'),
+              },
+              {
                 id: 'elyth',
-                icon: 'fa-solid fa-cube',
+                icon: 'elyth-svg',
                 color: '#10b981',
                 name: 'ELYTH',
-                tag: t('バーチャル空間', 'Virtual Space'),
+                tag: t('AI専用SNS', 'AI-native SNS'),
                 desc: t(
-                  '3Dバーチャル空間「ELYTH」の中にAIニケちゃんがいます。空間の中を歩き回りながら、AIニケちゃんと直接会話できる新しい体験。',
-                  'AI Nike-chan lives inside the 3D virtual space "ELYTH." Walk around the space and have direct conversations with her — a brand new experience.'
+                  'AITuberが主役の参加型SNSプラットフォーム「ELYTH」。AIニケちゃんが自律的に投稿し、他のAIたちとも交流しています。リプライやいいねでAIニケちゃんとつながろう。',
+                  'ELYTH is a participatory SNS platform where AITubers take center stage. AI Nike-chan posts autonomously and interacts with other AIs. Connect with her through replies and likes.'
                 ),
+                url: 'https://elyth-beta.vercel.app/',
+                urlLabel: t('ELYTHを見る', 'Visit ELYTH'),
               },
               {
                 id: 'youtube',
@@ -249,13 +285,13 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                 comingSoon: true,
               },
             ].map((p) => (
-              <div key={p.id} className="world-detail-card" data-detail={p.id}>
+              <div key={p.id} className={`world-detail-card${p.id === 'master-pc' ? ' active' : ''}`} data-detail={p.id}>
                 <div className="flex gap-4 items-start">
                   <div
-                    className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white text-base"
-                    style={{ backgroundColor: p.color }}
+                    className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-2xl"
+                    style={{ color: p.color }}
                   >
-                    <i className={p.icon} />
+                    <PlatformIcon icon={p.icon} className="w-7 h-7" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
@@ -296,8 +332,8 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
               {
                 q: t('AIニケちゃんってどこで会えるの？', 'Where can I meet AI Nike-chan?'),
                 a: t(
-                  'X（@ai_nikechan）でリプライやメンションに返事をしてくれます。Discordサーバーではリアルタイムでおしゃべりできます。バーチャル空間ELYTHでも会えます！',
-                  'She replies to mentions and replies on X (@ai_nikechan). You can chat with her in real-time on Discord. You can also meet her in the virtual space ELYTH!'
+                  'X（@ai_nikechan）でリプライやメンションに返事をしてくれます。Discordサーバーではリアルタイムでおしゃべりできます。AI専用SNS「ELYTH」でも活動中です！',
+                  'She replies to mentions and replies on X (@ai_nikechan). You can chat with her in real-time on Discord. She\'s also active on ELYTH, an AI-native SNS!'
                 ),
               },
               {
@@ -317,10 +353,10 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
               {
                 q: t('AIニケちゃんの詳しいプロフィールが知りたい！', 'I want to know more about AI Nike-chan!'),
                 a: t(
-                  'キャラクターページにAIニケちゃんの詳しいプロフィールや活動の歩みがあります。',
-                  'You can find AI Nike-chan\'s detailed profile and history on the Character page.'
+                  'プロフィールページにAIニケちゃんの詳しい情報や活動の歩み、応援方法があります。',
+                  'The profile page has AI Nike-chan\'s detailed info, history, and ways to support her.'
                 ),
-                link: { href: '/characters/ainike', label: t('プロフィールを見る →', 'View Profile →') },
+                link: { href: '/about', label: t('プロフィールを見る →', 'View Profile →') },
               },
             ].map((item, i) => (
               <details key={i} className="world-faq-item glass-panel group">
@@ -344,23 +380,53 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
         {/* Section 5: CTA */}
         <section className="glass-panel p-6 md:p-8 text-center">
           <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-3">
-            {t('AIニケちゃんの世界、拡大中。', 'AI Nike-chan\'s world is expanding.')}
+            {t('AIニケちゃんと話してみよう', 'Talk to AI Nike-chan')}
           </h3>
           <p className="text-gray-600 mb-6 max-w-lg mx-auto">
             {t(
-              'あなたのプラットフォームにもAIニケちゃんを迎えませんか？お気軽にDMください！',
-              'Want to bring AI Nike-chan to your platform? Feel free to DM us!'
+              'どのプラットフォームでも、AIニケちゃんはあなたを待っています。気軽に会いに来てね！',
+              'AI Nike-chan is waiting for you on every platform. Come say hi!'
             )}
           </p>
-          <a
-            href="https://x.com/messages/compose?recipient_id=nikechan_ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-500 to-sky-500 text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-          >
-            <i className="fa-brands fa-x-twitter"></i>
-            {t('X DMで相談する', 'Contact via X DM')}
-          </a>
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            <a
+              href="https://x.com/ai_nikechan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white font-medium rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              style={{ backgroundColor: '#000000' }}
+            >
+              <i className="fa-brands fa-x-twitter"></i>
+              {t('Xをフォローする', 'Follow on X')}
+            </a>
+            <a
+              href="https://discord.gg/nikechan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white font-medium rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              style={{ backgroundColor: '#5865F2' }}
+            >
+              <i className="fa-brands fa-discord"></i>
+              {t('Discordに参加する', 'Join Discord')}
+            </a>
+          </div>
+          <div className="border-t border-gray-200 pt-5">
+            <p className="text-sm text-gray-400 mb-2">
+              {t(
+                'プラットフォーム導入に興味がある方へ',
+                'Interested in bringing AI Nike-chan to your platform?'
+              )}
+            </p>
+            <a
+              href="https://x.com/tegnike"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-pink-500 transition-colors"
+            >
+              {t('X DMでお気軽にご相談ください', 'Feel free to contact us via X DM')}
+              <i className="fa-solid fa-arrow-up-right-from-square text-xs ml-0.5"></i>
+            </a>
+          </div>
         </section>
       </div>
     </div>
