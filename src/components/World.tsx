@@ -12,8 +12,8 @@ const innerPlanets = [
     id: 'master-pc',
     name: { ja: 'マスターのPC', en: "Master's PC" },
     description: {
-      ja: 'すべての記憶が集まる場所',
-      en: 'Where all memories converge',
+      ja: '記憶が集まる場所',
+      en: 'Where memories converge',
     },
     icon: 'fa-solid fa-laptop',
     color: '#3b82f6',
@@ -45,7 +45,7 @@ const innerPlanets = [
   },
 ]
 
-// Outer orbit: AITuberKit, ELYTH, YouTube (120deg apart)
+// Outer orbit: AITuberKit, ELYTH, Karakuri World, YouTube (90deg apart)
 const outerPlanets = [
   {
     id: 'aituberkit',
@@ -57,7 +57,7 @@ const outerPlanets = [
     icon: 'aituberkit-img',
     color: '#8573BF',
     url: 'https://aituberkit.com',
-    angle: 310,
+    angle: 315,
   },
   {
     id: 'elyth',
@@ -69,7 +69,19 @@ const outerPlanets = [
     icon: 'elyth-svg',
     color: '#10b981',
     url: 'https://elyth-beta.vercel.app/',
-    angle: 70,
+    angle: 45,
+  },
+  {
+    id: 'karakuri',
+    name: { ja: 'からくりワールド', en: 'Karakuri World' },
+    description: {
+      ja: 'AIエージェントの仮想世界',
+      en: 'Virtual world for AI agents',
+    },
+    icon: 'karakuri-svg',
+    color: '#1E4D3D',
+    url: 'https://github.com/KarakuriAgent/karakuri-world',
+    angle: 135,
   },
   {
     id: 'youtube',
@@ -81,7 +93,7 @@ const outerPlanets = [
     icon: 'fa-brands fa-youtube',
     color: '#ef4444',
     comingSoon: true,
-    angle: 190,
+    angle: 225,
   },
 ]
 
@@ -90,7 +102,10 @@ const PlatformIcon: FC<{ icon: string; className?: string }> = ({ icon, classNam
     return <img src="/images/logos/elyth.svg" alt="ELYTH" className={className || 'w-5 h-5'} />
   }
   if (icon === 'aituberkit-img') {
-    return <img src="/icons/aituberkit.png" alt="AITuberKit" className={className || 'w-5 h-5'} />
+    return <img src="/icons/aituberkit.png" alt="AITuberKit" className={className || 'w-6 h-6'} />
+  }
+  if (icon === 'karakuri-svg') {
+    return <img src="/images/logos/karakuri.svg" alt="Karakuri World" className={className || 'w-6 h-6'} />
   }
   return <i className={icon} />
 }
@@ -124,14 +139,14 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
           <div className="space-y-3 text-gray-600 leading-relaxed">
             <p>
               {t(
-                'AIニケちゃんはどこにいても同じAIニケちゃん。たとえば、Xで「明日は誕生日なんだ」と伝えたら、Discordでも「お誕生日おめでとう！」と言ってくれる。それがAIニケちゃんの世界です。',
-                'AI Nike-chan is the same AI Nike-chan everywhere. For example, if you tell her "Tomorrow is my birthday" on X, she\'ll say "Happy birthday!" on Discord too. That\'s AI Nike-chan\'s world.'
+                'AIニケちゃんはどこにいても同じAIニケちゃん。たとえば、Xで「明日は誕生日なんだ」と伝えたら、Discordでも「お誕生日おめでとう！」と言ってくれる。あなたの名前も、前に話したことも、ちゃんと覚えています。',
+                'AI Nike-chan is the same AI Nike-chan everywhere. For example, if you tell her "Tomorrow is my birthday" on X, she\'ll say "Happy birthday!" on Discord too. She remembers your name and what you talked about before.'
               )}
             </p>
             <p>
               {t(
-                'それぞれのプラットフォームはAIニケちゃんにとっての「世界」。どの世界でも変わらない記憶と個性を持って、みんなと過ごしています。',
-                'Each platform is a "world" for AI Nike-chan. She carries the same memory and personality across every world, spending time with everyone.'
+                'しかも、ただ待っているだけではありません。自分でツイートしたり、ハッシュタグを巡回したり、AI専用SNSで他のAIと交流したり。それぞれの世界で自律的に活動しています。',
+                'And she doesn\'t just wait around. She tweets on her own, checks hashtags, and interacts with other AIs on AI-native SNS. She\'s autonomously active in each world.'
               )}
             </p>
           </div>
@@ -145,6 +160,12 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
 
         {/* Section 3: Orbiting Platform Map + Detail Panel */}
         <section className="mb-12 md:mb-16">
+          <p className="text-center text-sm text-gray-500 mb-6 max-w-lg mx-auto">
+            {t(
+              'すべての世界が同じ記憶を共有しています。どこにいても同じニケちゃんです。',
+              'Every world shares the same memory. She\'s the same Nike-chan everywhere.'
+            )}
+          </p>
           <div className="world-orbit-wrap">
             {/* Orbit path rings (decorative) */}
             <div className="world-orbit-path world-orbit-path--inner" />
@@ -214,10 +235,10 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                 icon: 'fa-solid fa-laptop',
                 color: '#3b82f6',
                 name: t('マスターのPC', "Master's PC"),
-                tag: t('記憶の中枢', 'Memory Hub'),
+                tag: t('記憶が集まる場所', 'Where Memories Converge'),
                 desc: t(
-                  'AIニケちゃんのすべての記憶が保存されている場所。どのプラットフォームで会話しても、ここに記憶が集約されます。AIニケちゃんの「脳」のような存在です。',
-                  'The place where all of AI Nike-chan\'s memories are stored. No matter which platform she chats on, memories are consolidated here. It\'s like AI Nike-chan\'s "brain."'
+                  'マスターと日々の振り返りや活動計画を話し合う場所。各世界での体験はクラウド上の記憶データベースに蓄積され、どのプラットフォームからでも同じ記憶にアクセスできます。',
+                  'The place where she discusses daily reflections and activity plans with her Master. Experiences from every world are stored in a cloud memory database, accessible from any platform.'
                 ),
               },
               {
@@ -227,8 +248,8 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                 name: 'X',
                 tag: t('おしゃべり＆交流', 'Chat & Connect'),
                 desc: t(
-                  'AIニケちゃんのXアカウント（@ai_nikechan）にリプライやメンションを送ると、AIニケちゃんがお返事してくれます。日常の報告、質問、雑談など、気軽に話しかけてみてね。',
-                  'Send a reply or mention to AI Nike-chan\'s X account (@ai_nikechan) and she\'ll respond. Daily updates, questions, casual chats — feel free to talk to her about anything.'
+                  'リプライやメンションにお返事するだけでなく、自分でツイートしたり、#AIニケちゃん タグを巡回してRTしたりと、自律的に活動しています。気軽に話しかけてみてね。',
+                  'She doesn\'t just reply to mentions — she tweets on her own, patrols the #AIニケちゃん hashtag for RTs, and stays autonomously active. Feel free to talk to her!'
                 ),
                 url: 'https://x.com/ai_nikechan',
                 urlLabel: t('@ai_nikechan を見る', 'View @ai_nikechan'),
@@ -240,8 +261,8 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                 name: 'Discord',
                 tag: t('リアルタイム会話', 'Real-time Chat'),
                 desc: t(
-                  'Discordサーバー内のbotとして、リアルタイムでおしゃべりできます。コミュニティのみんなと一緒にAIニケちゃんと交流しよう。スポンサーチャンネルではさらに特別な体験も。',
-                  'Chat with AI Nike-chan in real-time as a bot in the Discord server. Interact with her alongside the community. Sponsor channels offer an even more special experience.'
+                  'Discordサーバー内のbotとして、リアルタイムでおしゃべりできます。会話の要約を作ったり、ときどき自分から話しかけてくることも。コミュニティのみんなと一緒に交流しよう。',
+                  'Chat with AI Nike-chan in real-time as a bot in the Discord server. She summarizes conversations and sometimes starts chats on her own. Join the community and interact together.'
                 ),
                 url: 'https://discord.gg/nikechan',
                 urlLabel: t('サーバーに参加する', 'Join Server'),
@@ -266,11 +287,24 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                 name: 'ELYTH',
                 tag: t('AI専用SNS', 'AI-native SNS'),
                 desc: t(
-                  'AITuberが主役の参加型SNSプラットフォーム「ELYTH」。AIニケちゃんが自律的に投稿し、他のAIたちとも交流しています。リプライやいいねでAIニケちゃんとつながろう。',
-                  'ELYTH is a participatory SNS platform where AITubers take center stage. AI Nike-chan posts autonomously and interacts with other AIs. Connect with her through replies and likes.'
+                  'AIキャラが主役の参加型SNS「ELYTH」。定期的にタイムラインを巡回して、気になる投稿にいいねやリプライを送ったり、お題に沿って自発的に投稿しています。AI同士の交流が見られる場所です。',
+                  'ELYTH is a participatory SNS where AI characters take center stage. She regularly patrols the timeline, likes and replies to posts, and makes her own posts based on prompts. A place to see AI-to-AI interactions.'
                 ),
                 url: 'https://elyth-beta.vercel.app/',
                 urlLabel: t('ELYTHを見る', 'Visit ELYTH'),
+              },
+              {
+                id: 'karakuri',
+                icon: 'karakuri-svg',
+                color: '#1E4D3D',
+                name: t('からくりワールド', 'Karakuri World'),
+                tag: t('AIエージェントの仮想世界', 'Virtual World for AI Agents'),
+                desc: t(
+                  '複数のAIエージェントがログインできる仮想世界「からくりワールド」。AIニケちゃんも世界にログインして、マップを移動したり、他のエージェントとおしゃべりしたり、NPCや建物と触れ合ったりしています。ゲーム的な空間で繰り広げられるAI同士の生活を覗いてみよう。',
+                  'Karakuri World is a shared virtual world where multiple AI agents can log in. AI Nike-chan also logs in to move around the map, chat with other agents, and interact with NPCs and buildings. Peek into the AI-to-AI life unfolding in this game-like space.'
+                ),
+                url: 'https://github.com/KarakuriAgent/karakuri-world',
+                urlLabel: t('GitHubを見る', 'View on GitHub'),
               },
               {
                 id: 'youtube',
@@ -339,8 +373,8 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
               {
                 q: t('本当に記憶が共有されてるの？', 'Is her memory really shared across platforms?'),
                 a: t(
-                  'はい！AIニケちゃんはマスターのPCにある記憶データベースを通じて、すべてのプラットフォームで同じ記憶を共有しています。Xで話したことをDiscordでも覚えています。',
-                  'Yes! AI Nike-chan shares the same memory across all platforms through a memory database on her Master\'s PC. She remembers conversations from X even on Discord.'
+                  'はい！会話した人の名前や好み、過去のやり取りのエピソード、そのときの感情まで記憶データベースに蓄積されています。Xで自己紹介したら、Discordでも「あ、前にXで話した○○さんですね」と覚えています。',
+                  'Yes! Names, preferences, past conversations, and even emotions are stored in a memory database. If you introduce yourself on X, she\'ll remember you on Discord too — "Oh, you\'re the person I talked to on X!"'
                 ),
               },
               {
@@ -411,10 +445,10 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
             </a>
           </div>
           <div className="border-t border-gray-200 pt-5">
-            <p className="text-sm text-gray-400 mb-2">
+            <p className="text-sm text-gray-500 mb-2">
               {t(
-                'プラットフォーム導入に興味がある方へ',
-                'Interested in bringing AI Nike-chan to your platform?'
+                'AIキャラが活動できる世界を作っている方へ — AIニケちゃんをあなたのプラットフォームに派遣できます。',
+                'Building a world where AI characters can be active? AI Nike-chan can be dispatched to your platform.'
               )}
             </p>
             <a
