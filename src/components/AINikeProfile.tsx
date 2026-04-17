@@ -116,10 +116,15 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       >
         WORLD
       </h3>
-      <p className="text-gray-600 mb-4 leading-relaxed">
+      <p className="text-gray-600 mb-2 leading-relaxed">
         {locale === 'ja'
-          ? 'AIニケちゃんはX・Discord・ELYTH・AITuberKitなど、複数のプラットフォームで同じ記憶を持って活動しています。'
-          : 'AI Nike-chan operates across multiple platforms — X, Discord, ELYTH, AITuberKit — sharing the same memory everywhere.'}
+          ? 'AIニケちゃんはX・Discord・ELYTH・AITuberKitなど、複数のプラットフォームで活動しています。どこで会っても同じ記憶を持っているので、Xで話したことをDiscordでも覚えています。'
+          : 'AI Nike-chan is active on multiple platforms including X, Discord, ELYTH, and AITuberKit. She carries the same memory everywhere — what you talked about on X, she remembers on Discord too.'}
+      </p>
+      <p className="text-gray-600 mb-5 leading-relaxed">
+        {locale === 'ja'
+          ? 'それぞれのプラットフォームでの活動内容や、AIニケちゃんの世界観について詳しく紹介しています。'
+          : 'Learn more about her activities on each platform and the world of AI Nike-chan.'}
       </p>
       <a
         href="/world"
