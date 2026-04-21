@@ -70,5 +70,47 @@
     "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
     "type": "twitter-embed",
     "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">Discord bot 放置しすぎて人格上書きされてんのおもろい <a href=\"https://t.co/yxIGvnOgjA\">pic.twitter.com/yxIGvnOgjA</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2038509888616153534?ref_src=twsrc%5Etfw\">March 30, 2026</a></blockquote>\n\n"
+  },
+  "https://note.com/nike_cha_n/n/n96515b745cd2": {
+    "title": "AIに知ってるゲームの操作と実況をすべて任せてみる｜ニケちゃん",
+    "description": "⚠ この記事は展示会後の24/11/17（日）に加筆修正してます。  こんにちは、ニケです。 皆さん、24/11/16（土）に開かれる『生成AIなんでも展示会』には参加されましたでしょうか？  生成AIなんでも展示会は、生成AI系個人開発者のデモ会です（個人である点がポイント）。 生成AI系の開発者が集まり、制作物・実験結果などをブースで展示することで、技術を通じて交流を深めることが目的とのこと｡  \n\n\n生成AIなんでも展示会 Vol.2｜IT勉強会・イベントならTECH PLAY［テックプレイ］\n\n\n2024/11/16（土）開催 生成AIなんでも展示会 Vol.2 イベント概要 ",
+    "image": "https://assets.st-note.com/production/uploads/images/161898547/rectangle_large_type_2_91295623200a52f0fa4d02f680bef687.png?fit=bounds&quality=85&width=1280",
+    "siteName": "note（ノート）",
+    "url": "https://note.com/nike_cha_n/n/n96515b745cd2",
+    "favicon": "https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico"
+  },
+  "https://pokemonshowdown.com/": {
+    "title": "Pok&eacute;mon Showdown! battle simulator",
+    "description": "",
+    "image": "",
+    "siteName": "",
+    "url": "https://pokemonshowdown.com/",
+    "favicon": "https://pokemonshowdown.com/favicon.ico"
+  },
+  "https://arxiv.org/abs/2402.01118": {
+    "title": "PokeLLMon: A Human-Parity Agent for Pokemon Battles with Large Language Models",
+    "description": "We introduce PokeLLMon, the first LLM-embodied agent that achieves human-parity performance in tactical battle games, as demonstrated in Pokemon battles. The design of PokeLLMon incorporates three key strategies: (i) In-context reinforcement learning that instantly consumes text-based feedback derived from battles to iteratively refine the policy; (ii) Knowledge-augmented generation that retrieves external knowledge to counteract hallucination and enables the agent to act timely and properly; (iii) Consistent action generation to mitigate the panic switching phenomenon when the agent faces a powerful opponent and wants to elude the battle. We show that online battles against human demonstrates PokeLLMon&#39;s human-like battle strategies and just-in-time decision making, achieving 49% of win rate in the Ladder competitions and 56% of win rate in the invited battles. Our implementation and playable battle logs are available at: https://github.com/git-disl/PokeLLMon.",
+    "image": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "siteName": "arXiv.org",
+    "url": "https://arxiv.org/abs/2402.01118",
+    "favicon": "https://arxiv.org/static/browse/0.3.4/images/icons/favicon-32x32.png"
+  },
+  "https://x.com/tegnike": {
+    "title": "",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://x.com/tegnike",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico"
+  },
+  "https://www.youtube.com/watch?v=aTh256shKwo": {
+    "title": "【ポケモンスタジアム2】AI操作 x AI実況【③試合目ノーカット版】",
+    "description": "ニケちゃんのAITuberラボ",
+    "image": "https://i.ytimg.com/vi/aTh256shKwo/hqdefault.jpg",
+    "siteName": "YouTube",
+    "url": "https://www.youtube.com/watch?v=aTh256shKwo",
+    "favicon": "https://www.youtube.com/favicon.ico",
+    "type": "youtube-embed",
+    "embedHtml": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/aTh256shKwo?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"【ポケモンスタジアム2】AI操作 x AI実況【③試合目ノーカット版】\"></iframe>"
   }
 }

@@ -385,6 +385,24 @@
   margin: 0 !important;
 }
 
+/* YouTube Embed */
+.youtube-embed {
+  margin: 1.5rem 0;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.youtube-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+}
+
 @media (max-width: 640px) {
   .ogp-card {
     flex-direction: column;

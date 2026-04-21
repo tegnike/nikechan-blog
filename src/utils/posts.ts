@@ -66,7 +66,7 @@ export type OgpData = {
   siteName: string
   url: string
   favicon: string
-  type?: 'ogp' | 'twitter-embed'
+  type?: 'ogp' | 'twitter-embed' | 'youtube-embed'
   embedHtml?: string
 }
 

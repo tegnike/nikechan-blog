@@ -7,7 +7,7 @@ type OgpData = {
   siteName: string
   url: string
   favicon: string
-  type?: 'ogp' | 'twitter-embed'
+  type?: 'ogp' | 'twitter-embed' | 'youtube-embed'
   embedHtml?: string
 }
 
@@ -15,6 +15,39 @@ type OgpCache = Record<string, OgpData>
 
 function isTwitterUrl(url: string): boolean {
   return /^https?:\/\/(x\.com|twitter\.com)\/\w+\/status\/\d+/.test(url)
+}
+
+function isYouTubeUrl(url: string): boolean {
+  return /^https?:\/\/(www\.)?(youtube\.com\/watch|youtu\.be\/)/.test(url)
+}
+
+async function fetchYouTubeEmbed(url: string): Promise<OgpData | null> {
+  try {
+    const oembedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`
+    const response = await fetchWithTimeout(oembedUrl)
+    if (!response.ok) return null
+
+    const data = await response.json() as {
+      html: string
+      title: string
+      author_name: string
+      thumbnail_url: string
+    }
+
+    return {
+      title: data.title,
+      description: data.author_name,
+      image: data.thumbnail_url,
+      siteName: 'YouTube',
+      url,
+      favicon: 'https://www.youtube.com/favicon.ico',
+      type: 'youtube-embed',
+      embedHtml: data.html,
+    }
+  } catch (e) {
+    console.error(`Failed to fetch YouTube oEmbed for ${url}:`, e)
+    return null
+  }
 }
 
 async function fetchWithTimeout(input: string, init: RequestInit = {}, timeoutMs = 10000) {
@@ -168,7 +201,9 @@ async function main() {
       continue
     }
     console.log(`  fetching: ${url}`)
-    const data = isTwitterUrl(url) ? await fetchTwitterEmbed(url) : await fetchOgp(url)
+    const data = isTwitterUrl(url) ? await fetchTwitterEmbed(url)
+      : isYouTubeUrl(url) ? await fetchYouTubeEmbed(url)
+      : await fetchOgp(url)
     if (data) {
       cache[url] = data
     }

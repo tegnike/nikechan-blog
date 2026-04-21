@@ -257,6 +257,9 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
             if (data.type === 'twitter-embed' && data.embedHtml) {
               return `<div class="twitter-embed">${data.embedHtml}</div>`
             }
+            if (data.type === 'youtube-embed' && data.embedHtml) {
+              return `<div class="youtube-embed">${data.embedHtml}</div>`
+            }
             const domain = (() => {
               try { return new URL(data.url).hostname } catch { return data.url }
             })()
