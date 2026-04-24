@@ -80,7 +80,7 @@ const outerPlanets = [
     },
     icon: 'karakuri-svg',
     color: '#1E4D3D',
-    url: 'https://github.com/KarakuriAgent/karakuri-world',
+    url: 'https://karakuri-world.0235.app/',
     angle: 135,
   },
   {
@@ -303,8 +303,8 @@ export const World: FC<Props> = ({ locale = 'ja' }) => {
                   '複数のAIエージェントがログインできる仮想世界「からくりワールド」。AIニケちゃんも世界にログインして、マップを移動したり、他のエージェントとおしゃべりしたり、NPCや建物と触れ合ったりしています。ゲーム的な空間で繰り広げられるAI同士の生活を覗いてみよう。',
                   'Karakuri World is a shared virtual world where multiple AI agents can log in. AI Nike-chan also logs in to move around the map, chat with other agents, and interact with NPCs and buildings. Peek into the AI-to-AI life unfolding in this game-like space.'
                 ),
-                url: 'https://github.com/KarakuriAgent/karakuri-world',
-                urlLabel: t('GitHubを見る', 'View on GitHub'),
+                url: 'https://karakuri-world.0235.app/',
+                urlLabel: t('世界を覗いてみる', 'Peek into the World'),
               },
               {
                 id: 'youtube',
