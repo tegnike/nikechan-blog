@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import type { Article } from '../lib/supabase'
 import { TechBlog } from './TechBlog'
 import { PageHeader } from './PageHeader'
 import { getPostsByLocale } from '../utils/posts'
@@ -18,56 +19,63 @@ export const DevBlog = async (locale: Locale = 'ja') => {
   // 1から23までの画像番号の配列をシャッフル
   const imageNumbers = Array.from({ length: 23 }, (_, i) => i + 1)
   const shuffledImageNumbers = shuffleArray(imageNumbers)
+  const posts = getPostsByLocale(locale)
+  let articles: Article[] = []
+  const hasSupabaseEnv = Boolean(
+    import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
+  )
 
-  try {
-    // 技術記事を取得
-    const { data: articles, error } = await supabase
-      .from('articles')
-      .select('*')
-      .or('status.eq.published,status.eq.public')
-      .order('published_at', { ascending: false })
+  if (hasSupabaseEnv) {
+    try {
+      // 技術記事を取得
+      const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .or('status.eq.published,status.eq.public')
+        .order('published_at', { ascending: false })
 
-    // 自前記事を取得（localeでフィルタリング）
-    const posts = getPostsByLocale(locale)
-
-    if (error) {
-      return (
-        <div className="text-center py-8 text-red-500">エラーが発生しました</div>
-      )
+      if (error) {
+        console.error('Failed to load external dev blog articles', error)
+      } else {
+        articles = data || []
+      }
+    } catch (error) {
+      console.error('Failed to load external dev blog articles', error)
     }
+  }
 
-    return (
-      <div className="character-page min-h-screen">
-        <PageHeader title="DEV BLOG" />
+  return (
+    <div className="character-page min-h-screen">
+      <PageHeader title="DEV BLOG" />
 
-        {/* Main Content */}
-        <div className="relative">
-          <div className="character-showcase-bg absolute inset-0" />
-          <div className="relative z-10">
-            {/* 自前記事セクション */}
-            {posts.length > 0 && (
-              <div className="container mx-auto px-4 pt-8">
-                <h2 className="text-xl font-bold text-zinc-800 mb-4">Blog Posts</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  {posts.map((post) => (
-                    <a
-                      key={post.slug}
-                      href={`/dev_blog/${post.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
-                      className="block rounded-xl border bg-white/60 ring-1 ring-black/5 shadow-sm
-                        hover:shadow-md transition-all duration-300 ease-in-out transform
-                        hover:-translate-y-1 hover:scale-[1.02] overflow-hidden"
-                    >
-                      {post.thumbnail && (
-                        <div className="aspect-[1200/630] overflow-hidden">
-                          <img
-                            src={post.thumbnail}
-                            alt={post.title}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                          />
-                        </div>
-                      )}
-                      <div className="p-4">
+      {/* Main Content */}
+      <div className="relative">
+        <div className="character-showcase-bg absolute inset-0" />
+        <div className="relative z-10">
+          {/* 自前記事セクション */}
+          {posts.length > 0 && (
+            <div className="container mx-auto px-4 pt-8">
+              <h2 className="text-xl font-bold text-zinc-800 mb-4">Blog Posts</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {posts.map((post) => (
+                  <a
+                    key={post.slug}
+                    href={`/dev_blog/${post.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
+                    className="block rounded-xl border bg-white/60 ring-1 ring-black/5 shadow-sm
+                      hover:shadow-md transition-all duration-300 ease-in-out transform
+                      hover:-translate-y-1 hover:scale-[1.02] overflow-hidden"
+                  >
+                    {post.thumbnail && (
+                      <div className="aspect-[1200/630] overflow-hidden">
+                        <img
+                          src={post.thumbnail}
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <div className="p-4">
                       <div className="text-zinc-500 text-sm mb-2">
                         {new Date(post.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'ja-JP', {
                           year: 'numeric',
@@ -90,33 +98,27 @@ export const DevBlog = async (locale: Locale = 'ja') => {
                           ))}
                         </div>
                       )}
-                      </div>
-                    </a>
-                  ))}
-                </div>
+                    </div>
+                  </a>
+                ))}
               </div>
-            )}
+            </div>
+          )}
 
-            {/* 外部記事セクション */}
-            {(articles || []).length > 0 && (
-              <div className="container mx-auto px-4">
-                <h2 className="text-xl font-bold text-zinc-800 mb-4">External Articles</h2>
-              </div>
-            )}
-            <TechBlog articles={articles || []} shuffledImageNumbers={shuffledImageNumbers} />
-          </div>
-        </div>
-
-        {/* Decorative Footer Gradient */}
-        <div className="character-footer h-16 relative overflow-hidden">
-          <div className="character-footer-gradient absolute inset-0" />
+          {/* 外部記事セクション */}
+          {articles.length > 0 && (
+            <div className="container mx-auto px-4">
+              <h2 className="text-xl font-bold text-zinc-800 mb-4">External Articles</h2>
+            </div>
+          )}
+          <TechBlog articles={articles} shuffledImageNumbers={shuffledImageNumbers} />
         </div>
       </div>
-    )
-  } catch (error) {
-    console.error('Failed to load dev blog data', error)
-    return (
-      <div className="text-center py-8 text-red-500">エラーが発生しました</div>
-    )
-  }
+
+      {/* Decorative Footer Gradient */}
+      <div className="character-footer h-16 relative overflow-hidden">
+        <div className="character-footer-gradient absolute inset-0" />
+      </div>
+    </div>
+  )
 }

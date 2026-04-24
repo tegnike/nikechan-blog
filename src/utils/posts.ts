@@ -6,6 +6,8 @@ export type Post = {
   description: string
   thumbnail: string
   content: string
+  draft?: boolean
+  draftToken?: string
 }
 
 // ビルド時にMarkdownファイルをバンドルに含める
@@ -55,6 +57,8 @@ function parsePost(filePath: string, raw: string): Post {
     description: (metadata.description as string) || '',
     thumbnail: (metadata.thumbnail as string) || '',
     content,
+    draft: metadata.draft === 'true',
+    draftToken: (metadata.draftToken as string) || undefined,
   }
 }
 
@@ -103,17 +107,21 @@ export function getOgpCache(): Record<string, OgpData> {
   }
 }
 
-let _posts: Post[] | null = null
+let _allPosts: Post[] | null = null
 
-export function getAllPosts(): Post[] {
-  if (_posts) return _posts
-  _posts = Object.entries(modules)
+function loadAllPosts(): Post[] {
+  if (_allPosts) return _allPosts
+  _allPosts = Object.entries(modules)
     .map(([path, raw]) => parsePost(path, raw))
     .sort((a, b) => (a.date > b.date ? -1 : 1))
-  return _posts
+  return _allPosts
 }
 
-/** slugの-enサフィックスでlocaleフィルタリング */
+export function getAllPosts(): Post[] {
+  return loadAllPosts().filter((p) => !p.draft)
+}
+
+/** slugの-enサフィックスでlocaleフィルタリング（ドラフト除外） */
 export function getPostsByLocale(locale: string): Post[] {
   return getAllPosts().filter((p) =>
     locale === 'en' ? p.slug.endsWith('-en') : !p.slug.endsWith('-en')
@@ -122,4 +130,8 @@ export function getPostsByLocale(locale: string): Post[] {
 
 export function getPostBySlug(slug: string): Post | undefined {
   return getAllPosts().find((p) => p.slug === slug)
+}
+
+export function getPostByDraftToken(token: string): Post | undefined {
+  return loadAllPosts().find((p) => p.draft && p.draftToken === token)
 }

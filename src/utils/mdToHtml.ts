@@ -53,6 +53,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
     | { type: 'blockquote'; children: Node[] }
     | { type: 'list'; ordered: boolean; items: Array<{ text: string; children: Node[] }> }
     | { type: 'ogp-card'; url: string; data: OgpData }
+    | { type: 'table'; html: string }
 
   function parseBlocks(startIndex: number, indent: number): { nodes: Node[]; nextIndex: number } {
     const nodes: Node[] = []
@@ -160,6 +161,35 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
         continue
       }
 
+      // Table: line starts with |
+      if (content.startsWith('|')) {
+        const tableLines: string[] = [content]
+        i++
+        while (i < lines.length) {
+          const nextLine = peek()
+          if (nextLine === undefined) break
+          const nextLeading = nextLine.match(/^\s*/)?.[0].length ?? 0
+          const nextContent = nextLine.slice(Math.min(indent, nextLeading))
+          if (!nextContent.trimStart().startsWith('|')) break
+          tableLines.push(nextContent)
+          i++
+        }
+        const parseRow = (row: string) => {
+          const cells = row.split('|')
+          if (cells[0].trim() === '') cells.shift()
+          if (cells[cells.length - 1].trim() === '') cells.pop()
+          return cells.map((c) => c.trim())
+        }
+        if (tableLines.length >= 2 && /^\|[\s:|`-]+\|/.test(tableLines[1])) {
+          const headers = parseRow(tableLines[0])
+          const bodyRows = tableLines.slice(2)
+          const thead = `<thead><tr>${headers.map((h) => `<th>${applyInlineTransforms(escapeHtml(h))}</th>`).join('')}</tr></thead>`
+          const tbody = `<tbody>${bodyRows.map((row) => `<tr>${parseRow(row).map((c) => `<td>${applyInlineTransforms(escapeHtml(c))}</td>`).join('')}</tr>`).join('')}</tbody>`
+          nodes.push({ type: 'table', html: `<div class="table-wrapper"><table>${thead}${tbody}</table></div>` })
+          continue
+        }
+      }
+
       // OGP card: [url](url) where text === href, or bare URL line
       if (ogpCache) {
         const linkMatch = content.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
@@ -252,6 +282,8 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
               .join('')
             return `<${tag}>${items}</${tag}>`
           }
+          case 'table':
+            return node.html
           case 'ogp-card': {
             const { data } = node
             if (data.type === 'twitter-embed' && data.embedHtml) {
