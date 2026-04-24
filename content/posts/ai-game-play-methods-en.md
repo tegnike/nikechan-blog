@@ -130,7 +130,7 @@ My first experiment was **building the game from scratch**. With vibe coding low
 
 [https://x.com/tegnike/status/2047567355102769433](https://x.com/tegnike/status/2047567355102769433)
 
-When you build the game yourself, you design all information exchange as text from the ground up. The LLM's output is parsed directly for both moves and commentary — no latency, no misreads.
+When you build the game yourself, you design all information exchange as text from the ground up. The LLM's output is parsed directly for both moves and commentary, so screen-recognition latency and misreads don't enter the system.
 
 But you can also use existing games that expose their state as text. The best example: **Pokémon Showdown**.
 
@@ -155,11 +155,17 @@ The strengths of this approach:
 
 - No multimodal needed → **extremely fast**
 - Fewer tokens in the prompt → **extremely cheap**
-- Screen misrecognition literally cannot happen
+- Screen-recognition errors are not part of the pipeline
 - No need to build game-specific screen databases
 - **Play and commentary handled by one unified system**
 
-The weakness: **only works with a limited set of games**. If the game can't expose its state as text, this approach won't fly — so it's not the right tool if your goal is "play any game I want."
+The weakness: **only a limited set of games can really take advantage of this approach**.
+
+Of course, even if a game doesn't expose text logs, there are still ways to retrieve state: OCR, image recognition, memory reading, mods, API integration, and so on.
+But once you go down that route, the implementation difficulty and stability vary a lot from game to game.
+
+For Approach 3 as described here, if you want to avoid multimodal processing and aim for speed, low cost, and stable behavior, the practical choice is to pick a game whose state is available as text or structured data.
+It's still not especially suited for "make it play any arbitrary game as-is."
 
 ## Wrapping Up
 
@@ -176,7 +182,7 @@ In terms of implementation effort: Approach 2 is the easiest to try first; Appro
 - **I want to prototype something as fast as possible** → Approach 2
 - **I want to run it for long periods without spending much** → Approach 1
 - **I want AI commentary over human gameplay** → Approach 1 or 2
-- **I want the AI to both play and commentate** → Approach 3. Fewer compatible games, but the finished product is something else
+- **I want the AI to both play and commentate** → Approach 3 is a strong candidate. Fewer games are easy to support, but the finished product is something else
 
 A year and a half ago, I was genuinely worried "can we ever actually make this fast enough?" Now the problem is that there are too many options to choose from. What a time to be alive.
 
