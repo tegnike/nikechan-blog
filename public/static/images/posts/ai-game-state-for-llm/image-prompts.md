@@ -112,7 +112,7 @@
 【配置するゲームカード】
 左下寄り（遊ばせやすい）:
 - Pokémon Showdown
-- Chess / Shogi / Go
+- チェス / 将棋 / 囲碁
 - Slay the Spire
 - TextWorld
 
@@ -123,12 +123,12 @@
 - NetHack
 
 右上寄り（かなり難しい）:
-- FPS / Action Games
+- FPS / アクションゲーム
 - MOBA
-- Open World Games
+- オープンワールドゲーム
 
 右下寄り（小さく）:
-- Simple Browser Games
+- シンプルなブラウザゲーム
 
 【注釈】
 左下エリアに小さく「AIプレイ向き」
