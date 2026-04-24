@@ -23,7 +23,7 @@ import { PunikeProfile } from './components/PunikeProfile'
 import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { News } from './components/News'
 import { PostDetail } from './components/PostDetail'
-import { getPostBySlug, getPostsByLocale, getOgpCache } from './utils/posts'
+import { getPostBySlug, getPostsByLocale, getPostByDraftToken, getOgpCache } from './utils/posts'
 import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
 
@@ -246,6 +246,36 @@ app.get('/dev_blog', async (c) => {
       keywords: locale === 'en'
         ? "tech blog, programming, web development, AI, coding"
         : "技術ブログ, プログラミング, Web開発, AI, コーディング"
+    }
+  )
+})
+
+// Draft post preview (obfuscated URL)
+app.get('/dev_blog/preview/:token', (c) => {
+  const token = c.req.param('token')
+  const locale = c.get('locale') as Locale
+
+  const post = getPostByDraftToken(token)
+  if (!post) {
+    return c.text('Not Found', 404)
+  }
+
+  const postLocale = post.slug.endsWith('-en') ? 'en' : 'ja'
+  const html = mdToHtml(post.content, getOgpCache())
+  const toc = extractToc(post.content)
+  const siteName = postLocale === 'en' ? 'AI Nike-chan Official Site' : 'AIニケちゃんオフィシャルサイト'
+  const currentPath = c.req.path
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <PostDetail post={post} html={html} toc={toc} prevPost={undefined} nextPost={undefined} locale={postLocale} />
+    </Layout>,
+    {
+      locale,
+      title: `[下書き] ${post.title} | ${siteName}`,
+      description: post.description,
+      ogType: "article",
+      ogImage: post.thumbnail ? `https://nikechan.com${post.thumbnail}` : undefined,
+      keywords: post.tags.join(', ')
     }
   )
 })
