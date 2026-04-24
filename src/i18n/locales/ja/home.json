@@ -28,6 +28,16 @@
     "heading": "最近のアップデート",
     "items": [
       {
+        "id": "booth-shop",
+        "tag": "NEW",
+        "date": "2026・4",
+        "title": "AIニケちゃんの公式オンラインショップをBoothに開設しました",
+        "description": "AIニケちゃんの公式オンラインショップをBoothに開設しました！グッズや素材など好評発売中です。ぜひお立ち寄りください。",
+        "thumbnail": "/static/images/news/booth-shop/thumbnail.png",
+        "cta": "ショップを見る",
+        "externalLink": "https://nikechan.booth.pm/"
+      },
+      {
         "id": "aituberkit-demo",
         "tag": "NEW",
         "date": "2026・3",

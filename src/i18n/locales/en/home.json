@@ -28,6 +28,16 @@
     "heading": "Recent Updates",
     "items": [
       {
+        "id": "booth-shop",
+        "tag": "NEW",
+        "date": "2026・4",
+        "title": "AI Nike Chan Official Online Shop Now Open on Booth",
+        "description": "AI Nike Chan's official online shop is now open on Booth! Merchandise and other items are on sale now. Come check it out!",
+        "thumbnail": "/static/images/news/booth-shop/thumbnail.png",
+        "cta": "Visit the Shop",
+        "externalLink": "https://nikechan.booth.pm/"
+      },
+      {
         "id": "aituberkit-demo",
         "tag": "NEW",
         "date": "2026・3",

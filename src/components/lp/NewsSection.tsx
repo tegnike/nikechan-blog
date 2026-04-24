@@ -38,6 +38,7 @@ export function NewsSection({ locale = 'ja', limit }: Props) {
     date: string;
     title: string;
     description: string;
+    thumbnail?: string;
     cta?: string;
     externalLink?: string;
   }>;
@@ -74,6 +75,13 @@ export function NewsSection({ locale = 'ja', limit }: Props) {
 
                 {/* コンテンツ */}
                 <div className="flex-1 space-y-4">
+                  {item.thumbnail && (
+                    <img
+                      src={item.thumbnail}
+                      alt={item.title}
+                      className="w-full max-w-2xl rounded-xl shadow-md object-cover"
+                    />
+                  )}
                   <h3 className="text-xl sm:text-2xl font-bold text-gray-800">
                     {item.title}
                   </h3>
