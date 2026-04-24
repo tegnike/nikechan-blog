@@ -170,5 +170,45 @@
     "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
     "type": "twitter-embed",
     "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">AIのゲーム実況に関して、遅延や誤認識が嫌なら画像・音声は使わず全てテキストで完結させようという試み<br><br>これは自作のカードゲームをプレイさせているところ<br><br>情報はすべてLLMが生成するテキストで完結し、操作も発言もLLMの出力をそのまま解釈して処理しているので速度も精度も気にならない（はず） <a href=\"https://t.co/zy6ecdGqsG\">pic.twitter.com/zy6ecdGqsG</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2047567355102769433?ref_src=twsrc%5Etfw\">April 24, 2026</a></blockquote>\n\n"
+  },
+  "https://arxiv.org/abs/2503.04094": {
+    "title": "PokéChamp: an Expert-level Minimax Language Agent",
+    "description": "We introduce PokéChamp, a minimax agent powered by Large Language Models (LLMs) for Pokémon battles. Built on a general framework for two-player competitive games, PokéChamp leverages the generalist capabilities of LLMs to enhance minimax tree search. Specifically, LLMs replace three key modules: (1) player action sampling, (2) opponent modeling, and (3) value function estimation, enabling the agent to effectively utilize gameplay history and human knowledge to reduce the search space and address partial observability. Notably, our framework requires no additional LLM training. We evaluate PokéChamp in the popular Gen 9 OU format. When powered by GPT-4o, it achieves a win rate of 76% against the best existing LLM-based bot and 84% against the strongest rule-based bot, demonstrating its superior performance. Even with an open-source 8-billion-parameter Llama 3.1 model, PokéChamp consistently outperforms the previous best LLM-based bot, Pokéllmon powered by GPT-4o, with a 64% win rate. PokéChamp attains a projected Elo of 1300-1500 on the Pokémon Showdown online ladder, placing it among the top 30%-10% of human players. In addition, this work compiles the largest real-player Pokémon battle dataset, featuring over 3 million games, including more than 500k high-Elo matches. Based on this dataset, we establish a series of battle benchmarks and puzzles to evaluate specific battling skills. We further provide key updates to the local game engine. We hope this work fosters further research that leverage Pokémon battle as benchmark to integrate LLM technologies with game-theoretic algorithms addressing general multiagent problems. Videos, code, and dataset available at https://sites.google.com/view/pokechamp-llm.",
+    "image": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "siteName": "arXiv.org",
+    "url": "https://arxiv.org/abs/2503.04094",
+    "favicon": "https://arxiv.org/static/browse/0.3.4/images/icons/favicon-32x32.png"
+  },
+  "https://nikechan.com/dev_blog/ai-game-play-methods": {
+    "title": "AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト",
+    "description": "1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。",
+    "image": "https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png",
+    "siteName": "AIニケちゃんオフィシャルサイト",
+    "url": "https://nikechan.com/dev_blog/ai-game-play-methods",
+    "favicon": "https://nikechan.com/static/favicon.ico"
+  },
+  "https://store.steampowered.com/app/646570/Slay_the_Spire/": {
+    "title": "Slay the Spire on Steam",
+    "description": "We fused card games and roguelikes together to make the best single player deckbuilder we could. Craft a unique deck, encounter bizarre creatures, discover relics of immense power, and Slay the Spire!",
+    "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/646570/capsule_616x353.jpg?t=1774015376",
+    "siteName": "",
+    "url": "https://store.steampowered.com/app/646570/Slay_the_Spire/",
+    "favicon": "https://store.steampowered.com/favicon.ico"
+  },
+  "https://github.com/ForgottenArbiter/CommunicationMod": {
+    "title": "GitHub - ForgottenArbiter/CommunicationMod: Slay the Spire mod that provides a protocol for allowing another process to control the game",
+    "description": "Slay the Spire mod that provides a protocol for allowing another process to control the game - ForgottenArbiter/CommunicationMod",
+    "image": "https://opengraph.githubassets.com/e167e73d139007fc39653932e87bf9d5e1e0bc543583e1a7920e835abbb84715/ForgottenArbiter/CommunicationMod",
+    "siteName": "GitHub",
+    "url": "https://github.com/ForgottenArbiter/CommunicationMod",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://github.com/PrismarineJS/mineflayer": {
+    "title": "GitHub - PrismarineJS/mineflayer: Create Minecraft bots with a powerful, stable, and high level JavaScript API.",
+    "description": "Create Minecraft bots with a powerful, stable, and high level JavaScript API. - PrismarineJS/mineflayer",
+    "image": "https://opengraph.githubassets.com/35b1d7becbf9464f3ec6dbf6224d6924dddcad9da11f82166ef742171eb65365/PrismarineJS/mineflayer",
+    "siteName": "GitHub",
+    "url": "https://github.com/PrismarineJS/mineflayer",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
   }
 }
