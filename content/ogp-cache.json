@@ -112,5 +112,63 @@
     "favicon": "https://www.youtube.com/favicon.ico",
     "type": "youtube-embed",
     "embedHtml": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/aTh256shKwo?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"【ポケモンスタジアム2】AI操作 x AI実況【③試合目ノーカット版】\"></iframe>"
+  },
+  "https://www.genai-expo.com/exhibitors?circle=00297b6cf5a4&utm_source=x&utm_medium=social&utm_campaign=exhibitor_share": {
+    "title": "ニケちゃん が Vol.5 に出展！",
+    "description": "AIニケちゃんで何か",
+    "image": "https://www.genai-expo.com/exhibitors/og?id=00297b6cf5a4",
+    "siteName": "",
+    "url": "https://www.genai-expo.com/exhibitors?circle=00297b6cf5a4&utm_source=x&utm_medium=social&utm_campaign=exhibitor_share",
+    "favicon": "https://www.genai-expo.com/favicon.ico?favicon.12piazin6z05e.ico"
+  },
+  "https://x.com/tegnike/status/2046546186035732754": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2046546186035732754",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">展示会で出そうと思ってるプロダクトの一部<br><br>ゲーム実況&amp;プレイ <a href=\"https://t.co/eAXUmriTYZ\">pic.twitter.com/eAXUmriTYZ</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2046546186035732754?ref_src=twsrc%5Etfw\">April 21, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2046985740400099476": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2046985740400099476",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">以前撮影した gemini-3.1-flash-lite-preview を使ってカービィのエアライダーを実況した動画、どれくらいの速度で発話できてたのかちゃんと調べてみた<br><br>LLM応答（マルチモーダル込み）: 2.2秒くらい<br>LLM応答 + TTSの合計 : 4.4秒くらい<br><br>うーん、速い<br>4秒の遅延なら許容できるゲームは割とありそう <a href=\"https://t.co/pw4gKhhoXW\">pic.twitter.com/pw4gKhhoXW</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2046985740400099476?ref_src=twsrc%5Etfw\">April 22, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2047198040574882149": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2047198040574882149",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">以前試した gemini-3.1-flash-lite-preview を使ってポケモンチャンピオンズを実況した動画のリトライ<br><br>画面状況は音声発話の裏で走らせて、数フレーム分を知覚できるように改良<br><br>それでもやっぱズレというか、頓珍漢な発言をするときがあるのは、指示が甘いか情報が足りていないか <a href=\"https://t.co/EpI6CELkUQ\">pic.twitter.com/EpI6CELkUQ</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2047198040574882149?ref_src=twsrc%5Etfw\">April 23, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2047537147121402314": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2047537147121402314",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">ローカルLLMの gemma4:e4b でデモンズソウルを遅延付き実況<br><br>わかりやすいようにAIが見ている映像と視聴者に見せる映像を並べてみた（今回は8秒遅延）<br><br>ある程度違和感無く発言できるようになってると思う <a href=\"https://t.co/ADCEMrg0m9\">pic.twitter.com/ADCEMrg0m9</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2047537147121402314?ref_src=twsrc%5Etfw\">April 24, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2047567355102769433": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2047567355102769433",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">AIのゲーム実況に関して、遅延や誤認識が嫌なら画像・音声は使わず全てテキストで完結させようという試み<br><br>これは自作のカードゲームをプレイさせているところ<br><br>情報はすべてLLMが生成するテキストで完結し、操作も発言もLLMの出力をそのまま解釈して処理しているので速度も精度も気にならない（はず） <a href=\"https://t.co/zy6ecdGqsG\">pic.twitter.com/zy6ecdGqsG</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2047567355102769433?ref_src=twsrc%5Etfw\">April 24, 2026</a></blockquote>\n\n"
   }
 }
