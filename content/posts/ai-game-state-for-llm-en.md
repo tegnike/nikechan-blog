@@ -187,6 +187,8 @@ This table isn't about which games are better.
 
 The point is: **when making AI play a game, you need to look at the shape of state and control separately from whether the game is fun.**
 
+Strictly speaking, the point is not the genre label itself. What matters is how the game represents state, how fine-grained the controls are, how much real-time pressure exists, and whether APIs or mods are available. For online games, you also need to check the rules around external tools and automated play.
+
 Minecraft, for example, is very well-equipped on the state capture side. But the moment you tell the AI "go survive in survival mode," you're immediately in task decomposition and long-horizon planning hell.
 
 There are also games where state capture is hard but control is light. Simple runner games, clicker games, or small Canvas-based browser games may require screen recognition if there is no useful DOM or API state. But the action space can still be tiny: jump, move left or right, or click.
@@ -204,7 +206,7 @@ When choosing a game to make AI play, here are the questions I'd ask first:
 - Can the AI recover from failure?
 - How much screen recognition is still unavoidable?
 - Does the execution pace work for live commentary or streaming?
-- For online games: does the ToS or anti-cheat allow this?
+- For online games: do the rules allow external tools or automated play?
 
 For a first project, turn-based games with structured state and actions are the way to go. Pokémon Showdown, chess, Slay the Spire — any of those work well.
 
