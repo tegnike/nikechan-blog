@@ -181,12 +181,15 @@ Here's how those games break down:
 | Doom | ViZDoom | API | Reaction speed and vision are hard |
 | Factorio | FLE / Mod / Lua API | API / Commands | Long-horizon planning is hard |
 | Retro action games | RAM / Emulator | Input | Per-game analysis is heavy |
+| Screen-only minigames | Screen recognition / Canvas | Few inputs | State capture is hard, but control is light |
 
 This table isn't about which games are better.
 
 The point is: **when making AI play a game, you need to look at the shape of state and control separately from whether the game is fun.**
 
 Minecraft, for example, is very well-equipped on the state capture side. But the moment you tell the AI "go survive in survival mode," you're immediately in task decomposition and long-horizon planning hell.
+
+There are also games where state capture is hard but control is light. Simple runner games, clicker games, or small Canvas-based browser games may require screen recognition if there is no useful DOM or API state. But the action space can still be tiny: jump, move left or right, or click.
 
 Pokémon Showdown and Slay the Spire, on the other hand, involve deep decision-making as games — but the format of state and actions is tractable, and building the LLM interface is much more approachable. That difference has a big impact on which game you choose as a starting point.
 

@@ -216,6 +216,7 @@ Factorioには [Factorio Learning Environment](https://github.com/JackHopkins/fa
 | Doom | ViZDoom | API | 反応速度と視覚処理が難しい |
 | Factorio | FLE / Mod / Lua API | API / コマンド | 長期計画が難しい |
 | レトロアクション | RAM / エミュレータ | 入力 | ゲームごとの解析が重い |
+| 画面認識のみのミニゲーム | 画面認識 / Canvas | 少数入力 | 状態取得は難しいが操作は軽い |
 
 この表で言いたいのは、どれが優れているという話ではありません。
 
@@ -223,6 +224,10 @@ Factorioには [Factorio Learning Environment](https://github.com/JackHopkins/fa
 
 例えば Minecraft は、状態取得という意味ではかなり恵まれています。
 でも、AIに「サバイバルで生活しろ」と言った瞬間に、タスク分解と長期計画の地獄が始まります。
+
+一方で、状態取得は難しいけれど操作は軽いゲームもあります。
+例えば、画面を見るしかないシンプルなランナーゲームやクリックゲーム、Canvasで作られた小さなブラウザゲームなどです。
+これらはDOMやAPIから状態を取れないと画面認識が必要になりますが、行動自体は「ジャンプする」「左右に動く」「クリックする」くらいで済むことがあります。
 
 逆に Pokémon Showdown や Slay the Spire は、ゲームとしての意思決定は深いですが、状態と行動の形式はかなり扱いやすく、LLMに渡すインターフェースも作りやすいです。
 この差は、題材選びに大きく影響します。
