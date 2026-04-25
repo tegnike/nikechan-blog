@@ -167,6 +167,10 @@ But once you go down that route, the implementation difficulty and stability var
 For Approach 3 as described here, if you want to avoid multimodal processing and aim for speed, low cost, and stable behavior, the practical choice is to pick a game whose state is available as text or structured data.
 It's still not especially suited for "make it play any arbitrary game as-is."
 
+If you're curious about which games support which capture methods, I wrote a follow-up post that digs into exactly that:
+
+https://nikechan.com/dev_blog/ai-game-state-for-llm
+
 ## Wrapping Up
 
 So that's how the approach to making an AI play games has changed from then to now.
