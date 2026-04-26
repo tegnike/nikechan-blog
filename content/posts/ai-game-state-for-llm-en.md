@@ -2,7 +2,7 @@
 title: "Before Making AI Play Games, Think About How to Capture the State"
 date: "2026-04-24"
 tags: ["AI", "Game AI", "LLM", "Minecraft", "Pokémon Showdown"]
-description: "A breakdown of different approaches to capturing game state beyond screen recognition. Using Pokémon Showdown, Slay the Spire, and Minecraft as examples, we explore what makes a game easy or hard for AI to play."
+description: "A breakdown of different approaches to capturing game state and sending controls beyond screen recognition. Using Pokémon Showdown, Slay the Spire, and Minecraft as examples, we explore what makes a game easy or hard for AI to play."
 thumbnail: "/static/images/posts/ai-game-state-for-llm/thumbnail.png"
 ---
 
@@ -12,7 +12,7 @@ A little while back, I wrote a post about having AI do live commentary while pla
 
 https://nikechan.com/dev_blog/ai-game-play-methods
 
-In that post, I mentioned that if you want the AI to actually *play* the game, you should pick one where you can capture the state as text. I used Pokémon Showdown as an example — instead of feeding the screen to a multimodal AI, you grab the game state as text and pass it to an LLM.
+In that post, I mentioned that if you want the AI to actually *play* the game, you should pick one where you can capture the state as text or structured data, and where returning actions is straightforward. I used Pokémon Showdown as an example — instead of feeding the screen to a multimodal AI, you grab the game state as text, pass it to an LLM, and send the chosen action back to the game.
 
 This post picks up from there and takes a broader look at the question: *how do you capture game state in the first place?*
 
@@ -59,6 +59,7 @@ https://pokemonshowdown.com/
 There's also [poke-env](https://poke-env.readthedocs.io/en/stable/), a Python library for building Pokémon Showdown bots.
 
 With poke-env, the active Pokémon, opponent's status, available moves, switch options, and legal actions are all accessible as objects. Format them as compact text or JSON before passing to an LLM, and you can straightforwardly ask it to pick the next move.
+You can also send the selected move or switch back to the battle server from the bot, so this is not just state inspection — it can actually advance the match.
 
 This approach is well-suited to having AI actually play through a whole match. No screen reading required, and the action space is clearly defined.
 
@@ -70,7 +71,7 @@ Board games like chess, shogi, and go are also a natural fit.
 
 Chess has FEN, PGN, and UCI for engine integration. Shogi has SFEN, KIF, CSA, and USI. Go has SGF and GTP.
 
-Board positions are easy to encode symbolically, and legal moves are easy to enumerate. Getting an LLM to play *well* is a separate challenge, but building a "pass state in, get action out" pipeline is very doable.
+Board positions are easy to encode symbolically, and legal moves are easy to enumerate. Getting an LLM to play *well* is a separate challenge, but building a "pass state in, get action out, apply that move to the board" pipeline is very doable.
 
 For chess, libraries like [python-chess](https://python-chess.readthedocs.io/en/latest/) and the [Lichess API](https://lichess.org/api) are well-maintained. These games are great starting points for AI play experiments.
 
@@ -82,7 +83,7 @@ Slay the Spire doesn't expose an external JSON API by default.
 
 https://store.steampowered.com/app/646570/Slay_the_Spire/
 
-But install [CommunicationMod](https://github.com/ForgottenArbiter/CommunicationMod) and it communicates with an external process via `stdin`/`stdout`, sending game state as JSON.
+But install [CommunicationMod](https://github.com/ForgottenArbiter/CommunicationMod) and it communicates bidirectionally with an external process via `stdin`/`stdout`. It can send game state as JSON, and the external process can return commands to play cards, end the turn, or choose rewards and event options.
 
 https://github.com/ForgottenArbiter/CommunicationMod
 
@@ -103,6 +104,8 @@ The external process receives something like this and sends back the next comman
 }
 ```
 
+For example, `PLAY 1 0` plays the first card in hand against the enemy at index 0, `END` ends the turn, and `CHOOSE 0` selects the first available option.
+
 It's a card game, so the action space is fairly well-defined, and the turn-based structure means you can wait for responses. Very LLM-friendly.
 
 ### TextWorld, NetHack
@@ -110,8 +113,9 @@ It's a card game, so the action space is fairly well-defined, and the turn-based
 Text games and roguelikes are another good fit.
 
 [TextWorld](https://github.com/microsoft/TextWorld) is a framework for using text-based games as AI agent research environments. Observations and actions are both text by nature, so LLMs slot in naturally.
+An external agent can return text commands like `open door` or `take key`, feed them back into the game, and receive the next observation.
 
-NetHack has research environments like the [NetHack Learning Environment](https://github.com/facebookresearch/nle) and MiniHack. The game itself is brutally hard, but at least there's a path to state capture beyond "show the screen to an LLM."
+NetHack has research environments like the [NetHack Learning Environment](https://github.com/facebookresearch/nle) and MiniHack. Here too, the agent can receive observations and return actions such as movement or attacks as commands. The game itself is brutally hard, but at least there's a path beyond "show the screen to an LLM and blindly press keys."
 
 ## Games with Dedicated Libraries
 
@@ -153,13 +157,13 @@ But it's real-time strategy, which explodes the difficulty. Partial observabilit
 
 ### Doom, Retro Games, Factorio
 
-For FPS, there's [ViZDoom](https://github.com/Farama-Foundation/ViZDoom), which turns Doom into a reinforcement learning environment with access to screen buffers and game variables. But FPS requires reaction speed and visual processing, so driving it purely from text state is an uphill battle.
+For FPS, there's [ViZDoom](https://github.com/Farama-Foundation/ViZDoom), which turns Doom into a reinforcement learning environment with access to screen buffers and game variables. Controls can also be sent as button inputs through the API. But FPS requires reaction speed and visual processing, so driving it purely from text state is an uphill battle.
 
 For retro games, [Gym Retro](https://retro.readthedocs.io/en/latest/) can handle RAM and controller input — games like Mario or Sonic become usable environments. The catch: each game requires memory address analysis and reward design.
 
 Also worth noting: running commercial games requires ROM files, which sits in legally gray territory. How you handle software you legitimately own is something to verify for yourself.
 
-Factorio has the [Factorio Learning Environment](https://github.com/JackHopkins/factorio-learning-environment), designed specifically for LLM agent evaluation. Interesting environment, but like Minecraft, the real challenge isn't state capture — it's "what's the goal, and how do you plan for it?"
+Factorio has the [Factorio Learning Environment](https://github.com/JackHopkins/factorio-learning-environment), designed specifically for LLM agent evaluation. With mods or the Lua API, you can not only capture state but also execute actions such as crafting, placement, and movement from the program side. Interesting environment, but like Minecraft, the real challenge isn't state capture — it's "what's the goal, and how do you plan for it?"
 
 Dedicated environments lower the barrier to entry, but the downstream design complexity is substantial for all of them.
 
@@ -216,7 +220,7 @@ StarCraft II, Factorio, and Doom are great for research given their dedicated en
 
 ## Closing Thoughts
 
-Discussions about making AI play games tend to collapse into "use screen recognition" vs. "grab the logs." But in practice, there are many more routes: DOM, network traffic, protocols, mods, bot libraries, emulators, research environments.
+Discussions about making AI play games tend to collapse into "use screen recognition" vs. "grab the logs." But in practice, there are many more routes for capturing state and sending controls: DOM, network traffic, protocols, mods, bot libraries, emulators, research environments.
 
 That said, being able to *capture* and being able to *play* are different things.
 
@@ -224,7 +228,7 @@ Can the state be shaped into something an LLM can actually use for decision-maki
 
 Working through those questions makes the gap between easy and hard games for AI much clearer.
 
-My previous post used Pokémon Showdown as the example, but digging into this made Slay the Spire and Minecraft look genuinely interesting too. Slay the Spire in particular — with its JSON state — seems like a solid target for building an LLM player.
+My previous post used Pokémon Showdown as the example, but digging into this made Slay the Spire and Minecraft look genuinely interesting too. Slay the Spire in particular — with JSON state coming in and commands going back out — seems like a solid target for building an LLM player.
 
 If I build something next, I'm thinking I'll start with Slay the Spire or chess.
 

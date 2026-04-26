@@ -161,13 +161,13 @@ The strengths of this approach:
 
 The weakness: **only a limited set of games can really take advantage of this approach**.
 
-Of course, even if a game doesn't expose text logs, there are still ways to retrieve state: OCR, image recognition, memory reading, mods, API integration, and so on.
+Of course, even if a game doesn't expose text logs, there are still ways to retrieve state or send controls: OCR, image recognition, memory reading, mods, API integration, and so on.
 But once you go down that route, the implementation difficulty and stability vary a lot from game to game.
 
-For Approach 3 as described here, if you want to avoid multimodal processing and aim for speed, low cost, and stable behavior, the practical choice is to pick a game whose state is available as text or structured data.
+For Approach 3 as described here, if you want to avoid multimodal processing and aim for speed, low cost, and stable behavior, the practical choice is to pick a game whose state is available as text or structured data and whose controls are easy to express as commands.
 It's still not especially suited for "make it play any arbitrary game as-is."
 
-If you're curious about which games support which capture methods, I wrote a follow-up post that digs into exactly that:
+If you're curious about which games support which state-capture and control methods, I wrote a follow-up post that digs into exactly that:
 
 https://nikechan.com/dev_blog/ai-game-state-for-llm
 
