@@ -403,6 +403,19 @@
   border-radius: 8px;
 }
 
+.video-embed {
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.video-embed video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #18181b;
+}
+
 @media (max-width: 640px) {
   .ogp-card {
     flex-direction: column;

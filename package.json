@@ -10,12 +10,14 @@
     "fetch-ogp": "bun run scripts/fetch-ogp.ts",
     "build": "npm run fetch-ogp && npm run build:css && npm run build:client && vite build && cp -r public/* dist/assets/",
     "preview": "wrangler dev",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "video:studio": "remotion studio expo-video/src/index.ts",
+    "video:render": "remotion render expo-video/src/index.ts AiGameExpoLoop expo-video/out/ai-game-expo-loop.mp4"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
     "@hono/react-renderer": "^1.0.1",
-    "@hono/zod-validator": "^0.4.1",
+    "@hono/zod-validator": "^0.7.6",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-aspect-ratio": "^1.1.7",
@@ -63,6 +65,9 @@
     "@cloudflare/workers-types": "^4.20240529.0",
     "@hono/vite-build": "^1.0.0",
     "@hono/vite-dev-server": "^0.16.0",
+    "@remotion/captions": "^4.0.453",
+    "@remotion/cli": "^4.0.453",
+    "@remotion/media": "^4.0.453",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.15",
@@ -72,8 +77,10 @@
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.0",
     "postcss": "^8.4.49",
+    "remotion": "^4.0.453",
     "tailwindcss": "^3.4.16",
     "vite": "^5.2.12",
-    "wrangler": "^4.45.4"
+    "wrangler": "^4.45.4",
+    "zod": "^4.3.6"
   }
 }

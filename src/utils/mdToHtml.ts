@@ -53,6 +53,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
     | { type: 'blockquote'; children: Node[] }
     | { type: 'list'; ordered: boolean; items: Array<{ text: string; children: Node[] }> }
     | { type: 'ogp-card'; url: string; data: OgpData }
+    | { type: 'video'; src: string }
     | { type: 'table'; html: string }
 
   function parseBlocks(startIndex: number, indent: number): { nodes: Node[]; nextIndex: number } {
@@ -190,6 +191,13 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
         }
       }
 
+      const videoMatch = content.match(/^((?:\/|https?:\/\/)\S+\.(?:mp4|webm|mov))(?:\s+"([^"]+)")?$/i)
+      if (videoMatch) {
+        nodes.push({ type: 'video', src: videoMatch[1] })
+        i++
+        continue
+      }
+
       // OGP card: [url](url) where text === href, or bare URL line
       if (ogpCache) {
         const linkMatch = content.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
@@ -300,6 +308,8 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
               : ''
             return `<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener noreferrer" class="ogp-card">${imageHtml}<div class="ogp-card-content"><div class="ogp-card-title">${escapeHtml(data.title)}</div>${data.description ? `<div class="ogp-card-description">${escapeHtml(data.description)}</div>` : ''}<div class="ogp-card-meta">${data.favicon ? `<img src="${escapeHtml(data.favicon)}" alt="" class="ogp-card-favicon" width="14" height="14" />` : ''}<span>${escapeHtml(domain)}</span></div></div></a>`
           }
+          case 'video':
+            return `<div class="video-embed"><video src="${escapeHtml(node.src)}" controls playsinline preload="metadata"></video></div>`
         }
       })
       .join('\n')

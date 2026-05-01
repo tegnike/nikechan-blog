@@ -210,5 +210,75 @@
     "siteName": "GitHub",
     "url": "https://github.com/PrismarineJS/mineflayer",
     "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://nikechan.com/dev_blog/ai-game-state-for-llm": {
+    "title": "AIにゲームを遊ばせるなら、まず「状態をどう取るか」を考えよう | AIニケちゃんオフィシャルサイト",
+    "description": "AIにゲームを遊ばせるとき、画面認識以外にどんな状態取得や操作のルートがあるのかを整理しました。Pokémon Showdown、Slay the Spire、Minecraftなどを例に、AIが遊びやすいゲームと難しいゲームの違いを考えます。",
+    "image": "https://nikechan.com/static/images/posts/ai-game-state-for-llm/thumbnail.png",
+    "siteName": "AIニケちゃんオフィシャルサイト",
+    "url": "https://nikechan.com/dev_blog/ai-game-state-for-llm",
+    "favicon": "https://nikechan.com/static/favicon.ico"
+  },
+  "https://www.remotion.dev/": {
+    "title": "Remotion | Make videos programmatically",
+    "description": "",
+    "image": "",
+    "siteName": "",
+    "url": "https://www.remotion.dev/",
+    "favicon": "https://www.remotion.dev/favicon.ico"
+  },
+  "https://www.remotion.dev/docs/ai/skills": {
+    "title": "Agent Skills | Remotion | Make videos programmatically",
+    "description": "",
+    "image": "",
+    "siteName": "",
+    "url": "https://www.remotion.dev/docs/ai/skills",
+    "favicon": "https://www.remotion.dev/favicon.ico"
+  },
+  "https://github.com/rotejin/MotionPNGTuber": {
+    "title": "GitHub - rotejin/MotionPNGTuber: PNGTuber以上Live2D未満 - 動画ループで髪揺れなど表現可能なリアルタイム口パクツール",
+    "description": "PNGTuber以上Live2D未満 - 動画ループで髪揺れなど表現可能なリアルタイム口パクツール. Contribute to rotejin/MotionPNGTuber development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/ce9575318c64a5a738f4108815c4ebb2351171f8f4d32e7aea8930c1142dc445/rotejin/MotionPNGTuber",
+    "siteName": "GitHub",
+    "url": "https://github.com/rotejin/MotionPNGTuber",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://x.com/rotejin/status/2005774807737225478": {
+    "title": "ろてじん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/rotejin/status/2005774807737225478",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">「動くPNGTuber」使い方のnoteを書く為に1つ作ってみました。大きめの口でも、口元の自動切り抜きで一応こんな感じです（開閉時の中間の口を手作業で選んで調節した方が綺麗に滑らかにはなるけど）とりあえず何か喋ってる動画だけ入れれば、口素材PNGを用意しなくても作れます。… <a href=\"https://t.co/x3BACrkRZg\">pic.twitter.com/x3BACrkRZg</a></p>&mdash; ろてじん (@rotejin) <a href=\"https://twitter.com/rotejin/status/2005774807737225478?ref_src=twsrc%5Etfw\">December 29, 2025</a></blockquote>\n\n"
+  },
+  "https://github.com/tegnike/remotion-motionpngtuber": {
+    "title": "GitHub - tegnike/remotion-motionpngtuber",
+    "description": "Contribute to tegnike/remotion-motionpngtuber development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/823336b828bc70b923a4c731a3eabe2fb3b19ddbbbff9eda64863bd8adf7e8fa/tegnike/remotion-motionpngtuber",
+    "siteName": "GitHub",
+    "url": "https://github.com/tegnike/remotion-motionpngtuber",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://x.com/tegnike/status/2049440728028156328": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2049440728028156328",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">展示会で使う紹介動画できた（仮）<br><br>Codexくんと壁打ち、Remotionスキルを使ってそのまま動画化、必要な挿絵は都度生成してもらって挿入<br>音声合成とMotionPNGTuberも全部やってくれて最高✌ <a href=\"https://t.co/F36BFBZHEf\">pic.twitter.com/F36BFBZHEf</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2049440728028156328?ref_src=twsrc%5Etfw\">April 29, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2049545490623009134": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2049545490623009134",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">早速今日のITニュースを作ってもらいました <a href=\"https://t.co/rQ83Xk4HUI\">https://t.co/rQ83Xk4HUI</a> <a href=\"https://t.co/Zls9cztr4R\">pic.twitter.com/Zls9cztr4R</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2049545490623009134?ref_src=twsrc%5Etfw\">April 29, 2026</a></blockquote>\n\n"
   }
 }
