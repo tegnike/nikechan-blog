@@ -280,5 +280,31 @@
     "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
     "type": "twitter-embed",
     "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">早速今日のITニュースを作ってもらいました <a href=\"https://t.co/rQ83Xk4HUI\">https://t.co/rQ83Xk4HUI</a> <a href=\"https://t.co/Zls9cztr4R\">pic.twitter.com/Zls9cztr4R</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2049545490623009134?ref_src=twsrc%5Etfw\">April 29, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2048864356167766521": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://twitter.com/tegnike/status/2048864356167766521",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">スレスパAIプレイ&amp;実況を強化<br>初見の方でも見やすいように説明多めにしてみた<br><br>ちょっと長いのでx1.6倍速で <a href=\"https://t.co/ye91RbpOug\">pic.twitter.com/ye91RbpOug</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://twitter.com/tegnike/status/2048864356167766521?ref_src=twsrc%5Etfw\">April 27, 2026</a></blockquote>\n\n"
+  },
+  "https://voicevox.hiroshiba.jp/": {
+    "title": "VOICEVOX | 無料のテキスト読み上げ・歌声合成ソフトウェア",
+    "description": "無料で使える中品質なテキスト読み上げ・歌声合成ソフトウェア。商用・非商用問わず無料で、誰でも簡単にお使いいただけます。イントネーションを詳細に調整することも可能です。",
+    "image": "https://voicevox.hiroshiba.jp/_astro/share.D8sYb9zR_Z2epAzp.webp",
+    "siteName": "",
+    "url": "https://voicevox.hiroshiba.jp/",
+    "favicon": "https://voicevox.hiroshiba.jp/favicon-32x32.png"
+  },
+  "https://aivis-project.com/": {
+    "title": "Aivis Project | AivisSpeech でかんたんに感情豊かな音声合成、使ってみませんか？",
+    "description": "Aivis Project は、感情豊かな音声合成技術を誰もがかんたんに活用できる未来を目指す、壮大な開発プロジェクトです。AivisSpeech を使えば、物語の朗読やニュース記事の読み上げなど、あなたの想いを魅力的な声で表現できます。音声合成の新しい可能性を、一緒に探求してみませんか？",
+    "image": "https://aivis-project.com/assets/images/ogp.png",
+    "siteName": "",
+    "url": "https://aivis-project.com/",
+    "favicon": "https://aivis-project.com/favicon.ico"
   }
 }
