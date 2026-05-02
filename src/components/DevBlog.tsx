@@ -111,7 +111,11 @@ export const DevBlog = async (locale: Locale = 'ja') => {
               <h2 className="text-xl font-bold text-zinc-800 mb-4">External Articles</h2>
             </div>
           )}
-          <TechBlog articles={articles} shuffledImageNumbers={shuffledImageNumbers} />
+          <TechBlog
+            articles={articles}
+            shuffledImageNumbers={shuffledImageNumbers}
+            containerClassName="pt-0 pb-8"
+          />
         </div>
       </div>
 

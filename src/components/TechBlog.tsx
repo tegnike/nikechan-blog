@@ -3,6 +3,7 @@ import { type Article } from '../lib/supabase'
 type TechBlogProps = {
   articles: Article[]
   shuffledImageNumbers: number[]
+  containerClassName?: string
 }
 
 // サービスアイコンコンポーネント
@@ -31,7 +32,7 @@ const PlatformIcon = ({ platform }: { platform: string }) => {
   }
 }
 
-export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
+export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 'py-8' }: TechBlogProps) => {
   const articlesPerPage = 15
   const totalPages = Math.ceil(articles.length / articlesPerPage)
 
@@ -130,7 +131,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers }: TechBlogProps) => {
 
   return (
     <div id="category-techblog" className="category-content" data-content="techblog">
-      <div className="container mx-auto px-4 py-8">
+      <div className={`container mx-auto px-4 ${containerClassName}`}>
         {articles.length > 0 ? (
           <>
             <div className="article-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
