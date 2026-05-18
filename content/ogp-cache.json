@@ -306,5 +306,13 @@
     "siteName": "",
     "url": "https://aivis-project.com/",
     "favicon": "https://aivis-project.com/favicon.ico"
+  },
+  "https://github.com/tegnike/stackface-maker": {
+    "title": "GitHub - tegnike/stackface-maker",
+    "description": "Contribute to tegnike/stackface-maker development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/8797f6bb2c9878bae2bddc0499b40b6a8d00a2daa92164b24bf770e116254ffe/tegnike/stackface-maker",
+    "siteName": "GitHub",
+    "url": "https://github.com/tegnike/stackface-maker",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
   }
 }
