@@ -6,6 +6,11 @@ import { defineConfig, loadEnv } from 'vite'
 // mode が `client` のときはクライアントスクリプト専用ビルド設定を返す
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_')
+  const serverEnv = loadEnv(mode, process.cwd(), '')
+  for (const [key, value] of Object.entries(serverEnv)) {
+    process.env[key] ||= value
+  }
+
   if (mode === 'client') {
     return {
       build: {

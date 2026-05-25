@@ -22,9 +22,11 @@ import { PunikeProfile } from './components/PunikeProfile'
 import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { News } from './components/News'
 import { PostDetail } from './components/PostDetail'
+import { AiCharacterNews } from './components/AiCharacterNews'
 import { getPostBySlug, getPostsByLocale, getPostByDraftToken, getOgpCache } from './utils/posts'
 import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
+import { getAiCharacterNews } from './lib/ai-character-news'
 
 const app = new Hono()
 
@@ -78,6 +80,34 @@ app.get('/news', (c) => {
         ? "AIニケちゃんの最新お知らせ・アップデート情報"
         : "Latest news and updates about AI Nike Chan",
       canonicalUrl: "https://nikechan.com/news"
+    }
+  )
+})
+
+// AI character news page
+app.get('/ai-character-news', async (c) => {
+  c.header('Cache-Control', 'public, max-age=1800')
+  const currentPath = c.req.path
+  let items = []
+  let error: string | undefined
+
+  try {
+    items = await getAiCharacterNews(50)
+  } catch (err) {
+    console.error('Failed to load AI character news', err)
+    error = 'AIキャラクターニュースの取得に失敗しました。Supabase の接続設定を確認してください。'
+  }
+
+  return c.render(
+    <Layout currentPath={currentPath}>
+      <AiCharacterNews items={items} error={error} />
+    </Layout>,
+    {
+      title: 'AIキャラクターニュース | AIニケちゃんオフィシャルサイト',
+      description: 'AIニケちゃんが気になったAIキャラクター、AITuber、AI VTuber関連ニュースの短い要約とコメント。',
+      canonicalUrl: 'https://nikechan.com/ai-character-news',
+      ogType: 'article',
+      keywords: 'AIキャラクター, AITuber, AI VTuber, AIアバター, AIニケちゃん, ニュース',
     }
   )
 })

@@ -262,6 +262,225 @@
   border: 1px solid rgba(255,255,255,0.6);
 }
 
+/* AI character news comment balloon */
+.nike-comment-wrap {
+  position: relative;
+  padding: 0;
+}
+
+.nike-comment-bubble {
+  position: relative;
+  min-height: 104px;
+  border: 1px solid rgba(216, 180, 254, 0.8);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 16px 18px;
+  box-shadow:
+    0 6px 18px rgba(90, 76, 151, 0.08),
+    inset 0 1px 0 rgba(255,255,255,0.95);
+}
+
+.nike-comment-bubble::before,
+.nike-comment-bubble::after {
+  content: "";
+  position: absolute;
+  top: 58%;
+  width: 0;
+  height: 0;
+  transform: translateY(-50%);
+}
+
+.nike-comment-bubble::before {
+  right: -15px;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 15px solid rgba(216, 180, 254, 0.8);
+}
+
+.nike-comment-bubble::after {
+  right: -13px;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-left: 13px solid rgba(255, 255, 255, 0.92);
+}
+
+.nike-comment-pet-slot {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 112px;
+}
+
+.nike-comment-pet-slot-mobile {
+  display: none;
+}
+
+/* AI character news pet sprite */
+.nike-news-pet {
+  width: 96px;
+  height: 104px;
+  flex: 0 0 auto;
+  image-rendering: auto;
+  background-image: url('/images/pets/ai-nikechan-spritesheet.webp');
+  background-repeat: no-repeat;
+  background-size: 768px 936px;
+  filter: drop-shadow(0 8px 12px rgba(90, 76, 151, 0.18));
+}
+
+.nike-news-pet-idle {
+  background-position: 0 0;
+  animation: nikePetIdle 1.1s steps(6) infinite;
+}
+
+.nike-news-pet-waving {
+  background-position: 0 -312px;
+  animation: nikePetWaving 1.1s steps(4) infinite;
+}
+
+.nike-news-pet-jumping {
+  background-position: 0 -416px;
+  animation: nikePetJumping 1.05s steps(5) infinite;
+}
+
+.nike-news-pet-running {
+  background-position: 0 -728px;
+  animation: nikePetRunning 0.85s steps(6) infinite;
+}
+
+.nike-news-pet-review {
+  background-position: 0 -832px;
+  animation: nikePetReview 1.1s steps(6) infinite;
+}
+
+@keyframes nikePetIdle {
+  from { background-position: 0 0; }
+  to { background-position: -576px 0; }
+}
+
+@keyframes nikePetWaving {
+  from { background-position: 0 -312px; }
+  to { background-position: -384px -312px; }
+}
+
+@keyframes nikePetJumping {
+  from { background-position: 0 -416px; }
+  to { background-position: -480px -416px; }
+}
+
+@keyframes nikePetRunning {
+  from { background-position: 0 -728px; }
+  to { background-position: -576px -728px; }
+}
+
+@keyframes nikePetReview {
+  from { background-position: 0 -832px; }
+  to { background-position: -576px -832px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nike-news-pet {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .nike-comment-wrap {
+    margin-top: 1rem;
+  }
+
+  .nike-comment-wrap > .grid {
+    display: block;
+  }
+
+  .nike-comment-bubble {
+    min-height: 0;
+    padding: 14px 16px;
+  }
+
+  .nike-comment-bubble::before,
+  .nike-comment-bubble::after {
+    display: none;
+  }
+
+  .nike-comment-body::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+
+  .nike-comment-body::before {
+    content: "";
+    float: right;
+    height: 48px;
+    width: 0;
+  }
+
+  .nike-comment-pet-slot-desktop {
+    display: none;
+  }
+
+  .nike-comment-pet-slot-mobile {
+    display: block;
+    float: right;
+    clear: right;
+    min-height: 0;
+    margin: 2px 0 0 10px;
+    shape-outside: inset(0 round 8px);
+  }
+
+  .nike-news-pet {
+    width: 58px;
+    height: 63px;
+    background-size: 464px 565.5px;
+    filter: drop-shadow(0 6px 10px rgba(90, 76, 151, 0.16));
+  }
+
+  .nike-news-pet-idle {
+    background-position: 0 0;
+  }
+
+  .nike-news-pet-waving {
+    background-position: 0 -188.5px;
+  }
+
+  .nike-news-pet-jumping {
+    background-position: 0 -251.333px;
+  }
+
+  .nike-news-pet-running {
+    background-position: 0 -439.833px;
+  }
+
+  .nike-news-pet-review {
+    background-position: 0 -502.667px;
+  }
+
+  @keyframes nikePetIdle {
+    from { background-position: 0 0; }
+    to { background-position: -384px 0; }
+  }
+
+  @keyframes nikePetWaving {
+    from { background-position: 0 -188.5px; }
+    to { background-position: -232px -188.5px; }
+  }
+
+  @keyframes nikePetJumping {
+    from { background-position: 0 -251.333px; }
+    to { background-position: -290px -251.333px; }
+  }
+
+  @keyframes nikePetRunning {
+    from { background-position: 0 -439.833px; }
+    to { background-position: -348px -439.833px; }
+  }
+
+  @keyframes nikePetReview {
+    from { background-position: 0 -502.667px; }
+    to { background-position: -348px -502.667px; }
+  }
+}
+
 /* AI Nike-chan About page */
 .ai-about-page {
   --ai-ink: #171327;
