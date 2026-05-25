@@ -13,7 +13,6 @@ import { Developer } from './components/Developer'
 import { License } from './components/License'
 import { DevBlog } from './components/DevBlog'
 import { About } from './components/About'
-import { World } from './components/World'
 import { Tutorial } from './components/Tutorial'
 import { CharacterList } from './components/CharacterList'
 import { AINikeProfile } from './components/AINikeProfile'
@@ -353,7 +352,7 @@ app.get('/about', (c) => {
     {
       locale,
       title: locale === 'ja' ? "AIニケちゃんとは | AIニケちゃんオフィシャルサイト" : "About AI Nike Chan | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんのプロフィール。創作活動、技術スキル、プロジェクト詳細について。" : "Profile of AI Nike Chan. Information about creative activities, technical skills, and project details.",
+      description: locale === 'ja' ? "AIニケちゃんという存在について。会話、記憶、関係性を通じて存在感を育てるAIキャラクターの紹介。" : "About AI Nike-chan as a presence: an AI character built through conversation, memory, relationships, and continuity.",
       canonicalUrl: "https://nikechan.com/about",
       structuredData: {
         "@context": "https://schema.org",
@@ -370,23 +369,10 @@ app.get('/about', (c) => {
   )
 })
 
-// World page
+// Backward-compatible redirect from the former world page
 app.get('/world', (c) => {
-  c.header('Cache-Control', 'private, max-age=3600')
-  c.header('Vary', 'Accept-Language')
-  const currentPath = c.req.path
-  const locale = c.get('locale') as Locale
-  return c.render(
-    <Layout currentPath={currentPath} locale={locale}>
-      <World locale={locale} />
-    </Layout>,
-    {
-      locale,
-      title: locale === 'ja' ? "ニケちゃんの世界 | AIニケちゃんオフィシャルサイト" : "Nike-chan's World | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんはプラットフォームを超えて同じ記憶を持ち活動しています。つながる世界をご覧ください。" : "AI Nike-chan operates across platforms sharing the same memory. Explore her connected worlds.",
-      canonicalUrl: "https://nikechan.com/world"
-    }
-  )
+  const url = new URL(c.req.url)
+  return c.redirect(`/about${url.search}`, 301)
 })
 
 // Character pages

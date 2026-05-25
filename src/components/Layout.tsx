@@ -60,12 +60,12 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           </motion.div>
 
           <nav className="hidden lg:flex items-center space-x-4">
-            {/* World */}
+            {/* About */}
             <a
-              href={addLangParam("/world")}
-              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/world")}`}
+              href={addLangParam("/about")}
+              className={`relative px-4 py-2 font-medium transition-colors duration-300 ${getLinkClass("/about")}`}
             >
-              <span className="relative z-10">{t('navigation:world')}</span>
+              <span className="relative z-10">{t('navigation:about')}</span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg opacity-0"
                 whileHover={{ opacity: 1, scale: 1.05 }}
@@ -194,7 +194,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           >
             <div className="rounded-xl border bg-white shadow-lg divide-y">
               <a href={addLangParam("/")} className={`block px-4 py-3 ${getLinkClass('/')}`}>{t('navigation:home')}</a>
-              <a href={addLangParam("/world")} className={`block px-4 py-3 ${getLinkClass('/world')}`}>{t('navigation:world')}</a>
+              <a href={addLangParam("/about")} className={`block px-4 py-3 ${getLinkClass('/about')}`}>{t('navigation:about')}</a>
               <a href={addLangParam("/characters")} className={`block px-4 py-3 ${getLinkClass('/characters', true)}`}>{t('navigation:character')}</a>
               <a href={addLangParam("/gallery")} className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
               <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>

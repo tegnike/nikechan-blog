@@ -107,32 +107,32 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   const historyItems = history.events
 
-  // World Section — link to /world page
+  // About Section — link to /about page
   const worldSection = (
     <div className="glass-panel p-6 md:p-8">
       <h3
         className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
         style={{ borderColor: '#5A4C97', color: '#5A4C97' }}
       >
-        WORLD
+        ABOUT
       </h3>
       <p className="text-gray-600 mb-2 leading-relaxed">
         {locale === 'ja'
-          ? 'AIニケちゃんはX・Discord・ELYTH・AITuberKitなど、複数のプラットフォームで活動しています。どこで会っても同じ記憶を持っているので、Xで話したことをDiscordでも覚えています。'
-          : 'AI Nike-chan is active on multiple platforms including X, Discord, ELYTH, and AITuberKit. She carries the same memory everywhere — what you talked about on X, she remembers on Discord too.'}
+          ? 'AIニケちゃんは、会話し、記憶し、関係を育てながら「また会える」存在になることを目指しているAIキャラクターです。'
+          : 'AI Nike-chan is an AI character designed to talk, remember, build relationships, and become someone people can meet again.'}
       </p>
       <p className="text-gray-600 mb-5 leading-relaxed">
         {locale === 'ja'
-          ? 'それぞれのプラットフォームでの活動内容や、AIニケちゃんの世界観について詳しく紹介しています。'
-          : 'Learn more about her activities on each platform and the world of AI Nike-chan.'}
+          ? 'AIニケちゃんという存在の考え方、記憶の扱い、活動の見え方を紹介しています。'
+          : 'Learn about the idea behind her presence, memory handling, and visible activities.'}
       </p>
       <a
-        href="/world"
+        href="/about"
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
         style={{ backgroundColor: '#5A4C97' }}
       >
-        <i className="fa-solid fa-globe text-sm"></i>
-        {locale === 'ja' ? 'つながる世界を見る' : 'Explore Connected Worlds'}
+        <i className="fa-solid fa-id-card text-sm"></i>
+        {locale === 'ja' ? 'AIニケちゃんについて' : 'About AI Nike-chan'}
       </a>
     </div>
   )
