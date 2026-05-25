@@ -146,12 +146,18 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
                 {t('話しかける', 'Talk to her')}
               </a>
             </div>
+            <div className="ai-about-hero__signals" aria-label={t('存在感を構成する要素', 'Presence signals')}>
+              <span>CONVERSATION</span>
+              <span>MEMORY</span>
+              <span>RELATIONSHIP</span>
+              <span>PRESENCE</span>
+            </div>
           </div>
 
           <div className="ai-about-hero__visual" aria-label={t('AIニケちゃんのキービジュアル', 'AI Nike-chan key visual')}>
             <div className="ai-about-nameplate">
               <span>AI NIKECHAN</span>
-              <strong>Presence Model 01</strong>
+              <strong>{t('AIコーディングアシスタント', 'AI Coding Assistant')}</strong>
             </div>
             <img
               src="/images/characters/sprites/ainikechan.png"
@@ -161,13 +167,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           </div>
         </div>
 
-        <div className="ai-about-hero__ticker" aria-hidden="true">
-          <span>CONVERSATION</span>
-          <span>MEMORY</span>
-          <span>RELATIONSHIP</span>
-          <span>PRESENCE</span>
-          <span>AI CHARACTER</span>
-        </div>
       </section>
 
       <main>
