@@ -52,6 +52,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
     | { type: 'code'; language: string; content: string }
     | { type: 'blockquote'; children: Node[] }
     | { type: 'list'; ordered: boolean; items: Array<{ text: string; children: Node[] }> }
+    | { type: 'message'; children: Node[] }
     | { type: 'ogp-card'; url: string; data: OgpData }
     | { type: 'video'; src: string }
     | { type: 'table'; html: string }
@@ -113,6 +114,24 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
         }
         if (i < lines.length) i++
         nodes.push({ type: 'code', language, content: codeLines.join('\n') })
+        continue
+      }
+
+      if (/^:::message\s*$/.test(content)) {
+        const messageLines: string[] = []
+        i++
+        while (i < lines.length) {
+          const messageLine = peek()
+          if (messageLine === undefined) break
+          const messageLeading = messageLine.match(/^\s*/)?.[0].length ?? 0
+          const messageContent = messageLine.slice(Math.min(indent, messageLeading))
+          if (/^:::\s*$/.test(messageContent)) break
+          messageLines.push(messageContent)
+          i++
+        }
+        if (i < lines.length) i++
+        const { nodes: messageNodes } = parseBlocksFromString(messageLines.join('\n'))
+        nodes.push({ type: 'message', children: messageNodes })
         continue
       }
 
@@ -226,6 +245,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
           /^```/.test(nextContent) ||
           /^[-*+]\s+/.test(nextContent) ||
           /^\d+\.\s+/.test(nextContent) ||
+          /^:::message\s*$/.test(nextContent) ||
           /^>\s?/.test(nextContent) ||
           (indent === 0 && /^#{1,6}\s+/.test(nextContent)) ||
           /^(?:-{3,}|\*{3,}|_{3,})\s*$/.test(nextContent)
@@ -277,6 +297,8 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
           }
           case 'blockquote':
             return `<blockquote>${renderNodes(node.children)}</blockquote>`
+          case 'message':
+            return `<aside class="markdown-message" role="note"><span class="markdown-message__icon" aria-hidden="true">!</span><div class="markdown-message__body">${renderNodes(node.children)}</div></aside>`
           case 'list': {
             const tag = node.ordered ? 'ol' : 'ul'
             const items = node.items
