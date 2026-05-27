@@ -28,11 +28,10 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
       : clean === path;
     return isActive ? 'site-nav-link--active' : '';
   };
-  const isOtherActive = ["/news", "/ai-character-news", "/developer", "/dev_blog"].some((p) => {
+  const isOtherActive = ["/updates", "/ai-news", "/dev-blog", "/developer"].some((p) => {
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     return clean === p || clean.startsWith(`${p}/`)
   })
-  const aiCharacterNewsLabel = locale === 'ja' ? 'AIキャラニュース' : 'AI Character News'
 
   return (
     <GalleryModalProvider>
@@ -73,8 +72,8 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
 
             {/* Tutorial */}
             <a
-              href={addLangParam("/tutorial")}
-              className={`site-nav-link ${getLinkClass("/tutorial", true)}`}
+              href={addLangParam("/tutorials")}
+              className={`site-nav-link ${getLinkClass("/tutorials", true)}`}
             >
               {t('navigation:tutorial')}
             </a>
@@ -112,10 +111,10 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
                 aria-labelledby="other-menu-trigger"
                 className="site-nav-menu hidden"
               >
-                <a href={addLangParam("/news")} role="menuitem" className={getLinkClass('/news', true)}>{t('navigation:news')}</a>
-                <a href={addLangParam("/ai-character-news")} role="menuitem" className={getLinkClass('/ai-character-news', true)}>{aiCharacterNewsLabel}</a>
+                <a href={addLangParam("/updates")} role="menuitem" className={getLinkClass('/updates', true)}>{t('navigation:news')}</a>
+                <a href={addLangParam("/ai-news")} role="menuitem" className={getLinkClass('/ai-news', true)}>{t('navigation:aiCharacterNews')}</a>
+                <a href={addLangParam("/dev-blog")} role="menuitem" className={getLinkClass('/dev-blog', true)}>{t('navigation:devBlog')}</a>
                 <a href={addLangParam("/developer")} role="menuitem" className={getLinkClass('/developer', true)}>{t('navigation:developer')}</a>
-                <a href={addLangParam("/dev_blog")} role="menuitem" className={getLinkClass('/dev_blog', true)}>{t('navigation:devBlog')}</a>
               </div>
             </div>
 
@@ -164,11 +163,11 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               <a href={addLangParam("/characters")} className={`block px-4 py-3 ${getLinkClass('/characters', true)}`}>{t('navigation:character')}</a>
               <a href={addLangParam("/gallery")} className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
               <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
-              <a href={addLangParam("/tutorial")} className={`block px-4 py-3 ${getLinkClass('/tutorial', true)}`}>{t('navigation:tutorial')}</a>
-              <a href={addLangParam("/news")} className={`block px-4 py-3 ${getLinkClass('/news', true)}`}>{t('navigation:news')}</a>
-              <a href={addLangParam("/ai-character-news")} className={`block px-4 py-3 ${getLinkClass('/ai-character-news', true)}`}>{aiCharacterNewsLabel}</a>
+              <a href={addLangParam("/tutorials")} className={`block px-4 py-3 ${getLinkClass('/tutorials', true)}`}>{t('navigation:tutorial')}</a>
+              <a href={addLangParam("/updates")} className={`block px-4 py-3 ${getLinkClass('/updates', true)}`}>{t('navigation:news')}</a>
+              <a href={addLangParam("/ai-news")} className={`block px-4 py-3 ${getLinkClass('/ai-news', true)}`}>{t('navigation:aiCharacterNews')}</a>
+              <a href={addLangParam("/dev-blog")} className={`block px-4 py-3 ${getLinkClass('/dev-blog', true)}`}>{t('navigation:devBlog')}</a>
               <a href={addLangParam("/developer")} className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
-              <a href={addLangParam("/dev_blog")} className={`block px-4 py-3 ${getLinkClass('/dev_blog', true)}`}>{t('navigation:devBlog')}</a>
             </div>
           </div>
         </div>

@@ -59,7 +59,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <button
         key="first"
         data-page-action="first"
-        className="pagination-button px-2.5 py-1 mx-1 rounded-md border bg-white/70 text-zinc-700 hover:bg-zinc-50 hidden"
+        className="pagination-button blog-pagination-button hidden"
         aria-label="最初のページ"
       >
         &laquo;
@@ -70,7 +70,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <button
         key="prev"
         data-page-action="prev"
-        className="pagination-button px-2.5 py-1 mx-1 rounded-md border bg-white/70 text-zinc-700 hover:bg-zinc-50 hidden"
+        className="pagination-button blog-pagination-button hidden"
         aria-label="前のページ"
       >
         &lsaquo;
@@ -83,10 +83,10 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
         <button
           key={i}
           data-page={i}
-          className={`pagination-button page-number px-3 py-1 mx-1 rounded-md border ${
+          className={`pagination-button blog-pagination-button page-number ${
             i === 1
-              ? 'active bg-purple-600 text-white border-purple-600 font-semibold'
-              : 'bg-white/70 text-zinc-700 hover:bg-zinc-50'
+              ? 'active blog-pagination-button--active'
+              : ''
           } ${i > 5 ? 'hidden' : ''}` // 初期は5ページまで表示
         }
         >
@@ -100,7 +100,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <button
         key="next"
         data-page-action="next"
-        className={`pagination-button px-2.5 py-1 mx-1 rounded-md border bg-white/70 text-zinc-700 hover:bg-zinc-50 ${totalPages <= 1 ? 'hidden' : ''}`}
+        className={`pagination-button blog-pagination-button ${totalPages <= 1 ? 'hidden' : ''}`}
         aria-label="次のページ"
       >
         &rsaquo;
@@ -111,7 +111,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <button
         key="last"
         data-page-action="last"
-        className={`pagination-button px-2.5 py-1 mx-1 rounded-md border bg-white/70 text-zinc-700 hover:bg-zinc-50 ${totalPages <= 1 ? 'hidden' : ''}`}
+        className={`pagination-button blog-pagination-button ${totalPages <= 1 ? 'hidden' : ''}`}
         aria-label="最後のページ"
       >
         &raquo;
@@ -120,7 +120,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
     
     return (
       <div 
-        className="pagination-controls flex justify-center mt-8 mb-4"
+        className="pagination-controls flex flex-wrap justify-center gap-2 mt-8 mb-4"
         data-total-pages={totalPages}
         data-current-page="1"
       >
@@ -148,14 +148,12 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`article-item block rounded-xl border bg-white/60 p-4 ring-1 ring-black/5 shadow-sm 
-                      hover:shadow-md transition-all duration-300 ease-in-out transform
-                      hover:-translate-y-1 hover:scale-[1.02]
+                    className={`article-item blog-post-card
                       ${pageNumber === 1 ? '' : 'hidden'}` // 初期は1ページ目のみ表示
                     }
                     data-page-item={pageNumber}
                   >
-                    <div className="aspect-[128/67] mb-4 overflow-hidden rounded-lg">
+                    <div className="blog-post-card__image">
                       <img
                         src={article.thumbnail_url || `/images/thumbnails/${shuffledImageNumbers[index % shuffledImageNumbers.length]}.png`}
                         alt={article.title}
@@ -170,12 +168,13 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
                         }}
                       />
                     </div>
-                    <div className="text-zinc-500 text-sm mb-2">
-                      {formatNoteDate(article.published_at)}
-                    </div>
-                    <h3 className="text-foreground font-semibold text-lg mb-2 line-clamp-2 truncate-2-lines">
-                      {article.title}
-                    </h3>
+                    <div className="blog-post-card__body">
+                      <div className="blog-post-card__date">
+                        {formatNoteDate(article.published_at)}
+                      </div>
+                      <h3 className="blog-post-card__title line-clamp-2 truncate-2-lines">
+                        {article.title}
+                      </h3>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center text-[#EB4667]">
                           <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -185,13 +184,14 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
                         </div>
                         <PlatformIcon platform={article.platform} />
                       </div>
+                    </div>
                   </a>
                 )
               })}
             </div>
             {renderPaginationControls()}
             <div 
-              className="pagination-info text-center text-zinc-600 text-sm mt-4"
+              className="pagination-info text-center text-zinc-600 text-sm font-bold mt-4"
               data-total-articles={articles.length}
               data-articles-per-page={articlesPerPage}
             >

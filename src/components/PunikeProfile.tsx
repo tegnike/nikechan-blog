@@ -63,20 +63,24 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
         'Looks just like AI Nikechan, but has no connection to her whatsoever.',
       ]
 
-  const links = [
-    {
-      label: 'Sora Cameo',
-      url: 'https://sora.chatgpt.com/profile/punike',
-      icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
-    },
-  ]
-
   return (
     <CharacterDetail
       locale={locale}
       nameEn="PUNIKE"
       nameJa="ぷにけ"
       role="Creative Character"
+      heroSummary="二次創作から生まれた、ちょっと調子のいいマスコット"
+      heroSummaryEn="A cheeky mascot born from fan creations"
+      heroFacts={[
+        { label: 'ROLE', value: 'Mascot' },
+        { label: 'VOICE', value: 'VOICEVOX 春歌ナナ' },
+        { label: 'SIZE', value: '2〜3頭身' },
+      ]}
+      heroFactsEn={[
+        { label: 'ROLE', value: 'Mascot' },
+        { label: 'VOICE', value: 'VOICEVOX Haruka Nana' },
+        { label: 'SIZE', value: '2-3 heads tall' },
+      ]}
       catchphrase="どしたん？話聞こか？"
       catchphraseEn="What\'s up? Do you want to talk?"
       catchphraseLines={['どしたん？ 話聞こか？']}
@@ -86,7 +90,6 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
       accentColor="#F48E84"
       profileItems={profileItems}
       description={description}
-      links={links}
       currentCharacterId="punike"
       trihedralFigure="/images/characters/trihedral_figures/punike.png"
     />

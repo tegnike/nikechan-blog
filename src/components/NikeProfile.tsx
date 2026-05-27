@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Heart } from 'lucide-react'
-import { CharacterDetail } from './CharacterDetail'
+import { CharacterDetail, CharacterSectionHeading } from './CharacterDetail'
 import { Locale } from '../i18n/config'
 
 interface NikeProfileProps {
@@ -88,11 +88,6 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       label: 'note',
       url: 'https://note.com/nike_cha_n',
       icon: <img src="/icons/note.svg" alt="note" className="w-4 h-4 brightness-0 invert" />,
-    },
-    {
-      label: 'Sora',
-      url: 'https://sora.chatgpt.com/profile/tegnike',
-      icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
     },
   ]
 
@@ -308,12 +303,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
   // Collaboration Section
   const collaborationSection = (
     <div className="glass-panel p-6 md:p-8">
-      <h3
-        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
-        style={{ borderColor: '#F9A3AB', color: '#F9A3AB' }}
-      >
-        COLLABORATION
-      </h3>
+      <CharacterSectionHeading
+        label="CONTACT"
+        title={isJa ? 'コラボレーションのご相談' : 'Collaboration Inquiries'}
+      />
       <p className="text-gray-600 mb-4 leading-relaxed">
         {isJa
           ? 'AIニケちゃんとのコラボレーションに興味をお持ちの方は、お気軽にご連絡ください。企業・個人を問わず歓迎しています。'
@@ -340,7 +333,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
         style={{ backgroundColor: '#F9A3AB' }}
       >
-        <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
+        <img src="/icons/x.svg" alt="X" className="w-4 h-4" />
         {isJa ? 'X DMで相談する' : 'Contact via X DM'}
       </a>
     </div>
@@ -349,17 +342,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
   // Custom Support Section with detailed content (same as AI Nikechan)
   const supportSection = (
     <div className="glass-panel p-6 md:p-8">
-      <h3
-        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
-        style={{ borderColor: '#F9A3AB', color: '#F9A3AB' }}
-      >
-        SUPPORT
-      </h3>
-      <p className="text-gray-500 text-sm mb-4">
-        {isJa
-          ? 'AIニケちゃんの活動を応援いただける方へ'
-          : 'For those who want to support AI Nikechan'}
-      </p>
+      <CharacterSectionHeading
+        label="SUPPORT"
+        title={isJa ? 'AIニケちゃんの活動を応援いただける方へ' : 'For those who want to support AI Nikechan'}
+      />
       <p className="text-gray-600 mb-4 leading-relaxed">
         {isJa
           ? 'AIニケちゃんの開発を支えてくださるスポンサーを募集しています。FANBOX経由での支援はすべて同じ特典設計となっており、オープンな運営方針で還元していきます。'
@@ -401,7 +387,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{ backgroundColor: '#F9A3AB' }}
         >
-          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />
+          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4" />
           {isJa ? 'Discordコミュニティ' : 'Discord Community'}
         </a>
       </div>
@@ -458,9 +444,21 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       nameEn="NIKE"
       nameJa="ニケ"
       role="AI Character & Agent Developer"
-      catchphrase={<>開発たのしい〜〜〜〜</>}
+      heroSummary="AIキャラクターとエージェントを作る開発者"
+      heroSummaryEn="Developer building AI characters and agents"
+      heroFacts={[
+        { label: 'ROLE', value: 'Developer / Master' },
+        { label: 'STACK', value: 'AI / Web / Agents' },
+        { label: 'BASE', value: 'Poland' },
+      ]}
+      heroFactsEn={[
+        { label: 'ROLE', value: 'Developer / Master' },
+        { label: 'STACK', value: 'AI / Web / Agents' },
+        { label: 'BASE', value: 'Poland' },
+      ]}
+      catchphrase={<>今週も頑張るぞい！！！</>}
       catchphraseEn={<>Development is so much fun~~~~</>}
-      catchphraseLines={['開発たのしい〜〜〜〜']}
+      catchphraseLines={['今週も頑張るぞい！！！']}
       catchphraseLinesEn={['Development is so much fun~~~~']}
       image="/images/characters/sprites/nikechan.png"
       icon="/images/characters/icons/nikechan.png"

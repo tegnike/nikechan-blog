@@ -8,27 +8,36 @@ const profileItems = ['age', 'birthday', 'height', 'imageColor'] as const;
 
 export function AboutSection({ locale = 'ja' }: Props) {
   const t = getT(locale);
+  const langQuery = locale !== 'ja' ? `?lang=${locale}` : '';
 
   return (
-    <section className="py-10 sm:py-16 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="glass-panel p-6 sm:p-10">
+    <section className="home-about-section py-10 sm:py-16 px-2 sm:px-6">
+      <div className="site-shell">
+        <div className="glass-panel home-about-panel p-6 sm:p-10">
           <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-center">
             {/* 左カラム: テキスト情報 */}
-            <div className="space-y-6">
+            <div className="home-about-copy space-y-6">
               {/* 見出し */}
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#594A89]">
+              <h2 className="home-about-title">
                 {t('home:about.heading')}
               </h2>
 
               {/* 挨拶 */}
-              <p className="text-lg sm:text-xl text-gray-600 italic">
+              <p className="home-about-lead">
                 {t('home:about.greeting')}
               </p>
 
+              <div className="home-about-mobile-visual">
+                <img
+                  src="/images/lp/about.webp"
+                  alt={locale === 'ja' ? 'AIニケちゃんのプロフィール画像' : 'AI Nike-chan Profile Image'}
+                  loading="lazy"
+                />
+              </div>
+
               {/* 説明文 */}
               <p
-                className="text-gray-700 leading-relaxed"
+                className="home-about-description"
                 dangerouslySetInnerHTML={{ __html: t('home:about.description') }}
               />
 
@@ -62,7 +71,7 @@ export function AboutSection({ locale = 'ja' }: Props) {
                       key={key}
                       className="bg-white/60 rounded-xl p-3 flex items-center gap-3 border border-white/80 shadow-md"
                     >
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center text-[#594A89]">
+                      <div className="home-about-profile-icon flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center">
                         {icons[key]}
                       </div>
                       <div className="flex flex-col min-w-0">
@@ -87,14 +96,14 @@ export function AboutSection({ locale = 'ja' }: Props) {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <a
-                  href="/about"
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white/80 border border-gray-300 text-gray-700 font-medium hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                  href={`/about${langQuery}`}
+                  className="design-action-button"
                 >
                   {t('home:about.cta.profile')}
                 </a>
                 <a
-                  href="/gallery"
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white/80 border border-gray-300 text-gray-700 font-medium hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                  href={`/gallery${langQuery}`}
+                  className="design-action-button"
                 >
                   {t('home:about.cta.gallery')}
                 </a>
@@ -102,7 +111,7 @@ export function AboutSection({ locale = 'ja' }: Props) {
             </div>
 
             {/* 右カラム: プロフィール画像 */}
-            <div className="flex justify-center lg:justify-end">
+            <div className="home-about-desktop-visual flex justify-center lg:justify-end">
               <img
                 src="/images/lp/about.webp"
                 alt={locale === 'ja' ? 'AIニケちゃんのプロフィール画像' : 'AI Nike-chan Profile Image'}

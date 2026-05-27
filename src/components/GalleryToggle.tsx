@@ -8,12 +8,12 @@ type Props = {
 export function GalleryToggle({ active, locale = 'ja' }: Props) {
   const t = getT(locale);
 
-  const baseClass = 'px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200';
-  const activeClass = 'bg-white text-pink-500 shadow-md border border-pink-200';
-  const inactiveClass = 'bg-white/80 text-gray-600 border border-gray-300 hover:bg-white hover:text-pink-500 hover:border-pink-300 hover:shadow-lg hover:scale-105';
+  const baseClass = 'design-toggle-link';
+  const activeClass = 'design-toggle-link--active';
+  const inactiveClass = 'design-toggle-link--inactive';
 
   return (
-    <div className="w-full flex items-center justify-center gap-3 mb-6">
+    <div className="design-toggle">
       <a
         href={`/gallery${locale !== 'ja' ? '?lang=' + locale : ''}`}
         className={`${baseClass} ${active === 'fan' ? activeClass : inactiveClass}`}

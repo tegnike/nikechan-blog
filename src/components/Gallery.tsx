@@ -2,7 +2,6 @@ import { GalleryItem } from './GalleryItem'
 import { useMemo } from 'react'
 import { shuffle, findItem, galleryItemsData, illustrators } from '../utils/galleryData'
 import { GalleryToggle } from './GalleryToggle'
-import { PageHeader } from './PageHeader'
 import { getT, type Locale } from '../i18n/config'
 
 // 連続する同一タイプの行を避けるために簡易的に整形
@@ -223,13 +222,19 @@ export const Gallery = ({ locale = 'ja' }: Props) => {
   const shuffledRows = useMemo(() => avoidConsecutiveDuplicates(shuffle(rows)), [rows])
 
   return (
-    <div className="character-page min-h-screen">
-      <PageHeader title="GALLERY" />
+    <div className="character-page gallery-redesign min-h-screen">
+      <section className="site-page-hero" aria-labelledby="gallery-title">
+        <div className="character-detail-hero__grid" aria-hidden="true" />
+        <div className="site-page-hero__inner">
+          <h1 id="gallery-title">GALLERY</h1>
+          <p>{locale === 'ja' ? 'コミッションイラストと公式作品のギャラリー' : 'Commissioned illustrations and official works'}</p>
+        </div>
+      </section>
 
       {/* Main Content */}
       <div className="relative">
         <div className="character-showcase-bg absolute inset-0" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+        <div className="designed-page-main relative z-10 max-w-7xl mx-auto px-4 py-8">
           {/* Toggle */}
           <GalleryToggle active="commissioned" locale={locale} />
 
