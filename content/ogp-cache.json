@@ -314,5 +314,23 @@
     "siteName": "GitHub",
     "url": "https://github.com/tegnike/stackface-maker",
     "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://www.youtube.com/watch?v=sxeqqR4Dcnw": {
+    "title": "How Neuro-sama Plays Games",
+    "description": "The Swarm Scribes",
+    "image": "https://i.ytimg.com/vi/sxeqqR4Dcnw/hqdefault.jpg",
+    "siteName": "YouTube",
+    "url": "https://www.youtube.com/watch?v=sxeqqR4Dcnw",
+    "favicon": "https://www.youtube.com/favicon.ico",
+    "type": "youtube-embed",
+    "embedHtml": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/sxeqqR4Dcnw?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"How Neuro-sama Plays Games\"></iframe>"
+  },
+  "https://github.com/VedalAI/neuro-sdk": {
+    "title": "GitHub - VedalAI/neuro-sdk: Neuro SDK + API for allowing Neuro to play games",
+    "description": "Neuro SDK + API for allowing Neuro to play games. Contribute to VedalAI/neuro-sdk development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/7644865124165a660baa9e8c4e68010897df15954e22c88ae570933f6b09d665/VedalAI/neuro-sdk",
+    "siteName": "GitHub",
+    "url": "https://github.com/VedalAI/neuro-sdk",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
   }
 }

@@ -42,6 +42,7 @@ public/static/styles/globals.css
 
 # screenshots (root-level, for design review)
 /*.png
+tmp/
 
 public/expo-video
 expo-video

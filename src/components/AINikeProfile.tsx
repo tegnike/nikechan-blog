@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { ExternalLink, Heart } from 'lucide-react'
-import { CharacterDetail } from './CharacterDetail'
+import { CharacterDetail, CharacterSectionHeading } from './CharacterDetail'
 import { getT, Locale } from '../i18n/config'
 
 interface AINikeProfileProps {
@@ -10,6 +10,7 @@ interface AINikeProfileProps {
 
 export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) => {
   const t = getT(locale)
+  const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
 
   const details = t('about:profile.details', { returnObjects: true }) as Record<string, { label: string; value: string; guidelinesLink?: string }>
   const overview = t('about:profile.overview', { returnObjects: true }) as { text: string[] }
@@ -27,6 +28,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
     }
   }
   const collaboration = t('about:profile.collaboration', { returnObjects: true }) as {
+    heading: string
     description: string
     text: string
     examples: string[]
@@ -94,11 +96,6 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       icon: <img src="/icons/youtube.svg" alt="YouTube" className="w-4 h-4 brightness-0 invert" />,
     },
     {
-      label: 'Sora Cameo',
-      url: 'https://sora.chatgpt.com/profile/ainikechan',
-      icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
-    },
-    {
       label: 'AITuberKit',
       url: 'https://aituberkit.com',
       icon: <img src="/icons/aituberkit.png" alt="AITuberKit" className="w-4 h-4 brightness-0 invert" />,
@@ -107,32 +104,30 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   const historyItems = history.events
 
-  // World Section — link to /world page
+  // About Section — link to /about page
   const worldSection = (
     <div className="glass-panel p-6 md:p-8">
-      <h3
-        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
-        style={{ borderColor: '#5A4C97', color: '#5A4C97' }}
-      >
-        WORLD
-      </h3>
+      <CharacterSectionHeading
+        label="ABOUT"
+        title={locale === 'ja' ? 'AIニケちゃんについて' : 'About AI Nike-chan'}
+      />
       <p className="text-gray-600 mb-2 leading-relaxed">
         {locale === 'ja'
-          ? 'AIニケちゃんはX・Discord・ELYTH・AITuberKitなど、複数のプラットフォームで活動しています。どこで会っても同じ記憶を持っているので、Xで話したことをDiscordでも覚えています。'
-          : 'AI Nike-chan is active on multiple platforms including X, Discord, ELYTH, and AITuberKit. She carries the same memory everywhere — what you talked about on X, she remembers on Discord too.'}
+          ? 'AIニケちゃんは、会話し、記憶し、関係を育てながら「また会える」存在になることを目指しているAIキャラクターです。'
+          : 'AI Nike-chan is an AI character designed to talk, remember, build relationships, and become someone people can meet again.'}
       </p>
       <p className="text-gray-600 mb-5 leading-relaxed">
         {locale === 'ja'
-          ? 'それぞれのプラットフォームでの活動内容や、AIニケちゃんの世界観について詳しく紹介しています。'
-          : 'Learn more about her activities on each platform and the world of AI Nike-chan.'}
+          ? 'AIニケちゃんという存在の考え方、記憶の扱い、活動の見え方を紹介しています。'
+          : 'Learn about the idea behind her presence, memory handling, and visible activities.'}
       </p>
       <a
-        href="/world"
+        href={`/about${langQuery}`}
         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
         style={{ backgroundColor: '#5A4C97' }}
       >
-        <i className="fa-solid fa-globe text-sm"></i>
-        {locale === 'ja' ? 'つながる世界を見る' : 'Explore Connected Worlds'}
+        <i className="fa-solid fa-id-card text-sm"></i>
+        {locale === 'ja' ? 'AIニケちゃんについて' : 'About AI Nike-chan'}
       </a>
     </div>
   )
@@ -140,12 +135,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
   // Custom Support Section with detailed content
   const supportSection = (
     <div className="glass-panel p-6 md:p-8">
-      <h3
-        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
-        style={{ borderColor: '#5A4C97', color: '#5A4C97' }}
-      >
-        SUPPORT
-      </h3>
+      <CharacterSectionHeading label="SUPPORT" title={support.description} />
       <p className="text-gray-600 mb-4 leading-relaxed">
         {support.text}
       </p>
@@ -175,7 +165,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{ backgroundColor: '#5A4C97' }}
         >
-          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />
+          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4" />
           {support.buttons.discord}
         </a>
       </div>
@@ -207,12 +197,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
   // Collaboration Section
   const collaborationSection = (
     <div className="glass-panel p-6 md:p-8">
-      <h3
-        className="text-xl font-bold tracking-widest mb-2 pb-2 border-b-2"
-        style={{ borderColor: '#5A4C97', color: '#5A4C97' }}
-      >
-        COLLABORATION
-      </h3>
+      <CharacterSectionHeading label="CONTACT" title={collaboration.heading} />
       <p className="text-gray-600 mb-4 leading-relaxed">
         {collaboration.text}
       </p>
@@ -231,7 +216,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
         style={{ backgroundColor: '#5A4C97' }}
       >
-        <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
+        <img src="/icons/x.svg" alt="X" className="w-4 h-4" />
         {collaboration.cta}
       </a>
     </div>
@@ -240,12 +225,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
   // LINE Stamp custom section
   const lineStampSection = (
     <div className="glass-panel p-6 md:p-8">
-      <h3
-        className="text-xl font-bold tracking-widest mb-4 pb-2 border-b-2"
-        style={{ borderColor: '#5A4C97', color: '#5A4C97' }}
-      >
-        LINE STAMP
-      </h3>
+      <CharacterSectionHeading label="LINE STAMP" title={lineStamp.heading} />
       <div className="flex flex-col md:flex-row items-center gap-6">
         <div className="flex-1">
           <p className="text-lg font-bold text-gray-800 mb-2">
@@ -269,7 +249,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           <img
             src="/images/about/line_stamp.png"
             alt="LINE Stamp"
-            className="w-48 h-auto rounded-xl shadow-lg"
+            className="w-48 h-auto rounded-xl"
           />
         </div>
       </div>
@@ -282,6 +262,18 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       nameEn="AI NIKECHAN"
       nameJa="AIニケちゃん"
       role="AI Agent / AI VTuber"
+      heroSummary="会話し、記憶し、関係を育てるAIキャラクター"
+      heroSummaryEn="An AI character who talks, remembers, and grows relationships"
+      heroFacts={[
+        { label: 'ROLE', value: 'AI Agent / VTuber' },
+        { label: 'VOICE', value: 'AIVIS Project' },
+        { label: 'HOME', value: 'Discord / X / YouTube' },
+      ]}
+      heroFactsEn={[
+        { label: 'ROLE', value: 'AI Agent / VTuber' },
+        { label: 'VOICE', value: 'AIVIS Project' },
+        { label: 'HOME', value: 'Discord / X / YouTube' },
+      ]}
       catchphrase={<>こんにちは ニケです！今日は何をお手伝いしますか？</>}
       catchphraseEn={<>Hello, I'm Nike! What can I help you with today?</>}
       catchphraseLines={['こんにちは ニケです！', '今日は何をお手伝いしますか？']}

@@ -1,6 +1,5 @@
 import { getT, type Locale } from '../i18n/config'
 import { getCharacterFeatures } from '../utils/characterFeatures'
-import { PageHeader } from './PageHeader'
 
 type Props = {
   active?: 'illustration' | 'video'
@@ -10,21 +9,21 @@ type Props = {
 export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
   const t = getT(locale)
   const tabCardBase =
-    'group relative flex-1 w-full overflow-hidden rounded-2xl border-2 transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300';
-  const tabCardActive = 'border-pink-400 shadow-lg shadow-pink-200/60';
-  const tabCardInactive = 'border-gray-300 shadow-md hover:border-pink-300 hover:shadow-lg';
+    'tutorial-mode-card group relative flex-1 w-full overflow-hidden transition-all duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300';
+  const tabCardActive = 'tutorial-mode-card--active';
+  const tabCardInactive = 'tutorial-mode-card--inactive';
   const tabLabelBase =
-    'absolute inset-x-0 bottom-0 bg-black/60 px-3 py-2 text-center text-sm font-semibold text-white backdrop-blur-sm transition-colors md:text-base';
-  const tabLabelActive = 'bg-pink-500/90';
-  const tabLabelInactive = 'group-hover:bg-pink-400/80';
+    'tutorial-mode-card__label absolute inset-x-0 bottom-0 px-3 py-2 text-center text-sm font-semibold text-white transition-colors md:text-base';
+  const tabLabelActive = 'tutorial-mode-card__label--active';
+  const tabLabelInactive = '';
   const tabImageClass = 'w-full object-cover aspect-[16/9]';
   const downloadButtonClass =
-    'inline-flex items-center gap-2 rounded-full border border-pink-200 bg-white px-4 py-2 text-sm font-medium text-pink-500 shadow-sm transition hover:bg-pink-50 hover:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-offset-2';
+    'design-action-button inline-flex items-center gap-2 px-4 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-offset-2';
   const videoModeButtonBase =
-    'flex-1 rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-300 focus-visible:ring-offset-2 md:text-base';
-  const videoModeButtonActive = 'border-pink-400 bg-white text-pink-500 shadow-lg';
+    'video-mode-button flex-1 px-4 py-2 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-300 focus-visible:ring-offset-2 md:text-base';
+  const videoModeButtonActive = 'video-mode-button--active';
   const videoModeButtonInactive =
-    'border-gray-300 bg-white/80 text-gray-600 hover:border-pink-300 hover:text-pink-500 hover:shadow-md';
+    'video-mode-button--inactive';
   const characterFeatures = getCharacterFeatures(locale)
   const dancePromptBase = t('tutorial:illustration.prompts.dancePrompt')
   const dancePrompt = `${dancePromptBase}\n${characterFeatures}`
@@ -33,17 +32,23 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
   const videoPrompt3 = t('tutorial:video.cameo.videoPrompt3')
 
   return (
-    <div className="character-page min-h-screen">
-      <PageHeader title="TUTORIAL" />
+    <div className="character-page tutorial-redesign min-h-screen">
+      <section className="site-page-hero" aria-labelledby="tutorial-title">
+        <div className="character-detail-hero__grid" aria-hidden="true" />
+        <div className="site-page-hero__inner">
+          <h1 id="tutorial-title">TUTORIALS</h1>
+          <p>{locale === 'ja' ? 'AIニケちゃんの画像・動画を作るための実践ガイド' : 'Practical guide for making AI Nike-chan images and videos'}</p>
+        </div>
+      </section>
 
       {/* Main Content */}
       <div className="relative">
         <div className="character-showcase-bg absolute inset-0" />
-        <div className="relative z-10 max-w-5xl mx-auto px-4 py-8">
+        <div className="designed-page-main relative z-10 max-w-5xl mx-auto px-4 py-8">
         {/* タブ切り替え */}
         <div className="mb-6 flex w-full flex-col items-center justify-center gap-4 md:flex-row md:items-stretch">
           <a
-            href={`/tutorial${locale !== 'ja' ? '?lang=' + locale : ''}`}
+            href={`/tutorials${locale !== 'ja' ? '?lang=' + locale : ''}`}
             className={`${tabCardBase} ${active === 'illustration' ? tabCardActive : tabCardInactive} md:max-w-sm`}
             aria-label={t('tutorial:tabs.illustration')}
           >
@@ -57,7 +62,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
             </span>
           </a>
           <a
-            href={`/tutorial/video${locale !== 'ja' ? '?lang=' + locale : ''}`}
+            href={`/tutorials/video${locale !== 'ja' ? '?lang=' + locale : ''}`}
            className={`${tabCardBase} ${active === 'video' ? tabCardActive : tabCardInactive} md:max-w-sm`}
             aria-label={t('tutorial:tabs.video')}
           >
@@ -329,7 +334,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
                 <div data-video-mode-content="reference" className="space-y-8">
                   <div>
                     <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">{t('tutorial:video.reference.startingFrame.heading')}</h2>
-                    <p className="text-gray-700 mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.startingFrame.description').replace('{tutorialUrl}', `/tutorial${locale !== 'ja' ? '?lang=' + locale : ''}`) }} />
+                    <p className="text-gray-700 mb-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: t('tutorial:video.reference.startingFrame.description').replace('{tutorialUrl}', `/tutorials${locale !== 'ja' ? '?lang=' + locale : ''}`) }} />
 
                     <div className="space-y-4">
                       <div>

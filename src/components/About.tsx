@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { AINikeProfile } from './AINikeProfile'
+import { AboutPresence } from './AboutPresence'
 import { type Locale } from '../i18n/config'
 
 type Props = {
@@ -7,5 +7,5 @@ type Props = {
 }
 
 export const About: FC<Props> = ({ locale = 'ja' }) => {
-  return <AINikeProfile locale={locale} headerTitle="ABOUT" />
+  return <AboutPresence locale={locale} />
 }

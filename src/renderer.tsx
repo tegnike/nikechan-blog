@@ -111,9 +111,7 @@ export const renderer = reactRenderer(({
 
         <link href="/static/styles/globals.css" rel="stylesheet" />
         <link rel="icon" href="/static/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png" />
+        <link rel="apple-touch-icon" href="/images/logos/logo_with_frame_and_shadow.png" />
         <link rel="manifest" href="/manifest.json" />
 
         {/* Alternate languages for SEO */}

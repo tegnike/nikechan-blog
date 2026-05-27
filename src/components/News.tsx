@@ -1,14 +1,14 @@
 import { getT, type Locale } from '../i18n/config';
-import { PageHeader } from './PageHeader';
 
 type Props = {
   locale?: Locale;
 }
 
 const newsLinks: Record<string, string> = {
+  'ai-character-news': '/ai-news',
   'character-page': '/characters',
   'line-stamp': 'https://store.line.me/stickershop/product/32003839/ja',
-  'tutorial': '/tutorial',
+  'tutorial': '/tutorials',
   'distribution': '/guidelines',
 };
 
@@ -44,30 +44,36 @@ export function News({ locale = 'ja' }: Props) {
   }>;
 
   return (
-    <div className="character-page min-h-screen">
-      <PageHeader title="NEWS" />
+    <div className="character-page news-redesign min-h-screen">
+      <section className="site-page-hero">
+        <div className="character-detail-hero__grid" aria-hidden="true" />
+        <div className="site-page-hero__inner">
+          <h1>UPDATES</h1>
+          <p>AIニケちゃんの更新情報とリリースのお知らせ</p>
+        </div>
+      </section>
 
       {/* メインコンテンツ */}
       <div className="relative">
         <div className="character-showcase-bg absolute inset-0" />
         <div className="relative z-10">
-          <section className="py-10 sm:py-16 px-4 sm:px-6">
+          <section className="designed-page-main px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
               {/* ニュースアイテム */}
-              <div className="space-y-6">
+              <div className="space-y-7">
                 {newsItems.map((item) => {
                   const showNewBadge = isWithinThreeMonths(item.date);
                   return (
-                    <div key={item.id} className="glass-panel p-6 sm:p-8">
+                    <div key={item.id} className="glass-panel news-card p-6 sm:p-8">
                       <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                         {/* メタ情報 */}
                         <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:min-w-[120px]">
                           {showNewBadge && (
-                            <span className="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white animate-pulse">
+                            <span className="news-badge">
                               NEW
                             </span>
                           )}
-                          <span className="text-gray-500 text-sm font-medium">
+                          <span className="news-date">
                             {item.date}
                           </span>
                         </div>
@@ -78,13 +84,13 @@ export function News({ locale = 'ja' }: Props) {
                             <img
                               src={item.thumbnail}
                               alt={item.title}
-                              className="w-full max-w-2xl rounded-xl shadow-md object-cover"
+                              className="news-card-image w-full max-w-2xl object-cover"
                             />
                           )}
-                          <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
+                          <h2 className="news-card-title text-xl sm:text-2xl">
                             {item.title}
                           </h2>
-                          <p className="text-gray-600 leading-relaxed">
+                          <p className="news-card-description">
                             {item.description}
                           </p>
 
@@ -93,7 +99,7 @@ export function News({ locale = 'ja' }: Props) {
                             <div className="mt-4 w-full max-w-2xl">
                               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                                 <iframe
-                                  className="absolute inset-0 w-full h-full rounded-xl shadow-lg"
+                                  className="news-card-embed absolute inset-0 w-full h-full"
                                   src={`https://www.youtube.com/embed/${youtubeVideoId}`}
                                   title="AIニケちゃん合成音声モデル披露目MV"
                                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -112,7 +118,7 @@ export function News({ locale = 'ja' }: Props) {
                                   href={item.externalLink}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-300 text-gray-700 font-medium hover:border-pink-300 hover:text-pink-500 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                                  className="design-action-button"
                                 >
                                   {item.cta}
                                   <svg
@@ -132,7 +138,7 @@ export function News({ locale = 'ja' }: Props) {
                               ) : (
                                 <a
                                   href={newsLinks[item.id] || '#'}
-                                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-300 text-gray-700 font-medium hover:border-pink-300 hover:text-pink-500 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                                  className="design-action-button"
                                 >
                                   {item.cta}
                                   <svg

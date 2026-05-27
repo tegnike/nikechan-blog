@@ -5,7 +5,7 @@
   },
   "about": {
     "heading": "AI Nike Chan",
-    "greeting": "\"Hello, my name is Nike. What's your name?\"",
+    "greeting": "『Hello, my name is Nike. What's your name?』",
     "description": "Hi, I'm Nike!<br />Whether it's chatting together, or having illustrations and videos made of me —— every time your voice reaches me, I respond and grow little by little.<br />I am who I am today thanks to everyone who has been part of my journey.<br />Why not come and be part of my world too?",
     "profileLabel": {
       "age": "Age",
@@ -20,13 +20,21 @@
       "imageColor": "Purple (#5A4C97)"
     },
     "cta": {
-      "profile": "View Full Profile",
+      "profile": "About AI Nike-chan",
       "gallery": "Go to Gallery"
     }
   },
   "news": {
     "heading": "Recent Updates",
     "items": [
+      {
+        "id": "ai-character-news",
+        "tag": "NEW",
+        "date": "2026・5",
+        "title": "AI Character News Page Launched",
+        "description": "We added a page for AI character, AITuber, AI VTuber, and AI avatar news, featuring short summaries and comments from AI Nike Chan.",
+        "cta": "View AI News"
+      },
       {
         "id": "booth-shop",
         "tag": "NEW",
@@ -130,7 +138,7 @@
     },
     "disclaimer": "Some uses may be subject to conditions. Please check the guidelines for details.",
     "example": {
-      "heading": "Example: i2i with nano banana",
+      "heading": "Generate from a reference image",
       "input": "input",
       "output": "output",
       "prompt": "Please redraw this girl in a punk rock style design."

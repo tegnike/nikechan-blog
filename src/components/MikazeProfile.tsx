@@ -63,30 +63,31 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
         'The name is an anagram of "AI NIKE 2".',
       ]
 
-  const links = [
-    {
-      label: 'Sora Cameo',
-      url: 'https://sora.chatgpt.com/profile/mikazechan',
-      icon: <img src="/icons/sora.svg" alt="Sora" className="w-4 h-4 brightness-0 invert" />,
-    },
-  ]
-
   return (
     <CharacterDetail
       locale={locale}
       nameEn="MIKAZE"
       nameJa="ミカゼ"
       role="Creative Character"
+      heroSummary="創作者が自由に役割を決められる相棒キャラクター"
+      heroSummaryEn="A creative partner whose role is open to creators"
+      heroFacts={[
+        { label: 'ROLE', value: 'Creative Partner' },
+        { label: 'SETTING', value: '自由に設定可能' },
+        { label: 'COLOR', value: 'Light Blue' },
+      ]}
+      heroFactsEn={[
+        { label: 'ROLE', value: 'Creative Partner' },
+        { label: 'SETTING', value: 'Open-ended' },
+        { label: 'COLOR', value: 'Light Blue' },
+      ]}
       catchphrase="ニケちゃん！今日は何して遊ぶ？"
       catchphraseEn="Nike-chan! What shall we play today?"
-      catchphraseLines={['ニケちゃん！', '今日は何して遊ぶ？']}
-      catchphraseLinesEn={['Nike-chan!', 'What shall we play today?']}
       image="/images/characters/sprites/mikaze.png"
       icon="/images/characters/icons/mikaze.png"
       accentColor="#61A0DF"
       profileItems={profileItems}
       description={description}
-      links={links}
       currentCharacterId="mikaze"
       trihedralFigure="/images/characters/trihedral_figures/mikaze.png"
     />

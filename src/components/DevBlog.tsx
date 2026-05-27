@@ -1,7 +1,6 @@
 import { supabase } from '../lib/supabase'
 import type { Article } from '../lib/supabase'
 import { TechBlog } from './TechBlog'
-import { PageHeader } from './PageHeader'
 import { getPostsByLocale } from '../utils/posts'
 import { type Locale } from '../i18n/config'
 
@@ -45,28 +44,32 @@ export const DevBlog = async (locale: Locale = 'ja') => {
   }
 
   return (
-    <div className="character-page min-h-screen">
-      <PageHeader title="DEV BLOG" />
+    <div className="character-page blog-redesign min-h-screen">
+      <section className="site-page-hero">
+        <div className="character-detail-hero__grid" aria-hidden="true" />
+        <div className="site-page-hero__inner">
+          <h1>DEV BLOG</h1>
+          <p>{locale === 'ja' ? 'AIキャラクター開発、AIエージェント、個人開発の記録' : 'Notes on AI characters, AI agents, and independent development'}</p>
+        </div>
+      </section>
 
       {/* Main Content */}
       <div className="relative">
         <div className="character-showcase-bg absolute inset-0" />
-        <div className="relative z-10">
+        <div className="designed-page-main relative z-10">
           {/* 自前記事セクション */}
           {posts.length > 0 && (
-            <div className="container mx-auto px-4 pt-8">
-              <h2 className="text-xl font-bold text-zinc-800 mb-4">Blog Posts</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <section className="container mx-auto px-4">
+              <h2 className="blog-section-title">Blog Posts</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                 {posts.map((post) => (
                   <a
                     key={post.slug}
-                    href={`/dev_blog/${post.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
-                    className="block rounded-xl border bg-white/60 ring-1 ring-black/5 shadow-sm
-                      hover:shadow-md transition-all duration-300 ease-in-out transform
-                      hover:-translate-y-1 hover:scale-[1.02] overflow-hidden"
+                    href={`/dev-blog/${post.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
+                    className="blog-post-card"
                   >
                     {post.thumbnail && (
-                      <div className="aspect-[1200/630] overflow-hidden">
+                      <div className="blog-post-card__image">
                         <img
                           src={post.thumbnail}
                           alt={post.title}
@@ -75,23 +78,23 @@ export const DevBlog = async (locale: Locale = 'ja') => {
                         />
                       </div>
                     )}
-                    <div className="p-4">
-                      <div className="text-zinc-500 text-sm mb-2">
+                    <div className="blog-post-card__body">
+                      <div className="blog-post-card__date">
                         {new Date(post.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'ja-JP', {
                           year: 'numeric',
                           month: '2-digit',
                           day: '2-digit',
                         })}
                       </div>
-                      <h3 className="text-foreground font-semibold text-lg mb-2 line-clamp-2">
+                      <h3 className="blog-post-card__title line-clamp-2">
                         {post.title}
                       </h3>
                       {post.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="blog-post-card__tags">
                           {post.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-0.5 text-xs font-medium bg-purple-100 text-purple-700 rounded-full"
+                              className="blog-post-card__tag"
                             >
                               {tag}
                             </span>
@@ -102,13 +105,13 @@ export const DevBlog = async (locale: Locale = 'ja') => {
                   </a>
                 ))}
               </div>
-            </div>
+            </section>
           )}
 
           {/* 外部記事セクション */}
           {articles.length > 0 && (
             <div className="container mx-auto px-4">
-              <h2 className="text-xl font-bold text-zinc-800 mb-4">External Articles</h2>
+              <h2 className="blog-section-title">External Articles</h2>
             </div>
           )}
           <TechBlog

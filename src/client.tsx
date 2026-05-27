@@ -555,8 +555,6 @@ function bootstrap() {
 
     const canvas = document.getElementById('dailyMetricsChart') as HTMLCanvasElement | null;
     if (!canvas) {
-      // Chart.jsはインポート済みなので typeof Chart === 'undefined' は不要
-      console.warn('NikeLog chart canvas not found.');
       return;
     }
 

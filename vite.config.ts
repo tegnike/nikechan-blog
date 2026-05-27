@@ -1,4 +1,4 @@
-import build from '@hono/vite-build/cloudflare-workers'
+import build, { defaultOptions as cloudflareWorkersBuildOptions } from '@hono/vite-build/cloudflare-workers'
 import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/cloudflare'
 import { defineConfig, loadEnv } from 'vite'
@@ -6,6 +6,11 @@ import { defineConfig, loadEnv } from 'vite'
 // mode が `client` のときはクライアントスクリプト専用ビルド設定を返す
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_')
+  const serverEnv = loadEnv(mode, process.cwd(), '')
+  for (const [key, value] of Object.entries(serverEnv)) {
+    process.env[key] ||= value
+  }
+
   if (mode === 'client') {
     return {
       build: {
@@ -63,6 +68,7 @@ export default defineConfig(({ mode }) => {
       },
       build({
         entryContentAfterHooks: [
+          ...(cloudflareWorkersBuildOptions.entryContentAfterHooks ?? []),
           (appName) => `${appName}.notFound((c) => c.text('Not Found', 404))`
         ]
       }),

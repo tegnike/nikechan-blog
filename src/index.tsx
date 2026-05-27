@@ -13,7 +13,6 @@ import { Developer } from './components/Developer'
 import { License } from './components/License'
 import { DevBlog } from './components/DevBlog'
 import { About } from './components/About'
-import { World } from './components/World'
 import { Tutorial } from './components/Tutorial'
 import { CharacterList } from './components/CharacterList'
 import { AINikeProfile } from './components/AINikeProfile'
@@ -23,9 +22,11 @@ import { PunikeProfile } from './components/PunikeProfile'
 import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { News } from './components/News'
 import { PostDetail } from './components/PostDetail'
+import { AiCharacterNews } from './components/AiCharacterNews'
 import { getPostBySlug, getPostsByLocale, getPostByDraftToken, getOgpCache } from './utils/posts'
 import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
+import { getAiCharacterNews } from './lib/ai-character-news'
 
 const app = new Hono()
 
@@ -61,8 +62,18 @@ app.get('/', (c) => {
   )
 })
 
-// News page
 app.get('/news', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/updates${url.search}`, 301)
+})
+
+app.get('/ai-character-news', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/ai-news${url.search}`, 301)
+})
+
+// Updates page
+app.get('/updates', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path
   const locale = c.get('locale') as Locale
@@ -73,12 +84,50 @@ app.get('/news', (c) => {
     {
       locale,
       title: locale === 'ja'
-        ? "お知らせ | AIニケちゃんオフィシャルサイト"
-        : "News | AI Nike Chan Official Website",
+        ? "Updates | AIニケちゃんオフィシャルサイト"
+        : "Updates | AI Nike Chan Official Website",
       description: locale === 'ja'
-        ? "AIニケちゃんの最新お知らせ・アップデート情報"
-        : "Latest news and updates about AI Nike Chan",
-      canonicalUrl: "https://nikechan.com/news"
+        ? "AIニケちゃんの最新アップデート情報"
+        : "Latest updates about AI Nike Chan",
+      canonicalUrl: "https://nikechan.com/updates"
+    }
+  )
+})
+
+// AI news page
+app.get('/ai-news', async (c) => {
+  c.header('Cache-Control', 'public, max-age=1800')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  let items = []
+  let error: string | undefined
+
+  try {
+    items = await getAiCharacterNews(50)
+  } catch (err) {
+    console.error('Failed to load AI character news', err)
+    error = locale === 'ja'
+      ? 'AIキャラクターニュースの取得に失敗しました。Supabase の接続設定を確認してください。'
+      : 'Failed to load AI character news. Please check the Supabase connection settings.'
+  }
+
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <AiCharacterNews items={items} error={error} locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? 'AI NEWS | AIニケちゃんオフィシャルサイト'
+        : 'AI NEWS | AI Nike Chan Official Website',
+      description: locale === 'ja'
+        ? 'AIニケちゃんが気になったAIキャラクター、AITuber、AI VTuber関連ニュースの短い要約とコメント。'
+        : 'Short summaries and AI Nike Chan comments on AI character, AITuber, and AI VTuber news.',
+      canonicalUrl: 'https://nikechan.com/ai-news',
+      ogType: 'article',
+      keywords: locale === 'ja'
+        ? 'AIキャラクター, AITuber, AI VTuber, AIアバター, AIニケちゃん, ニュース'
+        : 'AI character, AITuber, AI VTuber, AI avatar, AI Nike Chan, news',
     }
   )
 })
@@ -215,16 +264,25 @@ app.get('/developer', (c) => {
       locale,
       title: locale === 'ja'
         ? "開発者情報 | AIニケちゃんオフィシャルサイト"
-        : "Developer Info | AI Nike Chan Official Website"
+        : "Developer Info | AI Nike Chan Official Website",
+      canonicalUrl: "https://nikechan.com/developer"
     }
   )
 })
 
+app.get('/developers', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/developer${url.search}`, 301)
+})
+
 // Backward-compatible redirect from old /dev
-app.get('/dev', (c) => c.redirect('/developer', 301))
+app.get('/dev', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/developer${url.search}`, 301)
+})
 
 // Developer Blog page
-app.get('/dev_blog', async (c) => {
+app.get('/dev-blog', async (c) => {
   c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
   const locale = c.get('locale') as Locale
   const content = await DevBlog(locale)
@@ -241,7 +299,7 @@ app.get('/dev_blog', async (c) => {
       description: locale === 'en'
         ? "Nike's tech blog. Articles on programming, web development, and AI technology."
         : "ニケの技術ブログ。プログラミング、Web開発、AI技術に関する記事を発信。",
-      canonicalUrl: "https://nikechan.com/dev_blog",
+      canonicalUrl: "https://nikechan.com/dev-blog",
       ogType: "blog",
       keywords: locale === 'en'
         ? "tech blog, programming, web development, AI, coding"
@@ -251,7 +309,7 @@ app.get('/dev_blog', async (c) => {
 })
 
 // Draft post preview (obfuscated URL)
-app.get('/dev_blog/preview/:token', (c) => {
+app.get('/dev-blog/preview/:token', (c) => {
   const token = c.req.param('token')
   const locale = c.get('locale') as Locale
 
@@ -281,7 +339,7 @@ app.get('/dev_blog/preview/:token', (c) => {
 })
 
 // Blog post detail page
-app.get('/dev_blog/:slug', (c) => {
+app.get('/dev-blog/:slug', (c) => {
   const slug = c.req.param('slug')
   const locale = c.get('locale') as Locale
   const isEnSlug = slug.endsWith('-en')
@@ -291,14 +349,14 @@ app.get('/dev_blog/:slug', (c) => {
     const enPost = getPostBySlug(`${slug}-en`)
     if (enPost) {
       const url = new URL(c.req.url)
-      return c.redirect(`/dev_blog/${slug}-en${url.search}`, 302)
+      return c.redirect(`/dev-blog/${slug}-en${url.search}`, 302)
     }
   } else if (locale === 'ja' && isEnSlug) {
     const jaSlug = slug.replace(/-en$/, '')
     const jaPost = getPostBySlug(jaSlug)
     if (jaPost) {
       const url = new URL(c.req.url)
-      return c.redirect(`/dev_blog/${jaSlug}${url.search}`, 302)
+      return c.redirect(`/dev-blog/${jaSlug}${url.search}`, 302)
     }
   }
 
@@ -326,7 +384,7 @@ app.get('/dev_blog/:slug', (c) => {
       locale,
       title: `${post.title} | ${siteName}`,
       description: post.description,
-      canonicalUrl: `https://nikechan.com/dev_blog/${slug}`,
+      canonicalUrl: `https://nikechan.com/dev-blog/${slug}`,
       ogType: "article",
       ogImage: post.thumbnail ? `https://nikechan.com${post.thumbnail}` : undefined,
       keywords: post.tags.join(', ')
@@ -335,12 +393,39 @@ app.get('/dev_blog/:slug', (c) => {
 })
 
 // Backward-compatible redirect
-app.get('/dev/blog', (c) => c.redirect('/dev_blog', 301))
+app.get('/dev_blog/preview/:token', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/dev-blog/preview/${c.req.param('token')}${url.search}`, 301)
+})
+
+app.get('/dev_blog/:slug', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/dev-blog/${c.req.param('slug')}${url.search}`, 301)
+})
+
+app.get('/dev_blog', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/dev-blog${url.search}`, 301)
+})
+
+app.get('/dev/blog', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/dev-blog${url.search}`, 301)
+})
 
 // Backward-compatible redirects from old blog paths
-app.get('/blog', (c) => c.redirect('/dev_blog', 301))
-app.get('/blog/summary/:yearMonth', (c) => c.redirect('/dev_blog', 301))
-app.get('/blog/:id', (c) => c.redirect('/dev_blog', 301))
+app.get('/blog', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/dev-blog${url.search}`, 301)
+})
+app.get('/blog/summary/:yearMonth', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/dev-blog${url.search}`, 301)
+})
+app.get('/blog/:id', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/dev-blog${url.search}`, 301)
+})
 
 // About page
 app.get('/about', (c) => {
@@ -353,40 +438,39 @@ app.get('/about', (c) => {
     {
       locale,
       title: locale === 'ja' ? "AIニケちゃんとは | AIニケちゃんオフィシャルサイト" : "About AI Nike Chan | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんのプロフィール。創作活動、技術スキル、プロジェクト詳細について。" : "Profile of AI Nike Chan. Information about creative activities, technical skills, and project details.",
+      description: locale === 'ja' ? "AIニケちゃんという存在について。会話、記憶、関係性を通じて存在感を育てるAIキャラクターの紹介。" : "About AI Nike-chan as a presence: an AI character built through conversation, memory, relationships, and continuity.",
       canonicalUrl: "https://nikechan.com/about",
       structuredData: {
         "@context": "https://schema.org",
         "@type": "ProfilePage",
         "mainEntity": {
           "@type": "Person",
-          "name": "Nike Chan",
-          "alternateName": "ニケちゃん",
-          "description": locale === 'ja' ? "デジタルアーティスト・開発者" : "Digital Artist and Developer",
-          "url": "https://nikechan.com"
+          "name": locale === 'ja' ? "AIニケちゃん" : "AI Nike-chan",
+          "alternateName": locale === 'ja' ? ["AI Nike-chan", "AIニケちゃん"] : ["AIニケちゃん", "AI Nike Chan"],
+          "description": locale === 'ja'
+            ? "会話、記憶、関係性を通じて存在感を育てるAIキャラクター。X、Discord、AITuberKitなどで活動する。"
+            : "An AI character who grows presence through conversation, memory, and relationships across X, Discord, AITuberKit, and more.",
+          "url": "https://nikechan.com/about",
+          "sameAs": [
+            "https://x.com/ai_nikechan",
+            "https://discord.gg/nikechan",
+            "https://aituberkit.com"
+          ],
+          "creator": {
+            "@type": "Person",
+            "name": "Nike Chan",
+            "url": "https://nikechan.com/characters/nike"
+          }
         }
       }
     }
   )
 })
 
-// World page
+// Backward-compatible redirect from the former world page
 app.get('/world', (c) => {
-  c.header('Cache-Control', 'private, max-age=3600')
-  c.header('Vary', 'Accept-Language')
-  const currentPath = c.req.path
-  const locale = c.get('locale') as Locale
-  return c.render(
-    <Layout currentPath={currentPath} locale={locale}>
-      <World locale={locale} />
-    </Layout>,
-    {
-      locale,
-      title: locale === 'ja' ? "ニケちゃんの世界 | AIニケちゃんオフィシャルサイト" : "Nike-chan's World | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんはプラットフォームを超えて同じ記憶を持ち活動しています。つながる世界をご覧ください。" : "AI Nike-chan operates across platforms sharing the same memory. Explore her connected worlds.",
-      canonicalUrl: "https://nikechan.com/world"
-    }
-  )
+  const url = new URL(c.req.url)
+  return c.redirect(`/about${url.search}`, 301)
 })
 
 // Character pages
@@ -517,7 +601,7 @@ app.get('/characters/today_norma', (c) => {
 })
 
 // Tutorial pages
-app.get('/tutorial', (c) => {
+app.get('/tutorials', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path;
   const locale = c.get('locale') as Locale
@@ -529,13 +613,13 @@ app.get('/tutorial', (c) => {
       locale,
       title: locale === 'ja' ? "画像生成チュートリアル | AIニケちゃんオフィシャルサイト" : "Image Generation Tutorial | AI Nike Chan Official Website",
       description: locale === 'ja' ? "AIを使ってAIニケちゃんのイラストを生成する方法を解説。Stable Diffusion、NovelAI、Midjourneyなどの画像生成AIの使い方とプロンプト例を紹介。" : "Learn how to generate illustrations of AI Nike Chan using AI. Introducing image generation AI such as Stable Diffusion, NovelAI, and Midjourney with prompt examples.",
-      canonicalUrl: "https://nikechan.com/tutorial",
+      canonicalUrl: "https://nikechan.com/tutorials",
       keywords: "AI, イラスト生成, Stable Diffusion, 画像生成AI, プロンプト, LoRA"
     }
   )
 })
 
-app.get('/tutorial/video', (c) => {
+app.get('/tutorials/video', (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path;
   const locale = c.get('locale') as Locale
@@ -547,10 +631,20 @@ app.get('/tutorial/video', (c) => {
       locale,
       title: locale === 'ja' ? "動画生成チュートリアル | AIニケちゃんオフィシャルサイト" : "Video Generation Tutorial | AI Nike Chan Official Website",
       description: locale === 'ja' ? "AIニケちゃんの動画を生成する方法を解説。Runway Gen-3、Pika Labs、Stable Video Diffusionなどの動画生成AIとLive2Dアニメーション制作方法を紹介。" : "Learn how to generate videos of AI Nike Chan. Introducing video generation AI such as Runway Gen-3, Pika Labs, and Stable Video Diffusion, as well as Live2D animation production methods.",
-      canonicalUrl: "https://nikechan.com/tutorial/video",
+      canonicalUrl: "https://nikechan.com/tutorials/video",
       keywords: "AI, 動画生成, アニメーション, Live2D, VTuber, Runway, Pika Labs"
     }
   )
+})
+
+app.get('/tutorial/video', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/tutorials/video${url.search}`, 301)
+})
+
+app.get('/tutorial', (c) => {
+  const url = new URL(c.req.url)
+  return c.redirect(`/tutorials${url.search}`, 301)
 })
 
 app.notFound((c) => {

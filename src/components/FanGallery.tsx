@@ -1,4 +1,3 @@
-import { PageHeader } from './PageHeader'
 import { GalleryToggle } from './GalleryToggle'
 import { GalleryItem } from './GalleryItem'
 import { fanArts } from '../utils/fanArtsData'
@@ -13,13 +12,19 @@ export function FanGallery({ locale = 'ja' }: Props) {
   const t = getT(locale);
 
   return (
-    <div className="character-page min-h-screen">
-      <PageHeader title="GALLERY" />
+    <div className="character-page gallery-redesign min-h-screen">
+      <section className="site-page-hero" aria-labelledby="gallery-title">
+        <div className="character-detail-hero__grid" aria-hidden="true" />
+        <div className="site-page-hero__inner">
+          <h1 id="gallery-title">GALLERY</h1>
+          <p>{locale === 'ja' ? 'AIニケちゃんのファンアートと作品をまとめたギャラリー' : 'Fan art and works featuring AI Nike-chan'}</p>
+        </div>
+      </section>
 
       {/* Main Content */}
       <div className="relative">
         <div className="character-showcase-bg absolute inset-0" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-8">
+        <div className="designed-page-main relative z-10 max-w-7xl mx-auto px-4 py-8">
           {/* Toggle */}
           <GalleryToggle active="fan" locale={locale} />
 
