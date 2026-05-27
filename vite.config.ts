@@ -1,4 +1,4 @@
-import build from '@hono/vite-build/cloudflare-workers'
+import build, { defaultOptions as cloudflareWorkersBuildOptions } from '@hono/vite-build/cloudflare-workers'
 import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/cloudflare'
 import { defineConfig, loadEnv } from 'vite'
@@ -68,6 +68,7 @@ export default defineConfig(({ mode }) => {
       },
       build({
         entryContentAfterHooks: [
+          ...(cloudflareWorkersBuildOptions.entryContentAfterHooks ?? []),
           (appName) => `${appName}.notFound((c) => c.text('Not Found', 404))`
         ]
       }),
