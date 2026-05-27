@@ -11,12 +11,15 @@ export type AiCharacterNewsItem = {
   url: string
   canonical_url: string | null
   title: string
+  title_en: string | null
   source_name: string | null
   source_domain: string | null
   published_at: string | null
   discovered_at: string
   summary: string
+  summary_en: string | null
   nike_comment: string
+  nike_comment_en: string | null
   category: string
   tags: string[]
   language: string
@@ -53,30 +56,42 @@ function getServerSupabase(): SupabaseClient {
 }
 
 export async function getAiCharacterNews(limit = 50): Promise<AiCharacterNewsItem[]> {
-  const { data, error } = await getServerSupabase()
+  const columns = [
+    'id',
+    'url',
+    'canonical_url',
+    'title',
+    'title_en',
+    'source_name',
+    'source_domain',
+    'published_at',
+    'discovered_at',
+    'summary',
+    'summary_en',
+    'nike_comment',
+    'nike_comment_en',
+    'category',
+    'tags',
+    'language',
+    'created_at',
+    'updated_at',
+  ]
+
+  const baseColumns = columns.filter((column) => !['title_en', 'summary_en', 'nike_comment_en'].includes(column))
+
+  const runQuery = (selectColumns: string[]) => getServerSupabase()
     .from('public_ai_character_news')
-    .select(
-      [
-        'id',
-        'url',
-        'canonical_url',
-        'title',
-        'source_name',
-        'source_domain',
-        'published_at',
-        'discovered_at',
-        'summary',
-        'nike_comment',
-        'category',
-        'tags',
-        'language',
-        'created_at',
-        'updated_at',
-      ].join(','),
-    )
+    .select(selectColumns.join(','))
     .order('published_at', { ascending: false, nullsFirst: false })
     .order('created_at', { ascending: false })
     .limit(limit)
+
+  let { data, error } = await runQuery(columns)
+  if (error && /title_en|summary_en|nike_comment_en|column/i.test(error.message)) {
+    const fallback = await runQuery(baseColumns)
+    data = fallback.data
+    error = fallback.error
+  }
 
   if (error) {
     throw new Error(`Failed to load AI character news: ${error.message}`)

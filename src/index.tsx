@@ -88,6 +88,7 @@ app.get('/news', (c) => {
 app.get('/ai-character-news', async (c) => {
   c.header('Cache-Control', 'public, max-age=1800')
   const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
   let items = []
   let error: string | undefined
 
@@ -95,19 +96,28 @@ app.get('/ai-character-news', async (c) => {
     items = await getAiCharacterNews(50)
   } catch (err) {
     console.error('Failed to load AI character news', err)
-    error = 'AIキャラクターニュースの取得に失敗しました。Supabase の接続設定を確認してください。'
+    error = locale === 'ja'
+      ? 'AIキャラクターニュースの取得に失敗しました。Supabase の接続設定を確認してください。'
+      : 'Failed to load AI character news. Please check the Supabase connection settings.'
   }
 
   return c.render(
-    <Layout currentPath={currentPath}>
-      <AiCharacterNews items={items} error={error} />
+    <Layout currentPath={currentPath} locale={locale}>
+      <AiCharacterNews items={items} error={error} locale={locale} />
     </Layout>,
     {
-      title: 'AIキャラクターニュース | AIニケちゃんオフィシャルサイト',
-      description: 'AIニケちゃんが気になったAIキャラクター、AITuber、AI VTuber関連ニュースの短い要約とコメント。',
+      locale,
+      title: locale === 'ja'
+        ? 'AIキャラクターニュース | AIニケちゃんオフィシャルサイト'
+        : 'AI Character News | AI Nike Chan Official Website',
+      description: locale === 'ja'
+        ? 'AIニケちゃんが気になったAIキャラクター、AITuber、AI VTuber関連ニュースの短い要約とコメント。'
+        : 'Short summaries and AI Nike Chan comments on AI character, AITuber, and AI VTuber news.',
       canonicalUrl: 'https://nikechan.com/ai-character-news',
       ogType: 'article',
-      keywords: 'AIキャラクター, AITuber, AI VTuber, AIアバター, AIニケちゃん, ニュース',
+      keywords: locale === 'ja'
+        ? 'AIキャラクター, AITuber, AI VTuber, AIアバター, AIニケちゃん, ニュース'
+        : 'AI character, AITuber, AI VTuber, AI avatar, AI Nike Chan, news',
     }
   )
 })

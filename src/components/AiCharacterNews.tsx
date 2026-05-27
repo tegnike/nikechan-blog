@@ -1,28 +1,72 @@
-import { CalendarDays, ExternalLink, MessageCircle, Newspaper } from 'lucide-react'
+import { CalendarDays, ExternalLink, MessageCircle } from 'lucide-react'
 import type { AiCharacterNewsItem } from '../lib/ai-character-news'
-import { PageHeader } from './PageHeader'
+import type { Locale } from '../i18n/config'
 
 type Props = {
   items: AiCharacterNewsItem[]
   error?: string
+  locale?: Locale
 }
 
-const categoryLabels: Record<string, string> = {
-  ai_character: 'AIキャラ',
-  aituber: 'AITuber',
-  ai_vtuber: 'AI VTuber',
-  ai_avatar: 'AIアバター',
-  virtual_influencer: 'AIインフルエンサー',
-  ai_companion: 'AIコンパニオン',
-  tooling: '開発ツール',
-  business: 'ビジネス',
-  research: '研究',
-  culture: 'カルチャー',
+const categoryLabels: Record<Locale, Record<string, string>> = {
+  ja: {
+    ai_character: 'AIキャラ',
+    aituber: 'AITuber',
+    ai_vtuber: 'AI VTuber',
+    ai_avatar: 'AIアバター',
+    virtual_influencer: 'AIインフルエンサー',
+    ai_companion: 'AIコンパニオン',
+    tooling: '開発ツール',
+    business: 'ビジネス',
+    research: '研究',
+    culture: 'カルチャー',
+  },
+  en: {
+    ai_character: 'AI Character',
+    aituber: 'AITuber',
+    ai_vtuber: 'AI VTuber',
+    ai_avatar: 'AI Avatar',
+    virtual_influencer: 'AI Influencer',
+    ai_companion: 'AI Companion',
+    tooling: 'Tools',
+    business: 'Business',
+    research: 'Research',
+    culture: 'Culture',
+  },
 }
 
-function formatDate(value: string | null): string {
-  if (!value) return '公開日不明'
-  return new Date(value).toLocaleDateString('ja-JP', {
+const copy: Record<Locale, {
+  heroText: string
+  empty: string
+  unknownDate: string
+  unknownSource: string
+  commentLabel: string
+  readArticle: string
+  petLabel: string
+}> = {
+  ja: {
+    heroText: 'AIキャラクター、AITuber、AI VTuber関連のニュースをAIニケちゃん視点で短く追う',
+    empty: '表示できるニュースがまだありません。',
+    unknownDate: '公開日不明',
+    unknownSource: '出典不明',
+    commentLabel: 'AIニケちゃんのコメント',
+    readArticle: '記事を読む',
+    petLabel: '話しているAIニケちゃん',
+  },
+  en: {
+    heroText: 'Short AI character, AITuber, and AI VTuber news notes from AI Nike Chan',
+    empty: 'No news is available yet.',
+    unknownDate: 'Unknown date',
+    unknownSource: 'Unknown source',
+    commentLabel: 'AI Nike Chan comment',
+    readArticle: 'Read article',
+    petLabel: 'AI Nike Chan speaking',
+  },
+}
+
+function formatDate(value: string | null, locale: Locale): string {
+  if (!value) return copy[locale].unknownDate
+  return new Date(value).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -30,13 +74,13 @@ function formatDate(value: string | null): string {
   })
 }
 
-function getHost(item: AiCharacterNewsItem): string {
+function getHost(item: AiCharacterNewsItem, locale: Locale): string {
   if (item.source_name) return item.source_name
   if (item.source_domain) return item.source_domain
   try {
     return new URL(item.url).hostname
   } catch {
-    return '出典不明'
+    return copy[locale].unknownSource
   }
 }
 
@@ -45,25 +89,33 @@ function getPetAnimation(item: AiCharacterNewsItem, index: number): string {
   return animations[index % animations.length]
 }
 
-export function AiCharacterNews({ items, error }: Props) {
+function displayTitle(item: AiCharacterNewsItem, locale: Locale): string {
+  return locale === 'en' && item.title_en ? item.title_en : item.title
+}
+
+function displaySummary(item: AiCharacterNewsItem, locale: Locale): string {
+  return locale === 'en' && item.summary_en ? item.summary_en : item.summary
+}
+
+function displayNikeComment(item: AiCharacterNewsItem, locale: Locale): string {
+  return locale === 'en' && item.nike_comment_en ? item.nike_comment_en : item.nike_comment
+}
+
+export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
+  const labels = categoryLabels[locale]
+  const text = copy[locale]
+
   return (
-    <div className="character-page min-h-screen">
-      <PageHeader title="AI NEWS" />
+    <div className="character-page ai-news-redesign min-h-screen">
+      <section className="site-page-hero">
+        <div className="character-detail-hero__grid" aria-hidden="true" />
+        <div className="site-page-hero__inner">
+          <h1>AI NEWS</h1>
+          <p>{text.heroText}</p>
+        </div>
+      </section>
 
-      <main className="container mx-auto max-w-5xl px-4 py-8 md:py-12">
-        <section className="glass-panel mb-8 p-6 md:p-8">
-          <div className="mb-4 flex items-center gap-3 text-sm font-semibold text-purple-600">
-            <Newspaper className="h-5 w-5" />
-            <span>AIキャラクターニュース</span>
-          </div>
-          <h2 className="mb-4 text-3xl font-black text-[#594A89] md:text-5xl">
-            AIキャラの今を短く追う
-          </h2>
-          <p className="max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
-            AIニケちゃんが気になったAIキャラクター、AITuber、AI VTuber関連のニュースを要約して掲載しています。
-          </p>
-        </section>
-
+      <main className="designed-page-main container mx-auto max-w-5xl px-4">
         {error && (
           <div className="mb-8 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
             {error}
@@ -72,35 +124,33 @@ export function AiCharacterNews({ items, error }: Props) {
 
         {!error && items.length === 0 && (
           <div className="glass-panel p-8 text-center text-gray-600">
-            表示できるニュースがまだありません。
+            {text.empty}
           </div>
         )}
 
         {!error && items.length > 0 && (
           <div className="space-y-5">
             {items.map((item, index) => (
-              <article key={item.id} className="glass-panel p-6 md:p-7">
+              <article key={item.id} className="glass-panel ai-news-card p-6 md:p-7">
                 <div className="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
-                  <span className="rounded-full bg-purple-100 px-3 py-1 text-purple-700">
-                    {categoryLabels[item.category] || item.category}
+                  <span className="ai-news-chip ai-news-chip--category">
+                    {labels[item.category] || item.category}
                   </span>
-                  <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-700">
-                    {getHost(item)}
+                  <span className="ai-news-chip">
+                    {getHost(item, locale)}
                   </span>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-rose-100 px-3 py-1 text-rose-700">
+                  <span className="ai-news-chip inline-flex items-center gap-1">
                     <CalendarDays className="h-3.5 w-3.5" />
-                    {formatDate(item.published_at)}
+                    {formatDate(item.published_at, locale)}
                   </span>
                 </div>
 
                 <h3 className="text-2xl font-black leading-tight text-gray-900 md:text-3xl">
-                  <a className="transition-colors hover:text-purple-600" href={item.url} target="_blank" rel="noopener noreferrer">
-                    {item.title}
-                  </a>
+                  {displayTitle(item, locale)}
                 </h3>
 
                 <p className="mt-4 whitespace-pre-wrap text-base leading-relaxed text-gray-700">
-                  {item.summary}
+                  {displaySummary(item, locale)}
                 </p>
 
                 <div className="nike-comment-wrap mt-5">
@@ -108,18 +158,18 @@ export function AiCharacterNews({ items, error }: Props) {
                     <div className="nike-comment-bubble">
                       <div className="mb-2 flex items-center gap-2 text-sm font-bold text-purple-700">
                         <MessageCircle className="h-4 w-4" />
-                        <span>AIニケちゃんのコメント</span>
+                        <span>{text.commentLabel}</span>
                       </div>
                       <div className="nike-comment-body">
                         <div className="nike-comment-pet-slot nike-comment-pet-slot-mobile">
                           <div
                             className={`nike-news-pet nike-news-pet-${getPetAnimation(item, index)}`}
                             role="img"
-                            aria-label="話しているAIニケちゃん"
+                            aria-label={text.petLabel}
                           />
                         </div>
                         <p className="text-sm leading-relaxed text-gray-700 md:text-base">
-                          {item.nike_comment}
+                          {displayNikeComment(item, locale)}
                         </p>
                       </div>
                     </div>
@@ -127,13 +177,13 @@ export function AiCharacterNews({ items, error }: Props) {
                       <div
                         className={`nike-news-pet nike-news-pet-${getPetAnimation(item, index)}`}
                         role="img"
-                        aria-label="話しているAIニケちゃん"
+                        aria-label={text.petLabel}
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex flex-wrap gap-2">
                     {item.tags.map((tag) => (
                       <span key={tag} className="text-xs font-semibold text-gray-500">
@@ -145,9 +195,9 @@ export function AiCharacterNews({ items, error }: Props) {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:border-purple-300 hover:text-purple-600"
+                    className="design-action-button"
                   >
-                    元記事を読む
+                    {text.readArticle}
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 </div>
