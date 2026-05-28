@@ -1,3 +1,5 @@
+import { getOptimizedImageSources } from './imageOptimization'
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -10,7 +12,9 @@ function escapeHtml(str: string): string {
 function applyInlineTransforms(str: string): string {
   // images ![alt](src)
   str = str.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_m, alt, src) => {
-    return `<img src="${src}" alt="${alt}" />`
+    const optimizedImage = getOptimizedImageSources(src)
+    const srcSet = optimizedImage?.srcSet ? ` srcset="${escapeHtml(optimizedImage.srcSet)}" sizes="(max-width: 768px) 100vw, 768px"` : ''
+    return `<img src="${escapeHtml(optimizedImage?.src ?? src)}"${srcSet} alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />`
   })
   // links [text](url)
   str = str.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, (_m, text, href) => {
@@ -326,7 +330,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
               try { return new URL(data.url).hostname } catch { return data.url }
             })()
             const imageHtml = data.image
-              ? `<div class="ogp-card-image"><img src="${escapeHtml(data.image)}" alt="" loading="lazy" /></div>`
+              ? `<div class="ogp-card-image"><img src="${escapeHtml(data.image)}" alt="" loading="lazy" decoding="async" /></div>`
               : ''
             return `<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener noreferrer" class="ogp-card">${imageHtml}<div class="ogp-card-content"><div class="ogp-card-title">${escapeHtml(data.title)}</div>${data.description ? `<div class="ogp-card-description">${escapeHtml(data.description)}</div>` : ''}<div class="ogp-card-meta">${data.favicon ? `<img src="${escapeHtml(data.favicon)}" alt="" class="ogp-card-favicon" width="14" height="14" />` : ''}<span>${escapeHtml(domain)}</span></div></div></a>`
           }

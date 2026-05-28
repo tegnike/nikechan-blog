@@ -48,6 +48,7 @@ export function FanGallery({ locale = 'ja' }: Props) {
                   caption={author.startsWith('xxx_') ? "" : t('gallery:fan.caption', { author })}
                   url={author.startsWith('xxx_') ? undefined : `https://x.com/${encodeURIComponent(author)}`}
                   className="aspect-square"
+                  imageSizes="(max-width: 768px) 50vw, 25vw"
                 />
               ))}
             </div>

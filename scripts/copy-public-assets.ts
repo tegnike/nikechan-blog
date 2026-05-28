@@ -5,7 +5,7 @@ import { join, relative } from 'path'
 const publicDir = 'public'
 const assetsDir = 'dist/assets'
 const excludedDirs = new Set([
-  'expo-video/source-media',
+  'expo-video',
 ])
 
 function isExcluded(path: string): boolean {

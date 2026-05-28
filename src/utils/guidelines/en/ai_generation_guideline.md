@@ -26,7 +26,7 @@ Please note that these guidelines may be revised without prior notice. Always ch
 
 #### Three-View Drawing
 
-<img src="/images/guidlines/threeviewdrawing.png" alt="Three-View Drawing" width="2048" height="1143" loading="lazy" decoding="async" />
+<a href="/images/guidlines/threeviewdrawing.png" download><img src="/images/optimized/guidlines/threeviewdrawing-960.webp" srcset="/images/optimized/guidlines/threeviewdrawing-480.webp 480w, /images/optimized/guidlines/threeviewdrawing-960.webp 960w" sizes="(max-width: 768px) 100vw, 768px" alt="Three-View Drawing" width="2048" height="1143" loading="lazy" decoding="async" /></a>
 
 #### Terms of Use for Voice Synthesis Models
 

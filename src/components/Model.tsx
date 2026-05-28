@@ -18,6 +18,7 @@ export const Model = () => {
             caption2="Model. チッパー"
             url2="https://x.com/Chipper_tyvt"
             className="aspect-[2/4]"
+            imageSizes="(max-width: 768px) 100vw, 33vw"
           />
           <GalleryItem 
             src="/images/models/vrmv1.png"
@@ -25,6 +26,7 @@ export const Model = () => {
             caption="Model. 琳"
             url="https://x.com/rin_tyn25"
             className="aspect-[2/4]"
+            imageSizes="(max-width: 768px) 100vw, 33vw"
           />
           <GalleryItem 
             src="/images/models/vrmv2.png"
@@ -32,6 +34,7 @@ export const Model = () => {
             caption="Model. たまごん"
             url="https://x.com/_TAMA_GON_"
             className="aspect-[2/4]"
+            imageSizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
       </div>

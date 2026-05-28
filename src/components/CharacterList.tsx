@@ -11,8 +11,10 @@ const characters = [
     id: 'mikaze',
     nameEn: 'MIKAZE',
     nameJa: 'ミカゼ',
-    image: '/images/characters/sprites/mikaze.png',
-    icon: '/images/characters/icons/mikaze.png',
+    listImage: '/images/characters/list/sprites/mikaze-320.webp',
+    listImageSrcSet: '/images/characters/list/sprites/mikaze-320.webp 320w, /images/characters/list/sprites/mikaze-640.webp 640w',
+    listIcon: '/images/characters/list/icons/mikaze-160.webp',
+    listIconSrcSet: '/images/characters/list/icons/mikaze-160.webp 160w, /images/characters/list/icons/mikaze-320.webp 320w',
     color: '#61A0DF',
     scale: 1,
     offsetY: 0,
@@ -23,8 +25,10 @@ const characters = [
     id: 'punike',
     nameEn: 'PUNIKE',
     nameJa: 'ぷにけ',
-    image: '/images/characters/sprites/punike.png',
-    icon: '/images/characters/icons/punike.png',
+    listImage: '/images/characters/list/sprites/punike-320.webp',
+    listImageSrcSet: '/images/characters/list/sprites/punike-320.webp 320w, /images/characters/list/sprites/punike-640.webp 640w',
+    listIcon: '/images/characters/list/icons/punike-160.webp',
+    listIconSrcSet: '/images/characters/list/icons/punike-160.webp 160w, /images/characters/list/icons/punike-320.webp 320w',
     color: '#F48E84',
     scale: 0.5,
     offsetY: 0,
@@ -35,8 +39,10 @@ const characters = [
     id: 'ainike',
     nameEn: 'AI NIKECHAN',
     nameJa: 'AIニケちゃん',
-    image: '/images/characters/sprites/ainikechan.png',
-    icon: '/images/characters/icons/ainikechan.png',
+    listImage: '/images/characters/list/sprites/ainikechan-320.webp',
+    listImageSrcSet: '/images/characters/list/sprites/ainikechan-320.webp 320w, /images/characters/list/sprites/ainikechan-640.webp 640w',
+    listIcon: '/images/characters/list/icons/ainikechan-160.webp',
+    listIconSrcSet: '/images/characters/list/icons/ainikechan-160.webp 160w, /images/characters/list/icons/ainikechan-320.webp 320w',
     color: '#5A4C97',
     scale: 1,
     offsetY: 0,
@@ -46,8 +52,10 @@ const characters = [
     id: 'today_norma',
     nameEn: 'TODAY NORMA',
     nameJa: '今日は何の日bot',
-    image: '/images/characters/sprites/today_norma.png',
-    icon: '/images/characters/icons/today_norma.png',
+    listImage: '/images/characters/list/sprites/today_norma-320.webp',
+    listImageSrcSet: '/images/characters/list/sprites/today_norma-320.webp 320w, /images/characters/list/sprites/today_norma-640.webp 640w',
+    listIcon: '/images/characters/list/icons/today_norma-160.webp',
+    listIconSrcSet: '/images/characters/list/icons/today_norma-160.webp 160w, /images/characters/list/icons/today_norma-320.webp 320w',
     color: '#199286',
     scale: 0.67,
     offsetY: 0,
@@ -57,8 +65,10 @@ const characters = [
     id: 'nike',
     nameEn: 'NIKE',
     nameJa: 'ニケ',
-    image: '/images/characters/sprites/nikechan.png',
-    icon: '/images/characters/icons/nikechan.png',
+    listImage: '/images/characters/list/sprites/nikechan-320.webp',
+    listImageSrcSet: '/images/characters/list/sprites/nikechan-320.webp 320w, /images/characters/list/sprites/nikechan-640.webp 640w',
+    listIcon: '/images/characters/list/icons/nikechan-160.webp',
+    listIconSrcSet: '/images/characters/list/icons/nikechan-160.webp 160w, /images/characters/list/icons/nikechan-320.webp 320w',
     color: '#F9B1BC',
     scale: 1,
     offsetY: 0,
@@ -103,11 +113,14 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
                 aria-label={locale === 'ja' ? `${char.nameJa}の詳細を見る` : `View ${char.nameEn} profile`}
               >
                 <img
-                  src={char.image}
+                  src={char.listImage}
+                  srcSet={char.listImageSrcSet}
+                  sizes="(max-width: 640px) 112px, (max-width: 1023px) 260px, 320px"
                   alt={char.nameJa}
-                  width={1792}
-                  height={2400}
+                  width={320}
+                  height={429}
                   className="character-index-hero__sprite"
+                  decoding="async"
                 />
               </a>
             ))}
@@ -130,10 +143,12 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
               <span className="character-index-card__number">{String(index + 1).padStart(2, '0')}</span>
               <div className="character-index-card__image">
                 <img
-                  src={char.icon}
+                  src={char.listIcon}
+                  srcSet={char.listIconSrcSet}
+                  sizes="(max-width: 640px) 106px, 132px"
                   alt={char.nameJa}
-                  width={500}
-                  height={500}
+                  width={160}
+                  height={160}
                   loading="lazy"
                   decoding="async"
                 />

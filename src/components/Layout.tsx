@@ -1,8 +1,9 @@
 import { GalleryModalProvider } from '../context/GalleryModalContext'
 import { GalleryModal } from './GalleryModal'
 import { motion } from "motion/react"
-import { getT, type Locale } from '../i18n/config'
 import { Languages } from 'lucide-react'
+import { getT, type Locale } from '../i18n/config'
+import { getOptimizedImageSources } from '../utils/imageOptimization'
 // Removed Sparkles icon in favor of a static logo image
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
 
 export function Layout({ children, title = 'My Portfolio & Blog', currentPath, locale = 'ja' }: Props) {
   const t = getT(locale)
+  const logoSources = getOptimizedImageSources('/images/logos/logo_with_frame_and_shadow.png')
 
   // 言語パラメータを保持したURLを生成するヘルパー関数
   const addLangParam = (path: string) => {
@@ -45,7 +47,9 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           >
             <a href={addLangParam("/")} className="site-header__logo" aria-label="Nike Chan - Official Website">
               <img
-                src="/images/logos/logo_with_frame_and_shadow.png"
+                src={logoSources?.src ?? "/images/logos/logo_with_frame_and_shadow.png"}
+                srcSet={logoSources?.srcSet}
+                sizes="151px"
                 alt="Nike Chan Logo"
                 decoding="async"
                 loading="eager"

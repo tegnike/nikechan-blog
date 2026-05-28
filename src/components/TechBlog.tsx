@@ -1,4 +1,5 @@
 import { type Article } from '../lib/supabase'
+import { getOptimizedImageSources } from '../utils/imageOptimization'
 
 type TechBlogProps = {
   articles: Article[]
@@ -142,6 +143,10 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
                   : article.platform === 'X'
                     ? `https://x.com/tegnike/status/${article.identifier}`
                     : `https://zenn.dev/nikechan/articles/${article.identifier}`
+                const fallbackThumbnail = `/images/thumbnails/${shuffledImageNumbers[index % shuffledImageNumbers.length]}.png`
+                const thumbnailSrc = article.thumbnail_url || fallbackThumbnail
+                const thumbnailSources = getOptimizedImageSources(thumbnailSrc)
+                const fallbackThumbnailSources = getOptimizedImageSources(fallbackThumbnail)
                 return (
                   <a 
                     key={article.id} 
@@ -155,7 +160,9 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
                   >
                     <div className="blog-post-card__image">
                       <img
-                        src={article.thumbnail_url || `/images/thumbnails/${shuffledImageNumbers[index % shuffledImageNumbers.length]}.png`}
+                        src={thumbnailSources?.src ?? thumbnailSrc}
+                        srcSet={thumbnailSources?.srcSet}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         alt={article.title}
                         className="object-cover w-full h-full"
                         loading={index < 6 ? "eager" : "lazy"}
@@ -164,7 +171,8 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
                         onError={(e) => {
                           const target = e.target as HTMLImageElement
                           target.onerror = null; // 無限ループ防止
-                          target.src = `/images/thumbnails/${shuffledImageNumbers[index % shuffledImageNumbers.length]}.png`
+                          target.srcset = fallbackThumbnailSources?.srcSet ?? ''
+                          target.src = fallbackThumbnailSources?.src ?? fallbackThumbnail
                         }}
                       />
                     </div>

@@ -1,9 +1,21 @@
 import { getT, type Locale } from '../i18n/config'
 import { getCharacterFeatures } from '../utils/characterFeatures'
+import { getOptimizedImageSources } from '../utils/imageOptimization'
 
 type Props = {
   active?: 'illustration' | 'video'
   locale?: Locale
+}
+
+const getOptimizedImageProps = (src: string, sizes = '(max-width: 768px) 100vw, 768px') => {
+  const optimizedImage = getOptimizedImageSources(src)
+  return {
+    src: optimizedImage?.src ?? src,
+    srcSet: optimizedImage?.srcSet,
+    sizes: optimizedImage ? sizes : undefined,
+    loading: 'lazy' as const,
+    decoding: 'async' as const,
+  }
 }
 
 export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
@@ -52,7 +64,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
             className={`${tabCardBase} ${active === 'illustration' ? tabCardActive : tabCardInactive} md:max-w-sm`}
             aria-label={t('tutorial:tabs.illustration')}
           >
-            <img src="/images/tutorial/gazou.png" alt={t('tutorial:tabs.illustration')} className={tabImageClass} />
+            <img {...getOptimizedImageProps('/images/tutorial/gazou.png', '(max-width: 768px) 50vw, 280px')} alt={t('tutorial:tabs.illustration')} className={tabImageClass} />
             <span
               className={`${tabLabelBase} ${
                 active === 'illustration' ? tabLabelActive : tabLabelInactive
@@ -66,7 +78,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
            className={`${tabCardBase} ${active === 'video' ? tabCardActive : tabCardInactive} md:max-w-sm`}
             aria-label={t('tutorial:tabs.video')}
           >
-            <img src="/images/tutorial/douga.png" alt={t('tutorial:tabs.video')} className={tabImageClass} />
+            <img {...getOptimizedImageProps('/images/tutorial/douga.png', '(max-width: 768px) 50vw, 280px')} alt={t('tutorial:tabs.video')} className={tabImageClass} />
             <span
               className={`${tabLabelBase} ${
                 active === 'video' ? tabLabelActive : tabLabelInactive
@@ -113,9 +125,9 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
                     <p className="text-gray-600 text-sm mb-2">
                       {t('tutorial:illustration.nanoBanana.openStudio.step2')}
                     </p>
-                    <img src="/images/tutorial/google_ai_studio1.png" alt={t('tutorial:illustration.nanoBanana.openStudio.altStart')} className="rounded-lg border border-gray-300 shadow-sm  mb-4" />
+                    <img {...getOptimizedImageProps('/images/tutorial/google_ai_studio1.png')} alt={t('tutorial:illustration.nanoBanana.openStudio.altStart')} className="rounded-lg border border-gray-300 shadow-sm  mb-4" />
                     <p className="text-gray-600 text-sm mb-2" dangerouslySetInnerHTML={{ __html: t('tutorial:illustration.nanoBanana.openStudio.step3') }} />
-                    <img src="/images/tutorial/google_ai_studio2.png" alt={t('tutorial:illustration.nanoBanana.openStudio.altStart')} className="rounded-lg border border-gray-300 shadow-sm" />
+                    <img {...getOptimizedImageProps('/images/tutorial/google_ai_studio2.png')} alt={t('tutorial:illustration.nanoBanana.openStudio.altStart')} className="rounded-lg border border-gray-300 shadow-sm" />
                   </div>
                 </div>
               </div>
@@ -129,12 +141,10 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
                 <div className="space-y-4">
                   <div>
                     <img
-                      src="/images/tutorial/nikechan_三面図.png"
+                      {...getOptimizedImageProps('/images/tutorial/nikechan_三面図.png')}
                       alt={t('tutorial:illustration.materials.model3D.alt')}
                       width={2048}
                       height={1143}
-                      loading="lazy"
-                      decoding="async"
                       className="rounded-lg border border-gray-300 shadow-sm mb-2"
                     />
                     <a
@@ -187,7 +197,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
                     </div>
                   </div>
 
-                  <img src="/images/tutorial/ganbaru.png" alt={t('tutorial:illustration.prompts.basicExample.altImage')} className="rounded-lg border border-gray-300 shadow-sm" />
+                  <img {...getOptimizedImageProps('/images/tutorial/ganbaru.png')} alt={t('tutorial:illustration.prompts.basicExample.altImage')} className="rounded-lg border border-gray-300 shadow-sm" />
                 </div>
 
                 <div className="mt-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
@@ -235,9 +245,9 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
                       <p className="text-gray-600 text-sm mb-2">
                         <a href="https://sora.chatgpt.com/" target="_blank" rel="noopener noreferrer" className="underline">https://sora.chatgpt.com/</a> {t('tutorial:video.sora.openApp.step1')}
                       </p>
-                      <img src="/images/tutorial/sora1.png" alt={t('tutorial:video.sora.openApp.altLogin')} className="rounded-lg border border-gray-300 shadow-sm mb-4" />
+                      <img {...getOptimizedImageProps('/images/tutorial/sora1.png')} alt={t('tutorial:video.sora.openApp.altLogin')} className="rounded-lg border border-gray-300 shadow-sm mb-4" />
                       <p className="text-gray-600 text-sm mb-2" dangerouslySetInnerHTML={{ __html: t('tutorial:video.sora.openApp.step2') }} />
-                      <img src="/images/tutorial/sora2.png" alt={t('tutorial:video.sora.openApp.altCreate')} className="rounded-lg border border-gray-300 shadow-sm" />
+                      <img {...getOptimizedImageProps('/images/tutorial/sora2.png')} alt={t('tutorial:video.sora.openApp.altCreate')} className="rounded-lg border border-gray-300 shadow-sm" />
                     </div>
                   </div>
                 </div>
@@ -276,7 +286,7 @@ export function Tutorial({ active = 'illustration', locale = 'ja' }: Props) {
                       <h3 className="font-semibold text-gray-800 mb-2">{t('tutorial:video.cameo.specifyCharacter.heading')}</h3>
                       <p className="text-gray-600 text-sm mb-2" dangerouslySetInnerHTML={{ __html: t('tutorial:video.cameo.specifyCharacter.step1') }} />
                       <p className="text-gray-600 text-sm mb-2" dangerouslySetInnerHTML={{ __html: t('tutorial:video.cameo.specifyCharacter.step2') }} />
-                      <img src="/images/tutorial/sora3.png" alt={t('tutorial:video.cameo.specifyCharacter.altCameo')} className="rounded-lg border border-gray-300 shadow-sm mb-4" />
+                      <img {...getOptimizedImageProps('/images/tutorial/sora3.png')} alt={t('tutorial:video.cameo.specifyCharacter.altCameo')} className="rounded-lg border border-gray-300 shadow-sm mb-4" />
                     </div>
                     <div className="mt-4 bg-blue-50 rounded-lg p-4 border border-blue-200">
                       <p className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: t('tutorial:video.cameo.cameoProfileNote') }} />

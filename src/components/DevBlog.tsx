@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabase'
 import type { Article } from '../lib/supabase'
 import { TechBlog } from './TechBlog'
+import { getOptimizedImageSources } from '../utils/imageOptimization'
 import { getPostsByLocale } from '../utils/posts'
 import { type Locale } from '../i18n/config'
 
@@ -62,48 +63,55 @@ export const DevBlog = async (locale: Locale = 'ja') => {
             <section className="container mx-auto px-4">
               <h2 className="blog-section-title">Blog Posts</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                {posts.map((post) => (
-                  <a
-                    key={post.slug}
-                    href={`/dev-blog/${post.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
-                    className="blog-post-card"
-                  >
-                    {post.thumbnail && (
-                      <div className="blog-post-card__image">
-                        <img
-                          src={post.thumbnail}
-                          alt={post.title}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                    )}
-                    <div className="blog-post-card__body">
-                      <div className="blog-post-card__date">
-                        {new Date(post.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'ja-JP', {
-                          year: 'numeric',
-                          month: '2-digit',
-                          day: '2-digit',
-                        })}
-                      </div>
-                      <h3 className="blog-post-card__title line-clamp-2">
-                        {post.title}
-                      </h3>
-                      {post.tags.length > 0 && (
-                        <div className="blog-post-card__tags">
-                          {post.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="blog-post-card__tag"
-                            >
-                              {tag}
-                            </span>
-                          ))}
+                {posts.map((post) => {
+                  const thumbnailSources = post.thumbnail ? getOptimizedImageSources(post.thumbnail) : undefined
+
+                  return (
+                    <a
+                      key={post.slug}
+                      href={`/dev-blog/${post.slug}${locale !== 'ja' ? `?lang=${locale}` : ''}`}
+                      className="blog-post-card"
+                    >
+                      {post.thumbnail && (
+                        <div className="blog-post-card__image">
+                          <img
+                            src={thumbnailSources?.src ?? post.thumbnail}
+                            srcSet={thumbnailSources?.srcSet}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            alt={post.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                          />
                         </div>
                       )}
-                    </div>
-                  </a>
-                ))}
+                      <div className="blog-post-card__body">
+                        <div className="blog-post-card__date">
+                          {new Date(post.date).toLocaleDateString(locale === 'en' ? 'en-US' : 'ja-JP', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                          })}
+                        </div>
+                        <h3 className="blog-post-card__title line-clamp-2">
+                          {post.title}
+                        </h3>
+                        {post.tags.length > 0 && (
+                          <div className="blog-post-card__tags">
+                            {post.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="blog-post-card__tag"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </a>
+                  )
+                })}
               </div>
             </section>
           )}

@@ -1,4 +1,5 @@
 import { getT, type Locale } from '../i18n/config';
+import { getOptimizedImageSources } from '../utils/imageOptimization';
 
 type Props = {
   locale?: Locale;
@@ -63,6 +64,7 @@ export function News({ locale = 'ja' }: Props) {
               <div className="space-y-7">
                 {newsItems.map((item) => {
                   const showNewBadge = isWithinThreeMonths(item.date);
+                  const thumbnailSources = item.thumbnail ? getOptimizedImageSources(item.thumbnail) : undefined;
                   return (
                     <div key={item.id} className="glass-panel news-card p-6 sm:p-8">
                       <div className="flex flex-col lg:flex-row lg:items-start gap-6">
@@ -82,9 +84,13 @@ export function News({ locale = 'ja' }: Props) {
                         <div className="flex-1 space-y-4">
                           {item.thumbnail && (
                             <img
-                              src={item.thumbnail}
+                              src={thumbnailSources?.src ?? item.thumbnail}
+                              srcSet={thumbnailSources?.srcSet}
+                              sizes="(max-width: 1024px) 100vw, 672px"
                               alt={item.title}
                               className="news-card-image w-full max-w-2xl object-cover"
+                              loading="lazy"
+                              decoding="async"
                             />
                           )}
                           <h2 className="news-card-title text-xl sm:text-2xl">
