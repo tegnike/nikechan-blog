@@ -760,6 +760,77 @@ function bootstrap() {
     });
   }
 
+  // チュートリアルページの画像/動画タブ切り替え
+  function setupTutorialTabs() {
+    const containers = document.querySelectorAll<HTMLElement>('[data-tutorial-tab-container]')
+    if (containers.length === 0) return
+
+    containers.forEach(container => {
+      const triggers = Array.from(container.querySelectorAll<HTMLButtonElement>('[data-tutorial-tab-trigger]'))
+      const contents = Array.from(container.querySelectorAll<HTMLElement>('[data-tutorial-tab-content]'))
+      if (triggers.length === 0 || contents.length === 0) return
+
+      const contentModes = new Set(contents.map(content => content.dataset.tutorialTabContent).filter(Boolean))
+
+      const applyMode = (mode: string, updateUrl: boolean) => {
+        contents.forEach(content => {
+          const isMatch = content.dataset.tutorialTabContent === mode
+          content.classList.toggle('hidden', !isMatch)
+
+          if (!isMatch) {
+            content.querySelectorAll('video').forEach(video => video.pause())
+          }
+        })
+
+        triggers.forEach(trigger => {
+          const isActive = trigger.dataset.tutorialTabTrigger === mode
+          const activeClasses = (trigger.dataset.activeClasses ?? '').split(' ').filter(Boolean)
+          const inactiveClasses = (trigger.dataset.inactiveClasses ?? '').split(' ').filter(Boolean)
+          const label = trigger.querySelector<HTMLElement>('.tutorial-mode-card__label')
+
+          if (activeClasses.length > 0 || inactiveClasses.length > 0) {
+            trigger.classList.remove(...activeClasses, ...inactiveClasses)
+            trigger.classList.add(...(isActive ? activeClasses : inactiveClasses))
+          }
+
+          label?.classList.toggle('tutorial-mode-card__label--active', isActive)
+          trigger.setAttribute('aria-selected', isActive ? 'true' : 'false')
+        })
+
+        if (updateUrl) {
+          const url = new URL(window.location.href)
+          url.hash = ''
+          if (mode === 'image') {
+            url.searchParams.delete('tab')
+          } else {
+            url.searchParams.set('tab', mode)
+          }
+          window.history.replaceState(null, '', `${url.pathname}${url.search}`)
+        }
+      }
+
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const mode = trigger.dataset.tutorialTabTrigger
+          if (!mode) return
+          applyMode(mode, true)
+        })
+      })
+
+      const queryMode = new URLSearchParams(window.location.search).get('tab') ?? ''
+      const hashMode = window.location.hash.replace('#', '')
+      const initialMode = contentModes.has(queryMode) ? queryMode : hashMode
+      const defaultTrigger =
+        (contentModes.has(initialMode) ? triggers.find(trigger => trigger.dataset.tutorialTabTrigger === initialMode) : undefined) ??
+        triggers.find(trigger => trigger.getAttribute('aria-selected') === 'true') ??
+        triggers[0]
+
+      if (defaultTrigger?.dataset.tutorialTabTrigger) {
+        applyMode(defaultTrigger.dataset.tutorialTabTrigger, false)
+      }
+    })
+  }
+
   // 動画チュートリアルの参照方法切り替え
   function setupVideoModeToggle() {
     const containers = document.querySelectorAll<HTMLElement>('[data-video-mode-container]')
@@ -1158,6 +1229,7 @@ function bootstrap() {
     setupHeaderOtherDropdown() // Header: Other ドロップダウン
     setupMobileMenu() // Header: モバイルメニュー
     setupLanguageSwitcher() // 言語切り替え
+    setupTutorialTabs() // チュートリアルページの画像/動画タブ切り替え
     setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え
     setupCodeCopyButtons() // コードブロックコピーボタン

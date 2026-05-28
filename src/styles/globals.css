@@ -3905,6 +3905,31 @@
   background: var(--character-yellow);
 }
 
+.tutorial-service-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 0;
+}
+
+.tutorial-service-list li {
+  position: relative;
+  padding-left: 20px;
+}
+
+.tutorial-service-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.75em;
+  left: 2px;
+  width: 7px;
+  height: 7px;
+  border: 2px solid var(--character-ink);
+  border-radius: 999px;
+  background: var(--character-yellow);
+  transform: translateY(-50%);
+}
+
 .tutorial-redesign .glass-panel,
 .gallery-redesign .glass-panel,
 .guideline-redesign .glass-panel,
@@ -3943,13 +3968,23 @@
 }
 
 .tutorial-redesign .glass-panel h2 {
-  border-bottom: 3px solid var(--character-cyan) !important;
+  width: fit-content;
+  margin-bottom: 1.7rem;
+  padding: 0 6px 5px;
+  border-bottom: 0 !important;
+  background: linear-gradient(to top, rgba(255, 226, 110, 0.9) 0 40%, transparent 40% 100%);
 }
 
 .tutorial-redesign .glass-panel h3 {
-  border-bottom-color: var(--character-cyan) !important;
-  color: var(--character-cyan) !important;
+  width: fit-content;
+  padding: 0 5px 4px;
+  border-bottom: 0 !important;
+  color: var(--character-ink) !important;
+  background: linear-gradient(to top, rgba(255, 226, 110, 0.76) 0 36%, transparent 36% 100%);
+  font-size: 20px;
   font-weight: 900;
+  line-height: 1.45;
+  letter-spacing: 0;
 }
 
 .tutorial-redesign .text-purple-700,

@@ -1,34 +1,32 @@
 {
   "heading": "TUTORIAL",
+  "hero": {
+    "description": "Prompt guide for creating AI Nike Chan images and videos"
+  },
   "tabs": {
-    "illustration": "Generate Images",
-    "video": "Generate Videos"
+    "illustration": "Image Prompts",
+    "video": "Video Prompts"
   },
   "intro": {
     "heading": "Introduction",
-    "description": "AI Nike Chan is a character with relatively flexible guidelines. This page introduces how to generate images and videos of Nike Chan using AI.",
+    "description": "AI Nike Chan is a character with relatively flexible guidelines. This page introduces reusable prompt ideas and examples for creating images and videos of Nike Chan with AI.<br />Generative AI services change quickly, so this guide does not cover account registration or detailed UI steps for any single service.",
     "point": "Note:",
-    "pointDescription": "Even if you're new to AI, no problem! Try creating your own original character using these steps as a reference."
+    "pointDescription": "The important part is not which tool you use, but how you describe reference images, character traits, and scenes. The same approach works for original characters too."
   },
   "illustration": {
     "recommendedAI": {
-      "heading": "Recommended Image Generation AI",
-      "description": "Various AI image generation tools can be used to create images of AI Nike Chan.<br />Each tool has its own characteristics, and you can choose according to your needs and budget.<br />For beginners, we recommend the free <strong class=\"text-purple-700\">NanoBanana</strong> or <strong class=\"text-purple-700\">NanoBanana Pro</strong> in Google AI Studio. Below we explain how to use it.<br />The following explanation is for NanoBanana, but it applies to NanoBanana Pro as well."
-    },
-    "nanoBanana": {
-      "heading": "How to Use Nano Banana",
-      "accountNote": "You'll need a Google Account, so make sure to obtain one in advance.",
-      "openStudio": {
-        "heading": "Open Google AI Studio",
-        "step1": "and log in with your Google Account.",
-        "step2": "After logging in, you'll see a screen like below. Click on \"Try Nano Banana\".",
-        "step3": "When you see a screen like below, you're ready to go. Enter text or images in the input field at the bottom.<br />You don't need to interact with the sidebar on the right, but \"Aspect Ratio\" determines the aspect ratio of the generated image, so change it as needed (displayed as width : height).",
-        "altStart": "Nano Banana Start"
+      "heading": "Image Generation Service Examples",
+      "description": "For image generation, you can use services and models such as the examples below.<br />Available features, pricing, and usage conditions can change, so choose whatever is practical at the time.",
+      "services": {
+        "googleAiStudio": "Google AI Studio",
+        "chatgpt": "ChatGPT image generation",
+        "midjourney": "Midjourney",
+        "stabilityAi": "Stability AI"
       }
     },
     "materials": {
       "heading": "Prepare Reference Materials",
-      "description": "While image generation is possible with text instructions alone, uploading reference images improves accuracy. Let's download the following images of AI Nike Chan.",
+      "description": "You can create images with text alone, but reference images help keep the character design stable. Download the following AI Nike Chan image and use it as a reference image.",
       "model3D": {
         "alt": "AI Nike Chan 3D Model",
         "downloadLabel": "Download AI Nike Chan 3D Model Image",
@@ -36,106 +34,93 @@
       },
       "usageMaterialsWarning": {
         "heading": "About Usable Materials:",
-        "description": "When creating AI Nike Chan works using AI, there are materials you can use and materials you cannot. The above images are fine to use. For details, please see the <a href=\"{guidelinesUrl}\" class=\"text-yellow-900 underline\">Guidelines page</a>."
+        "description": "When creating AI Nike Chan works using AI, there are materials you can use and materials you cannot. The above image is fine to use. For details, please see the <a href=\"{guidelinesUrl}\" class=\"text-yellow-900 underline\">Guidelines page</a>."
       }
     },
     "prompts": {
-      "heading": "How to Write Prompts and Examples",
-      "intro": "Now let's generate an image.",
-      "description1": "In image generation AI, you can generate the desired image by entering instructions called \"prompts\".<br />Traditional image generation tools required detailed instructions and had a high barrier to entry, but Nano Banana allows for relatively natural language instructions.<br />Especially when referencing images, even fairly simple prompts can yield good results.",
-      "description2": "Here are some examples.",
+      "heading": "How to Write Image Prompts",
+      "description1": "For image generation, results tend to become more stable when you separate what to draw, what the situation is, and which character traits must remain visible.<br />For AI Nike Chan, small details like the hairpin and chest text can break easily, so it helps to describe them in text even when you provide a reference image.",
+      "structure": "For image prompts, it is useful to write in this order: <strong>1. use the character from the reference image</strong>, <strong>2. pose and expression</strong>, <strong>3. background and composition</strong>, and <strong>4. traits that must stay intact</strong>.",
       "basicExample": {
         "heading": "Basic Prompt Example",
         "copyButton": "Copy",
         "copySuccess": "Copied",
-        "altImage": "Nano Banana Prompt Example"
+        "altImage": "Image prompt example"
       },
       "tips": {
         "heading": "Prompt Tips:",
-        "description1": "Even when passing reference images, fine details may not be reflected well.<br />For AI Nike Chan, the hairpin shape and chest text often break down.<br />",
-        "description2": "Therefore, it's important to explicitly specify fine details as character features.<br />I always include the text below \"The girl's features are as follows.\" in the example above every time."
+        "description1": "Even when you pass reference images, fine details may not be reflected well.<br />For AI Nike Chan, the hairpin shape and chest text often break down.",
+        "description2": "That's why it is important to explicitly specify fine details as character traits. I usually include the feature list below almost as-is every time."
       },
       "gachaWarning": {
         "heading": "About Generative AI Randomness:",
-        "description": "Generative AI has a strong element of randomness, and even using the same prompt produces different results each time.<br />Therefore, even with a perfect prompt, you may not get the expected output, so it's important to try patiently until you get results you like."
+        "description": "Generative AI has a strong element of randomness, and even the same prompt can produce different results each time.<br />Even with a good prompt, you may not get the expected output. Keep trying while adjusting the wording little by little."
       },
-      "dancePrompt": "An illustration using the girl depicted in this three-view drawing. She is saying \"Let's do our best this week too!!\""
+      "dancePrompt": "An illustration using the girl depicted in this three-view drawing.\nShe is saying \"Let's do our best this week too!!\"\nShe has a bright expression, with an upper-body composition.\nThe background is simple and suitable for posting on social media."
     }
   },
   "video": {
     "recommendedAI": {
-      "heading": "Recommended Video Generation AI",
-      "description1": "For generating videos with AI, we recommend <strong class=\"text-purple-700\">Sora 2</strong> developed by OpenAI.<br />It's the latest AI tool that can generate natural movements and multiple cuts, and automatically adds audio that fits the scene. It's free to use from browsers and apps.",
-      "description2": "However, it has been confirmed that Sora 2 is unavailable for some users (detailed conditions are unknown).<br />If it's not available, try the also free <strong class=\"text-purple-700\">Grok</strong> released by X.<br />"
+      "heading": "Video Generation Service Examples",
+      "description": "Video generation is also a fast-changing area. Instead of registration steps, this guide focuses on prompt ideas that can be reused across services.<br />For video generation, examples include the services and models below.",
+      "services": {
+        "veo": "Veo",
+        "runway": "Runway",
+        "kling": "Kling",
+        "pika": "Pika",
+        "luma": "Luma Dream Machine"
+      }
     },
-    "sora": {
-      "heading": "How to Use Sora 2",
-      "accountNote": "You'll need a ChatGPT account, so make sure to obtain one in advance.<br />",
-      "openApp": {
-        "heading": "Open Sora 2 App",
-        "step1": "and log in with your ChatGPT account.<br />After logging in, you'll see a screen like below.",
-        "altLogin": "Sora 2 Login",
-        "step2": "Enter a video prompt in the input form at the bottom. If you want to reference an image, select it from the \"+\" button.<br />In Orientation, you can choose vertical or horizontal. In Duration, you can choose 10 or 15 seconds.",
-        "altCreate": "Sora 2 Create Video"
+    "materials": {
+      "heading": "Prepare Reference Materials",
+      "description": "Reference images are important for video generation too. Prepare the AI Nike Chan three-view image first so the tool can understand the character design. It also helps when creating a starting frame.",
+      "model3D": {
+        "alt": "AI Nike Chan 3D Model",
+        "downloadLabel": "Download AI Nike Chan 3D Model Image",
+        "downloadButton": "Download Image"
+      },
+      "usageMaterialsWarning": {
+        "heading": "About Usable Materials:",
+        "description": "When creating AI Nike Chan works using AI, there are materials you can use and materials you cannot. The above image is fine to use. For details, please see the <a href=\"{guidelinesUrl}\" class=\"text-yellow-900 underline\">Guidelines page</a>."
+      }
+    },
+    "prompts": {
+      "heading": "How to Write Video Prompts",
+      "description": "For videos, describing the flow of time matters more than it does for a single image. In addition to character traits, specify movement, camera work, cuts, and whether there should be dialogue or audio.",
+      "structure": "For video prompts, it is useful to include these elements:<br />1. What the scene is<br />2. What the character does<br />3. Camera or cut movement<br />4. Whether there is dialogue or audio<br />5. Visual traits to preserve",
+      "basicExample": {
+        "heading": "Basic Prompt Example",
+        "copyButton": "Copy",
+        "copySuccess": "Copied"
       }
     },
     "videoModes": {
-      "label": "Choose how to create video",
-      "cameo": "Use Cameo Feature",
-      "reference": "Use Image Reference"
+      "label": "Choose a prompt example",
+      "story": "Start from a scene",
+      "reference": "Start from a frame"
     },
-    "cameo": {
-      "heading": "Generate with Cameo Feature",
-      "description": "Using the cameo feature makes it easy to generate videos of AI Nike Chan.<br />Some of you may not be familiar with this term, but it's not difficult at all.",
-      "specifyCharacter": {
-        "heading": "Specify AI Nike Chan in the Input Field",
-        "step1": "When you enter <strong>@ (at sign)</strong> in the input field, multiple options appear.<br />This is called cameo, and it allows you to generate videos by referencing pre-registered people or characters.",
-        "step2": "For AI Nike Chan, you can use <strong>@ainikechan</strong>.",
-        "altCameo": "Sora 2 Cameo"
-      },
-      "cameoProfileNote": "Works generated from registered cameos can be viewed by anyone, so use them as a reference for your creations.<br />For AI Nike Chan, you can view them at <a href=\"https://sora.chatgpt.com/profile/ainikechan\" class=\"underline\" target=\"_blank\" rel=\"noopener noreferrer\">https://sora.chatgpt.com/profile/ainikechan</a>.",
-      "multiCharacterNote": "The cameo feature allows you to specify multiple characters.<br />However, specifying 4 or more characters at the same time seems to make character breakdown more likely to occur, so caution is needed.",
-      "prompts": {
-        "heading": "How to Write Prompts and Examples",
-        "description1": "In video generation AI, you can generate the desired video by entering instructions called \"prompts\".<br />With Sora 2, even simple instructions allow for some freedom of movement, but to get the results you want, it's important to give specific instructions.",
-        "description2": "Here are some examples.",
-        "basicExample": {
-          "heading": "Basic Prompt Example",
-          "copyButton": "Copy",
-          "copySuccess": "Copied"
-        },
-        "tips": {
-          "heading": "Prompt Tips:",
-          "description1": "While the above example works well, fine details are often not properly reflected.<br />For AI Nike Chan, the hairpin shape and chest text often break down.<br />",
-          "description2": "In that case, it's important to explicitly specify fine details as character features.<br />For example, adding instructions like \"@ainikechan wears a hairpin shaped like the letters AI\" would be good."
-        }
-      },
-      "videoPrompt3": "@ainikechan\nDressed as a wizard, riding on a broom.\nA magic battle with an evil wizard whose face cannot be seen in the darkness.\nFocused on combat without dialogue.\nDynamic combat action scenes.\nCombat switches every 0.5 seconds.\nFantastic field with a Halloween atmosphere."
+    "story": {
+      "heading": "Prompt Starting from a Scene",
+      "description": "Even when creating a video from a reference image, describe the scene, movement, and cut timing concretely. Including character traits helps reduce visual drift.",
+      "videoPrompt": "The girl in the image is dressed as a wizard and riding on a broom.\nShe is in a magic battle with an evil wizard whose face cannot be seen in the darkness.\nNo dialogue, focused on combat.\nDynamic action scene.\nCuts switch every 0.5 seconds.\nA fantastic field with a Halloween atmosphere."
     },
     "reference": {
-      "startingFrame": {
-        "heading": "Prepare a Starting Frame",
-        "description": "When referencing images, it's good to be mindful of the starting frame.<br />Rather than passing the three-view drawing as is, passing an image with a natural pose as the first frame tends to produce better results.<br />Use <strong class=\"text-purple-700\">NanoBanana</strong> or <strong class=\"text-purple-700\">NanoBanana Pro</strong> for images. For image generation, please see the <a href=\"{tutorialUrl}\" class=\"underline\">Image Generation Tutorial page</a>.",
-        "basicExample": {
-          "heading": "Basic Prompt Example",
-          "copyButton": "Copy",
-          "copySuccess": "Copied"
-        }
-      },
+      "heading": "Prompt Starting from a Frame",
+      "description": "For services that support image references, it is helpful to prepare a natural pose as the starting frame. Rather than passing the three-view drawing directly, it is usually more stable to create the image composition you want for the first frame and then animate it.",
       "aspectRatioWarning": {
         "heading": "About Material Aspect Ratio:",
-        "description": "With Sora 2, if you don't prepare an image with an aspect ratio that matches the video to be generated, unintended cropping may occur and image reference may not work well.<br />When generating horizontal videos, use horizontal images, and when generating vertical videos, use vertical images."
+        "description": "When creating a video from a reference image, prepare an image with an aspect ratio close to the target video.<br />Use around 16:9 for horizontal videos and around 9:16 for vertical videos to reduce unintended cropping."
       },
       "tips": {
-        "heading": "Prompt Tips:",
-        "description1": "Even when passing reference images, fine details may not be reflected well.<br />For AI Nike Chan, the hairpin shape and chest text often break down.<br />",
-        "description2": "Therefore, it's important to explicitly specify fine details as character features.<br />By explicitly specifying character features, you can achieve more stable results."
+        "heading": "Video Prompt Tips:",
+        "description1": "Videos introduce movement, so small visual details can break more easily.<br />For AI Nike Chan, the hairpin shape and chest text are especially likely to drift.",
+        "description2": "In addition to character traits, constraints like \"no dialogue,\" \"fixed camera,\" or \"upper-body composition\" can help suppress unnecessary changes."
       },
       "gachaWarning": {
         "heading": "About Generative AI Randomness:",
-        "description": "Generative AI has a strong element of randomness, and even using the same prompt produces different results each time.<br />Therefore, even with a perfect prompt, you may not get the expected output, so it's important to try patiently until you get results you like."
+        "description": "Video generation tends to vary even more than image generation.<br />Rather than aiming for a finished result in one try, it is more realistic to keep the movements that worked and adjust the prompt gradually."
       },
-      "videoPrompt2": "The girl in the illustration is singing Japanese anime songs passionately in a karaoke box. Cuts change every 0.5 seconds. Natural animation."
+      "videoPrompt2": "The girl in the illustration is passionately singing a Japanese anime song in a karaoke box.\nCuts switch every 0.5 seconds.\nNatural animation.\nHer expression is cheerful, and the mouth movement while singing is visible.\nThe camera focuses on the upper body."
     }
   },
   "cta": {

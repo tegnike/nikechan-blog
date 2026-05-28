@@ -628,39 +628,28 @@ app.get('/tutorials', (c) => {
   const locale = c.get('locale') as Locale
   return c.render(
     <Layout currentPath={currentPath} locale={locale}>
-      <Tutorial active="illustration" locale={locale} />
+      <Tutorial locale={locale} />
     </Layout>,
     {
       locale,
-      title: locale === 'ja' ? "画像生成チュートリアル | AIニケちゃんオフィシャルサイト" : "Image Generation Tutorial | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIを使ってAIニケちゃんのイラストを生成する方法を解説。Stable Diffusion、NovelAI、Midjourneyなどの画像生成AIの使い方とプロンプト例を紹介。" : "Learn how to generate illustrations of AI Nike Chan using AI. Introducing image generation AI such as Stable Diffusion, NovelAI, and Midjourney with prompt examples.",
+      title: locale === 'ja' ? "画像・動画生成チュートリアル | AIニケちゃんオフィシャルサイト" : "Image and Video Generation Tutorial | AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIニケちゃんの画像・動画を生成するためのプロンプト例と考え方を紹介。特定サービスの手順に依存しない、使い回しやすい生成AIガイドです。" : "Prompt examples and reusable ideas for generating AI Nike Chan images and videos without depending on a single service's UI flow.",
       canonicalUrl: "https://nikechan.com/tutorials",
-      keywords: "AI, イラスト生成, Stable Diffusion, 画像生成AI, プロンプト, LoRA"
+      keywords: "AI, 画像生成, 動画生成, 生成AI, プロンプト, AIニケちゃん"
     }
   )
 })
 
 app.get('/tutorials/video', (c) => {
-  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
-  const currentPath = c.req.path;
-  const locale = c.get('locale') as Locale
-  return c.render(
-    <Layout currentPath={currentPath} locale={locale}>
-      <Tutorial active="video" locale={locale} />
-    </Layout>,
-    {
-      locale,
-      title: locale === 'ja' ? "動画生成チュートリアル | AIニケちゃんオフィシャルサイト" : "Video Generation Tutorial | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんの動画を生成する方法を解説。Runway Gen-3、Pika Labs、Stable Video Diffusionなどの動画生成AIとLive2Dアニメーション制作方法を紹介。" : "Learn how to generate videos of AI Nike Chan. Introducing video generation AI such as Runway Gen-3, Pika Labs, and Stable Video Diffusion, as well as Live2D animation production methods.",
-      canonicalUrl: "https://nikechan.com/tutorials/video",
-      keywords: "AI, 動画生成, アニメーション, Live2D, VTuber, Runway, Pika Labs"
-    }
-  )
+  const url = new URL(c.req.url)
+  url.searchParams.set('tab', 'video')
+  return c.redirect(`/tutorials${url.search}`, 301)
 })
 
 app.get('/tutorial/video', (c) => {
   const url = new URL(c.req.url)
-  return c.redirect(`/tutorials/video${url.search}`, 301)
+  url.searchParams.set('tab', 'video')
+  return c.redirect(`/tutorials${url.search}`, 301)
 })
 
 app.get('/tutorial', (c) => {
