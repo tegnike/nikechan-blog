@@ -4754,7 +4754,7 @@ a.glass-panel:hover {
 }
 
 .post-redesign-container {
-  width: min(100% - 24px, 880px);
+  width: min(100% - 40px, 880px);
   max-width: 880px;
 }
 
@@ -4868,7 +4868,7 @@ a.glass-panel:hover {
 
 @media (max-width: 640px) {
   .post-redesign-container {
-    width: min(100% - 18px, 880px);
+    width: min(100% - 32px, 880px);
   }
 
   .post-toc-panel {
