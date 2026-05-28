@@ -960,6 +960,189 @@ function bootstrap() {
     if (firstId) selectPlatform(firstId)
   }
 
+  type AiNewsItem = {
+    id: string
+    url: string
+    title: string
+    title_en: string | null
+    source_name: string | null
+    source_domain: string | null
+    published_at: string | null
+    summary: string
+    summary_en: string | null
+    nike_comment: string
+    nike_comment_en: string | null
+    category: string
+    tags: string[]
+    language: string
+  }
+
+  function setupAiNewsInfiniteScroll() {
+    const list = document.querySelector<HTMLElement>('[data-ai-news-list]')
+    const sentinel = document.querySelector<HTMLElement>('[data-ai-news-sentinel]')
+    if (!list || !sentinel || !('IntersectionObserver' in window)) return
+
+    const pageSize = 10
+    const locale = document.documentElement.lang === 'en' ? 'en' : 'ja'
+    let offset = Number(list.dataset.aiNewsNextOffset || pageSize)
+    let loading = false
+    let hasMore = true
+
+    const categoryLabels: Record<string, Record<string, string>> = {
+      ja: {
+        ai_character: 'AIキャラ',
+        aituber: 'AITuber',
+        ai_vtuber: 'AI VTuber',
+        ai_avatar: 'AIアバター',
+        virtual_influencer: 'AIインフルエンサー',
+        ai_companion: 'AIコンパニオン',
+        tooling: '開発ツール',
+        business: 'ビジネス',
+        research: '研究',
+        culture: 'カルチャー',
+      },
+      en: {
+        ai_character: 'AI Character',
+        aituber: 'AITuber',
+        ai_vtuber: 'AI VTuber',
+        ai_avatar: 'AI Avatar',
+        virtual_influencer: 'AI Influencer',
+        ai_companion: 'AI Companion',
+        tooling: 'Tools',
+        business: 'Business',
+        research: 'Research',
+        culture: 'Culture',
+      },
+    }
+
+    const escapeHtml = (value: string) => value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+
+    const formatDate = (value: string | null) => {
+      if (!value) return locale === 'ja' ? '公開日不明' : 'Unknown date'
+      return new Date(value).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'Asia/Tokyo',
+      })
+    }
+
+    const getHost = (item: AiNewsItem) => {
+      if (item.source_name) return item.source_name
+      if (item.source_domain) return item.source_domain
+      try {
+        return new URL(item.url).hostname
+      } catch {
+        return locale === 'ja' ? '出典不明' : 'Unknown source'
+      }
+    }
+
+    const getLanguageLabel = (item: AiNewsItem) => {
+      const language = item.language?.toLowerCase() || 'ja'
+      try {
+        const displayNames = new Intl.DisplayNames([locale === 'ja' ? 'ja-JP' : 'en-US'], { type: 'language' })
+        return displayNames.of(language) || language.toUpperCase()
+      } catch {
+        return language.toUpperCase()
+      }
+    }
+
+    const getPetAnimation = (index: number) => ['waving', 'review', 'running', 'jumping'][index % 4]
+    const displayTitle = (item: AiNewsItem) => locale === 'en' && item.title_en ? item.title_en : item.title
+    const displaySummary = (item: AiNewsItem) => locale === 'en' && item.summary_en ? item.summary_en : item.summary
+    const displayNikeComment = (item: AiNewsItem) => locale === 'en' && item.nike_comment_en ? item.nike_comment_en : item.nike_comment
+
+    const renderArticle = (item: AiNewsItem, index: number) => {
+      const tags = Array.isArray(item.tags) ? item.tags : []
+      return `
+        <article class="glass-panel ai-news-card p-6 md:p-7">
+          <div class="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
+            <span class="ai-news-chip ai-news-chip--category">${escapeHtml(categoryLabels[locale][item.category] || item.category)}</span>
+            <span class="ai-news-chip">${escapeHtml(getHost(item))}</span>
+            <span class="ai-news-chip">${escapeHtml(getLanguageLabel(item))}</span>
+            <span class="ai-news-chip inline-flex items-center gap-1">
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+              ${escapeHtml(formatDate(item.published_at))}
+            </span>
+          </div>
+          <h3 class="text-2xl font-black leading-tight text-gray-900 md:text-3xl">${escapeHtml(displayTitle(item))}</h3>
+          <p class="mt-4 whitespace-pre-wrap text-base leading-relaxed text-gray-700">${escapeHtml(displaySummary(item))}</p>
+          <div class="nike-comment-wrap mt-5">
+            <div class="grid gap-4 md:grid-cols-[1fr_112px] md:items-end">
+              <div class="nike-comment-bubble">
+                <div class="mb-2 flex items-center gap-2 text-sm font-bold text-purple-700">
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+                  <span>${locale === 'ja' ? 'AIニケちゃんのコメント' : 'AI Nike Chan comment'}</span>
+                </div>
+                <div class="nike-comment-body">
+                  <div class="nike-comment-pet-slot nike-comment-pet-slot-mobile">
+                    <div class="nike-news-pet nike-news-pet-${getPetAnimation(index)}" role="img" aria-label="${locale === 'ja' ? '話しているAIニケちゃん' : 'AI Nike Chan speaking'}"></div>
+                  </div>
+                  <p class="text-sm leading-relaxed text-gray-700 md:text-base">${escapeHtml(displayNikeComment(item))}</p>
+                </div>
+              </div>
+              <div class="nike-comment-pet-slot nike-comment-pet-slot-desktop">
+                <div class="nike-news-pet nike-news-pet-${getPetAnimation(index)}" role="img" aria-label="${locale === 'ja' ? '話しているAIニケちゃん' : 'AI Nike Chan speaking'}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap gap-2">
+              ${tags.map((tag) => `<span class="text-xs font-semibold text-gray-500">#${escapeHtml(String(tag))}</span>`).join('')}
+            </div>
+            <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="design-action-button">
+              ${locale === 'ja' ? '記事を読む' : 'Read article'}
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
+          </div>
+        </article>
+      `
+    }
+
+    const loadMore = async () => {
+      if (loading || !hasMore) return
+      loading = true
+      sentinel.textContent = locale === 'ja' ? 'さらに読み込み中...' : 'Loading more...'
+      try {
+        const response = await fetch(`/api/ai-news?offset=${offset}&limit=${pageSize}`, {
+          headers: { Accept: 'application/json' },
+        })
+        if (!response.ok) throw new Error(`AI news API returned ${response.status}`)
+        const data = await response.json() as { items?: AiNewsItem[]; hasMore?: boolean; nextOffset?: number }
+        const items = Array.isArray(data.items) ? data.items : []
+        if (items.length) {
+          list.insertAdjacentHTML('beforeend', items.map((item, index) => renderArticle(item, offset + index)).join(''))
+        }
+        offset = Number(data.nextOffset || offset + items.length)
+        list.dataset.aiNewsNextOffset = String(offset)
+        hasMore = Boolean(data.hasMore)
+        if (!hasMore) {
+          sentinel.textContent = ''
+          sentinel.setAttribute('hidden', 'true')
+          observer.disconnect()
+        }
+      } catch (error) {
+        console.error('Failed to load more AI news', error)
+        sentinel.textContent = locale === 'ja' ? '追加読み込みに失敗しました。' : 'Failed to load more.'
+      } finally {
+        loading = false
+      }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        void loadMore()
+      }
+    }, { rootMargin: '600px 0px' })
+
+    observer.observe(sentinel)
+  }
+
   // DOMContentLoaded で各種セットアップを実行
   document.addEventListener('DOMContentLoaded', () => {
     setupProfileToggle()
@@ -982,6 +1165,7 @@ function bootstrap() {
     setupMarkdownCopyButton() // Markdownコピーボタン
     setupTwitterEmbeds() // Twitter埋め込みウィジェット
     setupWorldPlatformMap() // Worldページ放射状プラットフォームマップ
+    setupAiNewsInfiniteScroll() // AIニュース無限スクロール
   })
 }
 

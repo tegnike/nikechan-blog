@@ -55,7 +55,7 @@ function getServerSupabase(): SupabaseClient {
   return serverSupabase
 }
 
-export async function getAiCharacterNews(limit = 50): Promise<AiCharacterNewsItem[]> {
+export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiCharacterNewsItem[]> {
   const columns = [
     'id',
     'url',
@@ -84,7 +84,7 @@ export async function getAiCharacterNews(limit = 50): Promise<AiCharacterNewsIte
     .select(selectColumns.join(','))
     .order('published_at', { ascending: false, nullsFirst: false })
     .order('created_at', { ascending: false })
-    .limit(limit)
+    .range(offset, offset + limit - 1)
 
   let { data, error } = await runQuery(columns)
   if (error && /title_en|summary_en|nike_comment_en|column/i.test(error.message)) {

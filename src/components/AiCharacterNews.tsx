@@ -84,6 +84,20 @@ function getHost(item: AiCharacterNewsItem, locale: Locale): string {
   }
 }
 
+function getLanguageLabel(item: AiCharacterNewsItem, locale: Locale): string {
+  const language = item.language?.toLowerCase() || 'ja'
+  try {
+    const displayNames = new Intl.DisplayNames([locale === 'ja' ? 'ja-JP' : 'en-US'], { type: 'language' })
+    const languageName = displayNames.of(language)
+    if (languageName) {
+      return languageName
+    }
+  } catch {
+    // Unknown language tags fall back to the raw code below.
+  }
+  return language.toUpperCase()
+}
+
 function getPetAnimation(item: AiCharacterNewsItem, index: number): string {
   const animations = ['waving', 'review', 'running', 'jumping']
   return animations[index % animations.length]
@@ -129,7 +143,7 @@ export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
         )}
 
         {!error && items.length > 0 && (
-          <div className="space-y-5">
+          <div className="space-y-5" data-ai-news-list data-ai-news-next-offset={items.length}>
             {items.map((item, index) => (
               <article key={item.id} className="glass-panel ai-news-card p-6 md:p-7">
                 <div className="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
@@ -138,6 +152,9 @@ export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
                   </span>
                   <span className="ai-news-chip">
                     {getHost(item, locale)}
+                  </span>
+                  <span className="ai-news-chip">
+                    {getLanguageLabel(item, locale)}
                   </span>
                   <span className="ai-news-chip inline-flex items-center gap-1">
                     <CalendarDays className="h-3.5 w-3.5" />
@@ -203,6 +220,15 @@ export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
                 </div>
               </article>
             ))}
+          </div>
+        )}
+
+        {!error && items.length > 0 && (
+          <div
+            className="ai-news-load-state mt-6 text-center text-sm font-semibold text-gray-500"
+            data-ai-news-sentinel
+          >
+            {locale === 'ja' ? 'さらに読み込み中...' : 'Loading more...'}
           </div>
         )}
       </main>

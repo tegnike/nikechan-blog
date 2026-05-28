@@ -29,6 +29,7 @@ import { detectLocale, type Locale } from './i18n/config'
 import { getAiCharacterNews } from './lib/ai-character-news'
 
 const app = new Hono()
+const AI_NEWS_PAGE_SIZE = 10
 
 // Middleware to detect and set locale
 app.use('*', async (c, next) => {
@@ -103,7 +104,7 @@ app.get('/ai-news', async (c) => {
   let error: string | undefined
 
   try {
-    items = await getAiCharacterNews(50)
+    items = await getAiCharacterNews(AI_NEWS_PAGE_SIZE)
   } catch (err) {
     console.error('Failed to load AI character news', err)
     error = locale === 'ja'
@@ -130,6 +131,26 @@ app.get('/ai-news', async (c) => {
         : 'AI character, AITuber, AI VTuber, AI avatar, AI Nike Chan, news',
     }
   )
+})
+
+app.get('/api/ai-news', async (c) => {
+  c.header('Cache-Control', 'public, max-age=300')
+  const url = new URL(c.req.url)
+  const offset = Math.max(0, Number(url.searchParams.get('offset') || 0) || 0)
+  const requestedLimit = Math.max(1, Number(url.searchParams.get('limit') || AI_NEWS_PAGE_SIZE) || AI_NEWS_PAGE_SIZE)
+  const limit = Math.min(requestedLimit, 20)
+
+  try {
+    const items = await getAiCharacterNews(limit + 1, offset)
+    return c.json({
+      items: items.slice(0, limit),
+      hasMore: items.length > limit,
+      nextOffset: offset + Math.min(items.length, limit),
+    })
+  } catch (err) {
+    console.error('Failed to load AI character news page', err)
+    return c.json({ items: [], hasMore: false, nextOffset: offset, error: 'Failed to load AI character news' }, 500)
+  }
 })
 
 // Gallery pages
