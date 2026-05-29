@@ -26,7 +26,7 @@
 
 #### 三面図
 
-<a href="/images/guidlines/threeviewdrawing.png" download><img src="/images/optimized/guidlines/threeviewdrawing-960.webp" srcset="/images/optimized/guidlines/threeviewdrawing-480.webp 480w, /images/optimized/guidlines/threeviewdrawing-960.webp 960w" sizes="(max-width: 768px) 100vw, 768px" alt="三面図" width="2048" height="1143" loading="lazy" decoding="async" /></a>
+[![三面図](/images/guidlines/threeviewdrawing.png)](/images/guidlines/threeviewdrawing.png)
 
 #### 合成音声モデルの利用条件
 
