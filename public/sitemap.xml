@@ -53,6 +53,22 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://nikechan.com/privacy</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Terms of Use -->
+  <url>
+    <loc>https://nikechan.com/terms</loc>
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
   <!-- Activity Log -->
   <url>
     <loc>https://nikechan.com/log</loc>

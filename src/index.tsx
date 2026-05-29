@@ -11,6 +11,7 @@ import { BlogDetail } from './components/BlogDetail'
 import { MonthlySummary } from './components/MonthlySummary'
 import { Developer } from './components/Developer'
 import { License } from './components/License'
+import { LegalPage } from './components/LegalPage'
 import { DevBlog } from './components/DevBlog'
 import { About } from './components/About'
 import { Tutorial } from './components/Tutorial'
@@ -228,6 +229,57 @@ app.get('/guidelines/ai', (c) => {
 // Backward-compatible redirects from old /license paths
 app.get('/license', (c) => c.redirect('/guidelines', 301))
 app.get('/license/ai', (c) => c.redirect('/guidelines/ai', 301))
+
+// Legal pages
+app.get('/privacy', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <LegalPage kind="privacy" locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? 'プライバシーポリシー | AIニケちゃんオフィシャルサイト'
+        : 'Privacy Policy | AI Nike Chan Official Website',
+      description: locale === 'ja'
+        ? 'AIニケちゃんオフィシャルサイトにおける個人情報、Cookie、外部サービス等の取り扱いについて。'
+        : 'How the AI Nike Chan Official Website handles personal information, cookies, and external services.',
+      canonicalUrl: 'https://nikechan.com/privacy',
+      keywords: locale === 'ja'
+        ? 'プライバシーポリシー, 個人情報, Cookie, AIニケちゃん'
+        : 'privacy policy, personal information, cookies, AI Nike Chan',
+    }
+  )
+})
+
+app.get('/terms', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <LegalPage kind="terms" locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? 'サイト利用規約 | AIニケちゃんオフィシャルサイト'
+        : 'Terms of Use | AI Nike Chan Official Website',
+      description: locale === 'ja'
+        ? 'AIニケちゃんオフィシャルサイトの利用条件、コンテンツの権利、禁止事項、免責事項について。'
+        : 'Terms for using the AI Nike Chan Official Website, including content rights, prohibited conduct, and disclaimers.',
+      canonicalUrl: 'https://nikechan.com/terms',
+      keywords: locale === 'ja'
+        ? '利用規約, 免責事項, 著作権, AIニケちゃん'
+        : 'terms of use, disclaimer, copyright, AI Nike Chan',
+    }
+  )
+})
 
 // Log page (活動記録)
 app.get('/log', async (c) => {

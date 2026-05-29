@@ -16,6 +16,11 @@ type Props = {
 export function Layout({ children, title = 'My Portfolio & Blog', currentPath, locale = 'ja' }: Props) {
   const t = getT(locale)
   const logoSources = getOptimizedImageSources('/images/logos/logo_with_frame_and_shadow.png')
+  const footerLinks = [
+    { href: '/privacy', label: locale === 'ja' ? 'プライバシーポリシー' : 'Privacy Policy' },
+    { href: '/terms', label: locale === 'ja' ? '利用規約' : 'Terms of Use' },
+    { href: '/guidelines', label: locale === 'ja' ? 'ガイドライン' : 'Guidelines' },
+  ]
 
   // 言語パラメータを保持したURLを生成するヘルパー関数
   const addLangParam = (path: string) => {
@@ -180,8 +185,15 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
       {children}
 
       <footer className="border-t">
-        <div className="container mx-auto px-4 py-4 text-center text-gray-600">
-          {t('common:copyright')}
+        <div className="container mx-auto px-4 py-5 text-center text-gray-600">
+          <nav className="mb-3 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm" aria-label={locale === 'ja' ? 'フッターリンク' : 'Footer links'}>
+            {footerLinks.map((link) => (
+              <a key={link.href} href={addLangParam(link.href)} className="hover:text-gray-900 transition-colors">
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <p>{t('common:copyright')}</p>
         </div>
       </footer>
 

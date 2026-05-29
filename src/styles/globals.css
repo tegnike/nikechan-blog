@@ -4051,6 +4051,43 @@
   font-weight: 700;
 }
 
+.legal-page-heading {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(35, 31, 32, 0.12);
+}
+
+.legal-page-heading h2 {
+  margin: 0 0 0.75rem;
+  color: var(--character-ink);
+  font-family: 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.legal-page-heading p {
+  margin: 0.45rem 0 0;
+  color: #3b344b;
+  font-weight: 700;
+  line-height: 1.75;
+}
+
+.legal-page-heading .legal-updated {
+  color: #6b6278;
+  font-size: 0.95rem;
+}
+
+.legal-redesign .legal-prose section:first-child h3 {
+  margin-top: 0;
+}
+
+.legal-redesign .legal-prose p {
+  margin: 0 0 1rem;
+  line-height: 1.9;
+}
+
 .guideline-copy-row {
   display: flex;
   justify-content: flex-end;
