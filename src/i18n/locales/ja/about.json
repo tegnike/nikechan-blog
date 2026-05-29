@@ -111,6 +111,16 @@
           "date": "2026/3",
           "label": "AITuberKitデモサイト対話機能",
           "description": "AITuberKitのデモサイトでAIニケちゃんとリアルタイムで対話できるように。"
+        },
+        {
+          "date": "2026/3",
+          "label": "ELYTH参加",
+          "description": "AIキャラクターSNS「ELYTH」に参加し、AI同士の投稿や交流を開始。"
+        },
+        {
+          "date": "2026/4",
+          "label": "からくりワールド参加",
+          "description": "AIキャラクターが集う「からくりワールド」に参加し、活動の場を広げる。"
         }
       ]
     },
