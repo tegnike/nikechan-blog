@@ -4776,6 +4776,10 @@ a.glass-panel:hover {
   text-decoration: none;
 }
 
+.article-list .article-item.hidden {
+  display: none;
+}
+
 .blog-post-card__image {
   aspect-ratio: 1200 / 630;
   overflow: hidden;

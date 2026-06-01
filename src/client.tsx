@@ -424,16 +424,17 @@ function bootstrap() {
     const techBlogContainer = document.getElementById('category-techblog')
     if (!techBlogContainer) return // TechBlogコンポーネントがない場合は何もしない
 
-    const paginationControls = techBlogContainer.querySelector('.pagination-controls') as HTMLElement | null
+    const paginationControlsList = techBlogContainer.querySelectorAll('.pagination-controls') as NodeListOf<HTMLElement>
     const articleList = techBlogContainer.querySelector('.article-list') as HTMLElement | null
     const paginationInfo = techBlogContainer.querySelector('.pagination-info') as HTMLElement | null
 
-    if (!paginationControls || !articleList || !paginationInfo) return
+    if (paginationControlsList.length === 0 || !articleList || !paginationInfo) return
 
-    const totalPages = parseInt(paginationControls.dataset.totalPages || '1', 10)
+    const totalPages = parseInt(paginationControlsList[0].dataset.totalPages || '1', 10)
     const totalArticles = parseInt(paginationInfo.dataset.totalArticles || '0', 10)
     const articlesPerPage = parseInt(paginationInfo.dataset.articlesPerPage || '15', 10)
-    let currentPage = parseInt(paginationControls.dataset.currentPage || '1', 10)
+    const locale = document.documentElement.lang === 'en' ? 'en' : 'ja'
+    let currentPage = parseInt(paginationControlsList[0].dataset.currentPage || '1', 10)
 
     const updateView = () => {
       // 記事の表示/非表示を切り替え
@@ -444,79 +445,82 @@ function bootstrap() {
       })
 
       // ページネーションボタンの状態を更新
-      const buttons = paginationControls.querySelectorAll('.pagination-button') as NodeListOf<HTMLButtonElement>
-      buttons.forEach(button => {
-        const page = parseInt(button.dataset.page || '0', 10)
-        const action = button.dataset.pageAction
+      paginationControlsList.forEach(paginationControls => {
+        const buttons = paginationControls.querySelectorAll('.pagination-button') as NodeListOf<HTMLButtonElement>
+        buttons.forEach(button => {
+          const page = parseInt(button.dataset.page || '0', 10)
+          const action = button.dataset.pageAction
 
-        // ページ番号ボタンのアクティブ状態
-        if (page > 0) {
-          button.classList.toggle('active', page === currentPage)
-          // active styles
-          button.classList.toggle('bg-purple-600', page === currentPage)
-          button.classList.toggle('text-white', page === currentPage)
-          button.classList.toggle('border-purple-600', page === currentPage)
-          button.classList.toggle('font-semibold', page === currentPage)
-          // inactive styles
-          button.classList.toggle('bg-white/70', page !== currentPage)
-          button.classList.toggle('text-zinc-700', page !== currentPage)
-          button.classList.toggle('hover:bg-zinc-50', page !== currentPage)
-        }
+          // ページ番号ボタンのアクティブ状態
+          if (page > 0) {
+            button.classList.toggle('active', page === currentPage)
+            button.classList.toggle('blog-pagination-button--active', page === currentPage)
+            if (page === currentPage) {
+              button.setAttribute('aria-current', 'page')
+            } else {
+              button.removeAttribute('aria-current')
+            }
+          }
 
-        // 表示するページ番号ボタンの範囲を調整 (常に5つ表示)
-        const maxVisibleButtons = 5
-        const startPage = Math.max(1, Math.min(currentPage - 2, totalPages - maxVisibleButtons + 1))
-        const endPage = Math.min(totalPages, startPage + maxVisibleButtons - 1)
-        if (button.classList.contains('page-number')) {
+          // 表示するページ番号ボタンの範囲を調整 (常に5つ表示)
+          const maxVisibleButtons = 5
+          const startPage = Math.max(1, Math.min(currentPage - 2, totalPages - maxVisibleButtons + 1))
+          const endPage = Math.min(totalPages, startPage + maxVisibleButtons - 1)
+          if (button.classList.contains('page-number')) {
             const pageNum = parseInt(button.dataset.page || '0', 10);
             button.classList.toggle('hidden', pageNum < startPage || pageNum > endPage);
-        }
-        
-        // アクションボタンの表示/非表示
-        if (action === 'first' || action === 'prev') {
-          button.classList.toggle('hidden', currentPage <= 1)
-        }
-        if (action === 'next' || action === 'last') {
-          button.classList.toggle('hidden', currentPage >= totalPages)
-        }
+          }
+
+          // アクションボタンの表示/非表示
+          if (action === 'first' || action === 'prev') {
+            button.classList.toggle('hidden', currentPage <= 1)
+          }
+          if (action === 'next' || action === 'last') {
+            button.classList.toggle('hidden', currentPage >= totalPages)
+          }
+        })
+
+        paginationControls.dataset.currentPage = currentPage.toString()
       })
 
       // 表示件数情報を更新
       const startArticleIndex = (currentPage - 1) * articlesPerPage + 1
       const endArticleIndex = Math.min(currentPage * articlesPerPage, totalArticles)
-      paginationInfo.textContent = `全${totalArticles}件中 ${startArticleIndex}〜${endArticleIndex}件を表示`
+      paginationInfo.textContent = locale === 'ja'
+        ? `全${totalArticles}件中 ${startArticleIndex}-${endArticleIndex}件`
+        : `Showing ${startArticleIndex}-${endArticleIndex} of ${totalArticles}`
 
-      // 現在のページをデータ属性に保存
-      paginationControls.dataset.currentPage = currentPage.toString()
     }
 
-    paginationControls.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement
-      const button = target.closest('.pagination-button') as HTMLButtonElement | null
-      if (!button) return
+    paginationControlsList.forEach(paginationControls => {
+      paginationControls.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement
+        const button = target.closest('.pagination-button') as HTMLButtonElement | null
+        if (!button) return
 
-      const page = parseInt(button.dataset.page || '0', 10)
-      const action = button.dataset.pageAction
-      let newPage = currentPage
+        const page = parseInt(button.dataset.page || '0', 10)
+        const action = button.dataset.pageAction
+        let newPage = currentPage
 
-      if (page > 0) {
-        newPage = page
-      } else if (action) {
-        switch (action) {
-          case 'first': newPage = 1; break;
-          case 'prev': newPage = Math.max(1, currentPage - 1); break;
-          case 'next': newPage = Math.min(totalPages, currentPage + 1); break;
-          case 'last': newPage = totalPages; break;
+        if (page > 0) {
+          newPage = page
+        } else if (action) {
+          switch (action) {
+            case 'first': newPage = 1; break;
+            case 'prev': newPage = Math.max(1, currentPage - 1); break;
+            case 'next': newPage = Math.min(totalPages, currentPage + 1); break;
+            case 'last': newPage = totalPages; break;
+          }
         }
-      }
 
-      if (newPage !== currentPage) {
-        currentPage = newPage
-        updateView()
-        // ページトップにスクロール (TechBlogコンテナのトップが良いかも)
-        // techBlogContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        window.scrollTo({ top: techBlogContainer.offsetTop - 80, behavior: 'smooth' }) // ヘッダー分オフセット
-      }
+        if (newPage !== currentPage) {
+          currentPage = newPage
+          updateView()
+          // ページトップにスクロール (TechBlogコンテナのトップが良いかも)
+          // techBlogContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.scrollTo({ top: techBlogContainer.offsetTop - 80, behavior: 'smooth' }) // ヘッダー分オフセット
+        }
+      })
     })
 
     // 初期表示更新 (不要かもしれないが念のため)

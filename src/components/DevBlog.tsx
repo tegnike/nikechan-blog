@@ -61,7 +61,7 @@ export const DevBlog = async (locale: Locale = 'ja') => {
           {/* 自前記事セクション */}
           {posts.length > 0 && (
             <section className="container mx-auto px-4">
-              <h2 className="blog-section-title">Blog Posts</h2>
+              <h2 className="blog-section-title">{locale === 'ja' ? 'ブログ記事' : 'Blog Posts'}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                 {posts.map((post) => {
                   const thumbnailSources = post.thumbnail ? getOptimizedImageSources(post.thumbnail) : undefined
@@ -119,13 +119,14 @@ export const DevBlog = async (locale: Locale = 'ja') => {
           {/* 外部記事セクション */}
           {articles.length > 0 && (
             <div className="container mx-auto px-4">
-              <h2 className="blog-section-title">External Articles</h2>
+              <h2 className="blog-section-title">{locale === 'ja' ? '外部記事' : 'External Posts'}</h2>
             </div>
           )}
           <TechBlog
             articles={articles}
             shuffledImageNumbers={shuffledImageNumbers}
             containerClassName="pt-0 pb-8"
+            locale={locale}
           />
         </div>
       </div>

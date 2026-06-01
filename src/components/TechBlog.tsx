@@ -5,6 +5,7 @@ type TechBlogProps = {
   articles: Article[]
   shuffledImageNumbers: number[]
   containerClassName?: string
+  locale?: 'ja' | 'en'
 }
 
 // サービスアイコンコンポーネント
@@ -33,9 +34,13 @@ const PlatformIcon = ({ platform }: { platform: string }) => {
   }
 }
 
-export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 'py-8' }: TechBlogProps) => {
+export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 'py-8', locale = 'ja' }: TechBlogProps) => {
   const articlesPerPage = 15
   const totalPages = Math.ceil(articles.length / articlesPerPage)
+  const firstPageEnd = Math.min(articlesPerPage, articles.length)
+  const paginationSummary = locale === 'ja'
+    ? `全${articles.length}件中 1-${firstPageEnd}件`
+    : `Showing 1-${firstPageEnd} of ${articles.length}`
 
   // 記事の日付フォーマット関数
   const formatNoteDate = (dateString: string) => {
@@ -47,7 +52,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
   }
 
   // ページネーションコントロールの静的HTMLを生成
-  const renderPaginationControls = () => {
+  const renderPaginationControls = (position: 'top' | 'bottom') => {
     if (totalPages <= 1) return null
     
     const pages = []
@@ -60,6 +65,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <button
         key="first"
         data-page-action="first"
+        data-pagination-position={position}
         className="pagination-button blog-pagination-button hidden"
         aria-label="最初のページ"
       >
@@ -71,6 +77,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <button
         key="prev"
         data-page-action="prev"
+        data-pagination-position={position}
         className="pagination-button blog-pagination-button hidden"
         aria-label="前のページ"
       >
@@ -84,6 +91,8 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
         <button
           key={i}
           data-page={i}
+          data-pagination-position={position}
+          aria-current={i === 1 ? 'page' : undefined}
           className={`pagination-button blog-pagination-button page-number ${
             i === 1
               ? 'active blog-pagination-button--active'
@@ -101,6 +110,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <button
         key="next"
         data-page-action="next"
+        data-pagination-position={position}
         className={`pagination-button blog-pagination-button ${totalPages <= 1 ? 'hidden' : ''}`}
         aria-label="次のページ"
       >
@@ -112,6 +122,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <button
         key="last"
         data-page-action="last"
+        data-pagination-position={position}
         className={`pagination-button blog-pagination-button ${totalPages <= 1 ? 'hidden' : ''}`}
         aria-label="最後のページ"
       >
@@ -124,6 +135,8 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
         className="pagination-controls flex flex-wrap justify-center gap-2 mt-8 mb-4"
         data-total-pages={totalPages}
         data-current-page="1"
+        data-pagination-position={position}
+        aria-label="External article archive pages"
       >
         {pages}
       </div>
@@ -135,6 +148,7 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
       <div className={`container mx-auto px-4 ${containerClassName}`}>
         {articles.length > 0 ? (
           <>
+            {renderPaginationControls('top')}
             <div className="article-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {articles.map((article, index) => {
                 const pageNumber = Math.floor(index / articlesPerPage) + 1
@@ -197,14 +211,14 @@ export const TechBlog = ({ articles, shuffledImageNumbers, containerClassName = 
                 )
               })}
             </div>
-            {renderPaginationControls()}
             <div 
               className="pagination-info text-center text-zinc-600 text-sm font-bold mt-4"
               data-total-articles={articles.length}
               data-articles-per-page={articlesPerPage}
             >
-              {`全${articles.length}件中 1〜${Math.min(articlesPerPage, articles.length)}件を表示`}
+              {paginationSummary}
             </div>
+            {renderPaginationControls('bottom')}
           </>
         ) : (
           <div className="text-center py-8 text-zinc-500">
