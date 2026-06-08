@@ -24,10 +24,12 @@ import { TodayNormaProfile } from './components/TodayNormaProfile'
 import { News } from './components/News'
 import { PostDetail } from './components/PostDetail'
 import { AiCharacterNews } from './components/AiCharacterNews'
+import { AiNewsDailyDetail, AiNewsDailyList } from './components/AiNewsDaily'
 import { getPostBySlug, getPostsByLocale, getPostByDraftToken, getOgpCache } from './utils/posts'
 import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
-import { getAiCharacterNews } from './lib/ai-character-news'
+import { getAiCharacterNews, getAiCharacterNewsDateGroups, getAiCharacterNewsForDate } from './lib/ai-character-news'
+import type { AiCharacterNewsDateGroup, AiCharacterNewsItem } from './lib/ai-character-news'
 
 const app = new Hono()
 const AI_NEWS_PAGE_SIZE = 10
@@ -101,7 +103,7 @@ app.get('/ai-news', async (c) => {
   c.header('Cache-Control', 'public, max-age=1800')
   const currentPath = c.req.path
   const locale = c.get('locale') as Locale
-  let items = []
+  let items: AiCharacterNewsItem[] = []
   let error: string | undefined
 
   try {
@@ -130,6 +132,95 @@ app.get('/ai-news', async (c) => {
       keywords: locale === 'ja'
         ? 'AIキャラクター, AITuber, AI VTuber, AIアバター, AIニケちゃん, ニュース'
         : 'AI character, AITuber, AI VTuber, AI avatar, AI Nike Chan, news',
+    }
+  )
+})
+
+app.get('/ai-news/daily', async (c) => {
+  c.header('Cache-Control', 'public, max-age=1800')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  let dateGroups: AiCharacterNewsDateGroup[] = []
+  let error: string | undefined
+
+  try {
+    dateGroups = await getAiCharacterNewsDateGroups(120)
+  } catch (err) {
+    console.error('Failed to load AI NEWS date list', err)
+    error = locale === 'ja'
+      ? 'AI NEWSの日付一覧の取得に失敗しました。'
+      : 'Failed to load AI NEWS date groups.'
+  }
+
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <AiNewsDailyList dateGroups={dateGroups} error={error} locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? 'AI NEWS DAILY | AIニケちゃんオフィシャルサイト'
+        : 'AI NEWS DAILY | AI Nike Chan Official Website',
+      description: locale === 'ja'
+        ? 'AIキャラクター、AITuber、AI VTuber関連ニュースを日付ごとに整理した一覧。'
+        : 'AI character, AITuber, and AI VTuber news grouped by date.',
+      canonicalUrl: 'https://nikechan.com/ai-news/daily',
+      ogType: 'article',
+    }
+  )
+})
+
+app.get('/ai-news/daily/:date', async (c) => {
+  c.header('Cache-Control', 'public, max-age=1800')
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  const date = c.req.param('date')
+  let items: AiCharacterNewsItem[] = []
+  let previousDateGroup: AiCharacterNewsDateGroup | null = null
+  let nextDateGroup: AiCharacterNewsDateGroup | null = null
+  let error: string | undefined
+
+  try {
+    const [dailyItems, dateGroups] = await Promise.all([
+      getAiCharacterNewsForDate(date),
+      getAiCharacterNewsDateGroups(120),
+    ])
+    items = dailyItems
+    if (items.length > 0) {
+      const currentIndex = dateGroups.findIndex((item) => item.date === date)
+      if (currentIndex >= 0) {
+        nextDateGroup = dateGroups[currentIndex - 1] || null
+        previousDateGroup = dateGroups[currentIndex + 1] || null
+      }
+    }
+  } catch (err) {
+    console.error('Failed to load AI NEWS date detail', err)
+    error = locale === 'ja'
+      ? 'AI NEWSの日付別ニュースの取得に失敗しました。'
+      : 'Failed to load AI NEWS for this date.'
+  }
+
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <AiNewsDailyDetail
+        date={date}
+        items={items}
+        previousDateGroup={previousDateGroup}
+        nextDateGroup={nextDateGroup}
+        error={error}
+        locale={locale}
+      />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? `AI NEWS DAILY: ${date} | AIニケちゃんオフィシャルサイト`
+        : `AI NEWS DAILY: ${date} | AI Nike Chan Official Website`,
+      description: locale === 'ja'
+        ? `${date} のAIキャラクター関連ニュース一覧。`
+        : `AI character news for ${date}.`,
+      canonicalUrl: `https://nikechan.com/ai-news/daily/${date}`,
+      ogType: 'article',
     }
   )
 })

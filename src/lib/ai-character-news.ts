@@ -20,11 +20,19 @@ export type AiCharacterNewsItem = {
   summary_en: string | null
   nike_comment: string
   nike_comment_en: string | null
+  key_points?: string[] | null
+  digest_note?: string | null
   category: string
   tags: string[]
   language: string
   created_at: string
   updated_at: string
+}
+
+export type AiCharacterNewsDateGroup = {
+  date: string
+  count: number
+  latest_published_at: string | null
 }
 
 let serverSupabase: SupabaseClient | null = null
@@ -70,6 +78,8 @@ export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiChar
     'summary_en',
     'nike_comment',
     'nike_comment_en',
+    'key_points',
+    'digest_note',
     'category',
     'tags',
     'language',
@@ -77,7 +87,8 @@ export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiChar
     'updated_at',
   ]
 
-  const baseColumns = columns.filter((column) => !['title_en', 'summary_en', 'nike_comment_en'].includes(column))
+  const optionalColumns = ['title_en', 'summary_en', 'nike_comment_en', 'key_points', 'digest_note']
+  const baseColumns = columns.filter((column) => !optionalColumns.includes(column))
 
   const runQuery = (selectColumns: string[]) => getServerSupabase()
     .from('public_ai_character_news')
@@ -87,7 +98,7 @@ export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiChar
     .range(offset, offset + limit - 1)
 
   let { data, error } = await runQuery(columns)
-  if (error && /title_en|summary_en|nike_comment_en|column/i.test(error.message)) {
+  if (error && /title_en|summary_en|nike_comment_en|key_points|digest_note|column/i.test(error.message)) {
     const fallback = await runQuery(baseColumns)
     data = fallback.data
     error = fallback.error
@@ -97,5 +108,103 @@ export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiChar
     throw new Error(`Failed to load AI character news: ${error.message}`)
   }
 
-  return (data || []) as AiCharacterNewsItem[]
+  return (data || []) as unknown as AiCharacterNewsItem[]
+}
+
+function formatNewsDateKey(value: string | null): string | null {
+  if (!value) return null
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return null
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date)
+}
+
+function newsDateRange(date: string): { start: string; end: string } {
+  const start = new Date(`${date}T00:00:00+09:00`)
+  const end = new Date(start.getTime() + 24 * 60 * 60 * 1000)
+  return { start: start.toISOString(), end: end.toISOString() }
+}
+
+export async function getAiCharacterNewsDateGroups(limit = 90): Promise<AiCharacterNewsDateGroup[]> {
+  const items = await getAiCharacterNews(limit, 0)
+  const groups = new Map<string, AiCharacterNewsDateGroup>()
+
+  for (const item of items) {
+    const date = formatNewsDateKey(item.published_at)
+    if (!date) continue
+    const existing = groups.get(date)
+    if (existing) {
+      existing.count += 1
+      if (
+        item.published_at
+        && (!existing.latest_published_at || item.published_at > existing.latest_published_at)
+      ) {
+        existing.latest_published_at = item.published_at
+      }
+      continue
+    }
+    groups.set(date, {
+      date,
+      count: 1,
+      latest_published_at: item.published_at,
+    })
+  }
+
+  return [...groups.values()].sort((a, b) => b.date.localeCompare(a.date))
+}
+
+export async function getAiCharacterNewsForDate(date: string, limit = 80): Promise<AiCharacterNewsItem[]> {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return []
+  const { start, end } = newsDateRange(date)
+  const columns = [
+    'id',
+    'url',
+    'canonical_url',
+    'title',
+    'title_en',
+    'source_name',
+    'source_domain',
+    'published_at',
+    'discovered_at',
+    'summary',
+    'summary_en',
+    'nike_comment',
+    'nike_comment_en',
+    'key_points',
+    'digest_note',
+    'category',
+    'tags',
+    'language',
+    'created_at',
+    'updated_at',
+  ]
+
+  const optionalColumns = ['title_en', 'summary_en', 'nike_comment_en', 'key_points', 'digest_note']
+  const baseColumns = columns.filter((column) => !optionalColumns.includes(column))
+
+  const runQuery = (selectColumns: string[]) => getServerSupabase()
+    .from('public_ai_character_news')
+    .select(selectColumns.join(','))
+    .gte('published_at', start)
+    .lt('published_at', end)
+    .order('published_at', { ascending: false, nullsFirst: false })
+    .order('created_at', { ascending: false })
+    .limit(limit)
+
+  let { data, error } = await runQuery(columns)
+  if (error && /title_en|summary_en|nike_comment_en|key_points|digest_note|column/i.test(error.message)) {
+    const fallback = await runQuery(baseColumns)
+    data = fallback.data
+    error = fallback.error
+  }
+
+  if (error) {
+    throw new Error(`Failed to load AI character news for ${date}: ${error.message}`)
+  }
+
+  return (data || []) as unknown as AiCharacterNewsItem[]
 }

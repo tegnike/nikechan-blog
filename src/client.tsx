@@ -1107,6 +1107,29 @@ function bootstrap() {
       })
     }
 
+    const formatDateKey = (value: string | null) => {
+      if (!value) return 'unknown'
+      const date = new Date(value)
+      if (Number.isNaN(date.getTime())) return 'unknown'
+      return new Intl.DateTimeFormat('en-CA', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'Asia/Tokyo',
+      }).format(date)
+    }
+
+    const formatDateHeading = (dateKey: string) => {
+      if (dateKey === 'unknown') return locale === 'ja' ? '公開日不明' : 'Unknown date'
+      return formatDate(`${dateKey}T00:00:00+09:00`)
+    }
+
+    const dateGroupHref = (dateKey: string) => {
+      return locale === 'ja'
+        ? `/ai-news/daily/${dateKey}`
+        : `/ai-news/daily/${dateKey}?lang=en`
+    }
+
     const getHost = (item: AiNewsItem) => {
       if (item.source_name) return item.source_name
       if (item.source_domain) return item.source_domain
@@ -1179,6 +1202,24 @@ function bootstrap() {
       `
     }
 
+    const getOrCreateDateGroup = (dateKey: string) => {
+      const selector = `[data-ai-news-date-group="${CSS.escape(dateKey)}"]`
+      let group = list.querySelector<HTMLElement>(selector)
+      if (!group) {
+        const headingContent = dateKey === 'unknown'
+          ? escapeHtml(formatDateHeading(dateKey))
+          : `<a href="${escapeHtml(dateGroupHref(dateKey))}" class="ai-news-date-heading-link">${escapeHtml(formatDateHeading(dateKey))}</a>`
+        list.insertAdjacentHTML('beforeend', `
+          <section class="ai-news-date-group" data-ai-news-date-group="${escapeHtml(dateKey)}">
+            <h2 class="ai-news-date-heading">${headingContent}</h2>
+            <div class="space-y-5" data-ai-news-date-items></div>
+          </section>
+        `)
+        group = list.querySelector<HTMLElement>(selector)
+      }
+      return group?.querySelector<HTMLElement>('[data-ai-news-date-items]') || list
+    }
+
     const loadMore = async () => {
       if (loading || !hasMore) return
       loading = true
@@ -1191,7 +1232,10 @@ function bootstrap() {
         const data = await response.json() as { items?: AiNewsItem[]; hasMore?: boolean; nextOffset?: number }
         const items = Array.isArray(data.items) ? data.items : []
         if (items.length) {
-          list.insertAdjacentHTML('beforeend', items.map((item, index) => renderArticle(item, offset + index)).join(''))
+          items.forEach((item, index) => {
+            const dateGroup = getOrCreateDateGroup(formatDateKey(item.published_at))
+            dateGroup.insertAdjacentHTML('beforeend', renderArticle(item, offset + index))
+          })
         }
         offset = Number(data.nextOffset || offset + items.length)
         list.dataset.aiNewsNextOffset = String(offset)
