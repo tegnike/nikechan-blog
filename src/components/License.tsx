@@ -38,7 +38,6 @@ const quickGuideContent: Record<Locale, {
   petMessage: string
   cards: QuickGuideCard[]
   aiTitle: string
-  aiLead: string
   aiItems: string[]
   aiLink: string
   faqTitle: string
@@ -100,7 +99,6 @@ const quickGuideContent: Record<Locale, {
       },
     ],
     aiTitle: 'AI利用はここが大事',
-    aiLead: '生成AIで作る場合は、使ってよい素材の範囲だけ特に注意してください。',
     aiItems: [
       '使える素材はVRMモデル、ロゴ画像、このWebサイトで許可している素材です。',
       '既存イラスト、配信素材、サムネイル、スクリーンショット等はAI入力・参照・学習に使えません。',
@@ -179,7 +177,6 @@ const quickGuideContent: Record<Locale, {
       },
     ],
     aiTitle: 'Important for AI use',
-    aiLead: 'When using generative AI, pay special attention to which materials are allowed.',
     aiItems: [
       'Allowed materials are VRM models, logo images, and materials explicitly permitted on this website.',
       'Existing illustrations, stream assets, thumbnails, screenshots, and similar materials cannot be used as AI input, references, or training data.',
@@ -253,7 +250,6 @@ function GuidelineQuickStart({ locale }: { locale: Locale }) {
           <Sparkles className="guideline-ai-quick__icon h-6 w-6" aria-hidden="true" />
           <div>
             <h3>{content.aiTitle}</h3>
-            <p>{content.aiLead}</p>
           </div>
         </div>
         <ul>
