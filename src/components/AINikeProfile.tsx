@@ -96,6 +96,11 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       icon: <img src="/icons/youtube.svg" alt="YouTube" className="w-4 h-4 brightness-0 invert" />,
     },
     {
+      label: 'TikTok',
+      url: 'https://www.tiktok.com/@nike_cha_n',
+      icon: <img src="/icons/tiktok.svg" alt="TikTok" className="w-4 h-4 brightness-0 invert" />,
+    },
+    {
       label: 'AITuberKit',
       url: 'https://aituberkit.com',
       icon: <img src="/icons/aituberkit.png" alt="AITuberKit" className="w-4 h-4 brightness-0 invert" />,

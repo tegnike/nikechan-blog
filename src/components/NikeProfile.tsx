@@ -80,6 +80,11 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       icon: <img src="/icons/youtube.svg" alt="YouTube" className="w-4 h-4 brightness-0 invert" />,
     },
     {
+      label: 'TikTok',
+      url: 'https://www.tiktok.com/@nike_cha_n',
+      icon: <img src="/icons/tiktok.svg" alt="TikTok" className="w-4 h-4 brightness-0 invert" />,
+    },
+    {
       label: 'Zenn',
       url: 'https://zenn.dev/nikechan',
       icon: <img src="/icons/zenn.svg" alt="Zenn" className="w-4 h-4 brightness-0 invert" />,
