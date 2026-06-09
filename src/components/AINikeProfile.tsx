@@ -53,7 +53,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           {details.voice.value}
           {locale === 'ja' ? '（' : ' ('}
           <a
-            href="/guidelines#voice-model"
+            href="/guidelines/derivative#voice-model"
             className="text-purple-600 hover:underline"
           >
             {details.voice.guidelinesLink}

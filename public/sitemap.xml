@@ -45,6 +45,14 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Derivative Creation Guidelines -->
+  <url>
+    <loc>https://nikechan.com/guidelines/derivative</loc>
+    <lastmod>2025-01-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- AI Guidelines -->
   <url>
     <loc>https://nikechan.com/guidelines/ai</loc>

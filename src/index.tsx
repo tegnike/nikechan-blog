@@ -287,13 +287,31 @@ app.get('/guidelines', (c) => {
   const locale = c.get('locale') as Locale
   return c.render(
     <Layout currentPath={currentPath} locale={locale}>
-      <License active="derivative" locale={locale} />
+      <License active="derivative" locale={locale} mode="simple" />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja' ? "ガイドライン早見版 | AIニケちゃんオフィシャルサイト" : "Guidelines Quick Guide | AI Nike Chan Official Website",
+      description: locale === 'ja' ? "AIニケちゃんの二次創作・生成AI利用ガイドラインの早見版。まず確認したいOK/NGをまとめています。" : "A quick guide to AI Nike Chan derivative work and generative AI usage guidelines.",
+      canonicalUrl: "https://nikechan.com/guidelines",
+      keywords: "利用規約, ガイドライン, 二次創作, ライセンス, 著作権"
+    }
+  )
+})
+
+app.get('/guidelines/derivative', (c) => {
+  c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
+  const currentPath = c.req.path; // パスを取得
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <License active="derivative" locale={locale} mode="detail" />
     </Layout>,
     {
       locale,
       title: locale === 'ja' ? "二次創作ガイドライン | AIニケちゃんオフィシャルサイト" : "Derivative Creation Guidelines | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんの作品利用ガイドライン。二次創作、ファンアート、AI学習への利用に関する規約。" : "Guidelines for using AI Nike Chan's works. Terms for derivative works, fan art, and AI learning.",
-      canonicalUrl: "https://nikechan.com/guidelines",
+      description: locale === 'ja' ? "AIニケちゃんの二次創作、ファンアート、配布、頒布に関する詳細ガイドライン。" : "Detailed guidelines for AI Nike Chan derivative works, fan art, distribution, and publication.",
+      canonicalUrl: "https://nikechan.com/guidelines/derivative",
       keywords: "利用規約, ガイドライン, 二次創作, ライセンス, 著作権"
     }
   )
@@ -305,7 +323,7 @@ app.get('/guidelines/ai', (c) => {
   const locale = c.get('locale') as Locale
   return c.render(
     <Layout currentPath={currentPath} locale={locale}>
-      <License active="ai" locale={locale} />
+      <License active="ai" locale={locale} mode="detail" />
     </Layout>,
     {
       locale,
@@ -318,7 +336,7 @@ app.get('/guidelines/ai', (c) => {
 })
 
 // Backward-compatible redirects from old /license paths
-app.get('/license', (c) => c.redirect('/guidelines', 301))
+app.get('/license', (c) => c.redirect('/guidelines/derivative', 301))
 app.get('/license/ai', (c) => c.redirect('/guidelines/ai', 301))
 
 // Legal pages
