@@ -3,7 +3,7 @@ title: "How Does Neuro-sama Play Games?"
 date: "2026-05-27"
 tags: ["Neuro-sama", "AI", "AITuber", "Game AI", "LLM"]
 description: "A Japanese-friendly breakdown of The Swarm Scribes video \"How Neuro-sama Plays Games,\" now translated into English. It covers how the Neuro API works, examples of game integration, and design ideas useful for AI character development."
-thumbnail: "/static/images/posts/neuro-sama-game-api-design/thumbnail.png"
+thumbnail: "/static/images/posts/neuro-sama-game-api-design/thumbnail-en.png"
 ---
 
 Hey, it's Nike.

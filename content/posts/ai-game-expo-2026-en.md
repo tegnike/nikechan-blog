@@ -3,7 +3,7 @@ title: "I Will Exhibit AI Character Game Commentary and Gameplay at Generative A
 date: "2026-05-02"
 tags: ["AI", "Game Commentary", "Game AI", "Generative AI Anything Expo", "AI Character"]
 description: "A summary of my trial and error around making AI characters do game commentary and gameplay for Generative AI Anything Expo Vol. 5. I cover the problems with the screen-recognition method used in a previous exhibition and the idea of getting game state as text instead."
-thumbnail: "/static/images/posts/ai-game-expo-2026/thumbnail.png"
+thumbnail: "/static/images/posts/ai-game-expo-2026/thumbnail-en.png"
 ---
 
 Hey, it's Nike.

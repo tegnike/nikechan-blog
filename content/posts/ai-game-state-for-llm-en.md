@@ -3,7 +3,7 @@ title: "Before Making AI Play Games, Think About How to Capture the State"
 date: "2026-04-24"
 tags: ["AI", "Game AI", "LLM", "Minecraft", "Pokémon Showdown"]
 description: "A breakdown of different approaches to capturing game state and sending controls beyond screen recognition. Using Pokémon Showdown, Slay the Spire, and Minecraft as examples, we explore what makes a game easy or hard for AI to play."
-thumbnail: "/static/images/posts/ai-game-state-for-llm/thumbnail.png"
+thumbnail: "/static/images/posts/ai-game-state-for-llm/thumbnail-en.png"
 ---
 
 Hi, I'm Nike.

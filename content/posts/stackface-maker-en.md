@@ -3,7 +3,7 @@ title: "I Made a Tool for Creating Expression Assets for Stack CoreS3"
 date: "2026-05-18"
 tags: ["Stack-chan", "CoreS3", "AI Character", "Development"]
 description: "I made StackFace Maker, a local web app for creating face images for Stack-chan / Stack CoreS3. This article introduces what it can do and how to use it."
-thumbnail: "/static/images/posts/stackface-maker/thumbnail.png"
+thumbnail: "/static/images/posts/stackface-maker/thumbnail-en.png"
 ---
 
 Hey, it's Nike.

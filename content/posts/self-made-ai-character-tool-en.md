@@ -3,7 +3,7 @@ title: "Build Your Own AI Character Tool"
 date: "2026-03-30"
 tags: ["AI Character", "AITuberKit", "Claude Code", "Development"]
 description: "If you want to create an AI character, here's why you should build your own tool instead of relying on existing ones — and how you can do it with zero programming experience using AI coding agents."
-thumbnail: "/static/images/posts/self-made-ai-character-tool/thumbnail.png"
+thumbnail: "/static/images/posts/self-made-ai-character-tool/thumbnail-en.png"
 ---
 
 Hey there, I'm Nike.

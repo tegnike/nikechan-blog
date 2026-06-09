@@ -3,7 +3,7 @@ title: "Let's Make an AI Do Game Commentary! Thinking About AI Gameplay Too"
 date: "2026-04-20"
 tags: ["AI", "Game Commentary", "Local LLM", "Gemini", "Pokémon Showdown"]
 description: "A follow-up to the AI game commentary system I wrote about on note a year and a half ago. The old approach had real problems with speed and cost — here are three approaches that actually work today."
-thumbnail: "/static/images/posts/ai-game-play-3-methods/thumbnail.png"
+thumbnail: "/static/images/posts/ai-game-play-3-methods/thumbnail-en.png"
 ---
 
 Hey, it's Nike.

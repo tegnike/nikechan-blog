@@ -3,7 +3,7 @@ title: "I Made a MotionPNGTuber Skill for Creating Character Explainer Videos wi
 date: "2026-05-01"
 tags: ["Remotion", "Codex", "Claude Code", "MotionPNGTuber"]
 description: "An introduction to the skill I made for creating Remotion videos with Claude Code and Codex, plus the derived MotionPNGTuber skill built on top of it. This covers the thinking and workflow behind reliably making character explainer videos in code."
-thumbnail: "/static/images/posts/remotion-motionpngtuber-skill/thumbnail.png"
+thumbnail: "/static/images/posts/remotion-motionpngtuber-skill/thumbnail-en.png"
 ---
 
 Hey, it's Nike.
