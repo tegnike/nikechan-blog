@@ -249,21 +249,19 @@ function GuidelineQuickStart({ locale }: { locale: Locale }) {
       </div>
 
       <div className="guideline-ai-quick">
-        <Sparkles className="guideline-ai-quick__icon h-6 w-6" aria-hidden="true" />
-        <div className="guideline-ai-quick__content">
-          <div className="guideline-ai-quick__head">
-            <div>
-              <h3>{content.aiTitle}</h3>
-              <p>{content.aiLead}</p>
-            </div>
+        <div className="guideline-ai-quick__head">
+          <Sparkles className="guideline-ai-quick__icon h-6 w-6" aria-hidden="true" />
+          <div>
+            <h3>{content.aiTitle}</h3>
+            <p>{content.aiLead}</p>
           </div>
-          <ul>
-            {content.aiItems.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-          <a href={`/guidelines/ai${langQuery}`}>{content.aiLink}</a>
         </div>
+        <ul>
+          {content.aiItems.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <a href={`/guidelines/ai${langQuery}`}>{content.aiLink}</a>
       </div>
 
       <div className="guideline-quick-faq" aria-labelledby="guideline-quick-faq-title">

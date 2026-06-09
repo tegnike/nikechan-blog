@@ -4230,9 +4230,6 @@
 }
 
 .guideline-ai-quick {
-  display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
-  gap: 12px;
   margin: 4px 0 20px;
   padding: 20px;
   border: 3px solid var(--character-ink);
@@ -4242,19 +4239,16 @@
 }
 
 .guideline-ai-quick__head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
   margin-bottom: 14px;
 }
 
 .guideline-ai-quick__icon {
-  grid-column: 1;
-  grid-row: 1;
+  flex: 0 0 auto;
   margin-top: 2px;
   color: #00899a;
-}
-
-.guideline-ai-quick__content {
-  grid-column: 2;
-  min-width: 0;
 }
 
 .guideline-ai-quick h3,
