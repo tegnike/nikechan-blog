@@ -245,7 +245,15 @@ export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
         <div className="character-detail-hero__grid" aria-hidden="true" />
         <div className="site-page-hero__inner">
           <h1>AI NEWS</h1>
-          <p>{text.heroText}</p>
+          <p>
+            {locale === 'ja' ? (
+              <>
+                {'AIキャラクター、AITuber、AI VTuber関連のニュースを'}
+                <span className="ai-news-hero-nowrap">AIニケちゃん視点</span>
+                {'で短く追う'}
+              </>
+            ) : text.heroText}
+          </p>
         </div>
       </section>
 

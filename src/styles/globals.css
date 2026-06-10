@@ -5143,6 +5143,15 @@ a.glass-panel:hover {
   background: var(--character-yellow);
 }
 
+.ai-news-redesign .site-page-hero__inner > p {
+  max-width: min(780px, 100%);
+  overflow-wrap: normal;
+}
+
+.ai-news-hero-nowrap {
+  white-space: nowrap;
+}
+
 .ai-news-timeline,
 .ai-news-date-group {
   display: grid;
