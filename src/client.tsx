@@ -1060,6 +1060,7 @@ function bootstrap() {
     const pageSize = 10
     const locale = document.documentElement.lang === 'en' ? 'en' : 'ja'
     let offset = Number(list.dataset.aiNewsNextOffset || pageSize)
+    const excludedIds = list.dataset.aiNewsExcludedIds || ''
     let loading = false
     let hasMore = true
 
@@ -1098,25 +1099,23 @@ function bootstrap() {
       .replace(/'/g, '&#39;')
 
     const formatDate = (value: string | null) => {
-      if (!value) return locale === 'ja' ? '公開日不明' : 'Unknown date'
-      return new Date(value).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
+      const dateKey = formatDateKey(value)
+      if (dateKey === 'unknown') return locale === 'ja' ? '公開日不明' : 'Unknown date'
+      return new Date(`${dateKey}T12:00:00Z`).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
-        timeZone: 'Asia/Tokyo',
+        timeZone: 'UTC',
       })
     }
 
     const formatDateKey = (value: string | null) => {
       if (!value) return 'unknown'
+      const datePart = value.match(/^(\d{4}-\d{2}-\d{2})/)?.[1]
+      if (datePart) return datePart
       const date = new Date(value)
       if (Number.isNaN(date.getTime())) return 'unknown'
-      return new Intl.DateTimeFormat('en-CA', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        timeZone: 'Asia/Tokyo',
-      }).format(date)
+      return date.toISOString().slice(0, 10)
     }
 
     const formatDateHeading = (dateKey: string) => {
@@ -1225,7 +1224,12 @@ function bootstrap() {
       loading = true
       sentinel.textContent = locale === 'ja' ? 'さらに読み込み中...' : 'Loading more...'
       try {
-        const response = await fetch(`/api/ai-news?offset=${offset}&limit=${pageSize}`, {
+        const params = new URLSearchParams({
+          offset: String(offset),
+          limit: String(pageSize),
+        })
+        if (excludedIds) params.set('exclude', excludedIds)
+        const response = await fetch(`/api/ai-news?${params.toString()}`, {
           headers: { Accept: 'application/json' },
         })
         if (!response.ok) throw new Error(`AI news API returned ${response.status}`)

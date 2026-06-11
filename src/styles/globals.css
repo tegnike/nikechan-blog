@@ -5158,6 +5158,35 @@ a.glass-panel:hover {
   gap: 20px;
 }
 
+.ai-news-recent-section,
+.ai-news-timeline-section {
+  display: grid;
+  gap: 20px;
+}
+
+.ai-news-recent-section + .ai-news-timeline-section {
+  margin-top: 34px;
+}
+
+.ai-news-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-news-section-header h2,
+.ai-news-section-title {
+  margin: 0;
+  color: var(--character-ink);
+  font-family: 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
 .ai-news-index-toolbar {
   display: flex;
   justify-content: flex-end;
@@ -5436,6 +5465,10 @@ a.glass-panel:hover {
   .ai-news-index-toolbar .design-action-button {
     justify-content: center;
     width: 100%;
+  }
+
+  .ai-news-section-header {
+    align-items: flex-start;
   }
 
   .ai-news-daily-promo {

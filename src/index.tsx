@@ -28,11 +28,18 @@ import { AiNewsDailyDetail, AiNewsDailyList } from './components/AiNewsDaily'
 import { getPostBySlug, getPostsByLocale, getPostByDraftToken, getOgpCache } from './utils/posts'
 import { mdToHtml, extractToc } from './utils/mdToHtml'
 import { detectLocale, type Locale } from './i18n/config'
-import { getAiCharacterNews, getAiCharacterNewsDateGroups, getAiCharacterNewsForDate } from './lib/ai-character-news'
+import {
+  getAiCharacterNewsDateGroups,
+  getAiCharacterNewsForDate,
+  getAiCharacterNewsPage,
+  getRecentlyAddedAiCharacterNews,
+} from './lib/ai-character-news'
 import type { AiCharacterNewsDateGroup, AiCharacterNewsItem } from './lib/ai-character-news'
 
 const app = new Hono()
 const AI_NEWS_PAGE_SIZE = 10
+const AI_NEWS_RECENT_LIMIT = 5
+const AI_NEWS_RECENT_HOURS = 48
 
 // Middleware to detect and set locale
 app.use('*', async (c, next) => {
@@ -104,10 +111,21 @@ app.get('/ai-news', async (c) => {
   const currentPath = c.req.path
   const locale = c.get('locale') as Locale
   let items: AiCharacterNewsItem[] = []
+  let recentItems: AiCharacterNewsItem[] = []
+  let nextOffset = 0
+  let hasMore = false
   let error: string | undefined
 
   try {
-    items = await getAiCharacterNews(AI_NEWS_PAGE_SIZE)
+    recentItems = await getRecentlyAddedAiCharacterNews(AI_NEWS_RECENT_LIMIT, AI_NEWS_RECENT_HOURS)
+    const page = await getAiCharacterNewsPage(
+      AI_NEWS_PAGE_SIZE,
+      0,
+      recentItems.map((item) => item.id),
+    )
+    items = page.items
+    nextOffset = page.nextOffset
+    hasMore = page.hasMore
   } catch (err) {
     console.error('Failed to load AI character news', err)
     error = locale === 'ja'
@@ -117,7 +135,14 @@ app.get('/ai-news', async (c) => {
 
   return c.render(
     <Layout currentPath={currentPath} locale={locale}>
-      <AiCharacterNews items={items} error={error} locale={locale} />
+      <AiCharacterNews
+        items={items}
+        recentItems={recentItems}
+        nextOffset={nextOffset}
+        hasMore={hasMore}
+        error={error}
+        locale={locale}
+      />
     </Layout>,
     {
       locale,
@@ -231,13 +256,17 @@ app.get('/api/ai-news', async (c) => {
   const offset = Math.max(0, Number(url.searchParams.get('offset') || 0) || 0)
   const requestedLimit = Math.max(1, Number(url.searchParams.get('limit') || AI_NEWS_PAGE_SIZE) || AI_NEWS_PAGE_SIZE)
   const limit = Math.min(requestedLimit, 20)
+  const excludeIds = (url.searchParams.get('exclude') || '')
+    .split(',')
+    .map((id) => id.trim())
+    .filter(Boolean)
 
   try {
-    const items = await getAiCharacterNews(limit + 1, offset)
+    const page = await getAiCharacterNewsPage(limit, offset, excludeIds)
     return c.json({
-      items: items.slice(0, limit),
-      hasMore: items.length > limit,
-      nextOffset: offset + Math.min(items.length, limit),
+      items: page.items,
+      hasMore: page.hasMore,
+      nextOffset: page.nextOffset,
     })
   } catch (err) {
     console.error('Failed to load AI character news page', err)

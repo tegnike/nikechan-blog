@@ -35,6 +35,12 @@ export type AiCharacterNewsDateGroup = {
   latest_published_at: string | null
 }
 
+export type AiCharacterNewsPage = {
+  items: AiCharacterNewsItem[]
+  hasMore: boolean
+  nextOffset: number
+}
+
 let serverSupabase: SupabaseClient | null = null
 
 function getEnv(key: string): string | undefined {
@@ -111,20 +117,109 @@ export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiChar
   return (data || []) as unknown as AiCharacterNewsItem[]
 }
 
+export async function getRecentlyAddedAiCharacterNews(limit = 5, hours = 48): Promise<AiCharacterNewsItem[]> {
+  const cutoff = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
+
+  const { data, error } = await getServerSupabase()
+    .from('public_ai_character_news')
+    .select([
+      'id',
+      'url',
+      'canonical_url',
+      'title',
+      'title_en',
+      'source_name',
+      'source_domain',
+      'published_at',
+      'discovered_at',
+      'summary',
+      'summary_en',
+      'nike_comment',
+      'nike_comment_en',
+      'key_points',
+      'digest_note',
+      'category',
+      'tags',
+      'language',
+      'created_at',
+      'updated_at',
+    ].join(','))
+    .gte('discovered_at', cutoff)
+    .order('published_at', { ascending: false, nullsFirst: false })
+    .order('discovered_at', { ascending: false, nullsFirst: false })
+    .limit(limit)
+
+  if (error) {
+    throw new Error(`Failed to load recently added AI character news: ${error.message}`)
+  }
+
+  return (data || []) as unknown as AiCharacterNewsItem[]
+}
+
+export async function getAiCharacterNewsPage(
+  limit = 50,
+  offset = 0,
+  excludeIds: string[] = [],
+): Promise<AiCharacterNewsPage> {
+  const excluded = new Set(excludeIds)
+  const items: AiCharacterNewsItem[] = []
+  let cursor = offset
+  let hasMore = false
+  const batchSize = Math.max(limit + excluded.size + 1, 20)
+
+  while (items.length < limit) {
+    const batch = await getAiCharacterNews(batchSize, cursor)
+    if (batch.length === 0) {
+      hasMore = false
+      break
+    }
+
+    let consumed = 0
+    for (const item of batch) {
+      consumed += 1
+      if (!excluded.has(item.id)) {
+        items.push(item)
+      }
+      if (items.length >= limit) break
+    }
+    cursor += consumed
+
+    if (batch.length < batchSize) {
+      hasMore = false
+      break
+    }
+
+    if (items.length >= limit) {
+      hasMore = consumed < batch.length || batch.length === batchSize
+      break
+    }
+  }
+
+  if (items.length === limit && !hasMore) {
+    const probe = await getAiCharacterNews(1, cursor)
+    if (probe.length > 0) {
+      hasMore = true
+    }
+  }
+
+  return {
+    items,
+    hasMore,
+    nextOffset: cursor,
+  }
+}
+
 function formatNewsDateKey(value: string | null): string | null {
   if (!value) return null
+  const datePart = value.match(/^(\d{4}-\d{2}-\d{2})/)?.[1]
+  if (datePart) return datePart
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return null
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Asia/Tokyo',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(date)
+  return date.toISOString().slice(0, 10)
 }
 
 function newsDateRange(date: string): { start: string; end: string } {
-  const start = new Date(`${date}T00:00:00+09:00`)
+  const start = new Date(`${date}T00:00:00Z`)
   const end = new Date(start.getTime() + 24 * 60 * 60 * 1000)
   return { start: start.toISOString(), end: end.toISOString() }
 }

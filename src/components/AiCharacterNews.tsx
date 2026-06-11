@@ -4,6 +4,9 @@ import type { Locale } from '../i18n/config'
 
 type Props = {
   items: AiCharacterNewsItem[]
+  recentItems?: AiCharacterNewsItem[]
+  nextOffset?: number
+  hasMore?: boolean
   error?: string
   locale?: Locale
 }
@@ -44,6 +47,8 @@ const copy: Record<Locale, {
   readArticle: string
   petLabel: string
   dateArchive: string
+  recentlyAdded: string
+  dateTimeline: string
 }> = {
   ja: {
     heroText: 'AIキャラクター、AITuber、AI VTuber関連のニュースをAIニケちゃん視点で短く追う',
@@ -54,6 +59,8 @@ const copy: Record<Locale, {
     readArticle: '記事を読む',
     petLabel: '話しているAIニケちゃん',
     dateArchive: '日付別一覧',
+    recentlyAdded: '最新のニュース',
+    dateTimeline: '日付別ニュース',
   },
   en: {
     heroText: 'Short AI character, AITuber, and AI VTuber news notes from AI Nike Chan',
@@ -64,29 +71,29 @@ const copy: Record<Locale, {
     readArticle: 'Read article',
     petLabel: 'AI Nike Chan speaking',
     dateArchive: 'By date',
+    recentlyAdded: 'Latest news',
+    dateTimeline: 'News by date',
   },
 }
 
 export function formatAiNewsDateLabel(value: string | null, locale: Locale): string {
-  if (!value) return copy[locale].unknownDate
-  return new Date(value).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
+  const dateKey = formatAiNewsDateKey(value)
+  if (dateKey === 'unknown') return copy[locale].unknownDate
+  return new Date(`${dateKey}T12:00:00Z`).toLocaleDateString(locale === 'ja' ? 'ja-JP' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    timeZone: 'Asia/Tokyo',
+    timeZone: 'UTC',
   })
 }
 
 export function formatAiNewsDateKey(value: string | null): string {
   if (!value) return 'unknown'
+  const datePart = value.match(/^(\d{4}-\d{2}-\d{2})/)?.[1]
+  if (datePart) return datePart
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return 'unknown'
-  return new Intl.DateTimeFormat('en-CA', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    timeZone: 'Asia/Tokyo',
-  }).format(date)
+  return date.toISOString().slice(0, 10)
 }
 
 function getHost(item: AiCharacterNewsItem, locale: Locale): string {
@@ -234,10 +241,18 @@ export function AiNewsCard({
   )
 }
 
-export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
+export function AiCharacterNews({
+  items,
+  recentItems = [],
+  nextOffset,
+  hasMore = false,
+  error,
+  locale = 'ja',
+}: Props) {
   const text = copy[locale]
   const groups = groupByDate(items)
   const dateArchiveHref = locale === 'ja' ? '/ai-news/daily' : '/ai-news/daily?lang=en'
+  const hasAnyItems = recentItems.length > 0 || items.length > 0
 
   return (
     <div className="character-page ai-news-redesign min-h-screen">
@@ -258,7 +273,7 @@ export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
       </section>
 
       <main className="designed-page-main container mx-auto max-w-5xl px-4">
-        {!error && items.length > 0 && (
+        {!error && hasAnyItems && (
           <div className="ai-news-index-toolbar">
             <a href={dateArchiveHref} className="design-action-button">
               <CalendarDays className="h-4 w-4" />
@@ -273,14 +288,39 @@ export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
           </div>
         )}
 
-        {!error && items.length === 0 && (
+        {!error && !hasAnyItems && (
           <div className="glass-panel p-8 text-center text-gray-600">
             {text.empty}
           </div>
         )}
 
-        {!error && items.length > 0 && (
-          <div className="ai-news-timeline" data-ai-news-list data-ai-news-next-offset={items.length}>
+        {!error && recentItems.length > 0 && (
+          <section className="ai-news-recent-section">
+            <div className="ai-news-section-header">
+              <h2>{text.recentlyAdded}</h2>
+            </div>
+            <div className="space-y-5">
+              {recentItems.map((item, index) => (
+                <AiNewsCard
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  locale={locale}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {!error && (items.length > 0 || hasMore) && (
+          <section className="ai-news-timeline-section">
+            <h2 className="ai-news-section-title">{text.dateTimeline}</h2>
+            <div
+              className="ai-news-timeline"
+              data-ai-news-list
+              data-ai-news-next-offset={nextOffset ?? items.length}
+              data-ai-news-excluded-ids={recentItems.map((item) => item.id).join(',')}
+            >
             {groups.map((group) => (
               <section key={group.dateKey} className="ai-news-date-group" data-ai-news-date-group={group.dateKey}>
                 <h2 className="ai-news-date-heading">
@@ -302,10 +342,11 @@ export function AiCharacterNews({ items, error, locale = 'ja' }: Props) {
                 </div>
               </section>
             ))}
-          </div>
+            </div>
+          </section>
         )}
 
-        {!error && items.length > 0 && (
+        {!error && hasMore && (
           <div
             className="ai-news-load-state mt-6 text-center text-sm font-semibold text-gray-500"
             data-ai-news-sentinel
