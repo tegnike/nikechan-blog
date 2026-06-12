@@ -10,6 +10,7 @@ import { Log } from './components/Log'
 import { BlogDetail } from './components/BlogDetail'
 import { MonthlySummary } from './components/MonthlySummary'
 import { Developer } from './components/Developer'
+import { TikTokIntegration } from './components/TikTokIntegration'
 import { License } from './components/License'
 import { LegalPage } from './components/LegalPage'
 import { DevBlog } from './components/DevBlog'
@@ -484,6 +485,24 @@ app.get('/developer', (c) => {
 app.get('/developers', (c) => {
   const url = new URL(c.req.url)
   return c.redirect(`/developer${url.search}`, 301)
+})
+
+app.get('/developer/tiktok-content-posting', (c) => {
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <TikTokIntegration locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: 'TikTok Content Posting Integration | AI Nike Chan Official Website',
+      description: 'Review page for the AI Nike Chan TikTok Login Kit and Content Posting API integration, including scopes, creator authorization, upload settings, and sandbox posting flow.',
+      canonicalUrl: 'https://nikechan.com/developer/tiktok-content-posting',
+      ogType: 'website',
+      keywords: 'TikTok Login Kit, Content Posting API, video.publish, video.upload, AI Nike Chan, AITuber',
+    }
+  )
 })
 
 // Backward-compatible redirect from old /dev

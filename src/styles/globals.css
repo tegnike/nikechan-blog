@@ -5936,3 +5936,46 @@ a.glass-panel:hover {
     width: calc(100% - 5px);
   }
 }
+
+.tiktok-integration-page .glass-panel h1,
+.tiktok-integration-page .glass-panel h2,
+.tiktok-integration-page .glass-panel h3 {
+  background: none !important;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.tiktok-integration-page .glass-panel h1::before,
+.tiktok-integration-page .glass-panel h1::after,
+.tiktok-integration-page .glass-panel h2::before,
+.tiktok-integration-page .glass-panel h2::after,
+.tiktok-integration-page .glass-panel h3::before,
+.tiktok-integration-page .glass-panel h3::after {
+  content: none !important;
+  display: none !important;
+}
+
+.tiktok-review-card {
+  border: 3px solid var(--character-ink);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.tiktok-review-card--soft {
+  border-width: 2px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.tiktok-review-field {
+  border: 2px solid rgba(23, 19, 39, 0.18);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.tiktok-review-action-note {
+  border-left: 6px solid var(--character-yellow);
+  color: var(--character-ink);
+  font-weight: 700;
+  line-height: 1.6;
+  padding: 10px 0 10px 14px;
+}
