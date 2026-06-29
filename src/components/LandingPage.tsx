@@ -1,4 +1,5 @@
 import { WelcomeSection } from "./lp/WelcomeSection";
+import { AITuberChatSection } from "./lp/AITuberChatSection";
 import { NewsSection } from "./lp/NewsSection";
 import { AboutSection } from "./lp/AboutSection";
 import { LicenseSection } from "./lp/LicenseSection";
@@ -17,6 +18,8 @@ export function LandingPage({ locale = 'ja' }: Props) {
     <div className="character-page min-h-screen">
       {/* ヒーローセクション（維持） */}
       <WelcomeSection locale={locale} />
+
+      <AITuberChatSection locale={locale} />
 
       {/* メインコンテンツ */}
       <div className="relative">
