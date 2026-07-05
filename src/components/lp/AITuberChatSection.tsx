@@ -1,4 +1,4 @@
-import { type Locale } from "../../i18n/config";
+import { getT, type Locale } from "../../i18n/config";
 
 type Props = {
   locale?: Locale;
@@ -6,39 +6,64 @@ type Props = {
 
 const AITUBERKIT_BASE_URL = "https://aituberkit.com";
 const AITUBERKIT_EMBED_SCRIPT_URL = `${AITUBERKIT_BASE_URL}/embed.js`;
+const AITUBERKIT_SITE_URL = "https://promotion.aituberkit.com/";
 
 export function AITuberChatSection({ locale = "ja" }: Props) {
-  const isJa = locale === "ja";
+  const t = getT(locale);
 
   return (
-    <section className="py-10 sm:py-16 px-2 sm:px-6" id="talk-with-nikechan">
+    <section
+      className="home-chat-section py-10 sm:py-16 px-2 sm:px-6"
+      id="talk-with-nikechan"
+    >
       <div className="site-shell">
-        <div className="glass-panel p-4 sm:p-6 lg:p-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.4fr] gap-6 lg:gap-8 items-center">
-            <div className="space-y-4">
-              <p className="text-sm font-semibold tracking-wide text-pink-600">
-                AITuberKit
+        {/* 見出し */}
+        <h2 className="home-section-title">{t("home:chat.heading")}</h2>
+
+        <div className="glass-panel home-chat-panel p-6 sm:p-10">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.4fr] gap-8 lg:gap-12 items-center">
+            {/* 左カラム: ニケちゃんからの呼びかけ */}
+            <div className="home-chat-copy space-y-6">
+              <p className="home-chat-lead">{t("home:chat.lead")}</p>
+
+              <p className="home-chat-description">
+                {t("home:chat.description")}
               </p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                {isJa ? "ニケちゃんと話す" : "Talk with Nike Chan"}
-              </h2>
-              <p className="text-sm sm:text-base leading-7 text-gray-700">
-                {isJa
-                  ? "AITuberKitで設定したキャラクターモデル、LLM、音声合成を使って、そのまま会話できるスペースです。"
-                  : "This space uses the character model, LLM, and text-to-speech flow configured in AITuberKit."}
-              </p>
+
+              <div className="pt-2">
+                <a
+                  href={AITUBERKIT_SITE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="design-action-button"
+                >
+                  {t("home:chat.poweredByCta")}
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
+              </div>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border border-white/80 bg-white shadow-xl">
+            {/* 右カラム: AITuberKit埋め込みウィジェット */}
+            <div className="home-chat-widget-frame">
               <div
                 data-aituber-kit-embed
                 data-base-url={AITUBERKIT_BASE_URL}
                 data-embed-id="default"
                 data-height="640"
                 data-loading="eager"
-                data-title={
-                  isJa ? "ニケちゃんとの会話" : "Conversation with Nike Chan"
-                }
+                data-title={t("home:chat.widgetTitle")}
               />
               <script
                 src={AITUBERKIT_EMBED_SCRIPT_URL}

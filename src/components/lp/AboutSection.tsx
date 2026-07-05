@@ -96,6 +96,12 @@ export function AboutSection({ locale = 'ja' }: Props) {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <a
+                  href="#talk-with-nikechan"
+                  className="design-action-button"
+                >
+                  {t('home:about.cta.chat')}
+                </a>
+                <a
                   href={`/about${langQuery}`}
                   className="design-action-button"
                 >

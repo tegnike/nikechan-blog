@@ -21,8 +21,16 @@
     },
     "cta": {
       "profile": "About AI Nike-chan",
-      "gallery": "Go to Gallery"
+      "gallery": "Go to Gallery",
+      "chat": "Talk with Nike-chan"
     }
+  },
+  "chat": {
+    "heading": "Talk with Nike-chan",
+    "lead": "AI Nike-chan is waiting to chat with you.",
+    "description": "Send a message and Nike-chan will reply with her voice. The character model, LLM, and text-to-speech are all powered by the open-source \"AITuberKit\".",
+    "widgetTitle": "Conversation with Nike-chan",
+    "poweredByCta": "About AITuberKit"
   },
   "news": {
     "heading": "Recent Updates",

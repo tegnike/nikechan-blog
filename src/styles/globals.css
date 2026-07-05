@@ -3838,6 +3838,38 @@
   margin-left: auto;
 }
 
+.home-chat-section {
+  scroll-margin-top: 88px;
+}
+
+.home-chat-lead {
+  margin: 0;
+  color: var(--character-ink);
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.home-chat-description {
+  max-width: 620px;
+  margin: 0;
+  padding-left: 18px;
+  border-left: 6px solid var(--character-yellow);
+  color: #3b344b;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.9;
+}
+
+.home-chat-widget-frame {
+  min-width: 0;
+  overflow: hidden;
+  border: 3px solid var(--character-ink);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 8px 8px 0 var(--character-ink);
+}
+
 .design-toggle {
   display: flex;
   flex-wrap: wrap;

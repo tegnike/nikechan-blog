@@ -19,13 +19,12 @@ export function LandingPage({ locale = 'ja' }: Props) {
       {/* ヒーローセクション（維持） */}
       <WelcomeSection locale={locale} />
 
-      <AITuberChatSection locale={locale} />
-
       {/* メインコンテンツ */}
       <div className="relative">
         <div className="character-showcase-bg absolute inset-0" />
         <div className="relative z-10">
           <AboutSection locale={locale} />
+          <AITuberChatSection locale={locale} />
           <NewsSection locale={locale} limit={3} />
           <LicenseSection locale={locale} />
           <GallerySection locale={locale} />

@@ -21,8 +21,16 @@
     },
     "cta": {
       "profile": "AIニケちゃんとは",
-      "gallery": "ギャラリーへ"
+      "gallery": "ギャラリーへ",
+      "chat": "ニケちゃんと話してみる"
     }
+  },
+  "chat": {
+    "heading": "ニケちゃんと話す",
+    "lead": "AIニケちゃんが、あなたとのおしゃべりを待っています。",
+    "description": "メッセージを送ると、ニケちゃんが声つきで返事してくれます。キャラクターモデル・LLM・音声合成はすべてOSS「AITuberKit」で動いています。",
+    "widgetTitle": "ニケちゃんとの会話",
+    "poweredByCta": "AITuberKitについて"
   },
   "news": {
     "heading": "最近のアップデート",
