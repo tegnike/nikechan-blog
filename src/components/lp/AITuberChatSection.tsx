@@ -4,18 +4,8 @@ type Props = {
   locale?: Locale;
 };
 
-const DEFAULT_EMBED_URL = "http://localhost:3000/embed/nikechan";
-
-function buildEmbedSrc(locale: Locale) {
-  const baseUrl =
-    import.meta.env.VITE_AITUBERKIT_EMBED_URL || DEFAULT_EMBED_URL;
-  const params = new URLSearchParams({
-    characterName: locale === "ja" ? "ニケちゃん" : "Nike Chan",
-    modelType: "vrm",
-  });
-
-  return `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}${params.toString()}`;
-}
+const AITUBERKIT_BASE_URL = "https://aituberkit.com";
+const AITUBERKIT_EMBED_SCRIPT_URL = `${AITUBERKIT_BASE_URL}/embed.js`;
 
 export function AITuberChatSection({ locale = "ja" }: Props) {
   const isJa = locale === "ja";
@@ -40,14 +30,20 @@ export function AITuberChatSection({ locale = "ja" }: Props) {
             </div>
 
             <div className="overflow-hidden rounded-2xl border border-white/80 bg-white shadow-xl">
-              <iframe
-                src={buildEmbedSrc(locale)}
-                title={
+              <div
+                data-aituber-kit-embed
+                data-base-url={AITUBERKIT_BASE_URL}
+                data-embed-id="default"
+                data-height="640"
+                data-loading="eager"
+                data-title={
                   isJa ? "ニケちゃんとの会話" : "Conversation with Nike Chan"
                 }
-                className="block h-[640px] w-full"
-                loading="lazy"
-                allow="microphone; camera; autoplay"
+              />
+              <script
+                src={AITUBERKIT_EMBED_SCRIPT_URL}
+                defer
+                data-aituber-kit-embed-loader
               />
             </div>
           </div>
