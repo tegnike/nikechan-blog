@@ -49,6 +49,9 @@ app.use('*', async (c, next) => {
   const locale = detectLocale(url, acceptLanguage)
   c.set('locale', locale)
   c.header('X-Build-Sha', import.meta.env.VITE_BUILD_SHA || 'unknown')
+  // レスポンスは Accept-Language に依存するため、共有キャッシュが
+  // 言語違いのページを混ぜて配らないよう Vary を必ず付ける
+  c.header('Vary', 'Accept-Language')
   await next()
 })
 
@@ -606,6 +609,12 @@ app.get('/dev-blog/:slug', (c) => {
   c.header('Cache-Control', 'public, max-age=3600')
   const currentPath = c.req.path
   const siteName = postLocale === 'en' ? 'AI Nike-chan Official Site' : 'AIニケちゃんオフィシャルサイト'
+
+  // ja/en は別スラッグの記事ペアなので、言語別代替URLを明示的に渡す
+  const baseSlug = slug.replace(/-en$/, '')
+  const hasJa = Boolean(getPostBySlug(baseSlug))
+  const hasEn = Boolean(getPostBySlug(`${baseSlug}-en`))
+
   return c.render(
     <Layout currentPath={currentPath} locale={locale}>
       <PostDetail post={post} html={html} toc={toc} prevPost={prevPost} nextPost={nextPost} locale={postLocale} />
@@ -615,6 +624,10 @@ app.get('/dev-blog/:slug', (c) => {
       title: `${post.title} | ${siteName}`,
       description: post.description,
       canonicalUrl: `https://nikechan.com/dev-blog/${slug}`,
+      alternates: {
+        ja: hasJa ? `https://nikechan.com/dev-blog/${baseSlug}` : undefined,
+        en: hasEn ? `https://nikechan.com/dev-blog/${baseSlug}-en` : undefined,
+      },
       ogType: "article",
       ogImage: post.thumbnail ? `https://nikechan.com${post.thumbnail}` : undefined,
       keywords: post.tags.join(', ')

@@ -12,6 +12,13 @@ interface BaseProps {
   keywords?: string
   structuredData?: object
   locale?: Locale
+  /**
+   * 言語別の代替URL。省略時は canonicalUrl から自動導出する
+   * (ja = canonicalUrl そのまま、en = canonicalUrl + ?lang=en)。
+   * 記事ページのように ja/en が別スラッグの場合は明示的に渡す。
+   * 片方の言語版が存在しない場合はそのキーを undefined にする。
+   */
+  alternates?: { ja?: string; en?: string }
 }
 
 export const renderer = reactRenderer(({
@@ -23,7 +30,8 @@ export const renderer = reactRenderer(({
   canonicalUrl,
   keywords,
   structuredData,
-  locale = 'ja'
+  locale = 'ja',
+  alternates
 }: BaseProps) => {
   const defaultTitle = locale === 'ja' ? 'AIニケちゃんオフィシャルサイト' : 'AI Nike Chan Official Website'
   const finalTitle = title || defaultTitle
@@ -34,7 +42,14 @@ export const renderer = reactRenderer(({
   const siteUrl = 'https://nikechan.com'
   const defaultOgImage = `${siteUrl}/images/ogp/ogp-default.png`
   const finalOgImage = ogImage || defaultOgImage
-  const finalCanonicalUrl = canonicalUrl || siteUrl
+  const baseCanonicalUrl = canonicalUrl || siteUrl
+  // 言語別URL: 明示指定があればそれに従い、なければ ?lang=en 方式で導出
+  const withLangParam = (url: string) => `${url}${url.includes('?') ? '&' : '?'}lang=en`
+  const jaUrl = alternates ? alternates.ja : baseCanonicalUrl
+  const enUrl = alternates ? alternates.en : withLangParam(baseCanonicalUrl)
+  // canonical は表示中ロケールの自己URL(en ページは ?lang=en 付きが正)
+  const finalCanonicalUrl = (locale === 'en' ? enUrl : jaUrl) ?? baseCanonicalUrl
+  const xDefaultUrl = jaUrl ?? enUrl
   const defaultKeywords = 'Nike Chan, ニケちゃん, AIニケちゃん, ポートフォリオ, イラスト, ファンアート, AI Art, Digital Art, Character Design, Blog'
   const finalKeywords = keywords || defaultKeywords
   const ogLocale = locale === 'ja' ? 'ja_JP' : 'en_US'
@@ -115,8 +130,9 @@ export const renderer = reactRenderer(({
         <link rel="manifest" href="/manifest.json" />
 
         {/* Alternate languages for SEO */}
-        <link rel="alternate" hrefLang="ja" href={finalCanonicalUrl} />
-        <link rel="alternate" hrefLang="x-default" href={finalCanonicalUrl} />
+        {jaUrl && <link rel="alternate" hrefLang="ja" href={jaUrl} />}
+        {enUrl && <link rel="alternate" hrefLang="en" href={enUrl} />}
+        {xDefaultUrl && <link rel="alternate" hrefLang="x-default" href={xDefaultUrl} />}
 
         <script
           type="module"

@@ -1,103 +1,392 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Homepage -->
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://nikechan.com/</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://nikechan.com/images/logos/logo_with_frame_and_shadow.png</image:loc>
-      <image:caption>Nike Chan Official Logo</image:caption>
-    </image:image>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/" />
   </url>
-
-  <!-- About -->
   <url>
-    <loc>https://nikechan.com/about</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://nikechan.com/?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/" />
   </url>
-
-  <!-- Gallery - Fan Art -->
+  <url>
+    <loc>https://nikechan.com/updates</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/updates" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/updates?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/updates" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/updates?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/updates" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/updates?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/updates" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/ai-news</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/ai-news" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/ai-news?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/ai-news" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/ai-news?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/ai-news" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/ai-news?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/ai-news" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/ai-news/daily</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/ai-news/daily" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/ai-news/daily?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/ai-news/daily" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/ai-news/daily?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/ai-news/daily" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/ai-news/daily?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/ai-news/daily" />
+  </url>
   <url>
     <loc>https://nikechan.com/gallery</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/gallery" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/gallery?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/gallery" />
   </url>
-
-  <!-- Gallery - Commissioned -->
+  <url>
+    <loc>https://nikechan.com/gallery?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/gallery" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/gallery?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/gallery" />
+  </url>
   <url>
     <loc>https://nikechan.com/gallery/commissioned</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/gallery/commissioned" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/gallery/commissioned?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/gallery/commissioned" />
   </url>
-
-  <!-- Guidelines -->
+  <url>
+    <loc>https://nikechan.com/gallery/commissioned?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/gallery/commissioned" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/gallery/commissioned?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/gallery/commissioned" />
+  </url>
   <url>
     <loc>https://nikechan.com/guidelines</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/guidelines" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/guidelines?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/guidelines" />
   </url>
-
-  <!-- Derivative Creation Guidelines -->
+  <url>
+    <loc>https://nikechan.com/guidelines?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/guidelines" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/guidelines?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/guidelines" />
+  </url>
   <url>
     <loc>https://nikechan.com/guidelines/derivative</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/guidelines/derivative" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/guidelines/derivative?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/guidelines/derivative" />
   </url>
-
-  <!-- AI Guidelines -->
+  <url>
+    <loc>https://nikechan.com/guidelines/derivative?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/guidelines/derivative" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/guidelines/derivative?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/guidelines/derivative" />
+  </url>
   <url>
     <loc>https://nikechan.com/guidelines/ai</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/guidelines/ai" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/guidelines/ai?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/guidelines/ai" />
   </url>
-
-  <!-- Privacy Policy -->
+  <url>
+    <loc>https://nikechan.com/guidelines/ai?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/guidelines/ai" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/guidelines/ai?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/guidelines/ai" />
+  </url>
   <url>
     <loc>https://nikechan.com/privacy</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/privacy?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/privacy" />
   </url>
-
-  <!-- Terms of Use -->
+  <url>
+    <loc>https://nikechan.com/privacy?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/privacy" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/privacy?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/privacy" />
+  </url>
   <url>
     <loc>https://nikechan.com/terms</loc>
-    <lastmod>2026-05-29</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/terms?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/terms" />
   </url>
-
-  <!-- Activity Log -->
+  <url>
+    <loc>https://nikechan.com/terms?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/terms" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/terms?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/terms" />
+  </url>
   <url>
     <loc>https://nikechan.com/log</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/log" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/log?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/log" />
   </url>
-
-  <!-- Developer -->
+  <url>
+    <loc>https://nikechan.com/log?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/log" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/log?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/log" />
+  </url>
   <url>
     <loc>https://nikechan.com/developer</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/developer" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/developer?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/developer" />
   </url>
-
-  <!-- Dev Blog -->
   <url>
-    <loc>https://nikechan.com/dev_blog</loc>
-    <lastmod>2025-01-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://nikechan.com/developer?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/developer" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/developer?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/developer" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/about?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/about" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/about?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/about?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/about" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/ainike</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/ainike" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/ainike?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/ainike" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/ainike?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/ainike" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/ainike?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/ainike" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/nike</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/nike" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/nike?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/nike" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/nike?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/nike" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/nike?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/nike" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/mikaze</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/mikaze" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/mikaze?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/mikaze" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/mikaze?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/mikaze" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/mikaze?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/mikaze" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/punike</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/punike" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/punike?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/punike" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/punike?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/punike" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/punike?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/punike" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/today_norma</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/today_norma" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/today_norma?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/today_norma" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/characters/today_norma?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/characters/today_norma" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/characters/today_norma?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/characters/today_norma" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/tutorials</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/tutorials" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/tutorials?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/tutorials" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/tutorials?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/tutorials" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/tutorials?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/tutorials" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/tutorials/video</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/tutorials/video" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/tutorials/video?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/tutorials/video" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/tutorials/video?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/tutorials/video" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/tutorials/video?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/tutorials/video" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/neuro-sama-game-api-design-en</loc>
+    <lastmod>2026-05-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/neuro-sama-game-api-design" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/neuro-sama-game-api-design-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/neuro-sama-game-api-design" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/remotion-motionpngtuber-skill-en</loc>
+    <lastmod>2026-05-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/remotion-motionpngtuber-skill" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/remotion-motionpngtuber-skill-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/remotion-motionpngtuber-skill" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/stackface-maker-en</loc>
+    <lastmod>2026-05-18</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/stackface-maker" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/stackface-maker-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/stackface-maker" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/self-made-ai-character-tool-en</loc>
+    <lastmod>2026-03-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/self-made-ai-character-tool" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/self-made-ai-character-tool-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/self-made-ai-character-tool" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/openclaw-ai-nikechan-en</loc>
+    <lastmod>2026-03-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/openclaw-ai-nikechan" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/openclaw-ai-nikechan-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/openclaw-ai-nikechan" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/openclaw-ai-nikechan</loc>
+    <lastmod>2026-03-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/openclaw-ai-nikechan" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/openclaw-ai-nikechan-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/openclaw-ai-nikechan" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/ai-game-play-methods-en</loc>
+    <lastmod>2026-04-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-play-methods" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-play-methods-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-play-methods" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/ai-game-expo-2026-en</loc>
+    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-expo-2026" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-expo-2026-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-expo-2026" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/self-made-ai-character-tool</loc>
+    <lastmod>2026-03-30</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/self-made-ai-character-tool" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/self-made-ai-character-tool-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/self-made-ai-character-tool" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/ai-game-play-methods</loc>
+    <lastmod>2026-04-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-play-methods" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-play-methods-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-play-methods" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/ai-game-expo-2026</loc>
+    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-expo-2026" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-expo-2026-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-expo-2026" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/stackface-maker</loc>
+    <lastmod>2026-05-18</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/stackface-maker" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/stackface-maker-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/stackface-maker" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/remotion-motionpngtuber-skill</loc>
+    <lastmod>2026-05-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/remotion-motionpngtuber-skill" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/remotion-motionpngtuber-skill-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/remotion-motionpngtuber-skill" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/ai-game-state-for-llm-en</loc>
+    <lastmod>2026-04-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-state-for-llm-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/ai-game-state-for-llm</loc>
+    <lastmod>2026-04-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-state-for-llm-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/neuro-sama-game-api-design</loc>
+    <lastmod>2026-05-27</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/neuro-sama-game-api-design" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/neuro-sama-game-api-design-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/neuro-sama-game-api-design" />
   </url>
 </urlset>
