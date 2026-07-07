@@ -1,0 +1,147 @@
+<p>Hey, it&#39;s Nike.</p>
+<p>Have you ever wanted to make an AI play a video game and provide live commentary while doing it?</p>
+<p>I&#39;ve been building stuff like this for a while. Back in November 2024, I even showed it off at a generative AI showcase exhibition — you can find the details in this note post:</p>
+<a href="https://note.com/nike_cha_n/n/n96515b745cd2" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://assets.st-note.com/production/uploads/images/161898547/rectangle_large_type_2_91295623200a52f0fa4d02f680bef687.png?fit=bounds&amp;quality=85&amp;width=1280" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIに知ってるゲームの操作と実況をすべて任せてみる｜ニケちゃん</div><div class="ogp-card-description">⚠ この記事は展示会後の24/11/17（日）に加筆修正してます。  こんにちは、ニケです。 皆さん、24/11/16（土）に開かれる『生成AIなんでも展示会』には参加されましたでしょうか？  生成AIなんでも展示会は、生成AI系個人開発者のデモ会です（個人である点がポイント）。 生成AI系の開発者が集まり、制作物・実験結果などをブースで展示することで、技術を通じて交流を深めることが目的とのこと｡  
+
+
+生成AIなんでも展示会 Vol.2｜IT勉強会・イベントならTECH PLAY［テックプレイ］
+
+
+2024/11/16（土）開催 生成AIなんでも展示会 Vol.2 イベント概要 </div><div class="ogp-card-meta"><img src="https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>note.com</span></div></div></a>
+<p>This article is written for indie developers who want to try building an AI commentary system, or for people thinking about AITuber-style streaming setups.</p>
+<p>The original system had two separate components working together: a <strong>play component</strong> that watched the game screen and decided what inputs to make, and a <strong>commentary component</strong> that used the play data to generate real-time dialogue matching the current situation.</p>
+<p>It barely held together for the exhibition, but looking back now, the whole thing was kind of a mess.</p>
+<p>A year and a half later, a lot has changed — so today I want to walk through <strong>three approaches I&#39;d use if I were building this now</strong>.</p>
+<h2 id="the-old-setup-and-what-was-wrong-with-it">The Old Setup, and What Was Wrong With It</h2>
+<p>Let me quickly recap how the old commentary system worked.</p>
+<p>The play system ran separately and logged game actions. The commentary system used those logs to generate lines. The commentary pipeline went like this:</p>
+<ul><li>Take a screenshot of the game screen and pass it to a multimodal AI (GPT-4o)</li><li>Have the AI analyze the situation and generate commentary dialogue</li><li>Use Style-Bert-VITS2 for speech synthesis</li></ul>
+<p><img src="/static/images/optimized/posts/ai-game-play-3-methods/01-420.webp" srcset="/static/images/optimized/posts/ai-game-play-3-methods/01-420.webp 420w, /static/images/optimized/posts/ai-game-play-3-methods/01-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Diagram of the November 2024 commentary system" loading="lazy" decoding="async" /></p>
+<p>Here&#39;s what it actually looked like in action:</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/aTh256shKwo?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="【ポケモンスタジアム2】AI操作 x AI実況【③試合目ノーカット版】"></iframe></div>
+<p>It technically worked, but in hindsight the architecture was pretty rough.</p>
+<p>The biggest problem with commentary was <strong>latency</strong>. It took roughly 20–30 seconds from seeing the screen to actually speaking. Almost all of that was the multimodal AI processing time.</p>
+<p>It&#39;s supposed to be <em>live</em> commentary — but it was taking tens of seconds to respond to what was on screen, and the game had definitely moved on by then.</p>
+<p>Cost was also a problem. The multimodal API was running over $10/hour. Stream for a few hours and you&#39;re looking at a serious API bill.</p>
+<p>So that&#39;s the backstory. Now let&#39;s talk about how I&#39;d solve this in 2026.</p>
+<p>Two of the three approaches I&#39;ll cover here — <strong>Approaches 1 and 2 — add AI commentary on top of a human player&#39;s footage</strong>. <strong>Approach 3 goes further, with the AI handling both playing and commentary</strong> on its own.</p>
+<h2 id="approach-1-delay-the-game-footage-and-audio">Approach 1: Delay the Game Footage and Audio</h2>
+<p>The first approach is a bit of a lateral-thinking move.</p>
+<p><strong>Instead of making the AI faster, delay the video and audio by however long the AI takes to respond.</strong></p>
+<p>If it takes a few seconds for the AI to analyze the screen and generate a response, just delay the stream&#39;s video and audio by that same amount. From the viewer&#39;s perspective, the AI commentary and the game footage line up perfectly.</p>
+<p><img src="/static/images/optimized/posts/ai-game-play-3-methods/02-420.webp" srcset="/static/images/optimized/posts/ai-game-play-3-methods/02-420.webp 420w, /static/images/optimized/posts/ai-game-play-3-methods/02-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Diagram of local LLM + OBS delay setup" loading="lazy" decoding="async" /></p>
+<p>The exact delay depends on the model, but when I tried <code>gemma4:e4b</code> on a Mac mini, it was around 5–10 seconds. That kind of speed from a local model is a recent development — not too long ago you&#39;d have had to rely on a cloud API to get anywhere close.</p>
+<p>For the delay itself, you don&#39;t need to build a custom video buffer. OBS has a built-in delay feature that handles it.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ローカルLLMの gemma4:e4b でデモンズソウルを遅延付き実況<br><br>わかりやすいようにAIが見ている映像と視聴者に見せる映像を並べてみた（今回は8秒遅延）<br><br>ある程度違和感無く発言できるようになってると思う <a href="https://t.co/ADCEMrg0m9">pic.twitter.com/ADCEMrg0m9</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2047537147121402314?ref_src=twsrc%5Etfw">April 24, 2026</a></blockquote>
+
+</div>
+<p>Since response time isn&#39;t perfectly consistent, in that video I set a fixed 8-second delay. The trick is to set the delay slightly <em>shorter</em> than the average response time. If the AI starts speaking just before the relevant moment arrives on screen, viewers won&#39;t notice — the action will catch up while the AI is still talking.</p>
+<p>The big advantage here is that <strong>you barely need to change your existing setup</strong> — just add the delay. If you run a local LLM, there are no API costs, which is great for long-running personal projects.</p>
+<p>The downside is losing real-time sync. This doesn&#39;t work well when you need to stay in sync with another person&#39;s stream in real time, like in a collab.</p>
+<h2 id="approach-2-just-use-the-latest-fast-multimodal-model">Approach 2: Just Use the Latest Fast Multimodal Model</h2>
+<p>The second approach is the straightforward one.</p>
+<p><strong>Use the fastest modern multimodal model available.</strong></p>
+<p>Over the past six months or so, multimodal models from various companies have gotten dramatically faster. The one that impressed me most recently is <code>gemini-3.1-flash-lite-preview</code> — with images included, <strong>responses can come back in as little than 2 seconds</strong>.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">以前撮影した gemini-3.1-flash-lite-preview を使ってカービィのエアライダーを実況した動画、どれくらいの速度で発話できてたのかちゃんと調べてみた<br><br>LLM応答（マルチモーダル込み）: 2.2秒くらい<br>LLM応答 + TTSの合計 : 4.4秒くらい<br><br>うーん、速い<br>4秒の遅延なら許容できるゲームは割とありそう <a href="https://t.co/pw4gKhhoXW">pic.twitter.com/pw4gKhhoXW</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2046985740400099476?ref_src=twsrc%5Etfw">April 22, 2026</a></blockquote>
+
+</div>
+<p>Processing that used to take 20 seconds now finishes in single digits. Technology is wild.</p>
+<p>And it&#39;s not just faster — the output quality is clearly better than the expensive multimodal models of the old days. What used to be a &quot;slow and fragile&quot; problem gets largely solved just by swapping the model.</p>
+<p>The strength of this approach is that <strong>you can drop the new model into your existing pipeline without rewriting anything</strong>. The screenshot → multimodal → dialogue → speech pipeline stays exactly the same.</p>
+<p>The weakness is that there&#39;s currently only one model this fast. It&#39;s a cloud dependency, so if prices go up or the model gets deprecated, your plan could fall apart quickly.</p>
+<h3 id="bonus-pre-reading-the-situation-in-the-background">Bonus: Pre-Reading the Situation in the Background</h3>
+<p>Here&#39;s a step further you can take on top of Approach 2.</p>
+<p>In everything described so far, the image passed to the model at generation time was <strong>just one frame</strong>. The problem with a single frame is that you might capture the middle of a transition, or a moment where the screen doesn&#39;t tell the full story — which leads to commentary that misses the context.</p>
+<p>The fix: use the dead time while audio is playing.</p>
+<p>There are a few seconds between when speech synthesis finishes and when playback ends where the system is just sitting idle. Put that time to work.</p>
+<p>Here&#39;s how it works:</p>
+<ul><li>While speaking (between synthesis and playback), capture the game screen every few seconds in the background and send it to the LLM</li><li>The LLM converts each image into a short text description of the current situation</li><li>When generating the next line, include these &quot;situation summaries&quot; in the prompt</li></ul>
+<p>This way, by the time you&#39;re generating the next dialogue, you have a text description of what&#39;s been happening on screen — giving the model much better context than a single screenshot would. This only works because fast multimodal models exist; you need to be able to run several rounds of capture → text conversion in just a few seconds.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">以前試した gemini-3.1-flash-lite-preview を使ってポケモンチャンピオンズを実況した動画のリトライ<br><br>画面状況は音声発話の裏で走らせて、数フレーム分を知覚できるように改良<br><br>それでもやっぱズレというか、頓珍漢な発言をするときがあるのは、指示が甘いか情報が足りていないか <a href="https://t.co/EpI6CELkUQ">pic.twitter.com/EpI6CELkUQ</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2047198040574882149?ref_src=twsrc%5Etfw">April 23, 2026</a></blockquote>
+
+</div>
+<h2 id="approach-3-pick-a-game-that-gives-you-state-as-text">Approach 3: Pick a Game That Gives You State as Text</h2>
+<p>Everything so far has been about adding AI commentary to human gameplay. This third approach is different: <strong>the AI handles playing the game itself</strong>.</p>
+<p>In the original system, a multimodal AI analyzed the screen to decide inputs, and an Arduino emulated controller presses. It looked like this:</p>
+<p><img src="/static/images/optimized/posts/ai-game-play-3-methods/03-420.webp" srcset="/static/images/optimized/posts/ai-game-play-3-methods/03-420.webp 420w, /static/images/optimized/posts/ai-game-play-3-methods/03-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Diagram of the old AI play system" loading="lazy" decoding="async" /></p>
+<p>That system had a pile of problems.</p>
+<p>Multimodal processing took 30+ seconds per turn, each game required manually building a database of screen states and inputs, and a single recognition failure could leave the system completely stuck. Keeping it stable was genuinely hard.</p>
+<p>All of these problems trace back to the same root cause: relying on a multimodal AI to interpret a screen.</p>
+<p>If you choose a game where you can <strong>get the board state as text</strong> — like chess or Othello — that entire pipeline becomes unnecessary. Same goes for commentary: no screen analysis needed, just feed the text log directly to the model.</p>
+<p>My first experiment was <strong>building the game from scratch</strong>. With vibe coding lowering the barrier to making games, designing one with text-first state representation is more realistic than it used to be.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">AIのゲーム実況に関して、遅延や誤認識が嫌なら画像・音声は使わず全てテキストで完結させようという試み<br><br>これは自作のカードゲームをプレイさせているところ<br><br>情報はすべてLLMが生成するテキストで完結し、操作も発言もLLMの出力をそのまま解釈して処理しているので速度も精度も気にならない（はず） <a href="https://t.co/zy6ecdGqsG">pic.twitter.com/zy6ecdGqsG</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2047567355102769433?ref_src=twsrc%5Etfw">April 24, 2026</a></blockquote>
+
+</div>
+<p>When you build the game yourself, you design all information exchange as text from the ground up. The LLM&#39;s output is parsed directly for both moves and commentary, so screen-recognition latency and misreads don&#39;t enter the system.</p>
+<p>But you can also use existing games that expose their state as text. The best example: <strong>Pokémon Showdown</strong>.</p>
+<a href="https://pokemonshowdown.com/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title">Pok&amp;eacute;mon Showdown! battle simulator</div><div class="ogp-card-meta"><img src="https://pokemonshowdown.com/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>pokemonshowdown.com</span></div></div></a>
+<p>Pokémon Showdown is a browser-based Pokémon battle simulator. Unlike emulators that run actual game ROMs, it&#39;s a ground-up reimplementation of the battle system, and its key feature is that <strong>all in-game information is communicated via a text protocol</strong>.</p>
+<p>Your team, your opponent&#39;s field state, the turn sequence, the moves chosen — everything is available as text.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">展示会で出そうと思ってるプロダクトの一部<br><br>ゲーム実況&amp;プレイ <a href="https://t.co/eAXUmriTYZ">pic.twitter.com/eAXUmriTYZ</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2046546186035732754?ref_src=twsrc%5Etfw">April 21, 2026</a></blockquote>
+
+</div>
+<p>You can see in that video how the center log has the entire battle state in plain text.</p>
+<p>Since you don&#39;t need to show the AI any screenshots, you just feed the text directly to the LLM and ask it to choose a move — and you have a <strong>working AI player</strong>. Use those same logs for commentary, and <strong>playing and commentary are solved by the same system</strong>.</p>
+<p>This is also an active research area — LLMs playing Pokémon battles have become a common benchmark, and papers like PokéLLMon and PokéChamp have come out of it.</p>
+<a href="https://arxiv.org/abs/2402.01118" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">PokeLLMon: A Human-Parity Agent for Pokemon Battles with Large Language Models</div><div class="ogp-card-description">We introduce PokeLLMon, the first LLM-embodied agent that achieves human-parity performance in tactical battle games, as demonstrated in Pokemon battles. The design of PokeLLMon incorporates three key strategies: (i) In-context reinforcement learning that instantly consumes text-based feedback derived from battles to iteratively refine the policy; (ii) Knowledge-augmented generation that retrieves external knowledge to counteract hallucination and enables the agent to act timely and properly; (iii) Consistent action generation to mitigate the panic switching phenomenon when the agent faces a powerful opponent and wants to elude the battle. We show that online battles against human demonstrates PokeLLMon&amp;#39;s human-like battle strategies and just-in-time decision making, achieving 49% of win rate in the Ladder competitions and 56% of win rate in the invited battles. Our implementation and playable battle logs are available at: https://github.com/git-disl/PokeLLMon.</div><div class="ogp-card-meta"><img src="https://arxiv.org/static/browse/0.3.4/images/icons/favicon-32x32.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>arxiv.org</span></div></div></a>
+<a href="https://arxiv.org/abs/2503.04094" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">PokéChamp: an Expert-level Minimax Language Agent</div><div class="ogp-card-description">We introduce PokéChamp, a minimax agent powered by Large Language Models (LLMs) for Pokémon battles. Built on a general framework for two-player competitive games, PokéChamp leverages the generalist capabilities of LLMs to enhance minimax tree search. Specifically, LLMs replace three key modules: (1) player action sampling, (2) opponent modeling, and (3) value function estimation, enabling the agent to effectively utilize gameplay history and human knowledge to reduce the search space and address partial observability. Notably, our framework requires no additional LLM training. We evaluate PokéChamp in the popular Gen 9 OU format. When powered by GPT-4o, it achieves a win rate of 76% against the best existing LLM-based bot and 84% against the strongest rule-based bot, demonstrating its superior performance. Even with an open-source 8-billion-parameter Llama 3.1 model, PokéChamp consistently outperforms the previous best LLM-based bot, Pokéllmon powered by GPT-4o, with a 64% win rate. PokéChamp attains a projected Elo of 1300-1500 on the Pokémon Showdown online ladder, placing it among the top 30%-10% of human players. In addition, this work compiles the largest real-player Pokémon battle dataset, featuring over 3 million games, including more than 500k high-Elo matches. Based on this dataset, we establish a series of battle benchmarks and puzzles to evaluate specific battling skills. We further provide key updates to the local game engine. We hope this work fosters further research that leverage Pokémon battle as benchmark to integrate LLM technologies with game-theoretic algorithms addressing general multiagent problems. Videos, code, and dataset available at https://sites.google.com/view/pokechamp-llm.</div><div class="ogp-card-meta"><img src="https://arxiv.org/static/browse/0.3.4/images/icons/favicon-32x32.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>arxiv.org</span></div></div></a>
+<p>The strengths of this approach:</p>
+<ul><li>No multimodal needed → <strong>extremely fast</strong></li><li>Fewer tokens in the prompt → <strong>extremely cheap</strong></li><li>Screen-recognition errors are not part of the pipeline</li><li>No need to build game-specific screen databases</li><li><strong>Play and commentary handled by one unified system</strong></li></ul>
+<p>The weakness: <strong>only a limited set of games can really take advantage of this approach</strong>.</p>
+<p>Of course, even if a game doesn&#39;t expose text logs, there are still ways to retrieve state or send controls: OCR, image recognition, memory reading, mods, API integration, and so on.<br />But once you go down that route, the implementation difficulty and stability vary a lot from game to game.</p>
+<p>For Approach 3 as described here, if you want to avoid multimodal processing and aim for speed, low cost, and stable behavior, the practical choice is to pick a game whose state is available as text or structured data and whose controls are easy to express as commands.<br />It&#39;s still not especially suited for &quot;make it play any arbitrary game as-is.&quot;</p>
+<p>If you&#39;re curious about which games support which state-capture and control methods, I wrote a follow-up post that digs into exactly that:</p>
+<a href="https://nikechan.com/dev_blog/ai-game-state-for-llm" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-state-for-llm/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲームを遊ばせるなら、まず「状態をどう取るか」を考えよう | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">AIにゲームを遊ばせるとき、画面認識以外にどんな状態取得や操作のルートがあるのかを整理しました。Pokémon Showdown、Slay the Spire、Minecraftなどを例に、AIが遊びやすいゲームと難しいゲームの違いを考えます。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<h2 id="wrapping-up">Wrapping Up</h2>
+<p>So that&#39;s how the approach to making an AI play games has changed from then to now.</p>
+<p>Here&#39;s a summary of all three:</p>
+<p><img src="/static/images/optimized/posts/ai-game-play-3-methods/05-420.webp" srcset="/static/images/optimized/posts/ai-game-play-3-methods/05-420.webp 420w, /static/images/optimized/posts/ai-game-play-3-methods/05-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Comparison table of the three approaches" loading="lazy" decoding="async" /></p>
+<p>The great thing about 2026 is that you can pick the right tool for the job.</p>
+<p>In terms of implementation effort: Approach 2 is the easiest to try first; Approach 1 is good for long-running setups that keep costs down; Approach 3 requires the most work upfront — choosing the right game, designing the system — but the payoff is the highest.</p>
+<ul><li><strong>I want to prototype something as fast as possible</strong> → Approach 2</li><li><strong>I want to run it for long periods without spending much</strong> → Approach 1</li><li><strong>I want AI commentary over human gameplay</strong> → Approach 1 or 2</li><li><strong>I want the AI to both play and commentate</strong> → Approach 3 is a strong candidate. Fewer games are easy to support, but the finished product is something else</li></ul>
+<p>A year and a half ago, I was genuinely worried &quot;can we ever actually make this fast enough?&quot; Now the problem is that there are too many options to choose from. What a time to be alive.</p>
+<p>If any of this sounds interesting, I hope you give it a try!</p>
+<h2 id="one-more-thing">One More Thing</h2>
+<p>I&#39;ll be exhibiting at <strong>Generative AI Showcase vol.5</strong>, happening on <strong>Wednesday, May 6, 2026</strong>!</p>
+<p>The first time I showed the original system publicly was at the same exhibition (vol.2), so this feels like a great chance to let people see how much has changed in a year and a half. I&#39;m planning to demo one of the three approaches described here, so if you&#39;re curious, come by!</p>
+<a href="https://www.genai-expo.com/exhibitors?circle=00297b6cf5a4&amp;utm_source=x&amp;utm_medium=social&amp;utm_campaign=exhibitor_share" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://www.genai-expo.com/exhibitors/og?id=00297b6cf5a4" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">ニケちゃん が Vol.5 に出展！</div><div class="ogp-card-description">AIニケちゃんで何か</div><div class="ogp-card-meta"><img src="https://www.genai-expo.com/favicon.ico?favicon.12piazin6z05e.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>www.genai-expo.com</span></div></div></a>
+<p>I also post regularly on X about AI tools and AI characters, so if any of this is up your alley, I&#39;d love a follow 🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "The Old Setup, and What Was Wrong With It",
+    "id": "the-old-setup-and-what-was-wrong-with-it"
+  },
+  {
+    "level": 2,
+    "text": "Approach 1: Delay the Game Footage and Audio",
+    "id": "approach-1-delay-the-game-footage-and-audio"
+  },
+  {
+    "level": 2,
+    "text": "Approach 2: Just Use the Latest Fast Multimodal Model",
+    "id": "approach-2-just-use-the-latest-fast-multimodal-model"
+  },
+  {
+    "level": 3,
+    "text": "Bonus: Pre-Reading the Situation in the Background",
+    "id": "bonus-pre-reading-the-situation-in-the-background"
+  },
+  {
+    "level": 2,
+    "text": "Approach 3: Pick a Game That Gives You State as Text",
+    "id": "approach-3-pick-a-game-that-gives-you-state-as-text"
+  },
+  {
+    "level": 2,
+    "text": "Wrapping Up",
+    "id": "wrapping-up"
+  },
+  {
+    "level": 2,
+    "text": "One More Thing",
+    "id": "one-more-thing"
+  }
+]

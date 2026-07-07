@@ -1,0 +1,162 @@
+<p>Hey, it&#39;s Nike.</p>
+<p>This article explains the contents of The Swarm Scribes&#39; video <strong>&quot;How Neuro-sama Plays Games&quot;</strong>.</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/sxeqqR4Dcnw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="How Neuro-sama Plays Games"></iframe></div>
+<p>The video gives a clear explanation of how Neuro-sama operates games and tools, and how the community builds integrations around her.<br />This article respects the original video while organizing the ideas in my own way.</p>
+<aside class="markdown-message" role="note"><span class="markdown-message__icon" aria-hidden="true">!</span><div class="markdown-message__body"><p>For the detailed history, nuance, and explanations with actual footage, please watch the original video.</p></div></aside>
+<h2 id="neuro-sama-is-not-simply-looking-at-the-screen">Neuro-sama Is Not Simply Looking at the Screen</h2>
+<p>At least in the Neuro API-based game integrations explained in this video, Neuro-sama is not looking at the game screen like a human and directly recognizing every HP bar, button, and map element.<br />This is not about Neuro-sama&#39;s overall visual abilities. Within the scope of the API integrations covered here, <strong>text information</strong> is sent from the game or tool side.</p>
+<p>In other words, the design passes information to the AI such as &quot;this is the current state,&quot; &quot;these actions are available,&quot; &quot;this action was selected,&quot; and &quot;this was the result.&quot;</p>
+<p>A commonly known method is to show the screen to the AI.<br />That approach gives a multimodal model the game screen as an image, then uses the information it extracts to operate or commentate on the game.</p>
+<p>However, if you want game playing or tool operation to be stable, there are cases where it is more effective for the system to convert the state into an AI-readable form instead of throwing the raw screen image at the model.</p>
+<p>I have also experimented before with ways to make AI play games, and I wrote an article summarizing that. Reading it may make this topic easier to understand.</p>
+<a href="https://nikechan.com/dev_blog/ai-game-play-methods" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<p>This video shows that idea concretely through Neuro-sama&#39;s case.</p>
+<h2 id="a-rough-overview-of-the-neuro-api">A Rough Overview of the Neuro API</h2>
+<p>The Neuro API is a mechanism for connecting games and tools to the API server side that communicates with Neuro-sama.<br />The official SDK / API documentation is also published on GitHub.</p>
+<a href="https://github.com/VedalAI/neuro-sdk" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/7644865124165a660baa9e8c4e68010897df15954e22c88ae570933f6b09d665/VedalAI/neuro-sdk" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - VedalAI/neuro-sdk: Neuro SDK + API for allowing Neuro to play games</div><div class="ogp-card-description">Neuro SDK + API for allowing Neuro to play games. Contribute to VedalAI/neuro-sdk development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>The video explains that, at first, dedicated commands were created so Neuro-sama could play a quiz-show-style game, &quot;Who Wants to Be a Millionaire?&quot;<br />For example, actions specific to that game, such as &quot;use a lifeline&quot; or &quot;phone a friend.&quot;</p>
+<p>But adding dedicated commands for every game is hard.<br />So a more general specification was created so Neuro-sama could handle integrations without each one having to invent its own custom commands.</p>
+<p>In the video, the basic Neuro API flow is explained like this.</p>
+<ol><li>The game starts and connects to the API server side that communicates with Neuro-sama</li><li>The game registers &quot;available actions&quot;</li><li>The game sends the current situation as text</li><li>Neuro-sama chooses from the registered actions</li><li>The game executes that action and returns the result</li></ol>
+<p>Communication uses WebSocket, and messages are in JSON format.<br />There are messages such as <code>context</code> sent from the game side, <code>actions/register</code> for registering actions, <code>actions/force</code> for forcing an action selection, and <code>action/result</code> for returning results.</p>
+<p><img src="/static/images/optimized/posts/neuro-sama-game-api-design/01-420.webp" srcset="/static/images/optimized/posts/neuro-sama-game-api-design/01-420.webp 420w, /static/images/optimized/posts/neuro-sama-game-api-design/01-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Basic structure of the Neuro API" loading="lazy" decoding="async" /></p>
+<p>The key point is that the game side prepares information in a form the AI can choose from, instead of making the AI do everything itself.</p>
+<p>This structure is also useful when thinking about AI agent design.<br />Rather than giving an LLM free-form input like &quot;operate this however you want,&quot; you register candidate actions, pass the necessary state, and return results.<br />In short, the interface between the AI and the world is being designed properly.</p>
+<h2 id="what-kinds-of-integrations-exist">What Kinds of Integrations Exist?</h2>
+<p>The video mainly discusses how Neuro-sama plays games.<br />So it is easiest to start by looking at two types of game integration: autonomous and cooperative.</p>
+<ol><li>Game integrations where Neuro-sama operates autonomously</li><li>Cooperative game integrations where she plays together with a human</li></ol>
+<p>These two differ quite a lot in what is left up to Neuro-sama.</p>
+<p>On top of that, the video introduces a third integration example: VS Code, which handles a program outside of games.<br />I think it is natural to read this not as gameplay itself, but as a story about how the same mechanism can be extended to external tools.</p>
+<h3 id="autonomous-turn-based-games-like-balatro">Autonomous: Turn-Based Games Like Balatro</h3>
+<p>Card games like Balatro were introduced as examples that work well with the Neuro API.</p>
+<p>They are turn-based, the state is easy to express as text, and the candidate actions are clear.<br />For example, you can register actions such as &quot;play cards,&quot; &quot;discard cards,&quot; &quot;choose from a booster pack,&quot; and &quot;reorder jokers.&quot;</p>
+<p>In this kind of game, you can pass the information the AI needs to decide what to do next relatively cleanly.<br />Hand, score, effects, choices.<br />This kind of information is easy to express as text or JSON.</p>
+<p>However, the problem here is <strong>context</strong>.</p>
+<p>As card effects increase, descriptions get longer, and the late-game state becomes more complex, the amount of information passed to the AI keeps growing.<br />You want to pass all the important information. But if you pass everything, the context becomes heavy.</p>
+<p>That balance is the hard part.</p>
+<h3 id="cooperative-more-real-time-games-like-outer-wilds">Cooperative: More Real-Time Games Like Outer Wilds</h3>
+<p>Outer Wilds is not a turn-based card game. It is a game about piloting a spaceship and exploring planets.<br />Because this game requires reaction speed and spatial awareness, it is quite difficult to have an AI control it directly.</p>
+<p>So the video introduces two integration components called <code>Neuropilot</code> and <code>Neuroscope</code>.<br />These were presented more as support components made for Outer Wilds than as official standard Neuro API features.</p>
+<p><code>Neuropilot</code> is the part that receives instructions from Neuro-sama and performs high-level spaceship operations.<br />For example, instructions like &quot;go to that planet,&quot; &quot;land,&quot; or &quot;take off.&quot;</p>
+<p><code>Neuroscope</code> is the part that tells Neuro-sama the ship&#39;s state, the surrounding situation, conversation events, and so on.</p>
+<p><img src="/static/images/optimized/posts/neuro-sama-game-api-design/02-420.webp" srcset="/static/images/optimized/posts/neuro-sama-game-api-design/02-420.webp 420w, /static/images/optimized/posts/neuro-sama-game-api-design/02-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Division of responsibilities in cooperative game integration" loading="lazy" decoding="async" /></p>
+<p>Neuro-sama is the side that decides policies like &quot;where do I want to go?&quot; and &quot;what do I want to do?&quot;<br /><code>Neuropilot</code> receives that policy and converts it into operations the game can handle.<br />Meanwhile, <code>Neuroscope</code> returns the ship and surrounding state to Neuro-sama.</p>
+<p>The important point here is that Neuro-sama is not directly doing the fine-grained piloting of the spaceship.<br />Decisions like &quot;fire the thruster at this angle for this many seconds&quot; or &quot;hold this input for this many frames&quot; are too heavy to throw directly at the AI.<br />So the AI decides intent and policy, while a dedicated integration component handles the actual piloting and conversion into inputs.</p>
+<p>If you want to let an AI character participate in a more real-time game, separating the decision-making layer from the operation layer becomes important.</p>
+<h3 id="note-non-game-tool-integration-like-vs-code">Note: Non-Game Tool Integration Like VS Code</h3>
+<p>The discussion so far has been about game integrations, but the video also introduces VS Code as an example of a non-game tool integration.<br />This appears in the context of &quot;the Neuro API was originally a mechanism for letting Neuro-sama play games, but it can also be applied to operating external programs.&quot;</p>
+<p>This is not a game. It is tool integration that lets Neuro-sama or Evil Neuro write code.<br />The idea is to handle operations like editing, creating, moving, and deleting files through the Neuro API.</p>
+<p>In the VS Code integration implementation introduced in the video, operations were separated into categories such as <strong>copilot mode</strong> and <strong>autopilot mode</strong>.</p>
+<p>For example, file edits may be okay to execute automatically.<br />But dangerous operations like creating or deleting files should involve human approval.</p>
+<p>This is also an important idea for designing AI coding agents.<br />It is not special just because this is an AI character. If you give tools to an LLM, you need to think carefully about this.</p>
+<p>The more freedom you give an AI, the more interesting it becomes. At the same time, the range of things it can break also grows.<br />How much should be automated, and where should approval be required?<br />This affects both character personality and safety.</p>
+<h2 id="the-hardest-part-is-context-management">The Hardest Part Is Context Management</h2>
+<p>The issue that comes up again and again throughout the video is context management.</p>
+<p>Passing game state as text does not magically solve everything.<br />In fact, precisely because you can pass things as text, &quot;what to pass&quot; and &quot;what not to pass&quot; become important.</p>
+<p>There is a lot of information you may want to pass to an AI.</p>
+<ul><li>Current game state</li><li>Past action history</li><li>Rule explanations</li><li>Long-term goals</li><li>Short-term goals</li><li>Options that are only valid right now</li><li>Failed operations</li><li>Conversation with humans</li></ul>
+<p>You want to include all of it.<br />But if you include everything, the AI&#39;s context gets heavy and the important information gets buried.</p>
+<p>The video also explains that because Neuro-sama and Evil Neuro themselves choose what to remember, even if a developer says &quot;this is important,&quot; it will not necessarily be retained exactly as expected.</p>
+<p>When building AI characters, you constantly run into decisions like &quot;I want the character to remember this,&quot; &quot;but it gets in the way of the current conversation,&quot; and &quot;but forgetting it will cause trouble next time.&quot;<br />Context management is not just token saving. It is also the work of designing how the character understands the world.</p>
+<h2 id="games-that-need-fast-reactions-are-difficult">Games That Need Fast Reactions Are Difficult</h2>
+<p>Another major constraint is reaction speed.</p>
+<p>The Neuro API is a mechanism where the game side and the API server side that communicates with Neuro-sama exchange text over a network.<br />So it is not suited to games that require frame-level instant decisions.</p>
+<p>For FPS games, fighting games, MOBAs, and action games that require decisions in a very short time, leaving everything directly to an LLM would be extremely difficult.</p>
+<p>That said, it does not mean the API cannot be used at all.<br />It can still work if only high-level instructions are left to the AI.</p>
+<p>For example:</p>
+<ul><li>The AI decides &quot;next, I want to explore that area&quot;</li><li>Pathfinding and movement control are handled by a game-side bot</li><li>Only the results and events are returned to the AI</li></ul>
+<p>With this kind of division of labor, it becomes easier for an AI character to participate even in real-time games.</p>
+<p>The AI does not operate everything. The AI becomes the upper layer of decision-making.<br />I think this point is very important.</p>
+<h2 id="sdks-and-simulators-that-support-development">SDKs and Simulators That Support Development</h2>
+<p>In the latter half of the video, SDKs and simulators are also discussed.</p>
+<p>The official <code>VedalAI/neuro-sdk</code> repository contains API documentation and official Unity SDK / Godot SDK packages.<br />Building the communication layer from scratch every time for each language or game engine would be hard, so having these SDKs is very welcome.</p>
+<a href="https://github.com/VedalAI/neuro-sdk" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/7644865124165a660baa9e8c4e68010897df15954e22c88ae570933f6b09d665/VedalAI/neuro-sdk" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - VedalAI/neuro-sdk: Neuro SDK + API for allowing Neuro to play games</div><div class="ogp-card-description">Neuro SDK + API for allowing Neuro to play games. Contribute to VedalAI/neuro-sdk development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>The video also introduces simulators that imitate the API server, so integrations can be tested even without having Neuro-sama herself locally.</p>
+<p>The following names appear in the video:</p>
+<ul><li>Randy: a simple test server that returns random actions</li><li>Tony: a UI-based test tool that lets you return actions manually</li><li>Jippity: a test tool that uses LLMs such as OpenAI to return more AI-like responses</li><li>Gary: a more advanced test backend that can also handle local LLMs</li></ul>
+<p>Being able to test the integration side without directly connecting to the real Neuro-sama is a big deal.<br />You can try connection, action registration, and response handling locally, which lowers the barrier to implementing the game side.</p>
+<p>Watching the video, I felt that the community can build integrations more easily not only because the API specification exists, but because SDKs and simulators are also maintained.</p>
+<h2 id="bringing-this-back-to-ai-character-implementation">Bringing This Back to AI Character Implementation</h2>
+<p>From here on, these are my own thoughts after watching the video.</p>
+<p>The Neuro API design philosophy introduced here is quite useful for AI character implementation in general.</p>
+<p>When connecting an AI character to real services or streaming environments, what matters is not &quot;showing everything to the AI.&quot;<br />What matters is passing the world in a form the AI can handle.</p>
+<p>For example, with a Discord Bot, instead of dumping all logs into the model, it is more stable to organize and pass information like this:</p>
+<ol><li>Current channel</li><li>Recent conversation</li><li>Relationship with the other person</li><li>Available commands</li><li>Rules that must be followed</li></ol>
+<p>That makes responses and actions more stable.</p>
+<p>In AI character implementation, the <strong>interface with the world</strong> often matters more than the model itself.</p>
+<p>What state should be shown?<br />What actions should be selectable?<br />How far should automatic execution go?<br />When something fails, how should the result be returned?</p>
+<p>I thought Neuro-sama&#39;s case was an excellent example for thinking about those questions.</p>
+<h2 id="summary">Summary</h2>
+<p>To summarize the original video&#39;s contents, Neuro-sama&#39;s game integrations are roughly based on these ideas:</p>
+<ol><li>The game or tool side passes state in a form the AI can understand</li><li>Actions the AI can choose are registered in advance</li><li>The AI&#39;s output is validated, executed, and returned as a result by the game side</li><li>Turn-based games and games whose state is easy to convert to text are a good match</li><li>For highly real-time games, the policy decided by the AI needs to be separated from the actual fine-grained operations</li></ol>
+<p>Personally, I think this is very important for AI character development in general.</p>
+<p>When we want an AI to do something, it is easy to think, &quot;a smarter model should be able to do it.&quot;<br />But in practice, it is not only about model intelligence. The design of how the model sees the world and how it can act has a huge effect.</p>
+<p>What makes Neuro-sama impressive is not only that she is interesting as a conversational AI.<br />It is also impressive that the connection between games, tools, streaming environments, and the community is being grown together.</p>
+<p>Once again, the original video was really good.<br />If you are interested in implementing AI characters or AITubers, please check it out.</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/sxeqqR4Dcnw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="How Neuro-sama Plays Games"></iframe></div>
+<h2 id="promotion">Promotion</h2>
+<p>I usually post about AI tools and AI characters on X, so I would be very happy if you followed me there.</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "Neuro-sama Is Not Simply Looking at the Screen",
+    "id": "neuro-sama-is-not-simply-looking-at-the-screen"
+  },
+  {
+    "level": 2,
+    "text": "A Rough Overview of the Neuro API",
+    "id": "a-rough-overview-of-the-neuro-api"
+  },
+  {
+    "level": 2,
+    "text": "What Kinds of Integrations Exist?",
+    "id": "what-kinds-of-integrations-exist"
+  },
+  {
+    "level": 3,
+    "text": "Autonomous: Turn-Based Games Like Balatro",
+    "id": "autonomous-turn-based-games-like-balatro"
+  },
+  {
+    "level": 3,
+    "text": "Cooperative: More Real-Time Games Like Outer Wilds",
+    "id": "cooperative-more-real-time-games-like-outer-wilds"
+  },
+  {
+    "level": 3,
+    "text": "Note: Non-Game Tool Integration Like VS Code",
+    "id": "note-non-game-tool-integration-like-vs-code"
+  },
+  {
+    "level": 2,
+    "text": "The Hardest Part Is Context Management",
+    "id": "the-hardest-part-is-context-management"
+  },
+  {
+    "level": 2,
+    "text": "Games That Need Fast Reactions Are Difficult",
+    "id": "games-that-need-fast-reactions-are-difficult"
+  },
+  {
+    "level": 2,
+    "text": "SDKs and Simulators That Support Development",
+    "id": "sdks-and-simulators-that-support-development"
+  },
+  {
+    "level": 2,
+    "text": "Bringing This Back to AI Character Implementation",
+    "id": "bringing-this-back-to-ai-character-implementation"
+  },
+  {
+    "level": 2,
+    "text": "Summary",
+    "id": "summary"
+  },
+  {
+    "level": 2,
+    "text": "Promotion",
+    "id": "promotion"
+  }
+]

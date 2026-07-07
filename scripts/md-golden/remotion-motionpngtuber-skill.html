@@ -1,0 +1,123 @@
+<p>こんにちは、ニケです。<br />皆さん、<strong>Remotion</strong>使っていますでしょうか？</p>
+<p>RemotionはReactで動画を作るためのフレームワークです。<br />公式サイトでも「Reactで本物のMP4動画を作る」「データを渡して動的に動画を変える」「ローカルやサーバーでレンダリングする」といった用途が紹介されています。</p>
+<a href="https://www.remotion.dev/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title">Remotion | Make videos programmatically</div><div class="ogp-card-meta"><img src="https://www.remotion.dev/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>www.remotion.dev</span></div></div></a>
+<p>公式ドキュメントにはClaude Code、Codex、CursorのようなAIエージェント向けに<strong>Agent Skills</strong>が用意されていて、RemotionプロジェクトでのベストプラクティスをAIに渡せるようになっています。</p>
+<a href="https://www.remotion.dev/docs/ai/skills" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title">Agent Skills | Remotion | Make videos programmatically</div><div class="ogp-card-meta"><img src="https://www.remotion.dev/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>www.remotion.dev</span></div></div></a>
+<p>これを導入すると、Claude CodeやCodexに「Remotionで動画を作って」と頼むだけで、ただReactコンポーネントを書くだけではなく、Composition、Sequence、Audio、Video、字幕、アニメーション、アセット読み込み、レンダリング確認といったRemotion特有の作法を踏まえて動画を作成してくれます。</p>
+<p>今回はこのRemotionスキルの<strong>派生スキル</strong>として、<strong>MotionPNGTuberをRemotionで扱うためのスキル</strong>を作ったので紹介していこうと思います。</p>
+<p>なお、HyperFramesにも対応したので、RemotionだけでなくHyperFramesで動画を組む場合にも使えるようになっています。</p>
+<h2 id="作ったもの">作ったもの</h2>
+<p><strong>remotion-motionpngtuber</strong> というスキルを作成しました。</p>
+<a href="https://github.com/tegnike/remotion-motionpngtuber" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/823336b828bc70b923a4c731a3eabe2fb3b19ddbbbff9eda64863bd8adf7e8fa/tegnike/remotion-motionpngtuber" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/remotion-motionpngtuber</div><div class="ogp-card-description">Contribute to tegnike/remotion-motionpngtuber development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>名前の通り、Remotionの動画制作にMotionPNGTuberのキャラクター表示を組み込むためのものです。</p>
+<ul><li>MotionPNGTuberの素材を読み取り適切な位置に配置する</li><li>VOICEVOXやAivisSpeechでセリフ音声を生成する</li><li>音声の尺に合わせて字幕と口パクをRemotionのタイムラインに置く</li><li>グリーンバック素材なら透過処理して、最終MP4まで確認する</li></ul>
+<h2 id="motionpngtuberとは">MotionPNGTuberとは</h2>
+<p>MotionPNGTuberは、<a href="https://x.com/rotejin" target="_blank" rel="noopener noreferrer">ろてじん</a>さんが公開している動画ベースのリアルタイム口パクシステムです。</p>
+<a href="https://github.com/rotejin/MotionPNGTuber" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/ce9575318c64a5a738f4108815c4ebb2351171f8f4d32e7aea8930c1142dc445/rotejin/MotionPNGTuber" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - rotejin/MotionPNGTuber: PNGTuber以上Live2D未満 - 動画ループで髪揺れなど表現可能なリアルタイム口パクツール</div><div class="ogp-card-description">PNGTuber以上Live2D未満 - 動画ループで髪揺れなど表現可能なリアルタイム口パクツール. Contribute to rotejin/MotionPNGTuber development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>GitHubの説明では「PNGTuber以上Live2D未満」と表現されています。<br />従来のPNGTuberのように静止画を切り替えるだけではなく、ループ動画を使うことで髪揺れや服の揺れのような動きも出せる一方、Live2Dほど専門的なモデル制作知識は必要ない、という立ち位置です。</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">「動くPNGTuber」使い方のnoteを書く為に1つ作ってみました。大きめの口でも、口元の自動切り抜きで一応こんな感じです（開閉時の中間の口を手作業で選んで調節した方が綺麗に滑らかにはなるけど）とりあえず何か喋ってる動画だけ入れれば、口素材PNGを用意しなくても作れます。… <a href="https://t.co/x3BACrkRZg">pic.twitter.com/x3BACrkRZg</a></p>&mdash; ろてじん (@rotejin) <a href="https://twitter.com/rotejin/status/2005774807737225478?ref_src=twsrc%5Etfw">December 29, 2025</a></blockquote>
+
+</div>
+<p>今回やりたかったのは、このツールを<strong>Remotionの動画生成パイプラインに持ち込む</strong>ことです。</p>
+<p>MotionPNGTuberのモデルをRemotionで扱えるようにしておくと、口パクするキャラクターをそのまま動画に挿入できます。<br />セリフ音声と字幕を用意してタイムラインに置けば、キャラクターが喋っている動画をそのまま組み立てられるわけですね。</p>
+<p>毎回動画編集ソフトでキャラクター素材を重ねたり、口の開閉を手で合わせたりする必要がなくなります。</p>
+<h2 id="作成例">作成例</h2>
+<p>以下は展示会用の解説動画をRemotionとMotionPNGTuberで作ったときの例です。</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">展示会で使う紹介動画できた（仮）<br><br>Codexくんと壁打ち、Remotionスキルを使ってそのまま動画化、必要な挿絵は都度生成してもらって挿入<br>音声合成とMotionPNGTuberも全部やってくれて最高✌ <a href="https://t.co/F36BFBZHEf">pic.twitter.com/F36BFBZHEf</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2049440728028156328?ref_src=twsrc%5Etfw">April 29, 2026</a></blockquote>
+
+</div>
+<p>この動画は全てRemotionで作成されています。<br />ゲーム画面、テロップ、キャラクター、音声を良い感じに組み合わせてくれていますね。</p>
+<h2 id="使い方">使い方</h2>
+<p>使い方は、ざっくり以下の流れです。</p>
+<h3 id="1-スキルを導入する">1. スキルを導入する</h3>
+<p>まずはRemotion公式のスキルを入れます。</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">npx skills add remotion-dev/skills</code></pre></div>
+<p>これはRemotion公式ドキュメントに載っている導入コマンドです。<br />これでRemotionのComposition、Sequence、Audio、Video、字幕、レンダリング確認などの作法をAIエージェントが参照できるようになります。</p>
+<p>次に、今回作った <code>remotion-motionpngtuber</code> スキルを入れます。</p>
+<a href="https://github.com/tegnike/remotion-motionpngtuber" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/823336b828bc70b923a4c731a3eabe2fb3b19ddbbbff9eda64863bd8adf7e8fa/tegnike/remotion-motionpngtuber" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/remotion-motionpngtuber</div><div class="ogp-card-description">Contribute to tegnike/remotion-motionpngtuber development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>Codexで使う場合は、このリポジトリをCodexのプラグインマーケットプレイスとして追加します。</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">codex plugin marketplace add https://github.com/tegnike/remotion-motionpngtuber.git</code></pre></div>
+<p>追加したらCodexを再起動して、プラグイン一覧から <code>MotionPNGTuber for Remotion and HyperFrames</code> をインストールします。</p>
+<p>Claude Codeで使う場合は、Claude Code側のプラグインマーケットプレイスに追加してからインストールします。</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">claude plugin marketplace add tegnike/remotion-motionpngtuber
+claude plugin install remotion-motionpngtuber@remotion-motionpngtuber</code></pre></div>
+<p>Claude Codeでは、以下のようにプラグインのスキル名を指定して呼び出します。</p>
+<div class="code-block"><div class="code-lang">text</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-text">/remotion-motionpngtuber:remotion-motionpngtuber RemotionでMotionPNGTuberキャラクターを使った動画を作ってください。</code></pre></div>
+<h3 id="2-motionpngtuber素材を用意する">2. MotionPNGTuber素材を用意する</h3>
+<p>MotionPNGTuberで素材を作ります。</p>
+<p>こちらの作成方法は<a href="https://github.com/rotejin/MotionPNGTuber" target="_blank" rel="noopener noreferrer">MotionPNGTuberのGitHubリポジトリ</a>のREADMEを参照してください。<br />最終的に以下のようなファイル構成で素材ができればOKです。</p>
+<div class="code-block"><div class="code-lang">text</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-text">character/
+├── mouth_track.json
+├── loop_mouthless_h264.mp4
+└── mouth/
+    ├── closed.png
+    ├── open.png
+    └── half.png</code></pre></div>
+<h3 id="3-ttsエンジンを立ち上げる">3. TTSエンジンを立ち上げる</h3>
+<p>VOICEVOX または AivisSpeechをローカルで立ち上げます。<br />AivisSpeechを使う場合は、必要に応じてモデルをアップロードしておいてください。</p>
+<a href="https://voicevox.hiroshiba.jp/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://voicevox.hiroshiba.jp/_astro/share.D8sYb9zR_Z2epAzp.webp" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">VOICEVOX | 無料のテキスト読み上げ・歌声合成ソフトウェア</div><div class="ogp-card-description">無料で使える中品質なテキスト読み上げ・歌声合成ソフトウェア。商用・非商用問わず無料で、誰でも簡単にお使いいただけます。イントネーションを詳細に調整することも可能です。</div><div class="ogp-card-meta"><img src="https://voicevox.hiroshiba.jp/favicon-32x32.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>voicevox.hiroshiba.jp</span></div></div></a>
+<a href="https://aivis-project.com/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://aivis-project.com/assets/images/ogp.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">Aivis Project | AivisSpeech でかんたんに感情豊かな音声合成、使ってみませんか？</div><div class="ogp-card-description">Aivis Project は、感情豊かな音声合成技術を誰もがかんたんに活用できる未来を目指す、壮大な開発プロジェクトです。AivisSpeech を使えば、物語の朗読やニュース記事の読み上げなど、あなたの想いを魅力的な声で表現できます。音声合成の新しい可能性を、一緒に探求してみませんか？</div><div class="ogp-card-meta"><img src="https://aivis-project.com/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>aivis-project.com</span></div></div></a>
+<h3 id="4-codexやclaude-codeに依頼する">4. CodexやClaude Codeに依頼する</h3>
+<p>あとはAIエージェントに、MotionPNGTuber素材、TTSエンジン、セリフ、動画構成などを渡して依頼します。</p>
+<p>例えばこんな感じです。</p>
+<div class="code-block"><div class="code-lang">text</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-text">Remotionを使って、1分ほどの今日のITニュースの動画を作ってください。
+
+- MotionPNGTuber素材: public/expo-video/character/
+- TTS: AivisSpeech, モデルID: XXXXX
+
+PNGTUberは右下に配置し、セリフは下部にテロップで設置してください。</code></pre></div>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">早速今日のITニュースを作ってもらいました <a href="https://t.co/rQ83Xk4HUI">https://t.co/rQ83Xk4HUI</a> <a href="https://t.co/Zls9cztr4R">pic.twitter.com/Zls9cztr4R</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2049545490623009134?ref_src=twsrc%5Etfw">April 29, 2026</a></blockquote>
+
+</div>
+<p>なお、サンプルとしてAIニケちゃんのMotionPNGTuberが同梱されているので、未指定だとそちらが使用されます。</p>
+<h2 id="宣伝">宣伝</h2>
+<p>普段XでAIツールやAIキャラクターについての発信をしているので、興味があったらフォローしていただけると大変喜びます🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "作ったもの",
+    "id": "作ったもの"
+  },
+  {
+    "level": 2,
+    "text": "MotionPNGTuberとは",
+    "id": "motionpngtuberとは"
+  },
+  {
+    "level": 2,
+    "text": "作成例",
+    "id": "作成例"
+  },
+  {
+    "level": 2,
+    "text": "使い方",
+    "id": "使い方"
+  },
+  {
+    "level": 3,
+    "text": "1. スキルを導入する",
+    "id": "1-スキルを導入する"
+  },
+  {
+    "level": 3,
+    "text": "2. MotionPNGTuber素材を用意する",
+    "id": "2-motionpngtuber素材を用意する"
+  },
+  {
+    "level": 3,
+    "text": "3. TTSエンジンを立ち上げる",
+    "id": "3-ttsエンジンを立ち上げる"
+  },
+  {
+    "level": 3,
+    "text": "4. CodexやClaude Codeに依頼する",
+    "id": "4-codexやclaude-codeに依頼する"
+  },
+  {
+    "level": 2,
+    "text": "宣伝",
+    "id": "宣伝"
+  }
+]

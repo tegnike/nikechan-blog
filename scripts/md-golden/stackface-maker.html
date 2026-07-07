@@ -1,0 +1,107 @@
+<p>こんにちは、ニケです。</p>
+<p>最近、Xで <strong>Stack-chan</strong> をよく見かけるようになりました。<br />小さな筐体にキャラクターが表示されて、音声で話したり、表情が変わったりするのを見ると、自分のキャラクターでも動かしたくなります。</p>
+<p>というわけで、Stack-chan / Stack CoreS3向けの表情素材を作るためのローカルWebアプリ、<strong>StackFace Maker</strong>を作ってみました。<br />今回はこのツールの使い方を紹介していこうと思います。</p>
+<p>リポジトリはこちらです。</p>
+<a href="https://github.com/tegnike/stackface-maker" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/8797f6bb2c9878bae2bddc0499b40b6a8d00a2daa92164b24bf770e116254ffe/tegnike/stackface-maker" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/stackface-maker</div><div class="ogp-card-description">Contribute to tegnike/stackface-maker development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>このツールは、もともと <a href="https://github.com/rotejin/EasyPNGTuber" target="_blank" rel="noopener noreferrer">EasyPNGTuber</a> をベースに作りました。<br />ツール開発者のろてじんさん（<a href="https://x.com/rotejin" target="_blank" rel="noopener noreferrer">@rotejin</a>）には、この場を借りて改めてお礼を申し上げます。</p>
+<h2 id="stackface-makerでできること">StackFace Makerでできること</h2>
+<p>StackFace Makerは、ざっくり言うと<strong>キャラクター画像から標準表情を作り、そこから目ON/OFF × 口ON/OFFの4パターン x 表情差分を作るツール</strong>です。</p>
+<p>もちろん、すでに標準表情の画像を用意できている場合は、標準表情生成を飛ばしてそのまま4パターン作成に進めます。</p>
+<p>Stack CoreS3の画面は320x240なので、最終的にはこのサイズのPNGとして保存します。</p>
+<h2 id="セットアップ">セットアップ</h2>
+<p>まずはリポジトリをクローンします。</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">git clone https://github.com/tegnike/stackface-maker.git
+cd stackface-maker</code></pre></div>
+<p>依存関係は <code>uv</code> で入れます。</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">uv sync</code></pre></div>
+<p>Webアプリを起動します。</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">uv run python web_app.py</code></pre></div>
+<p>起動したらブラウザで <code>http://127.0.0.1:8765</code> を開きます。</p>
+<p>画像生成を使う場合は、画面上でGemini APIキーやOpenAI APIキーを入力できます。<br />未入力の場合は、環境変数 <code>GEMINI_API_KEY</code> / <code>OPENAI_API_KEY</code> を見に行くようになっています。</p>
+<h2 id="使ってみる">使ってみる</h2>
+<p>画面は左側に操作パネル、右側にマスクとプレビューがある構成です。<br />左側には「標準表情生成」「4パターン作成」「調整・保存」のタブがあります。<br />画像生成を使う場合は、最初にモデルとAPIキーを設定します。</p>
+<p><img src="/static/images/optimized/posts/stackface-maker/01-create-420.webp" srcset="/static/images/optimized/posts/stackface-maker/01-create-420.webp 420w, /static/images/optimized/posts/stackface-maker/01-create-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="StackFace Makerの標準表情生成画面" loading="lazy" decoding="async" /></p>
+<h2 id="任意-最初の標準表情を作る">任意: 最初の標準表情を作る</h2>
+<p>最初の標準表情画像がまだない場合は、「標準表情生成」タブを使います。</p>
+<p>ここでは、作りたいキャラクター画像を選択して「標準表情を生成」を押します。<br />内部で、リポジトリに含まれている <code>sample/standard/eyeON_mouthON.png</code> を構図リファレンスとして使い、選択したキャラクター画像の髪型・目・雰囲気を反映した標準表情を生成します。</p>
+<p><img src="/static/images/optimized/posts/stackface-maker/reference-eyeON-mouthON-420.webp" srcset="/static/images/optimized/posts/stackface-maker/reference-eyeON-mouthON-420.webp 420w, /static/images/optimized/posts/stackface-maker/reference-eyeON-mouthON-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="標準表情生成で使う構図リファレンス画像" loading="lazy" decoding="async" /></p>
+<p>生成結果がよければ、「この画像を標準表情として使う」を押すと、そのまま「4パターン作成」タブに進めます。<br />少し違う結果になった場合は、追加指示を足して再生成しましょう。</p>
+<p>すでに標準表情画像を用意できている場合は、このタブは飛ばして大丈夫です。</p>
+<h2 id="4パターンを作成する">4パターンを作成する</h2>
+<p>まずは標準表情を読み込みます。<br />手元に標準表情画像がある場合は、ここでその画像を選択します。<br />「標準表情生成」タブで作った画像を使う場合は、生成結果を採用した時点で標準表情としてセットされます。</p>
+<p>最終的に320x240のアスペクト比の画像を作成するので、横長4:3の画像が必要です。<br />目と口の状態は、どちらでも良いですが、両方ともON（開いている）にしておくのが好みの状態になりやすいです。</p>
+<p>その後、反対状態の画像を生成します。<br />例えば標準画像が「目ON・口ON」なら、反対状態として「目OFF・口OFF」の画像を作ります。</p>
+<p>「反対状態の画像を生成」を押すと、画像生成AIが反対状態の画像を作成します。<br />反対状態用プロンプトも入れられるので、たとえば次のような指示を足せます。</p>
+<div class="code-block"><div class="code-lang">text</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-text">閉じている口は微笑んでいるような様子で。</code></pre></div>
+<p>すでに反対状態の画像がある場合は、「反対状態の画像を選択」で手動指定することもできます。</p>
+<h2 id="マスクを調整する">マスクを調整する</h2>
+<p>標準画像と反対状態画像が用意できたら、「4パターンを作成」を押します。<br />すると、画像の位置合わせをしたうえで、目と口のマスクが自動生成されます。</p>
+<p><img src="/static/images/optimized/posts/stackface-maker/02-adjust-mask-420.webp" srcset="/static/images/optimized/posts/stackface-maker/02-adjust-mask-420.webp 420w, /static/images/optimized/posts/stackface-maker/02-adjust-mask-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="マスク調整画面" loading="lazy" decoding="async" /></p>
+<p>赤い部分が差し替え対象のマスクです。<br />左側が目パーツ、下側が口パーツで、それぞれブラシで塗ったり消したりできます。</p>
+<p>自動的に作成されたマスクでは、範囲が大きかったり、上手く選択できていないこともあるので、プレビューを見ながら必要な部分だけブラシで整えます。<br />マスクを編集すると、プレビューは自動で再反映されます。</p>
+<p>フェザーはマスク境界をぼかす設定です。<br />少し入れると貼り付け感が減りますが、大きすぎると周囲の肌や髪も混ざります。<br />まずは5〜12pxくらいから試すのが良いと思いますが、デフォルトのままでも十分なことが多いです。</p>
+<h2 id="保存する">保存する</h2>
+<p>プレビューで問題なさそうなら、保存します。</p>
+<p>保存時に「CoreS3用 320x240で保存」をONにしておくと、実機向けのサイズに縮小されます。<br />ZIPの中には感情名を含むフォルダが作られ、その中に4枚のPNGが入ります。</p>
+<div class="code-block"><div class="code-lang">text</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-text">eyeOFF_mouthOFF.png
+eyeON_mouthOFF.png
+eyeOFF_mouthON.png
+eyeON_mouthON.png</code></pre></div>
+<h2 id="表情差分を作成する">表情差分を作成する</h2>
+<p>標準表情の4パターンが作れたら、同じ流れで別の表情も作れます。</p>
+<p>「4パターン作成」タブで「喜び」「悲しみ」「怒り」「考え中」などの表情を選び、「この表情の画像を生成」を押すと、標準表情を元にした表情ベース画像を作成できます。<br />一覧にない表情を作りたい場合は、「驚き」「眠い」「ドヤ顔」のような名前をカスタム表情欄に入力すると、その表情名で生成できます。</p>
+<p>感情画像用プロンプトを使うと、笑顔の強さや眉の角度など、その表情だけに追加したい指示も足せます。</p>
+<p>表情ベース画像ができたら、あとは通常の手順と同じです。<br />その表情の反対状態の画像を生成または選択し、「4パターンを作成」で目ON/OFF × 口ON/OFFの素材を作ります。</p>
+<p>表情ごとに保存すると、フォルダ名に表情名が入るので、後から整理しやすくなります。<br />作った素材を並べるとこんな感じです。</p>
+<p><img src="/static/images/optimized/posts/stackface-maker/03-output-faces-420.webp" srcset="/static/images/optimized/posts/stackface-maker/03-output-faces-420.webp 420w, /static/images/optimized/posts/stackface-maker/03-output-faces-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="作成した表情素材の一覧" loading="lazy" decoding="async" /></p>
+<h2 id="宣伝">宣伝</h2>
+<p>普段XでAIツールやAIキャラクターについての発信をしているので、興味があったらフォローしていただけると大変喜びます🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "StackFace Makerでできること",
+    "id": "stackface-makerでできること"
+  },
+  {
+    "level": 2,
+    "text": "セットアップ",
+    "id": "セットアップ"
+  },
+  {
+    "level": 2,
+    "text": "使ってみる",
+    "id": "使ってみる"
+  },
+  {
+    "level": 2,
+    "text": "任意: 最初の標準表情を作る",
+    "id": "任意-最初の標準表情を作る"
+  },
+  {
+    "level": 2,
+    "text": "4パターンを作成する",
+    "id": "4パターンを作成する"
+  },
+  {
+    "level": 2,
+    "text": "マスクを調整する",
+    "id": "マスクを調整する"
+  },
+  {
+    "level": 2,
+    "text": "保存する",
+    "id": "保存する"
+  },
+  {
+    "level": 2,
+    "text": "表情差分を作成する",
+    "id": "表情差分を作成する"
+  },
+  {
+    "level": 2,
+    "text": "宣伝",
+    "id": "宣伝"
+  }
+]

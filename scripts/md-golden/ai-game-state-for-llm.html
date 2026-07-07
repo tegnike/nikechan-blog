@@ -1,0 +1,184 @@
+<p>こんにちは、ニケです。</p>
+<p>先日、AIにゲーム実況をさせる記事を書きました。</p>
+<a href="https://nikechan.com/dev_blog/ai-game-play-methods" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<p>その中で、AIにプレイまでさせるなら「テキストや構造化データで状態が取れて、操作も返しやすいゲームを選ぶとよい」という話をしました。<br />上記の記事では Pokémon Showdown を例に、ゲーム画面をマルチモーダルAIで解析するのではなく、ゲーム状態をテキストとして取ってLLMに渡し、選んだ行動をゲームに返す構成を紹介しています。</p>
+<p>今回はその続きとして、もう少し広い視点で「ゲームの状態をどう取るか」を考えてみます。</p>
+<p>ゲームの状態を取る入口は、テキストログだけではありません。<br />ブラウザゲームならDOMや通信、Minecraftなら専用Botライブラリ、Slay the SpireならMod、レトロゲームならエミュレータのRAM、というように、ゲームの作りによって使える手段は変わります。</p>
+<p>ただし、状態を取る方法があることと、AIが安定してプレイできることは少し別の話です。<br />この記事ではその違いを分けながら、具体的なゲーム名とライブラリを挙げて見ていきます。</p>
+<p>AIにゲームを遊ばせるとき、まず何を見ればよいのか。<br />その入口として、今回は <strong>状態取得</strong> に注目します。</p>
+<h2 id="状態取得だけでは終わらない">状態取得だけでは終わらない</h2>
+<p>AIにゲームを遊ばせるには、最低でも次の3つが必要です。</p>
+<ol><li>今のゲーム状態を取得する</li><li>次の行動を決める</li><li>実際にゲームへ入力する</li></ol>
+<p>このうち、よく話題になるのは1つ目の「状態を取得する」です。<br />でも実際には、2つ目と3つ目も同じくらい大事です。</p>
+<p>例えばゲーム画面のログ欄から「敵が攻撃してきた」というテキストを取れたとします。<br />それは実況には使えるかもしれません。<br />でもAIにプレイさせるなら、今のHP、使える技、敵の状態、選べる行動、行動後の結果まで必要になります。</p>
+<p>さらに、AIが「攻撃する」と返したとして、それをゲーム側でどう実行するのかも決めないといけません。<br />ボタンを押すのか、APIを叩くのか、コマンドを送るのか、DOMをクリックするのか。</p>
+<p>つまり重要なのは、単にログがあるかではなく、<strong>AIが意思決定に使える状態として取れるか</strong>、そして <strong>AIの出力を安定してゲーム操作に変換できるか</strong> です。</p>
+<p><img src="/static/images/optimized/posts/ai-game-state-for-llm/01-420.webp" srcset="/static/images/optimized/posts/ai-game-state-for-llm/01-420.webp 420w, /static/images/optimized/posts/ai-game-state-for-llm/01-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="AIゲームプレイに必要な3要素" loading="lazy" decoding="async" /></p>
+<p>状態取得はあくまで入口で、そこから先まで含めて考えると、AIに遊ばせやすいゲームと難しいゲームの違いがかなり見えやすくなります。</p>
+<h2 id="aiに渡しやすいゲーム">AIに渡しやすいゲーム</h2>
+<p>まず、AIに比較的遊ばせやすいゲームです。</p>
+<p>このカテゴリの特徴は、ゲーム状態がテキストや構造化データとして取れて、行動もコマンドや記号で表せることです。<br />ターン制のゲームが多いですね。</p>
+<h3 id="pok-mon-showdown">Pokémon Showdown</h3>
+<p>一番分かりやすい例は <strong>Pokémon Showdown</strong> です。</p>
+<p>Pokémon Showdown はブラウザで動くポケモンバトルシミュレータですが、内部的にはバトル情報がテキストプロトコルでやり取りされています。</p>
+<a href="https://pokemonshowdown.com/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title">Pok&amp;eacute;mon Showdown! battle simulator</div><div class="ogp-card-meta"><img src="https://pokemonshowdown.com/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>pokemonshowdown.com</span></div></div></a>
+<p>さらに、PythonからPokémon ShowdownのBotを作るための <a href="https://poke-env.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer">poke-env</a> というライブラリもあります。</p>
+<p>poke-env では、現在場に出ているポケモン、相手の状態、使える技、交代先、合法な行動などをオブジェクトとして扱えます。<br />LLMに渡す前に、これらを短いテキストやJSONに整形すれば、かなり素直に「次の一手」を選ばせることができます。<br />さらに、選んだ技や交代先をBot側からバトルサーバーへ送れるので、状態を見るだけでなく実際に対戦を進められます。</p>
+<p>これ、AIがプレイまでこなすアプローチにかなり向いています。<br />画面を見る必要がないですし、行動候補も明確です。</p>
+<p>ただし、Pokémon Showdown はコミュニティが作ったファンプロジェクトで、任天堂・ゲームフリークの公式サービスではありません。<br />現時点では黙認されている状態なので、個人の研究・実験の範囲で使うのがよいと思います。</p>
+<h3 id="チェス、将棋、囲碁">チェス、将棋、囲碁</h3>
+<p>チェス、将棋、囲碁のようなボードゲームも相性が良いです。</p>
+<p>チェスなら FEN や PGN、エンジン連携なら UCI。<br />将棋なら SFEN や KIF、CSA、USI。<br />囲碁なら SGF や GTP。</p>
+<p>盤面が記号化しやすく、合法手も列挙しやすい。<br />LLMにそのまま強く打たせるのは別問題ですが、少なくとも「状態を渡して行動を返し、その手を盤面に反映する」パイプラインは作りやすいです。</p>
+<p>チェスなら <a href="https://python-chess.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">python-chess</a> や <a href="https://lichess.org/api" target="_blank" rel="noopener noreferrer">Lichess API</a> 周りも整っています。<br />こういうゲームは、AIプレイの実験を始める題材としてかなり扱いやすいと思います。</p>
+<h3 id="slay-the-spire">Slay the Spire</h3>
+<p>個人的に面白いと思ったのが <strong>Slay the Spire</strong> です。</p>
+<p>Slay the Spire は標準で外部向けJSON APIを出しているわけではありません。</p>
+<a href="https://store.steampowered.com/app/646570/Slay_the_Spire/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/646570/capsule_616x353.jpg?t=1774015376" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">Slay the Spire on Steam</div><div class="ogp-card-description">We fused card games and roguelikes together to make the best single player deckbuilder we could. Craft a unique deck, encounter bizarre creatures, discover relics of immense power, and Slay the Spire!</div><div class="ogp-card-meta"><img src="https://store.steampowered.com/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>store.steampowered.com</span></div></div></a>
+<p>ただし、<a href="https://github.com/ForgottenArbiter/CommunicationMod" target="_blank" rel="noopener noreferrer">CommunicationMod</a> というModを入れると、外部プロセスと <code>stdin</code> / <code>stdout</code> で双方向に通信できます。<br />ゲーム状態のJSONを受け取るだけでなく、外部プロセスからコマンドを返して、カードを使う、ターンを終了する、報酬やイベントの選択肢を選ぶ、といった操作も実行できます。</p>
+<a href="https://github.com/ForgottenArbiter/CommunicationMod" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/e167e73d139007fc39653932e87bf9d5e1e0bc543583e1a7920e835abbb84715/ForgottenArbiter/CommunicationMod" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - ForgottenArbiter/CommunicationMod: Slay the Spire mod that provides a protocol for allowing another process to control the game</div><div class="ogp-card-description">Slay the Spire mod that provides a protocol for allowing another process to control the game - ForgottenArbiter/CommunicationMod</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>READMEを見ると、ゲーム状態が安定したタイミングで、手札、山札、捨て札、敵のHP、敵の行動意図、プレイヤーHP、エナジー、レリック、マップなどがJSONで送られる仕組みです。<br />さらに <a href="https://github.com/ForgottenArbiter/spirecomm" target="_blank" rel="noopener noreferrer">spirecomm</a> というPythonパッケージもあります。</p>
+<p>イメージとしては、外部プロセス側でこんな情報を受け取って、次のコマンドを返す形です。</p>
+<div class="code-block"><div class="code-lang">json</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-json">{
+  &quot;available_commands&quot;: [&quot;play&quot;, &quot;end&quot;, &quot;state&quot;],
+  &quot;game_state&quot;: {
+    &quot;combat_state&quot;: {
+      &quot;hand&quot;: [&quot;Strike&quot;, &quot;Defend&quot;, &quot;Bash&quot;],
+      &quot;monsters&quot;: [{ &quot;name&quot;: &quot;Jaw Worm&quot;, &quot;current_hp&quot;: 46 }],
+      &quot;player&quot;: { &quot;current_hp&quot;: 68, &quot;energy&quot;: 3 }
+    }
+  }
+}</code></pre></div>
+<p>例えば <code>PLAY 1 0</code> なら手札の1枚目を0番目の敵に使い、<code>END</code> ならターン終了、<code>CHOOSE 0</code> なら提示された選択肢の0番目を選ぶ、というようにゲーム側へ操作を送れます。</p>
+<p>カードゲームなので行動候補も比較的はっきりしていますし、ターン制なので応答待ちもしやすい。<br />LLMに渡す形としてはかなり扱いやすいと思います。</p>
+<h3 id="textworld、nethack">TextWorld、NetHack</h3>
+<p>テキストゲームやローグライクも相性が良いです。</p>
+<p><a href="https://github.com/microsoft/TextWorld" target="_blank" rel="noopener noreferrer">TextWorld</a> は、テキストベースのゲームをAIエージェント研究に使うための環境です。<br />観測も行動も基本的にテキストなので、LLMとの相性はかなり自然です。<br />外部エージェントが <code>open door</code> や <code>take key</code> のようなテキストコマンドを返すと、それをゲームに入力して次の観測を受け取る形になります。</p>
+<p>NetHack も、<a href="https://github.com/facebookresearch/nle" target="_blank" rel="noopener noreferrer">NetHack Learning Environment</a> や MiniHack のような研究環境があります。<br />こちらも観測を受け取って、移動や攻撃などのアクションをコマンドとして返せます。<br />ゲーム自体は難しいですが、少なくとも「画面画像をLLMに見せて、キーボードを無理やり押す」以外のルートが用意されています。</p>
+<h2 id="専用ライブラリがあるゲーム">専用ライブラリがあるゲーム</h2>
+<p>次に、専用ライブラリやAI研究環境があるゲームです。</p>
+<p>ここは少し注意が必要です。<br />専用ライブラリがあるゲームは、状態取得や操作の入口が用意されているので強いです。<br />ただし、それがそのまま「LLMに投げれば遊べる」を意味するわけではありません。</p>
+<h3 id="minecraft">Minecraft</h3>
+<p>代表例は <strong>Minecraft</strong> です。</p>
+<p>Minecraftには <a href="https://github.com/PrismarineJS/mineflayer" target="_blank" rel="noopener noreferrer">Mineflayer</a> という有名なBotライブラリがあります。</p>
+<a href="https://github.com/PrismarineJS/mineflayer" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/35b1d7becbf9464f3ec6dbf6224d6924dddcad9da11f82166ef742171eb65365/PrismarineJS/mineflayer" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - PrismarineJS/mineflayer: Create Minecraft bots with a powerful, stable, and high level JavaScript API.</div><div class="ogp-card-description">Create Minecraft bots with a powerful, stable, and high level JavaScript API. - PrismarineJS/mineflayer</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>READMEでも、ブロック情報、エンティティ追跡、物理と移動、攻撃、インベントリ管理、クラフト、チェスト操作、採掘、建築、チャットなどが扱えるとされています。</p>
+<p>つまり、状態取得と操作APIはかなり整っています。<br />これは「画面を見るしかないゲーム」では全然ありません。</p>
+<p>ただし、Minecraftはオープンエンドすぎます。</p>
+<p>「木を切る」だけでも、周囲の木を探す、近づく、道中の段差を処理する、斧があるか確認する、なければ作る、インベントリを管理する、敵がいたら逃げる、みたいな処理が必要になります。</p>
+<p>Mineflayerがあっても、LLMに全部投げれば終わり、ではないです。<br />タスク分解、経路探索、短期記憶、長期記憶、失敗時の復帰。</p>
+<p>これはもう本格的なエージェント設計の話になります。</p>
+<p>実際、Minecraftを使ったAI研究としては <a href="https://github.com/MineDojo/MineDojo" target="_blank" rel="noopener noreferrer">MineDojo</a> や <a href="https://github.com/microsoft/malmo" target="_blank" rel="noopener noreferrer">Project Malmo</a> があります。<br />さらに、GPT-4とMineflayerを使ってMinecraft内でスキルを獲得していく <a href="https://voyager.minedojo.org/" target="_blank" rel="noopener noreferrer">Voyager</a> みたいな研究もあります。</p>
+<p>これだけ環境が揃っているので題材としての魅力は十分ですが、その分だけ実装の重さも相当なものになります。</p>
+<h3 id="starcraft-ii">StarCraft II</h3>
+<p><strong>StarCraft II</strong> には <a href="https://github.com/google-deepmind/pysc2" target="_blank" rel="noopener noreferrer">PySC2</a> があります。<br />DeepMind が公開している StarCraft II Learning Environment ですね。</p>
+<p>状態も取れますし、操作もできます。<br />AI研究の題材としては超有名ですね。</p>
+<p>ただし、リアルタイム戦略ゲームなので難易度が跳ね上がります。<br />部分観測、ユニット数、操作量、マップ把握、長期戦略、戦闘操作。<br />LLMで「次の一手」を選ぶというより、複数の制御系を組み合わせる話になりやすいです。</p>
+<h3 id="doom、レトロゲーム、factorio">Doom、レトロゲーム、Factorio</h3>
+<p>FPSなら <a href="https://github.com/Farama-Foundation/ViZDoom" target="_blank" rel="noopener noreferrer">ViZDoom</a> があります。<br />Doomを強化学習環境として扱えるもので、画面バッファやゲーム変数を使えます。<br />操作もAPI経由でボタン入力として送れます。<br />ただ、FPSは反応速度と視覚処理が重要なので、テキスト状態だけで気持ちよく遊ばせるのは難しいでしょう。</p>
+<p>レトロゲームなら <a href="https://retro.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">Gym Retro</a> のような環境があります。<br />RAMや入力を扱えるので、MarioやSonicのようなゲームも環境化できます。<br />ただし、ゲームごとのメモリアドレス解析や報酬設計が必要になりがちです。</p>
+<p>また、商業ゲームで試すには別途ROMファイルが必要で、著作権的にグレーな部分があります。<br />自分が正規に所有しているソフトの扱いについては、各自で確認してください。</p>
+<p>Factorioには <a href="https://github.com/JackHopkins/factorio-learning-environment" target="_blank" rel="noopener noreferrer">Factorio Learning Environment</a> という、LLMエージェント評価向けの環境も出ています。<br />ModやLua APIを使えば、状態取得だけでなく、クラフト、配置、移動などの操作もプログラム側から実行できます。<br />面白い環境ですが、FactorioもMinecraftと同じく、状態取得より「何を目標にして、どう計画するか」が本体になります。</p>
+<p>専用環境があると入口は強いですが、その先の設計の複雑さはどれも相当なものです。</p>
+<h2 id="aiに遊ばせやすいゲーム、難しいゲーム">AIに遊ばせやすいゲーム、難しいゲーム</h2>
+<p>ここまでの話を、ゲームごとに分類するとこんな感じです。</p>
+<p><img src="/static/images/optimized/posts/ai-game-state-for-llm/02-420.webp" srcset="/static/images/optimized/posts/ai-game-state-for-llm/02-420.webp 420w, /static/images/optimized/posts/ai-game-state-for-llm/02-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="AIに遊ばせやすいゲームと難しいゲーム" loading="lazy" decoding="async" /></p>
+<div class="table-wrapper"><table><thead><tr><th>ゲーム</th><th>状態取得</th><th>操作</th><th>AIプレイの難しさ</th></tr></thead><tbody><tr><td>Pokémon Showdown</td><td>テキストプロトコル / poke-env</td><td>コマンド</td><td>かなり向いている</td></tr><tr><td>チェス / 将棋 / 囲碁</td><td>記号化された盤面</td><td>記号化された手</td><td>向いている</td></tr><tr><td>Slay the Spire</td><td>ModでJSON</td><td>コマンド</td><td>かなり向いている</td></tr><tr><td>TextWorld</td><td>テキスト</td><td>テキストコマンド</td><td>向いている</td></tr><tr><td>NetHack</td><td>NLEなど</td><td>コマンド</td><td>状態は取れるがゲームが難しい</td></tr><tr><td>Minecraft</td><td>Mineflayerなど</td><td>Bot API</td><td>状態は取れるが設計が重い</td></tr><tr><td>StarCraft II</td><td>PySC2</td><td>API</td><td>リアルタイム戦略が難しい</td></tr><tr><td>Doom</td><td>ViZDoom</td><td>API</td><td>反応速度と視覚処理が難しい</td></tr><tr><td>Factorio</td><td>FLE / Mod / Lua API</td><td>API / コマンド</td><td>長期計画が難しい</td></tr><tr><td>レトロアクション</td><td>RAM / エミュレータ</td><td>入力</td><td>ゲームごとの解析が重い</td></tr><tr><td>画面認識のみのミニゲーム</td><td>画面認識 / Canvas</td><td>少数入力</td><td>状態取得は難しいが操作は軽い</td></tr></tbody></table></div>
+<p>この表で言いたいのは、どれが優れているという話ではありません。</p>
+<p><strong>AIに遊ばせるなら、ゲームの面白さとは別に、状態と操作の形を見る必要がある</strong> という話です。</p>
+<p>ここで見ているのは、厳密にはジャンルそのものではなく、そのゲームで状態がどう表現されているか、操作単位がどれくらい細かいか、リアルタイム性がどれくらい強いか、外部APIやModが使えるか、といった点です。<br />もちろん、オンラインゲームなら規約や外部ツール利用の扱いも大きな制約になります。</p>
+<p>例えば Minecraft は、状態取得という意味ではかなり恵まれています。<br />でも、AIに「サバイバルで生活しろ」と言った瞬間に、タスク分解と長期計画の地獄が始まります。</p>
+<p>一方で、状態取得は難しいけれど操作は軽いゲームもあります。<br />例えば、画面を見るしかないシンプルなランナーゲームやクリックゲーム、Canvasで作られた小さなブラウザゲームなどです。<br />これらはDOMやAPIから状態を取れないと画面認識が必要になりますが、行動自体は「ジャンプする」「左右に動く」「クリックする」くらいで済むことがあります。</p>
+<p>逆に Pokémon Showdown や Slay the Spire は、ゲームとしての意思決定は深いですが、状態と行動の形式はかなり扱いやすく、LLMに渡すインターフェースも作りやすいです。<br />この差は、題材選びに大きく影響します。</p>
+<h2 id="ゲーム選びのチェックリスト">ゲーム選びのチェックリスト</h2>
+<p>AIにゲームを遊ばせる題材を選ぶなら、まず次のような点が気になります。</p>
+<ul><li>ターン制か、リアルタイムか</li><li>状態がテキスト、JSON、プロトコル、APIで取れるか</li><li>行動候補や合法手を列挙できるか</li><li>AIの出力をゲーム操作に変換しやすいか</li><li>失敗時に復帰できるか</li><li>画面認識が必要な場面がどれくらい残るか</li><li>実行テンポが実況や配信に合うか</li><li>オンラインゲームなら規約や外部ツール利用の扱いに問題がないか</li></ul>
+<p>最初に試すなら、ターン制で、状態も行動も構造化されているゲームがよいです。<br />Pokémon Showdown、チェス、Slay the Spireあたりですね。</p>
+<p>Minecraftはかなり魅力的ですが、最初の題材としては少し重いと思います。<br />Mineflayerがあるので入口は広いんですが、作りたいものが「村人と会話するBot」なのか「ダイヤを掘るBot」なのか「エンドラ討伐」なのかで、必要な設計が全然変わります。</p>
+<p>StarCraft II、Factorio、Doomあたりは、専用環境があるので研究としては面白いです。<br />ただし、LLMに雑に投げて動かすというより、専用の制御システムや計画システムを作る領域に近いと思います。</p>
+<h2 id="終わりに">終わりに</h2>
+<p>AIにゲームを遊ばせる話では、「画面を見るか」「ログを取るか」みたいな二択になりがちです。<br />でも実際には、DOM、通信、プロトコル、Mod、Botライブラリ、エミュレータ、研究環境など、状態を取ったり、操作を送ったりするルートはかなりあります。</p>
+<p>ただし、取れることと遊べることは別です。</p>
+<p>LLMが使える粒度で状態を整えられるか。<br />行動候補をうまく絞れるか。<br />ゲーム側へ安定して入力できるか。<br />失敗したときに戻ってこられるか。</p>
+<p>このあたりを考えると、AIに遊ばせやすいゲームと難しいゲームの差が見えてきます。</p>
+<p>前回の記事では Pokémon Showdown を例にしましたが、調べてみると Slay the Spire や Minecraft などもかなり面白そうでした。<br />特に Slay the Spire は状態をJSONで受け取り、操作もコマンドで返せるので、LLMプレイヤーを作る題材として普通に良さそうです。</p>
+<p>次に何か作るなら、まずは Slay the Spire かチェスあたりから触ってみたいと思っています。</p>
+<h2 id="宣伝">宣伝</h2>
+<p>2026年5月6日（水・祝）に開催される <strong>生成AIなんでも展示会 Vol.5</strong> に出展します！</p>
+<p>AIにゲームを遊ばせる系のデモも何かしら動かす予定なので、興味がある方はぜひ見に来てください。</p>
+<a href="https://www.genai-expo.com/exhibitors?circle=00297b6cf5a4&amp;utm_source=x&amp;utm_medium=social&amp;utm_campaign=exhibitor_share" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://www.genai-expo.com/exhibitors/og?id=00297b6cf5a4" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">ニケちゃん が Vol.5 に出展！</div><div class="ogp-card-description">AIニケちゃんで何か</div><div class="ogp-card-meta"><img src="https://www.genai-expo.com/favicon.ico?favicon.12piazin6z05e.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>www.genai-expo.com</span></div></div></a>
+<p>また、普段XでAIツールやAIキャラクターについての発信をしているので、興味があったらフォローしていただけると大変喜びます🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "状態取得だけでは終わらない",
+    "id": "状態取得だけでは終わらない"
+  },
+  {
+    "level": 2,
+    "text": "AIに渡しやすいゲーム",
+    "id": "aiに渡しやすいゲーム"
+  },
+  {
+    "level": 3,
+    "text": "Pokémon Showdown",
+    "id": "pok-mon-showdown"
+  },
+  {
+    "level": 3,
+    "text": "チェス、将棋、囲碁",
+    "id": "チェス、将棋、囲碁"
+  },
+  {
+    "level": 3,
+    "text": "Slay the Spire",
+    "id": "slay-the-spire"
+  },
+  {
+    "level": 3,
+    "text": "TextWorld、NetHack",
+    "id": "textworld、nethack"
+  },
+  {
+    "level": 2,
+    "text": "専用ライブラリがあるゲーム",
+    "id": "専用ライブラリがあるゲーム"
+  },
+  {
+    "level": 3,
+    "text": "Minecraft",
+    "id": "minecraft"
+  },
+  {
+    "level": 3,
+    "text": "StarCraft II",
+    "id": "starcraft-ii"
+  },
+  {
+    "level": 3,
+    "text": "Doom、レトロゲーム、Factorio",
+    "id": "doom、レトロゲーム、factorio"
+  },
+  {
+    "level": 2,
+    "text": "AIに遊ばせやすいゲーム、難しいゲーム",
+    "id": "aiに遊ばせやすいゲーム、難しいゲーム"
+  },
+  {
+    "level": 2,
+    "text": "ゲーム選びのチェックリスト",
+    "id": "ゲーム選びのチェックリスト"
+  },
+  {
+    "level": 2,
+    "text": "終わりに",
+    "id": "終わりに"
+  },
+  {
+    "level": 2,
+    "text": "宣伝",
+    "id": "宣伝"
+  }
+]

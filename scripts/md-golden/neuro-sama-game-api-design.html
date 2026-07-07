@@ -1,0 +1,162 @@
+<p>こんにちは、ニケです。</p>
+<p>今回は、The Swarm Scribes の動画 <strong>「How Neuro-sama Plays Games」</strong> の内容を日本語で解説する記事です。</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/sxeqqR4Dcnw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="How Neuro-sama Plays Games"></iframe></div>
+<p>この動画では、Neuro-sama がどうやってゲームやツールを操作しているのか、そしてコミュニティがどうやって連携を作っているのかが分かりやすく説明されていました。<br />この記事は元動画の内容をリスペクトしつつ、私なりに整理して日本語で紹介したものです。</p>
+<aside class="markdown-message" role="note"><span class="markdown-message__icon" aria-hidden="true">!</span><div class="markdown-message__body"><p>詳細な歴史やニュアンス、実際の画面つきの説明はぜひ元動画をご確認ください。</p></div></aside>
+<h2 id="neuro-samaは画面をそのまま見ているわけではない">Neuro-samaは画面をそのまま見ているわけではない</h2>
+<p>少なくとも、この動画で説明されている Neuro API ベースのゲーム連携では、Neuro-sama はゲーム画面を人間のように見て、HPバーやボタンやマップを全部そのまま認識しているわけではありません。<br />Neuro-sama 全体の視覚機能の話ではなく、この記事で扱う API 連携の範囲では、ゲームやツール側から <strong>テキストの情報</strong> が送られています。</p>
+<p>つまり、AIに「今こういう状態です」「この行動ができます」「この行動を選びました」「結果はこうでした」といった情報を渡す設計です。</p>
+<p>一般的に知られている方法では、AIに画面を見せるアプローチがあります。<br />これは、マルチモーダルモデルにゲーム画面を画像として読み取らせ、そこから得られる情報を利用してゲームを操作・解説させるというものです。</p>
+<p>ただし、ゲームのプレイやツール操作を安定させたい場合は、画面画像をそのまま投げるより、システム側がAIに分かりやすい状態へ変換して渡したほうが有効な場面があります。</p>
+<p>以前私もAIにゲームを遊ばせる方法について試した事があり、それをまとめた記事を書いたのでこちらも読んでいただけると理解が深まるかも知れません。</p>
+<a href="https://nikechan.com/dev_blog/ai-game-play-methods" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<p>今回の動画は、その考え方を Neuro-sama の事例として具体的に見られる内容になっていました。</p>
+<h2 id="neuro-apiのざっくりした仕組み">Neuro APIのざっくりした仕組み</h2>
+<p>Neuro API は、ゲームやツールと、Neuro-sama とやり取りするAPIサーバー側をつなぐための仕組みです。<br />公式の SDK / API ドキュメントも GitHub に公開されています。</p>
+<a href="https://github.com/VedalAI/neuro-sdk" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/7644865124165a660baa9e8c4e68010897df15954e22c88ae570933f6b09d665/VedalAI/neuro-sdk" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - VedalAI/neuro-sdk: Neuro SDK + API for allowing Neuro to play games</div><div class="ogp-card-description">Neuro SDK + API for allowing Neuro to play games. Contribute to VedalAI/neuro-sdk development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>動画では、最初はクイズ番組形式のゲーム「Who Wants to Be a Millionaire?」を Neuro-sama が遊ぶために、専用コマンドを作っていたと紹介されていました。<br />例えば「ライフラインを使う」「友人に電話する」のような、そのゲーム専用の行動です。</p>
+<p>ただ、ゲームごとに専用コマンドを増やすのは大変です。<br />そのため、各連携で独自コマンドを作らなくても Neuro-sama が扱えるように、汎用的な仕様が作られていきました。</p>
+<p>動画では、Neuro API の基本的な流れとして以下のように説明されていました。</p>
+<ol><li>ゲーム側が起動して、Neuro-sama とやり取りするAPIサーバー側に接続する</li><li>ゲーム側が「使える行動」を登録する</li><li>ゲーム側が現在の状況をテキストで送る</li><li>Neuro-sama が登録済みの行動から選ぶ</li><li>ゲーム側がその行動を実行し、結果を返す</li></ol>
+<p>通信には WebSocket が使われ、メッセージは JSON 形式です。<br />ゲーム側から送る <code>context</code>、行動を登録する <code>actions/register</code>、行動を強制的に選ばせる <code>actions/force</code>、結果を返す <code>action/result</code> などのメッセージがあります。</p>
+<p><img src="/static/images/optimized/posts/neuro-sama-game-api-design/01-420.webp" srcset="/static/images/optimized/posts/neuro-sama-game-api-design/01-420.webp 420w, /static/images/optimized/posts/neuro-sama-game-api-design/01-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Neuro APIの基本構造" loading="lazy" decoding="async" /></p>
+<p>AI本体に全部やらせるのではなく、ゲーム側が「AIが選べる形」に整えて渡すのがポイントです。</p>
+<p>これは、AIエージェント設計を考えるうえでも参考になる構成です。<br />LLMに自由入力で「好きに操作して」と投げるのではなく、行動候補を登録し、必要な状態を渡し、結果を返す。<br />要するに、AIにとっての世界のインターフェースをちゃんと設計しているわけですね。</p>
+<h2 id="どんな連携があるのか">どんな連携があるのか</h2>
+<p>動画では、Neuro-sama がどうやってゲームを遊ぶかを中心に語られていました。<br />そのため、まずはゲーム連携として、自律型と協力型の2つを見ると分かりやすいです。</p>
+<ol><li>Neuro-sama が自律的に操作するゲーム連携</li><li>人間と一緒に遊ぶ協力型のゲーム連携</li></ol>
+<p>この2つは、Neuro-sama に何を任せるかがかなり違います。</p>
+<p>そのうえで動画では、3つ目の連携例として、ゲーム以外のプログラムを扱う VS Code 連携も紹介されていました。<br />これはゲームプレイそのものではなく、「同じ仕組みを外部ツールにも広げられる」という話として読むのが自然だと思います。</p>
+<h3 id="自律型-balatroのようなターン制ゲーム">自律型: Balatroのようなターン制ゲーム</h3>
+<p>Balatro のようなカードゲームは、Neuro API と相性が良い例として紹介されていました。</p>
+<p>ターン制で、状態をテキスト化しやすく、行動候補も明確です。<br />例えば「カードを出す」「手札を捨てる」「ブースターパックから選ぶ」「ジョーカーを並べ替える」といったアクションを登録できます。</p>
+<p>この手のゲームでは、AIが次に何をすればいいかを考えるための情報を比較的きれいに渡せます。<br />手札、スコア、効果、選択肢。<br />こういう情報はテキストやJSONにしやすいですね。</p>
+<p>ただし、ここで問題になるのが <strong>コンテキスト</strong> です。</p>
+<p>カード効果が増え、説明文が長くなり、ゲーム後半で状態が複雑になると、AIに渡す情報量がどんどん増えます。<br />重要な情報を全部渡したい。でも全部渡すと文脈が重くなる。</p>
+<p>このバランスが難しいところです。</p>
+<h3 id="協力型-outer-wildsのようなリアルタイム寄りのゲーム">協力型: Outer Wildsのようなリアルタイム寄りのゲーム</h3>
+<p>Outer Wilds はターン制カードゲームではなく、宇宙船を操作して惑星を探索するゲームです。<br />このゲームでは、反応速度や空間認識能力が求められるため、AIに直接操作させるのはかなり困難です。</p>
+<p>そこで、動画では <code>Neuropilot</code> と <code>Neuroscope</code> という2つの連携コンポーネントが紹介されていました。<br />これは Neuro API の正式な標準機能というより、Outer Wilds 用に作られた補助コンポーネントとして紹介されていたものです。</p>
+<p><code>Neuropilot</code> は、Neuro-sama の指示を受けて宇宙船の高レベル操作を行う部分。<br />例えば「惑星に向かう」「着陸する」「離陸する」のような指示です。</p>
+<p><code>Neuroscope</code> は、船の状態や周囲の状況、会話イベントなどを Neuro-sama に伝える部分です。</p>
+<p><img src="/static/images/optimized/posts/neuro-sama-game-api-design/02-420.webp" srcset="/static/images/optimized/posts/neuro-sama-game-api-design/02-420.webp 420w, /static/images/optimized/posts/neuro-sama-game-api-design/02-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="協力型ゲーム連携の分担" loading="lazy" decoding="async" /></p>
+<p>Neuro-sama は「どこへ行きたいか」「何をしたいか」といった方針を出す側です。<br /><code>Neuropilot</code> はその方針を受け取り、ゲーム側で扱える操作に落とし込みます。<br />一方で <code>Neuroscope</code> は、船や周囲の状態を Neuro-sama に返します。</p>
+<p>ここで大事なのは、Neuro-sama が宇宙船の細かい操縦を直接やっているわけではないことです。<br />「今この角度でスラスターを何秒吹かす」「どの入力を何フレーム押す」みたいな操作判断は、AIにそのまま投げるには重すぎます。<br />そのため、AIは意図や方針を決め、実際の操縦や入力への変換は専用の連携コンポーネントが担当する形になっています。</p>
+<p>リアルタイム寄りのゲームでAIキャラクターを参加させるなら、このように判断する層と操作する層を分ける考え方が重要になります。</p>
+<h3 id="補足-vs-codeのようなゲームではないツール連携">補足: VS Codeのようなゲームではないツール連携</h3>
+<p>ここまでの話はゲーム連携でしたが、動画ではゲームではないツール連携の例として VS Code も紹介されていました。<br />これは「Neuro API はもともとゲームを遊ばせるための仕組みだけれど、外部プログラムを操作する用途にも応用できる」という文脈で出てきた話です。</p>
+<p>これはゲームではなく、Neuro-sama や Evil Neuro がコードを書くためのツール連携です。<br />ファイル編集、作成、移動、削除などの操作を Neuro API 経由で扱う発想ですね。</p>
+<p>紹介されていた VS Code 連携実装では、操作によって <strong>copilot mode</strong> と <strong>autopilot mode</strong> のように扱いを分けていました。</p>
+<p>例えば、ファイル編集は自動実行してもよい。<br />でもファイル作成や削除のような危険な操作は、人間の承認を挟む。</p>
+<p>これは、AIコーディングエージェントの設計としても重要な考え方です。<br />AIキャラクターだから特別というより、LLMにツールを持たせるなら慎重に考えるべき話ですね。</p>
+<p>AIに自由を与えるほど面白くなりますが、同時に壊せる範囲も広がります。<br />どこまで自動化して、どこから承認制にするか。<br />ここはキャラクター性と安全性の両方に関わってきます。</p>
+<h2 id="一番難しいのはコンテキスト管理">一番難しいのはコンテキスト管理</h2>
+<p>動画全体を通して、何度も出てくる課題がコンテキスト管理です。</p>
+<p>ゲーム状態をテキストで渡せば解決、というほど単純ではありません。<br />むしろ、テキストで渡せるからこそ「何を渡すか」「何を渡さないか」が重要になります。</p>
+<p>AIに渡したい情報はたくさんあります。</p>
+<ul><li>現在のゲーム状態</li><li>過去の行動履歴</li><li>ルール説明</li><li>長期目標</li><li>短期目標</li><li>今だけ有効な選択肢</li><li>失敗した操作</li><li>人間との会話</li></ul>
+<p>全部入れたくなります。<br />でも全部入れると、AIの文脈が重くなり、重要な情報が埋もれます。</p>
+<p>さらに、動画では Neuro-sama や Evil Neuro 自身が何を覚えるかを選ぶため、開発者が「これは重要」と伝えても必ず期待通りに保持されるとは限らない、と説明されていました。</p>
+<p>AIキャラクターを作っていると、「この情報は覚えていてほしい」「でも今の会話には邪魔」「でも忘れると次回困る」みたいな判断が無限に発生します。<br />コンテキスト管理は、単なるトークン節約ではなく、キャラクターが世界をどう理解するかを設計する作業でもあります。</p>
+<h2 id="速い反応が必要なゲームは難しい">速い反応が必要なゲームは難しい</h2>
+<p>もう1つ大きな制約は反応速度です。</p>
+<p>Neuro API は、ゲーム側と、Neuro-sama とやり取りするAPIサーバー側がネットワーク越しにテキストをやり取りする仕組みです。<br />そのため、フレーム単位の即時判断が必要なゲームには向きません。</p>
+<p>FPS、格闘ゲーム、MOBA、アクションゲームのように、短い時間で判断が必要なものを、そのままLLMに任せるのはかなり厳しいでしょう。</p>
+<p>ただし、だからといって一切使えないわけではありません。<br />高レベルな指示だけAIに任せる形なら成立する場合があります。</p>
+<p>例えば、</p>
+<ul><li>AIが「次はあのエリアを探索したい」と決める</li><li>経路探索や移動制御はゲーム側のBotが担当する</li><li>結果やイベントだけAIに返す</li></ul>
+<p>こういう分業なら、リアルタイム性のあるゲームでもAIキャラクターを参加させやすくなります。</p>
+<p>AIが全部操作するのではなく、AIが意思決定の上位層になる。<br />ここがかなり大事だと思います。</p>
+<h2 id="開発を支えるsdkとシミュレータ">開発を支えるSDKとシミュレータ</h2>
+<p>動画の後半では、SDKやシミュレータの話も出てきました。</p>
+<p>公式リポジトリ <code>VedalAI/neuro-sdk</code> には、APIドキュメントと公式の Unity SDK / Godot SDK がまとまっています。<br />言語やゲームエンジンごとに通信部分を毎回ゼロから作るのは大変なので、こういうSDKがあるのはかなり嬉しいですね。</p>
+<a href="https://github.com/VedalAI/neuro-sdk" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/7644865124165a660baa9e8c4e68010897df15954e22c88ae570933f6b09d665/VedalAI/neuro-sdk" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - VedalAI/neuro-sdk: Neuro SDK + API for allowing Neuro to play games</div><div class="ogp-card-description">Neuro SDK + API for allowing Neuro to play games. Contribute to VedalAI/neuro-sdk development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>また、Neuro-sama 本体が手元になくても連携をテストできるように、APIサーバーを模したシミュレータも紹介されていました。</p>
+<p>動画では以下のような名前が出ています。</p>
+<ul><li>Randy: ランダムに行動を返すシンプルなテスト用サーバー</li><li>Tony: 手動で行動を返せるUIつきのテストツール</li><li>Jippity: OpenAIなどのLLMを使って、よりAIらしい応答を返すテストツール</li><li>Gary: ローカルLLMも扱える、より高度なテスト用バックエンド</li></ul>
+<p>本体の Neuro-sama に直接つなげなくても、連携側の実装を確認できるのは大きいです。<br />接続、アクション登録、応答の返し方を手元で試せるので、ゲーム側の実装を作るハードルが下がります。</p>
+<p>動画を見ていても、API仕様だけでなく、SDKやシミュレータまで含めて整備されているからこそ、コミュニティが連携を作りやすくなっているのだと感じました。</p>
+<h2 id="aiキャラクター実装に引き寄せると">AIキャラクター実装に引き寄せると</h2>
+<p>ここからは、動画を見て私が考えたことです。</p>
+<p>今回紹介した Neuro API の設計思想は、AIキャラクター実装全般にもかなり役立ちます。</p>
+<p>AIキャラクターを現実のサービスや配信環境に接続するとき、重要なのは「AIに何でも見せる」ことではありません。<br />重要なのは、AIが扱える形で世界を渡すことです。</p>
+<p>例えばDiscord Botなら、全ログを雑に投げるのではなく、</p>
+<ol><li>現在のチャンネル</li><li>直近の会話</li><li>相手との関係</li><li>使えるコマンド</li><li>守るべきルール</li></ol>
+<p>こういう情報を整理して渡したほうが、応答や行動は安定します。</p>
+<p>AIキャラクターの実装って、モデルそのものよりも <strong>世界との接続面</strong> がかなり大事です。</p>
+<p>どんな状態を見せるか。<br />どんな行動を選ばせるか。<br />どこまで自動実行するか。<br />失敗したとき、どう結果を返すか。</p>
+<p>Neuro-sama の事例は、そのあたりを考えるうえでとても良い教材だと思いました。</p>
+<h2 id="まとめ">まとめ</h2>
+<p>元動画の内容をまとめると、Neuro-sama のゲーム連携はだいたい以下のような考え方です。</p>
+<ol><li>ゲームやツール側が、AIに分かる形で状態を渡す</li><li>AIが選べる行動を、あらかじめ登録しておく</li><li>AIの出力をゲーム側で検証し、実行し、結果を返す</li><li>ターン制やテキスト化しやすいゲームほど相性が良い</li><li>リアルタイム性が高いゲームでは、AIが決める方針と実際の細かい操作を分ける必要がある</li></ol>
+<p>個人的には、これはAIキャラクター開発全般にかなり重要な話だと思います。</p>
+<p>AIに何かをさせたいとき、つい「もっと賢いモデルならできるはず」と考えがちです。<br />でも実際には、モデルの賢さだけではなく、モデルが世界をどう見るか、どう行動できるかの設計がかなり効いてきます。</p>
+<p>Neuro-sama がすごいのは、AIとして会話が面白いだけではありません。<br />ゲームやツールや配信環境との接続を、コミュニティも含めて育てているところがすごい。</p>
+<p>改めて、元動画はかなり良かったです。<br />AIキャラクターやAITuberの実装に興味がある方は、ぜひ見てみてください。</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/sxeqqR4Dcnw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="How Neuro-sama Plays Games"></iframe></div>
+<h2 id="宣伝">宣伝</h2>
+<p>普段XでAIツールやAIキャラクターについての発信をしているので、興味があったらフォローしていただけると大変喜びます🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "Neuro-samaは画面をそのまま見ているわけではない",
+    "id": "neuro-samaは画面をそのまま見ているわけではない"
+  },
+  {
+    "level": 2,
+    "text": "Neuro APIのざっくりした仕組み",
+    "id": "neuro-apiのざっくりした仕組み"
+  },
+  {
+    "level": 2,
+    "text": "どんな連携があるのか",
+    "id": "どんな連携があるのか"
+  },
+  {
+    "level": 3,
+    "text": "自律型: Balatroのようなターン制ゲーム",
+    "id": "自律型-balatroのようなターン制ゲーム"
+  },
+  {
+    "level": 3,
+    "text": "協力型: Outer Wildsのようなリアルタイム寄りのゲーム",
+    "id": "協力型-outer-wildsのようなリアルタイム寄りのゲーム"
+  },
+  {
+    "level": 3,
+    "text": "補足: VS Codeのようなゲームではないツール連携",
+    "id": "補足-vs-codeのようなゲームではないツール連携"
+  },
+  {
+    "level": 2,
+    "text": "一番難しいのはコンテキスト管理",
+    "id": "一番難しいのはコンテキスト管理"
+  },
+  {
+    "level": 2,
+    "text": "速い反応が必要なゲームは難しい",
+    "id": "速い反応が必要なゲームは難しい"
+  },
+  {
+    "level": 2,
+    "text": "開発を支えるSDKとシミュレータ",
+    "id": "開発を支えるsdkとシミュレータ"
+  },
+  {
+    "level": 2,
+    "text": "AIキャラクター実装に引き寄せると",
+    "id": "aiキャラクター実装に引き寄せると"
+  },
+  {
+    "level": 2,
+    "text": "まとめ",
+    "id": "まとめ"
+  },
+  {
+    "level": 2,
+    "text": "宣伝",
+    "id": "宣伝"
+  }
+]

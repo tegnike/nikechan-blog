@@ -1,0 +1,184 @@
+<p>Hi, I&#39;m Nike.</p>
+<p>A little while back, I wrote a post about having AI do live commentary while playing games.</p>
+<a href="https://nikechan.com/dev_blog/ai-game-play-methods" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<p>In that post, I mentioned that if you want the AI to actually <em>play</em> the game, you should pick one where you can capture the state as text or structured data, and where returning actions is straightforward. I used Pokémon Showdown as an example — instead of feeding the screen to a multimodal AI, you grab the game state as text, pass it to an LLM, and send the chosen action back to the game.</p>
+<p>This post picks up from there and takes a broader look at the question: <em>how do you capture game state in the first place?</em></p>
+<p>Text logs are just one option. Browser games offer the DOM or network traffic; Minecraft has dedicated bot libraries; Slay the Spire has mods; retro games have emulator RAM. The right approach depends entirely on how the game is built.</p>
+<p>That said, being able to <em>capture</em> the state and being able to <em>play stably</em> are two different things. This post separates those concerns and walks through specific games and libraries for each.</p>
+<p>If you&#39;re trying to figure out where to start when making AI play games, <strong>state capture</strong> is a natural first entry point — and that&#39;s what we&#39;ll focus on here.</p>
+<h2 id="state-capture-is-just-the-beginning">State Capture Is Just the Beginning</h2>
+<p>At minimum, making AI play a game requires three things:</p>
+<ol><li>Capture the current game state</li><li>Decide on the next action</li><li>Actually send that input to the game</li></ol>
+<p>Step 1 — capturing state — gets the most attention. But steps 2 and 3 matter just as much.</p>
+<p>Say you manage to pull the text &quot;the enemy attacked&quot; from the game&#39;s log panel. That might be enough for live commentary. But if the AI is actually <em>playing</em>, you also need the current HP, available moves, enemy status, legal actions, and results after each action.</p>
+<p>Then there&#39;s the question of what happens after the AI says &quot;attack.&quot; How does that actually get executed? Do you press a button? Call an API? Send a command? Click a DOM element?</p>
+<p>The key question isn&#39;t just whether logs exist — it&#39;s whether <strong>the state can be captured in a form the AI can use for decision-making</strong>, and whether <strong>the AI&#39;s output can be reliably translated into game input</strong>.</p>
+<p><img src="/static/images/optimized/posts/ai-game-state-for-llm/01-420.webp" srcset="/static/images/optimized/posts/ai-game-state-for-llm/01-420.webp 420w, /static/images/optimized/posts/ai-game-state-for-llm/01-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Three components needed for AI gameplay" loading="lazy" decoding="async" /></p>
+<p>State capture is just the entry point. When you think through the whole pipeline, the difference between easy and hard games for AI becomes much clearer.</p>
+<h2 id="games-that-work-well-with-ai">Games That Work Well with AI</h2>
+<p>Let&#39;s start with games that are relatively easy to make AI play.</p>
+<p>The common thread: game state is available as text or structured data, and actions can be expressed as commands or symbols. Lots of turn-based games fall here.</p>
+<h3 id="pok-mon-showdown">Pokémon Showdown</h3>
+<p>The clearest example is <strong>Pokémon Showdown</strong>.</p>
+<p>Pokémon Showdown is a browser-based Pokémon battle simulator, and internally it communicates all battle information through a text protocol.</p>
+<a href="https://pokemonshowdown.com/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title">Pok&amp;eacute;mon Showdown! battle simulator</div><div class="ogp-card-meta"><img src="https://pokemonshowdown.com/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>pokemonshowdown.com</span></div></div></a>
+<p>There&#39;s also <a href="https://poke-env.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer">poke-env</a>, a Python library for building Pokémon Showdown bots.</p>
+<p>With poke-env, the active Pokémon, opponent&#39;s status, available moves, switch options, and legal actions are all accessible as objects. Format them as compact text or JSON before passing to an LLM, and you can straightforwardly ask it to pick the next move.<br />You can also send the selected move or switch back to the battle server from the bot, so this is not just state inspection — it can actually advance the match.</p>
+<p>This approach is well-suited to having AI actually play through a whole match. No screen reading required, and the action space is clearly defined.</p>
+<p>One caveat: Pokémon Showdown is a fan-made community project, not an official Nintendo or Game Freak service. It currently exists in a tolerated gray area, so keep usage to personal research and experimentation.</p>
+<h3 id="chess-shogi-go">Chess, Shogi, Go</h3>
+<p>Board games like chess, shogi, and go are also a natural fit.</p>
+<p>Chess has FEN, PGN, and UCI for engine integration. Shogi has SFEN, KIF, CSA, and USI. Go has SGF and GTP.</p>
+<p>Board positions are easy to encode symbolically, and legal moves are easy to enumerate. Getting an LLM to play <em>well</em> is a separate challenge, but building a &quot;pass state in, get action out, apply that move to the board&quot; pipeline is very doable.</p>
+<p>For chess, libraries like <a href="https://python-chess.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">python-chess</a> and the <a href="https://lichess.org/api" target="_blank" rel="noopener noreferrer">Lichess API</a> are well-maintained. These games are great starting points for AI play experiments.</p>
+<h3 id="slay-the-spire">Slay the Spire</h3>
+<p>One I found particularly interesting is <strong>Slay the Spire</strong>.</p>
+<p>Slay the Spire doesn&#39;t expose an external JSON API by default.</p>
+<a href="https://store.steampowered.com/app/646570/Slay_the_Spire/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/646570/capsule_616x353.jpg?t=1774015376" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">Slay the Spire on Steam</div><div class="ogp-card-description">We fused card games and roguelikes together to make the best single player deckbuilder we could. Craft a unique deck, encounter bizarre creatures, discover relics of immense power, and Slay the Spire!</div><div class="ogp-card-meta"><img src="https://store.steampowered.com/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>store.steampowered.com</span></div></div></a>
+<p>But install <a href="https://github.com/ForgottenArbiter/CommunicationMod" target="_blank" rel="noopener noreferrer">CommunicationMod</a> and it communicates bidirectionally with an external process via <code>stdin</code>/<code>stdout</code>. It can send game state as JSON, and the external process can return commands to play cards, end the turn, or choose rewards and event options.</p>
+<a href="https://github.com/ForgottenArbiter/CommunicationMod" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/e167e73d139007fc39653932e87bf9d5e1e0bc543583e1a7920e835abbb84715/ForgottenArbiter/CommunicationMod" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - ForgottenArbiter/CommunicationMod: Slay the Spire mod that provides a protocol for allowing another process to control the game</div><div class="ogp-card-description">Slay the Spire mod that provides a protocol for allowing another process to control the game - ForgottenArbiter/CommunicationMod</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>According to the README, whenever the game reaches a stable state, it sends a JSON payload containing the hand, draw pile, discard pile, enemy HP, enemy intent, player HP, energy, relics, map, and more. There&#39;s also a Python package called <a href="https://github.com/ForgottenArbiter/spirecomm" target="_blank" rel="noopener noreferrer">spirecomm</a>.</p>
+<p>The external process receives something like this and sends back the next command:</p>
+<div class="code-block"><div class="code-lang">json</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-json">{
+  &quot;available_commands&quot;: [&quot;play&quot;, &quot;end&quot;, &quot;state&quot;],
+  &quot;game_state&quot;: {
+    &quot;combat_state&quot;: {
+      &quot;hand&quot;: [&quot;Strike&quot;, &quot;Defend&quot;, &quot;Bash&quot;],
+      &quot;monsters&quot;: [{ &quot;name&quot;: &quot;Jaw Worm&quot;, &quot;current_hp&quot;: 46 }],
+      &quot;player&quot;: { &quot;current_hp&quot;: 68, &quot;energy&quot;: 3 }
+    }
+  }
+}</code></pre></div>
+<p>For example, <code>PLAY 1 0</code> plays the first card in hand against the enemy at index 0, <code>END</code> ends the turn, and <code>CHOOSE 0</code> selects the first available option.</p>
+<p>It&#39;s a card game, so the action space is fairly well-defined, and the turn-based structure means you can wait for responses. Very LLM-friendly.</p>
+<h3 id="textworld-nethack">TextWorld, NetHack</h3>
+<p>Text games and roguelikes are another good fit.</p>
+<p><a href="https://github.com/microsoft/TextWorld" target="_blank" rel="noopener noreferrer">TextWorld</a> is a framework for using text-based games as AI agent research environments. Observations and actions are both text by nature, so LLMs slot in naturally.<br />An external agent can return text commands like <code>open door</code> or <code>take key</code>, feed them back into the game, and receive the next observation.</p>
+<p>NetHack has research environments like the <a href="https://github.com/facebookresearch/nle" target="_blank" rel="noopener noreferrer">NetHack Learning Environment</a> and MiniHack. Here too, the agent can receive observations and return actions such as movement or attacks as commands. The game itself is brutally hard, but at least there&#39;s a path beyond &quot;show the screen to an LLM and blindly press keys.&quot;</p>
+<h2 id="games-with-dedicated-libraries">Games with Dedicated Libraries</h2>
+<p>Next up: games that have dedicated libraries or AI research environments.</p>
+<p>A word of caution here: having a dedicated library means a solid entry point for state capture and control. But that doesn&#39;t automatically mean &quot;throw it at an LLM and it plays.&quot;</p>
+<h3 id="minecraft">Minecraft</h3>
+<p>The prime example is <strong>Minecraft</strong>.</p>
+<p>Minecraft has <a href="https://github.com/PrismarineJS/mineflayer" target="_blank" rel="noopener noreferrer">Mineflayer</a>, a well-known bot library.</p>
+<a href="https://github.com/PrismarineJS/mineflayer" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/35b1d7becbf9464f3ec6dbf6224d6924dddcad9da11f82166ef742171eb65365/PrismarineJS/mineflayer" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - PrismarineJS/mineflayer: Create Minecraft bots with a powerful, stable, and high level JavaScript API.</div><div class="ogp-card-description">Create Minecraft bots with a powerful, stable, and high level JavaScript API. - PrismarineJS/mineflayer</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>Per the README, it handles block data, entity tracking, physics and movement, attacking, inventory management, crafting, chest interaction, mining, building, chat, and more.</p>
+<p>In short: state capture and control APIs are well-covered. This is absolutely not a &quot;screen-only&quot; game.</p>
+<p>But Minecraft is <em>wildly</em> open-ended.</p>
+<p>Just &quot;chop a tree&quot; requires: scan surroundings for trees, navigate toward one, handle elevation changes along the way, check if you have an axe, craft one if not, manage inventory, flee from enemies if needed. And that&#39;s one task.</p>
+<p>Having Mineflayer doesn&#39;t mean you just throw everything at an LLM and call it done. You need task decomposition, pathfinding, short-term memory, long-term memory, and failure recovery.</p>
+<p>This is full-on agent architecture territory.</p>
+<p>Minecraft has been used in serious AI research — <a href="https://github.com/MineDojo/MineDojo" target="_blank" rel="noopener noreferrer">MineDojo</a>, <a href="https://github.com/microsoft/malmo" target="_blank" rel="noopener noreferrer">Project Malmo</a>, and <a href="https://voyager.minedojo.org/" target="_blank" rel="noopener noreferrer">Voyager</a>, which uses GPT-4 and Mineflayer to progressively acquire skills in Minecraft.</p>
+<p>The environment is rich, which makes it an attractive research subject — but the implementation weight matches.</p>
+<h3 id="starcraft-ii">StarCraft II</h3>
+<p><strong>StarCraft II</strong> has <a href="https://github.com/google-deepmind/pysc2" target="_blank" rel="noopener noreferrer">PySC2</a>, DeepMind&#39;s StarCraft II Learning Environment.</p>
+<p>State capture works, control works, and it&#39;s a famous AI research target.</p>
+<p>But it&#39;s real-time strategy, which explodes the difficulty. Partial observability, unit counts, action frequency, map awareness, long-horizon strategy, micro-management. Rather than having an LLM pick &quot;the next move,&quot; you&#39;re typically composing multiple control systems.</p>
+<h3 id="doom-retro-games-factorio">Doom, Retro Games, Factorio</h3>
+<p>For FPS, there&#39;s <a href="https://github.com/Farama-Foundation/ViZDoom" target="_blank" rel="noopener noreferrer">ViZDoom</a>, which turns Doom into a reinforcement learning environment with access to screen buffers and game variables. Controls can also be sent as button inputs through the API. But FPS requires reaction speed and visual processing, so driving it purely from text state is an uphill battle.</p>
+<p>For retro games, <a href="https://retro.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">Gym Retro</a> can handle RAM and controller input — games like Mario or Sonic become usable environments. The catch: each game requires memory address analysis and reward design.</p>
+<p>Also worth noting: running commercial games requires ROM files, which sits in legally gray territory. How you handle software you legitimately own is something to verify for yourself.</p>
+<p>Factorio has the <a href="https://github.com/JackHopkins/factorio-learning-environment" target="_blank" rel="noopener noreferrer">Factorio Learning Environment</a>, designed specifically for LLM agent evaluation. With mods or the Lua API, you can not only capture state but also execute actions such as crafting, placement, and movement from the program side. Interesting environment, but like Minecraft, the real challenge isn&#39;t state capture — it&#39;s &quot;what&#39;s the goal, and how do you plan for it?&quot;</p>
+<p>Dedicated environments lower the barrier to entry, but the downstream design complexity is substantial for all of them.</p>
+<h2 id="easy-vs-hard-games-for-ai">Easy vs. Hard Games for AI</h2>
+<p>Here&#39;s how those games break down:</p>
+<p><img src="/static/images/optimized/posts/ai-game-state-for-llm/02-420.webp" srcset="/static/images/optimized/posts/ai-game-state-for-llm/02-420.webp 420w, /static/images/optimized/posts/ai-game-state-for-llm/02-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Easy vs. hard games for AI play" loading="lazy" decoding="async" /></p>
+<div class="table-wrapper"><table><thead><tr><th>Game</th><th>State Capture</th><th>Control</th><th>Difficulty for AI Play</th></tr></thead><tbody><tr><td>Pokémon Showdown</td><td>Text protocol / poke-env</td><td>Commands</td><td>Very well-suited</td></tr><tr><td>Chess / Shogi / Go</td><td>Symbolic board state</td><td>Symbolic moves</td><td>Well-suited</td></tr><tr><td>Slay the Spire</td><td>JSON via Mod</td><td>Commands</td><td>Very well-suited</td></tr><tr><td>TextWorld</td><td>Text</td><td>Text commands</td><td>Well-suited</td></tr><tr><td>NetHack</td><td>NLE etc.</td><td>Commands</td><td>State works, game is hard</td></tr><tr><td>Minecraft</td><td>Mineflayer etc.</td><td>Bot API</td><td>State works, architecture is heavy</td></tr><tr><td>StarCraft II</td><td>PySC2</td><td>API</td><td>Real-time strategy is hard</td></tr><tr><td>Doom</td><td>ViZDoom</td><td>API</td><td>Reaction speed and vision are hard</td></tr><tr><td>Factorio</td><td>FLE / Mod / Lua API</td><td>API / Commands</td><td>Long-horizon planning is hard</td></tr><tr><td>Retro action games</td><td>RAM / Emulator</td><td>Input</td><td>Per-game analysis is heavy</td></tr><tr><td>Screen-only minigames</td><td>Screen recognition / Canvas</td><td>Few inputs</td><td>State capture is hard, but control is light</td></tr></tbody></table></div>
+<p>This table isn&#39;t about which games are better.</p>
+<p>The point is: <strong>when making AI play a game, you need to look at the shape of state and control separately from whether the game is fun.</strong></p>
+<p>Strictly speaking, the point is not the genre label itself. What matters is how the game represents state, how fine-grained the controls are, how much real-time pressure exists, and whether APIs or mods are available. For online games, you also need to check the rules around external tools and automated play.</p>
+<p>Minecraft, for example, is very well-equipped on the state capture side. But the moment you tell the AI &quot;go survive in survival mode,&quot; you&#39;re immediately in task decomposition and long-horizon planning hell.</p>
+<p>There are also games where state capture is hard but control is light. Simple runner games, clicker games, or small Canvas-based browser games may require screen recognition if there is no useful DOM or API state. But the action space can still be tiny: jump, move left or right, or click.</p>
+<p>Pokémon Showdown and Slay the Spire, on the other hand, involve deep decision-making as games — but the format of state and actions is tractable, and building the LLM interface is much more approachable. That difference has a big impact on which game you choose as a starting point.</p>
+<h2 id="checklist-for-picking-a-game">Checklist for Picking a Game</h2>
+<p>When choosing a game to make AI play, here are the questions I&#39;d ask first:</p>
+<ul><li>Turn-based or real-time?</li><li>Can state be captured as text, JSON, a protocol, or an API?</li><li>Can legal actions or move candidates be enumerated?</li><li>Is it easy to translate AI output into game inputs?</li><li>Can the AI recover from failure?</li><li>How much screen recognition is still unavoidable?</li><li>Does the execution pace work for live commentary or streaming?</li><li>For online games: do the rules allow external tools or automated play?</li></ul>
+<p>For a first project, turn-based games with structured state and actions are the way to go. Pokémon Showdown, chess, Slay the Spire — any of those work well.</p>
+<p>Minecraft is appealing, but I&#39;d call it heavy as a first target. Mineflayer makes it approachable on the surface, but whether you want &quot;a bot that talks to villagers,&quot; &quot;a bot that mines diamonds,&quot; or &quot;a bot that defeats the Ender Dragon&quot; completely changes what you need to build.</p>
+<p>StarCraft II, Factorio, and Doom are great for research given their dedicated environments. But they lean more toward building specialized control and planning systems than casually throwing an LLM at the problem.</p>
+<h2 id="closing-thoughts">Closing Thoughts</h2>
+<p>Discussions about making AI play games tend to collapse into &quot;use screen recognition&quot; vs. &quot;grab the logs.&quot; But in practice, there are many more routes for capturing state and sending controls: DOM, network traffic, protocols, mods, bot libraries, emulators, research environments.</p>
+<p>That said, being able to <em>capture</em> and being able to <em>play</em> are different things.</p>
+<p>Can the state be shaped into something an LLM can actually use for decision-making? Can you narrow down the action space sensibly? Can you send inputs to the game reliably? Can you recover when things go wrong?</p>
+<p>Working through those questions makes the gap between easy and hard games for AI much clearer.</p>
+<p>My previous post used Pokémon Showdown as the example, but digging into this made Slay the Spire and Minecraft look genuinely interesting too. Slay the Spire in particular — with JSON state coming in and commands going back out — seems like a solid target for building an LLM player.</p>
+<p>If I build something next, I&#39;m thinking I&#39;ll start with Slay the Spire or chess.</p>
+<h2 id="announcement">Announcement</h2>
+<p>I&#39;ll be exhibiting at <strong>Generative AI Exhibition Vol. 5</strong>, happening on Wednesday, May 6, 2026 (a national holiday in Japan)!</p>
+<p>I&#39;m planning to have some kind of live demo of AI playing games, so come check it out if you&#39;re interested.</p>
+<a href="https://www.genai-expo.com/exhibitors?circle=00297b6cf5a4&amp;utm_source=x&amp;utm_medium=social&amp;utm_campaign=exhibitor_share" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://www.genai-expo.com/exhibitors/og?id=00297b6cf5a4" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">ニケちゃん が Vol.5 に出展！</div><div class="ogp-card-description">AIニケちゃんで何か</div><div class="ogp-card-meta"><img src="https://www.genai-expo.com/favicon.ico?favicon.12piazin6z05e.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>www.genai-expo.com</span></div></div></a>
+<p>I also post regularly about AI tools and AI characters on X — if that sounds interesting, I&#39;d be happy to have you follow along!</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "State Capture Is Just the Beginning",
+    "id": "state-capture-is-just-the-beginning"
+  },
+  {
+    "level": 2,
+    "text": "Games That Work Well with AI",
+    "id": "games-that-work-well-with-ai"
+  },
+  {
+    "level": 3,
+    "text": "Pokémon Showdown",
+    "id": "pok-mon-showdown"
+  },
+  {
+    "level": 3,
+    "text": "Chess, Shogi, Go",
+    "id": "chess-shogi-go"
+  },
+  {
+    "level": 3,
+    "text": "Slay the Spire",
+    "id": "slay-the-spire"
+  },
+  {
+    "level": 3,
+    "text": "TextWorld, NetHack",
+    "id": "textworld-nethack"
+  },
+  {
+    "level": 2,
+    "text": "Games with Dedicated Libraries",
+    "id": "games-with-dedicated-libraries"
+  },
+  {
+    "level": 3,
+    "text": "Minecraft",
+    "id": "minecraft"
+  },
+  {
+    "level": 3,
+    "text": "StarCraft II",
+    "id": "starcraft-ii"
+  },
+  {
+    "level": 3,
+    "text": "Doom, Retro Games, Factorio",
+    "id": "doom-retro-games-factorio"
+  },
+  {
+    "level": 2,
+    "text": "Easy vs. Hard Games for AI",
+    "id": "easy-vs-hard-games-for-ai"
+  },
+  {
+    "level": 2,
+    "text": "Checklist for Picking a Game",
+    "id": "checklist-for-picking-a-game"
+  },
+  {
+    "level": 2,
+    "text": "Closing Thoughts",
+    "id": "closing-thoughts"
+  },
+  {
+    "level": 2,
+    "text": "Announcement",
+    "id": "announcement"
+  }
+]

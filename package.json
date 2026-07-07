@@ -13,7 +13,8 @@
     "preview": "wrangler dev",
     "deploy": "npm run build && wrangler deploy",
     "video:studio": "remotion studio expo-video/src/index.ts",
-    "video:render": "remotion render expo-video/src/index.ts AiGameExpoLoop expo-video/out/ai-game-expo-loop.mp4"
+    "video:render": "remotion render expo-video/src/index.ts AiGameExpoLoop expo-video/out/ai-game-expo-loop.mp4",
+    "check:md-golden": "bun run scripts/md-golden.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",

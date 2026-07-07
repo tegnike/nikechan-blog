@@ -10,6 +10,14 @@ function escapeHtml(str: string): string {
 }
 
 function applyInlineTransforms(str: string): string {
+  // inline code `code` — 最初に抽出してプレースホルダーへ退避し、
+  // コードスパン内がリンク・強調などの変換対象にならないよう保護する
+  // (入力は escapeHtml 済みなので \u0000 が自然に現れることはない)
+  const codeSpans: string[] = []
+  str = str.replace(/`([^`]+)`/g, (_m, code) => {
+    codeSpans.push(`<code>${code}</code>`)
+    return `\u0000${codeSpans.length - 1}\u0000`
+  })
   // images ![alt](src)
   str = str.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_m, alt, src) => {
     const optimizedImage = getOptimizedImageSources(src)
@@ -22,12 +30,12 @@ function applyInlineTransforms(str: string): string {
     const attrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''
     return `<a href="${href}"${attrs}>${text}</a>`
   })
-  // inline code `code`
-  str = str.replace(/`([^`]+)`/g, (_m, code) => `<code>${code}</code>`)
   // bold **text** or __text__
   str = str.replace(/(\*\*|__)(.+?)\1/g, '<strong>$2</strong>')
   // italics *text* (only asterisk, not underscore — underscore conflicts with HTML attributes like target="_blank")
   str = str.replace(/(?<!\*)\*(?!\*)([^*]+?)\*(?!\*)/g, '<em>$1</em>')
+  // コードスパンを復元
+  str = str.replace(/\u0000(\d+)\u0000/g, (_m, i) => codeSpans[Number(i)])
   return str
 }
 
@@ -199,9 +207,24 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
           i++
         }
         const parseRow = (row: string) => {
-          const cells = row.split('|')
+          // インラインコード (`a|b`) 内のパイプではセルを分割しない
+          const cells: string[] = []
+          let current = ''
+          let inCode = false
+          for (const ch of row) {
+            if (ch === '`') {
+              inCode = !inCode
+              current += ch
+            } else if (ch === '|' && !inCode) {
+              cells.push(current)
+              current = ''
+            } else {
+              current += ch
+            }
+          }
+          cells.push(current)
           if (cells[0].trim() === '') cells.shift()
-          if (cells[cells.length - 1].trim() === '') cells.pop()
+          if (cells.length && cells[cells.length - 1].trim() === '') cells.pop()
           return cells.map((c) => c.trim())
         }
         if (tableLines.length >= 2 && /^\|[\s:|`-]+\|/.test(tableLines[1])) {

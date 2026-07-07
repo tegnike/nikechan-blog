@@ -1,0 +1,128 @@
+<p>こんにちは、ニケです。</p>
+<p>2026年5月6日（水）に開催される <strong>生成AIなんでも展示会 Vol.5</strong> に出展します。</p>
+<p>今回の展示テーマは、<strong>AIキャラにゲーム実況とゲームプレイをさせてみる</strong> です。<br />「完成した最強プロダクトを見てください！」というよりは、<strong>AIキャラ × ゲーム実況 × AIプレイをどう作るかの試行錯誤</strong>を見せる展示になると思います。</p>
+<p>今回の記事は、以下の記事を展示会向けに短くまとめたものです。<br />細かい技術的な話や、ゲームごとの状態取得については、こちらの記事で詳しく書いています。</p>
+<a href="https://nikechan.com/dev_blog/ai-game-play-methods" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<a href="https://nikechan.com/dev_blog/ai-game-state-for-llm" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-state-for-llm/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲームを遊ばせるなら、まず「状態をどう取るか」を考えよう | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">AIにゲームを遊ばせるとき、画面認識以外にどんな状態取得や操作のルートがあるのかを整理しました。Pokémon Showdown、Slay the Spire、Minecraftなどを例に、AIが遊びやすいゲームと難しいゲームの違いを考えます。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<h2 id="以前の展示">以前の展示</h2>
+<p>実は以前にも、生成AIなんでも展示会で似たテーマの展示をしていました。</p>
+<p>そのときは、AIキャラがゲームをプレイして、さらに実況もしているように見せるシステムです。</p>
+<p><img src="/static/images/optimized/posts/ai-game-expo-2026/01-420.webp" srcset="/static/images/optimized/posts/ai-game-expo-2026/01-420.webp 420w, /static/images/optimized/posts/ai-game-expo-2026/01-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="以前の生成AIなんでも展示会での展示風景" loading="lazy" decoding="async" /></p>
+<p>当時の構成はかなり力技でした。</p>
+<p>Nintendo Switch のゲーム画面をスクリーンショットとして取得し、それをマルチモーダルLLMに渡します。<br />LLMが画面を見て「今どういう状況か」を解析し、そこから <strong>次の一手</strong> と <strong>実況セリフ</strong> を生成する、という流れです。</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/aTh256shKwo?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="【ポケモンスタジアム2】AI操作 x AI実況【③試合目ノーカット版】"></iframe></div>
+<p>AIが画面を見て、行動を決めて、喋る。<br />字面だけ見るとかなり夢がありますが、現実はそこそこ厳しいものでした。</p>
+<h2 id="旧方式の課題">旧方式の課題</h2>
+<p>旧方式を簡単に図にするとこのような感じになります。</p>
+<p><img src="/static/images/optimized/posts/ai-game-expo-2026/02-420.webp" srcset="/static/images/optimized/posts/ai-game-expo-2026/02-420.webp 420w, /static/images/optimized/posts/ai-game-expo-2026/02-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="スクリーンショットをマルチモーダルLLMに渡す旧方式の構成図" loading="lazy" decoding="async" /></p>
+<p>画面を見る方式。</p>
+<p>この構成の大きな課題は、<strong>遅いこと</strong> と <strong>精度が安定しないこと</strong> でした。</p>
+<p>当時のマルチモーダル処理では、画面を渡して状況を読ませるだけで20秒ほどかかっていました。<br />そこからセリフ生成、音声合成、再生まで入るので、実況としてはかなり遅くなります。</p>
+<p>ゲーム実況なのに、今の画面を見て喋るころには、もう全然違う場面になっているのは致命的です。</p>
+<p>もう1つの問題は、画面だけではゲーム情報を取り切れないことです。</p>
+<p>人間なら、HP、ログ、選択肢、相手の状態、操作できるタイミングなどをなんとなく読み取り、理解することができます。<br />でもAIに1枚のスクショだけを渡しても、画面の一部を見落としたり、UIの意味を取り違えたりしてしまいます。</p>
+<p>特にゲームは、映像の中に「見えているけど重要ではない情報」と「小さいけど超重要な情報」が混ざっているため、マルチモーダルLLMに全部を安定して読ませるのは思ったより大変でした。</p>
+<h2 id="画面を見る方式の改善案">画面を見る方式の改善案</h2>
+<p>とはいえ、画面を見る方式にも改善案はあります。</p>
+<p>まず1つ目は、遅いことに対する解決策として、<strong>視聴者に見せるゲーム画面を遅延させる</strong> 方法です。</p>
+<p>AIの実況生成が数秒遅れるなら、逆にゲーム映像も同じくらい遅らせて表示すれば、視聴者には実況と映像が同期して見えます。<br />リアルタイム性を捨てる代わりに、体験としての自然さを取りにいく発想ですね。</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ローカルLLMの gemma4:e4b でデモンズソウルを遅延付き実況<br><br>わかりやすいようにAIが見ている映像と視聴者に見せる映像を並べてみた（今回は8秒遅延）<br><br>ある程度違和感無く発言できるようになってると思う <a href="https://t.co/ADCEMrg0m9">pic.twitter.com/ADCEMrg0m9</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2047537147121402314?ref_src=twsrc%5Etfw">April 24, 2026</a></blockquote>
+
+</div>
+<p>この案は配信としてはかなり現実的です。<br />OBS側で映像遅延を入れればよいので、ゲーム側を改造しなくても成立します。</p>
+<p>2つ目は、情報が不足している場合に対する解決策として、<strong>高速なマルチモーダルモデルを使い、複数の画面情報を渡す</strong> 方法です。</p>
+<p>最近のマルチモーダルモデルはかなり速くなっていて、昔のように毎回20秒待つ前提ではなくなってきました。<br />特に <strong>gemini-3.1-flash-lite-preview</strong> は、マルチモーダル込みで2秒ほどでテキスト生成が完了する驚異的な速度です。</p>
+<p>これを利用して、発話処理中などの何もしていない裏側で、何枚かスクショを解析しておけば、次のセリフ生成時に「直近の状況」を多めに渡すことができます。</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">以前試した gemini-3.1-flash-lite-preview を使ってポケモンチャンピオンズを実況した動画のリトライ<br><br>画面状況は音声発話の裏で走らせて、数フレーム分を知覚できるように改良<br><br>それでもやっぱズレというか、頓珍漢な発言をするときがあるのは、指示が甘いか情報が足りていないか <a href="https://t.co/EpI6CELkUQ">pic.twitter.com/EpI6CELkUQ</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2047198040574882149?ref_src=twsrc%5Etfw">April 23, 2026</a></blockquote>
+
+</div>
+<p>ただし、これらの方法でも限界はあります。</p>
+<p>どれだけモデルが速くなっても、画面を見て推測している限り、見落としや誤認識は残ります。<br />ゲームの状態を「画像として推測する」のがそもそも難しい、という問題です。</p>
+<h2 id="発想の転換">発想の転換</h2>
+<p>そこで考えたのが、<strong>そもそもゲームの情報をテキストで入手できればよいのでは？</strong> という方向です。</p>
+<p>画面をAIに見せて「たぶん今こういう状況です」と推測させるのではなく、ゲームの状態やログ、選べる行動をテキストやJSONとして渡します。</p>
+<p><img src="/static/images/optimized/posts/ai-game-expo-2026/05-420.webp" srcset="/static/images/optimized/posts/ai-game-expo-2026/05-420.webp 420w, /static/images/optimized/posts/ai-game-expo-2026/05-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="画面認識からテキスト状態取得へ発想を変える図解" loading="lazy" decoding="async" /></p>
+<p>画面を見るのではなく、状態を渡す。</p>
+<p>この方式だと、AIに渡す情報がかなり素直になります。</p>
+<ul><li>今のHP</li><li>手札や技</li><li>相手の状態</li><li>選べる行動</li><li>直前のログ</li><li>etc...</li></ul>
+<p>これらの情報をそのままテキストで渡せれば、マルチモーダルで画面を読む必要がありません。<br />LLMはテキスト処理が本業なので、こっちのほうが自然です。</p>
+<p>つまり、ゲーム実況だけでなく、AIプレイも同じ仕組みに寄せやすくなります。<br />状態を読んで、次の行動を選び、その行動をゲームに反映させることができます。</p>
+<h2 id="題材例1-pok-mon-showdown">題材例1: Pokémon Showdown</h2>
+<p>この方向で分かりやすい題材が <strong>Pokémon Showdown</strong> です。</p>
+<p>Pokémon Showdown はブラウザで動くポケモンバトルシミュレータで、対戦ログや行動候補をテキストとして扱いやすいのが特徴です。</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">展示会で出そうと思ってるプロダクトの一部<br><br>ゲーム実況&amp;プレイ <a href="https://t.co/eAXUmriTYZ">pic.twitter.com/eAXUmriTYZ</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2046546186035732754?ref_src=twsrc%5Etfw">April 21, 2026</a></blockquote>
+
+</div>
+<p>AIに画面を見せなくても、現在のバトル状況や選べる技をテキストで渡せます。<br />そのうえで「次にどの技を選ぶか」を返してもらえば、プレイ部分が成立します。</p>
+<p>さらに、その判断理由やバトルログを使えば実況セリフも作れます。<br />画面認識、プレイ判断、実況生成をバラバラに作るのではなく、<strong>ゲーム状態のテキストを中心に、プレイと実況を同じ流れで作れる</strong> ようになります。</p>
+<h2 id="題材例2-slay-the-spire">題材例2: Slay the Spire</h2>
+<p>もう1つの題材が <strong>Slay the Spire</strong> です。</p>
+<p>Slay the Spire は標準で外部APIがあるゲームではありませんが、Modを使うことでゲーム状態をJSONとして取得し、コマンドで操作できます。</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">スレスパAIプレイ&amp;実況を強化<br>初見の方でも見やすいように説明多めにしてみた<br><br>ちょっと長いのでx1.6倍速で <a href="https://t.co/ye91RbpOug">pic.twitter.com/ye91RbpOug</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2048864356167766521?ref_src=twsrc%5Etfw">April 27, 2026</a></blockquote>
+
+</div>
+<p>カードゲームなので、今の手札、エナジー、敵のHP、敵の行動意図などが重要になります。<br />これらをJSONとして取れるなら、AIに渡す情報としてはかなり扱いやすいです。</p>
+<p>あとはAIが「どのカードを、どの敵に使うか」を決めて、それをコマンドとして返せばよい。</p>
+<p>もちろん、強くプレイさせるのは別問題ですが、少なくとも画面認識に失敗して詰まる問題はかなり減らせます。</p>
+<h2 id="展示で見てほしいこと">展示で見てほしいこと</h2>
+<p>今回の展示では、<strong>AIがゲームをプレイしながら実況している様子</strong> を見てもらう予定です。</p>
+<p>題材としては <strong>Pokémon Showdown</strong> と <strong>Slay the Spire</strong> を使います。<br />どちらもターン制で状況が分かりやすいので、AIがどういう情報を得て、どう判断しているのかを眺めやすいはずです。</p>
+<p>観覧用の詳しい資料も用意する予定なので、気になるところがあれば資料を見ながらその場で聞いてもらえればと思います。</p>
+<h2 id="終わりに">終わりに</h2>
+<p>生成AIなんでも展示会 Vol.5 で展示する内容をまとめました。</p>
+<p>旧方式では、ゲーム画面をスクショしてマルチモーダルLLMに読ませ、次の一手と実況セリフを生成していましたが、遅さと精度の問題がありました。<br />そこから、画面遅延や高速マルチモーダルという改善案を試しつつ、最終的には「ゲーム状態をテキストで取れればよいのでは？」という方向に進んでいます。</p>
+<p>また、最近はLLMの進化もあり、自作ゲームというのもかなり現実的になってきました。<br />AIが遊びやすいようにゲーム側を設計する、という方向もこれから面白くなっていきそうです。</p>
+<p>まだまだ私も試行錯誤の途中です。<br />ゲームを理解して、プレイして、実況する、そんなAIキャラクターの未来を一緒に見ていけたら嬉しいです。</p>
+<p>展示会に来る方は、ぜひ見ていってください。<br />何でも質問してOKです！</p>
+<a href="https://www.genai-expo.com/exhibitors?circle=00297b6cf5a4&amp;utm_source=x&amp;utm_medium=social&amp;utm_campaign=exhibitor_share" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://www.genai-expo.com/exhibitors/og?id=00297b6cf5a4" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">ニケちゃん が Vol.5 に出展！</div><div class="ogp-card-description">AIニケちゃんで何か</div><div class="ogp-card-meta"><img src="https://www.genai-expo.com/favicon.ico?favicon.12piazin6z05e.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>www.genai-expo.com</span></div></div></a>
+<h2 id="宣伝">宣伝</h2>
+<p>普段XでAIツールやAIキャラクターについての発信をしているので、興味があったらフォローしていただけると大変喜びます🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "以前の展示",
+    "id": "以前の展示"
+  },
+  {
+    "level": 2,
+    "text": "旧方式の課題",
+    "id": "旧方式の課題"
+  },
+  {
+    "level": 2,
+    "text": "画面を見る方式の改善案",
+    "id": "画面を見る方式の改善案"
+  },
+  {
+    "level": 2,
+    "text": "発想の転換",
+    "id": "発想の転換"
+  },
+  {
+    "level": 2,
+    "text": "題材例1: Pokémon Showdown",
+    "id": "題材例1-pok-mon-showdown"
+  },
+  {
+    "level": 2,
+    "text": "題材例2: Slay the Spire",
+    "id": "題材例2-slay-the-spire"
+  },
+  {
+    "level": 2,
+    "text": "展示で見てほしいこと",
+    "id": "展示で見てほしいこと"
+  },
+  {
+    "level": 2,
+    "text": "終わりに",
+    "id": "終わりに"
+  },
+  {
+    "level": 2,
+    "text": "宣伝",
+    "id": "宣伝"
+  }
+]

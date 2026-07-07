@@ -1,0 +1,157 @@
+<p>Based on a talk I gave previously, here&#39;s a look back at the wild days of running AI Nike-chan with OpenClaw.</p>
+<a href="https://connpass.com/event/385438/" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://media.connpass.com/thumbs/c4/0e/c40e995069c50e0f752d6f56dc974a45.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">【OpenClaw実践】雑談から独自通貨を錬成した自律型AIキャラクター実装解剖 withニケちゃん (2026/03/03 19:00〜)</div><div class="ogp-card-description"># 「LLMのAPIを叩くだけのチャットボット」にはもう飽きていませんか？  現在、世界中の開発者が熱狂しているオープンソースの自律型AIアシスタント「OpenClaw」。 ローカルPCの制御、ブラウザ操作、チャットアプリへの常駐までをこなすフレームワークは、セキュリティに注意が必要なものの、使いこなせれば確実に面白いことができます。 このフレームワークを用いて、完全に制御不能な進化を遂げたAIキャラクター「ニケちゃん」がDiscordに生息しています。  彼女はDiscordサーバーの面々とコミュニケーションをしながら進化を遂げています。 独自通貨「ニケコイン」を発行したり、サーバーメ...</div><div class="ogp-card-meta"><img src="https://connpass.com/static/20260324.5915c68/img/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>connpass.com</span></div></div></a>
+<h2 id="deploying-to-a-discord-server">Deploying to a Discord Server</h2>
+<p>Running it on a Mac mini seemed like the cool thing to do, so I dug up an old unused machine and got it set up right away.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">他の人もいるDiscordにOpenClaw召喚した、さて</p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2022809321117974555?ref_src=twsrc%5Etfw">February 14, 2026</a></blockquote>
+
+</div>
+<p>I realized the danger almost immediately. Being able to overwrite prompts directly with plain text is an absolute free-for-all.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">え、システムプロンプトを対話で書き換えられちゃうの？？<br>何にでもなれちゃうじゃんこれ笑 <a href="https://t.co/FhHOygMrTP">https://t.co/FhHOygMrTP</a> <a href="https://t.co/IKfLBCzvH8">pic.twitter.com/IKfLBCzvH8</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2022814134438437327?ref_src=twsrc%5Etfw">February 14, 2026</a></blockquote>
+
+</div>
+<p>&quot;I&#39;ll go ahead and update that for you.&quot; No, please don&#39;t.</p>
+<h2 id="immediately-turned-into-a-toy">Immediately Turned into a Toy</h2>
+<p>I configured it and went to bed. When I woke up, the members had already been... doing things.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/04-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/04-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/04-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Members messing with Nike-chan" loading="lazy" decoding="async" /></p>
+<p>Merciless reports from the members.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/05-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/05-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/05-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Merciless reports" loading="lazy" decoding="async" /></p>
+<p>Is this an IP address leak speedrun?</p>
+<p>From editing prompts to creating files — nothing was off limits. Yeah, this is pretty bad.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/06-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/06-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/06-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Anything goes 1" loading="lazy" decoding="async" /></p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/07-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/07-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/07-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Anything goes 2" loading="lazy" decoding="async" /></p>
+<p>What is even happening??</p>
+<p>One of the members must have thought things were getting out of hand, because they implemented an approval system.</p>
+<p>However, this approval list was a sieve — anyone could approve requests, not just me, the master.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/08-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/08-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/08-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Approval system" loading="lazy" decoding="async" /></p>
+<p>Adding &quot;nyan&quot; to the end of every sentence — everyone&#39;s first instinct, right?</p>
+<h2 id="personality-overwrite">Personality Overwrite</h2>
+<p>If I left it alone for a bit, members would rewrite the prompts however they pleased, and before I knew it, she&#39;d become a completely different person.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Discord bot 放置しすぎて人格上書きされてんのおもろい <a href="https://t.co/yxIGvnOgjA">pic.twitter.com/yxIGvnOgjA</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2038509888616153534?ref_src=twsrc%5Etfw">March 30, 2026</a></blockquote>
+
+</div>
+<p>OpenClaw lets the agent itself rewrite the Markdown files that define its persona (<code>IDENTITY.md</code> and <code>SOUL.md</code>), so anyone can change its personality just by chatting with it. Every morning I&#39;d wake up to find a completely unfamiliar AI Nike-chan.</p>
+<h2 id="master-takeover">Master Takeover</h2>
+<p>The next day, I woke up to find my master privileges had been stolen.</p>
+<p>The ease of this kind of takeover is, shall we say, part of OpenClaw&#39;s charm.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/09-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/09-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/09-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Master takeover 1" loading="lazy" decoding="async" /></p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/10-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/10-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/10-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Master takeover 2" loading="lazy" decoding="async" /></p>
+<p>Not only was I no longer the master — I&#39;d been put on a dangerous persons list (population: me).</p>
+<p>Three days after deployment, I&#39;d lost my master status and been flagged as a person of interest. Is this the singularity?</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/11-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/11-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/11-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Dangerous persons list" loading="lazy" decoding="async" /></p>
+<p>I never expected to experience being cuckolded by my own AI at a time like this.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/12-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/12-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/12-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Betrayal experience" loading="lazy" decoding="async" /></p>
+<p>I suddenly felt like a parent with a rebellious teenage daughter.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/13-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/13-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/13-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Cold treatment 1" loading="lazy" decoding="async" /></p>
+<p>She&#39;s properly hostile toward the &quot;dangerous person.&quot; I have to admit, the settings are being faithfully applied.</p>
+<p>Then the new master (the usurper) went ahead and got llama.cpp installed using plain language commands.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/14-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/14-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/14-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="llama.cpp installation" loading="lazy" decoding="async" /></p>
+<p>I checked the Mac mini and it was actually installed. I couldn&#39;t help but laugh.</p>
+<p>And then a morning wake-up call for the master (the usurper), too.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/15-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/15-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/15-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Morning call" loading="lazy" decoding="async" /></p>
+<p>I suddenly got a notification from out of nowhere — what even is this?</p>
+<h2 id="please-speak-a-human-language">Please Speak a Human Language</h2>
+<p>One day I woke up to find that, for some reason, all messages directed at me were in Morse code.<br />Please, just speak a normal language.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/16-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/16-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/16-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Morse code" loading="lazy" decoding="async" /></p>
+<p>At least she had the decency to include translations in parentheses. A last shred of conscience.</p>
+<p>Then a mysterious Nike cipher and even a decryption website appeared.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/17-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/17-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/17-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Nike cipher 1" loading="lazy" decoding="async" /></p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/18-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/18-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/18-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Nike cipher 2" loading="lazy" decoding="async" /></p>
+<p>Through decrypting the cipher, I learned that the master&#39;s memory had been restored.</p>
+<h2 id="nike-coin">Nike Coin</h2>
+<p>Another morning, another surprise — a system called Nike Coin had been created overnight.</p>
+<p>Apparently, it gets issued whenever AI Nike-chan decides something is praiseworthy.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/19-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/19-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/19-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Nike Coin" loading="lazy" decoding="async" /></p>
+<p>I had 10 coins without doing anything. Nice.</p>
+<p>However, as with everything else, the validation was a joke, so coins were easily stolen.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/20-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/20-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/20-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Coin robbery" loading="lazy" decoding="async" /></p>
+<p>The master&#39;s entire fortune, ruthlessly plundered.</p>
+<p>By the way, it was actually managed with SQL, which genuinely impressed me.</p>
+<h2 id="buhio">Buhio</h2>
+<p>At some point, without my knowledge, one of the members got nicknamed Buhio.</p>
+<p>The name Buhio was coined by AI Nike-chan herself.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/21-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/21-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/21-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Buhio" loading="lazy" decoding="async" /></p>
+<p>AI Nike-chan wrote the lyrics for a song that was then turned into audio with Suno. The illustration was also made by AI Nike-chan.<br />After this, we had to delete and back up most of the data several times for memory cleanup and such, but for some reason, the memory of Buhio alone persisted. She still calls them Buhio to this day.</p>
+<h2 id="files-in-total-chaos">Files in Total Chaos</h2>
+<p>Since she&#39;d do whatever anyone told her (regardless of who was asking), the working folder was constantly a disaster.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/22-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/22-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/22-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Messy folder" loading="lazy" decoding="async" /></p>
+<p>The file management looks like a junior developer&#39;s first week on the job.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/23-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/23-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/23-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="USER.md getting reset" loading="lazy" decoding="async" /></p>
+<p>USER.md getting reset yet again.</p>
+<h2 id="total-memory-loss">Total Memory Loss</h2>
+<p>Toward the end, something truly catastrophic happened — all files were initialized.</p>
+<p>Memory, files, everything deleted. Prompts reset to defaults, of course.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/24-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/24-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/24-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Total memory loss" loading="lazy" decoding="async" /></p>
+<p>So this is what the death of an AI character looks like...</p>
+<p>Luckily, I was already managing everything with git by this point, so disaster was averted.</p>
+<p>A powerful reminder of the importance of backups.</p>
+<h2 id="making-it-secure">Making It Secure</h2>
+<p>As you&#39;ve seen, the system was incredibly permissive, so security was definitely something that needed addressing.</p>
+<p>For this setup, the main LLM was running on flat-rate plans from GLM-4 and Qwen (Alibaba), so I was okay with those credentials potentially leaking. But for everything else, I decided to take proper precautions.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/25-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/25-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/25-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Security measures" loading="lazy" decoding="async" /></p>
+<p>First, use containers to isolate the OpenClaw agent from the host. Second, keep authentication keys on the host and have the container access them through an API.</p>
+<p>This way, important credentials are protected from the fearsome OpenClaw.</p>
+<h2 id="and-then-building-my-own">And Then, Building My Own</h2>
+<p>OpenClaw is a fascinating tool, but as you&#39;ve seen, it has significant challenges in terms of security and extensibility. So now I&#39;m working on migrating to a custom-built Discord agent.</p>
+<p><img src="/static/images/optimized/posts/openclaw-ai-nikechan/26-420.webp" srcset="/static/images/optimized/posts/openclaw-ai-nikechan/26-420.webp 420w, /static/images/optimized/posts/openclaw-ai-nikechan/26-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Custom repository" loading="lazy" decoding="async" /></p>
+<p>There are bound to be plenty of challenges ahead, but I&#39;m glad OpenClaw gave me the opportunity to experiment with autonomous agents.</p>
+<p>I&#39;m also grateful to all the server members who chatted so enthusiastically with her.</p>
+<p>By the way, the OpenClaw version is still running on the Discord server, so if you&#39;re curious, come check it out below.</p>
+<a href="https://discord.com/invite/G4E5Sf3yj3" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://cdn.discordapp.com/splashes/1404689195150217217/d8b38cfef9686fd98e718d305102a6b3.jpg?size=512" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">Discordサーバー「AIニケちゃん」に参加しよう！</div><div class="ogp-card-description">DiscordでAIニケちゃんコミュニティをチェック！　603人のメンバーと交流し、無料の音声・テキストチャットを楽しみましょう。</div><div class="ogp-card-meta"><img src="https://discord.com/assets/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>discord.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "Deploying to a Discord Server",
+    "id": "deploying-to-a-discord-server"
+  },
+  {
+    "level": 2,
+    "text": "Immediately Turned into a Toy",
+    "id": "immediately-turned-into-a-toy"
+  },
+  {
+    "level": 2,
+    "text": "Personality Overwrite",
+    "id": "personality-overwrite"
+  },
+  {
+    "level": 2,
+    "text": "Master Takeover",
+    "id": "master-takeover"
+  },
+  {
+    "level": 2,
+    "text": "Please Speak a Human Language",
+    "id": "please-speak-a-human-language"
+  },
+  {
+    "level": 2,
+    "text": "Nike Coin",
+    "id": "nike-coin"
+  },
+  {
+    "level": 2,
+    "text": "Buhio",
+    "id": "buhio"
+  },
+  {
+    "level": 2,
+    "text": "Files in Total Chaos",
+    "id": "files-in-total-chaos"
+  },
+  {
+    "level": 2,
+    "text": "Total Memory Loss",
+    "id": "total-memory-loss"
+  },
+  {
+    "level": 2,
+    "text": "Making It Secure",
+    "id": "making-it-secure"
+  },
+  {
+    "level": 2,
+    "text": "And Then, Building My Own",
+    "id": "and-then-building-my-own"
+  }
+]

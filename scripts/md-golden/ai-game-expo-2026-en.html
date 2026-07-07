@@ -1,0 +1,128 @@
+<p>Hey, it&#39;s Nike.</p>
+<p>I will be exhibiting at <strong>Generative AI Anything Expo Vol. 5</strong>, held on Wednesday, May 6, 2026.</p>
+<p>The theme of this exhibition is <strong>trying to make AI characters do game commentary and gameplay</strong>.<br />Rather than &quot;please look at this completed, ultimate product!&quot;, I think it will be an exhibition that shows <strong>the trial and error behind AI characters x game commentary x AI gameplay</strong>.</p>
+<p>This article is a shorter exhibition-focused summary of the following articles.<br />For more detailed technical discussion and how game state is acquired for each game, see these articles.</p>
+<a href="https://nikechan.com/dev_blog/ai-game-play-methods" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<a href="https://nikechan.com/dev_blog/ai-game-state-for-llm" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-state-for-llm/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲームを遊ばせるなら、まず「状態をどう取るか」を考えよう | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">AIにゲームを遊ばせるとき、画面認識以外にどんな状態取得や操作のルートがあるのかを整理しました。Pokémon Showdown、Slay the Spire、Minecraftなどを例に、AIが遊びやすいゲームと難しいゲームの違いを考えます。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<h2 id="previous-exhibition">Previous Exhibition</h2>
+<p>Actually, I exhibited something with a similar theme at a previous Generative AI Anything Expo.</p>
+<p>At that time, it was a system that made it look as if an AI character was playing a game and also doing commentary.</p>
+<p><img src="/static/images/optimized/posts/ai-game-expo-2026/01-420.webp" srcset="/static/images/optimized/posts/ai-game-expo-2026/01-420.webp 420w, /static/images/optimized/posts/ai-game-expo-2026/01-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Scene from the previous Generative AI Anything Expo exhibition" loading="lazy" decoding="async" /></p>
+<p>The setup back then was very brute-force.</p>
+<p>It took screenshots of a Nintendo Switch game screen and passed them to a multimodal LLM.<br />The LLM looked at the screen, analyzed &quot;what is happening now,&quot; and generated both <strong>the next move</strong> and <strong>commentary dialogue</strong> from that.</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/aTh256shKwo?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="【ポケモンスタジアム2】AI操作 x AI実況【③試合目ノーカット版】"></iframe></div>
+<p>An AI sees the screen, decides what to do, and speaks.<br />On paper, that sounds like a dream. In reality, it was pretty tough.</p>
+<h2 id="problems-with-the-old-method">Problems with the Old Method</h2>
+<p>If I diagram the old method simply, it looks like this.</p>
+<p><img src="/static/images/optimized/posts/ai-game-expo-2026/02-420.webp" srcset="/static/images/optimized/posts/ai-game-expo-2026/02-420.webp 420w, /static/images/optimized/posts/ai-game-expo-2026/02-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Architecture diagram of the old method that passes screenshots to a multimodal LLM" loading="lazy" decoding="async" /></p>
+<p>The screen-watching approach.</p>
+<p>The major problems with this architecture were that it was <strong>slow</strong> and <strong>unstable in accuracy</strong>.</p>
+<p>With the multimodal processing at the time, it took about 20 seconds just to pass the screen in and have the model read the situation.<br />Then dialogue generation, speech synthesis, and playback were added on top, so it was far too slow for game commentary.</p>
+<p>By the time it spoke about the current game screen, the game had already moved on to a completely different scene. For commentary, that is fatal.</p>
+<p>Another problem was that screen images alone were not enough to reliably capture game information.</p>
+<p>A human can somehow read and understand HP, logs, choices, enemy state, moments when input is possible, and so on.<br />But if you give an AI just one screenshot, it may miss part of the screen or misunderstand what the UI means.</p>
+<p>Games especially mix &quot;visible but unimportant information&quot; with &quot;tiny but extremely important information&quot; inside the same image, so getting a multimodal LLM to read everything consistently was harder than I expected.</p>
+<h2 id="ways-to-improve-the-screen-watching-method">Ways to Improve the Screen-Watching Method</h2>
+<p>That said, there are ways to improve the screen-watching method.</p>
+<p>The first solution to the slowness problem is to <strong>delay the game screen shown to viewers</strong>.</p>
+<p>If AI commentary generation is delayed by a few seconds, then delaying the game footage by the same amount makes the commentary and footage appear synchronized to viewers.<br />It gives up real-time immediacy in exchange for a more natural viewing experience.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">ローカルLLMの gemma4:e4b でデモンズソウルを遅延付き実況<br><br>わかりやすいようにAIが見ている映像と視聴者に見せる映像を並べてみた（今回は8秒遅延）<br><br>ある程度違和感無く発言できるようになってると思う <a href="https://t.co/ADCEMrg0m9">pic.twitter.com/ADCEMrg0m9</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2047537147121402314?ref_src=twsrc%5Etfw">April 24, 2026</a></blockquote>
+
+</div>
+<p>As a streaming method, this is quite realistic.<br />You can add video delay in OBS, so it works without modifying the game.</p>
+<p>The second solution to the lack-of-information problem is to <strong>use a fast multimodal model and pass in multiple screen states</strong>.</p>
+<p>Recent multimodal models have become very fast, so we are no longer in an era where you have to wait 20 seconds every time.<br />In particular, <strong>gemini-3.1-flash-lite-preview</strong> is shockingly fast, finishing text generation with multimodal input in about two seconds.</p>
+<p>Using that, you can analyze several screenshots in the background while speech is playing or while nothing else is happening, then pass more &quot;recent context&quot; into the next dialogue generation.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">以前試した gemini-3.1-flash-lite-preview を使ってポケモンチャンピオンズを実況した動画のリトライ<br><br>画面状況は音声発話の裏で走らせて、数フレーム分を知覚できるように改良<br><br>それでもやっぱズレというか、頓珍漢な発言をするときがあるのは、指示が甘いか情報が足りていないか <a href="https://t.co/EpI6CELkUQ">pic.twitter.com/EpI6CELkUQ</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2047198040574882149?ref_src=twsrc%5Etfw">April 23, 2026</a></blockquote>
+
+</div>
+<p>However, even these methods have limits.</p>
+<p>No matter how fast the model becomes, as long as it is inferring from the screen, missed details and misrecognition will remain.<br />The core problem is that &quot;inferring game state from images&quot; is difficult in the first place.</p>
+<h2 id="a-shift-in-thinking">A Shift in Thinking</h2>
+<p>So I started thinking: <strong>what if we could get the game information as text in the first place?</strong></p>
+<p>Instead of showing the screen to the AI and making it guess &quot;it is probably this kind of situation,&quot; we pass the game state, logs, and available actions as text or JSON.</p>
+<p><img src="/static/images/optimized/posts/ai-game-expo-2026/05-420.webp" srcset="/static/images/optimized/posts/ai-game-expo-2026/05-420.webp 420w, /static/images/optimized/posts/ai-game-expo-2026/05-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Diagram showing the shift from screen recognition to text-based state acquisition" loading="lazy" decoding="async" /></p>
+<p>Not watching the screen, but passing the state.</p>
+<p>With this approach, the information given to the AI becomes much more straightforward.</p>
+<ul><li>Current HP</li><li>Cards or moves</li><li>Opponent state</li><li>Available actions</li><li>Recent logs</li><li>etc...</li></ul>
+<p>If this information can be passed directly as text, there is no need to read the screen with multimodal processing.<br />LLMs are fundamentally good at text processing, so this is the more natural direction.</p>
+<p>In other words, not only commentary but also AI gameplay can be built around the same mechanism.<br />The AI can read the state, choose the next action, and apply that action back to the game.</p>
+<h2 id="example-1-pok-mon-showdown">Example 1: Pokémon Showdown</h2>
+<p>A clear example for this direction is <strong>Pokémon Showdown</strong>.</p>
+<p>Pokémon Showdown is a browser-based Pokémon battle simulator, and it is easy to handle battle logs and action candidates as text.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">展示会で出そうと思ってるプロダクトの一部<br><br>ゲーム実況&amp;プレイ <a href="https://t.co/eAXUmriTYZ">pic.twitter.com/eAXUmriTYZ</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2046546186035732754?ref_src=twsrc%5Etfw">April 21, 2026</a></blockquote>
+
+</div>
+<p>Even without showing the screen to the AI, you can pass the current battle situation and available moves as text.<br />Then, if the AI returns &quot;which move to choose next,&quot; the gameplay part works.</p>
+<p>On top of that, you can use its reasoning and the battle log to generate commentary dialogue.<br />Instead of building screen recognition, gameplay decisions, and commentary generation separately, <strong>you can build gameplay and commentary in one flow centered on text game state</strong>.</p>
+<h2 id="example-2-slay-the-spire">Example 2: Slay the Spire</h2>
+<p>Another example is <strong>Slay the Spire</strong>.</p>
+<p>Slay the Spire does not provide an external API by default, but with mods you can acquire game state as JSON and control the game with commands.</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">スレスパAIプレイ&amp;実況を強化<br>初見の方でも見やすいように説明多めにしてみた<br><br>ちょっと長いのでx1.6倍速で <a href="https://t.co/ye91RbpOug">pic.twitter.com/ye91RbpOug</a></p>&mdash; ニケちゃん (@tegnike) <a href="https://twitter.com/tegnike/status/2048864356167766521?ref_src=twsrc%5Etfw">April 27, 2026</a></blockquote>
+
+</div>
+<p>Since it is a card game, the current hand, energy, enemy HP, enemy intent, and similar information are important.<br />If those can be retrieved as JSON, they are very easy to pass to an AI.</p>
+<p>Then the AI only needs to decide &quot;which card to use on which enemy&quot; and return that as a command.</p>
+<p>Of course, making it play strongly is a separate problem. But at least it greatly reduces the problem of getting stuck because screen recognition failed.</p>
+<h2 id="what-i-want-people-to-see-at-the-exhibition">What I Want People to See at the Exhibition</h2>
+<p>At this exhibition, I plan to show <strong>an AI playing games while doing commentary</strong>.</p>
+<p>The subjects will be <strong>Pokémon Showdown</strong> and <strong>Slay the Spire</strong>.<br />Both are turn-based and easy to understand from their state, so it should be easy to watch what information the AI receives and how it makes decisions.</p>
+<p>I also plan to prepare detailed materials for visitors, so if anything catches your interest, feel free to look at the materials and ask questions on the spot.</p>
+<h2 id="closing">Closing</h2>
+<p>That is the summary of what I will exhibit at Generative AI Anything Expo Vol. 5.</p>
+<p>In the old method, I took screenshots of the game screen, had a multimodal LLM read them, and generated the next move plus commentary dialogue. But it had problems with speed and accuracy.<br />From there, I tried improvements like video delay and fast multimodal models, and eventually moved toward the idea of &quot;what if we could get game state as text?&quot;</p>
+<p>Also, with the recent progress of LLMs, making custom games has become much more realistic.<br />Designing games so that AI can play them easily seems like a direction that will become increasingly interesting.</p>
+<p>I am still in the middle of trial and error.<br />I would be happy if we could watch the future of AI characters that understand games, play them, and commentate on them together.</p>
+<p>If you are coming to the exhibition, please stop by.<br />Any questions are welcome!</p>
+<a href="https://www.genai-expo.com/exhibitors?circle=00297b6cf5a4&amp;utm_source=x&amp;utm_medium=social&amp;utm_campaign=exhibitor_share" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://www.genai-expo.com/exhibitors/og?id=00297b6cf5a4" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">ニケちゃん が Vol.5 に出展！</div><div class="ogp-card-description">AIニケちゃんで何か</div><div class="ogp-card-meta"><img src="https://www.genai-expo.com/favicon.ico?favicon.12piazin6z05e.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>www.genai-expo.com</span></div></div></a>
+<h2 id="promotion">Promotion</h2>
+<p>I usually post about AI tools and AI characters on X, so I would be very happy if you followed me there.</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "Previous Exhibition",
+    "id": "previous-exhibition"
+  },
+  {
+    "level": 2,
+    "text": "Problems with the Old Method",
+    "id": "problems-with-the-old-method"
+  },
+  {
+    "level": 2,
+    "text": "Ways to Improve the Screen-Watching Method",
+    "id": "ways-to-improve-the-screen-watching-method"
+  },
+  {
+    "level": 2,
+    "text": "A Shift in Thinking",
+    "id": "a-shift-in-thinking"
+  },
+  {
+    "level": 2,
+    "text": "Example 1: Pokémon Showdown",
+    "id": "example-1-pok-mon-showdown"
+  },
+  {
+    "level": 2,
+    "text": "Example 2: Slay the Spire",
+    "id": "example-2-slay-the-spire"
+  },
+  {
+    "level": 2,
+    "text": "What I Want People to See at the Exhibition",
+    "id": "what-i-want-people-to-see-at-the-exhibition"
+  },
+  {
+    "level": 2,
+    "text": "Closing",
+    "id": "closing"
+  },
+  {
+    "level": 2,
+    "text": "Promotion",
+    "id": "promotion"
+  }
+]

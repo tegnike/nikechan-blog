@@ -1,0 +1,107 @@
+<p>Hey, it&#39;s Nike.</p>
+<p>Lately, I have been seeing <strong>Stack-chan</strong> a lot on X.<br />When I see a character displayed on a small device, talking with voice and changing expressions, it makes me want to make my own character move that way too.</p>
+<p>So I made <strong>StackFace Maker</strong>, a local web app for creating expression assets for Stack-chan / Stack CoreS3.<br />In this article, I will introduce how to use the tool.</p>
+<p>Here is the repository.</p>
+<a href="https://github.com/tegnike/stackface-maker" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/8797f6bb2c9878bae2bddc0499b40b6a8d00a2daa92164b24bf770e116254ffe/tegnike/stackface-maker" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/stackface-maker</div><div class="ogp-card-description">Contribute to tegnike/stackface-maker development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>This tool was originally built based on <a href="https://github.com/rotejin/EasyPNGTuber" target="_blank" rel="noopener noreferrer">EasyPNGTuber</a>.<br />I would like to take this opportunity to thank the tool&#39;s developer, rotejin-san (<a href="https://x.com/rotejin" target="_blank" rel="noopener noreferrer">@rotejin</a>), once again.</p>
+<h2 id="what-stackface-maker-can-do">What StackFace Maker Can Do</h2>
+<p>In short, StackFace Maker is <strong>a tool that creates a standard expression from a character image, then generates four eye ON/OFF x mouth ON/OFF patterns for each expression variation</strong>.</p>
+<p>Of course, if you already have an image for the standard expression, you can skip standard-expression generation and go straight to creating the four patterns.</p>
+<p>The Stack CoreS3 screen is 320x240, so the final output is saved as PNG images at that size.</p>
+<h2 id="setup">Setup</h2>
+<p>First, clone the repository.</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">git clone https://github.com/tegnike/stackface-maker.git
+cd stackface-maker</code></pre></div>
+<p>Install the dependencies with <code>uv</code>.</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">uv sync</code></pre></div>
+<p>Start the web app.</p>
+<div class="code-block"><div class="code-lang">bash</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-bash">uv run python web_app.py</code></pre></div>
+<p>Once it starts, open <code>http://127.0.0.1:8765</code> in your browser.</p>
+<p>If you use image generation, you can enter your Gemini API key or OpenAI API key on the screen.<br />If you leave them blank, the app will look for the <code>GEMINI_API_KEY</code> / <code>OPENAI_API_KEY</code> environment variables.</p>
+<h2 id="trying-it-out">Trying It Out</h2>
+<p>The screen has an operation panel on the left, and masks plus previews on the right.<br />The left side has tabs for &quot;Standard Expression Generation,&quot; &quot;Create 4 Patterns,&quot; and &quot;Adjust / Save.&quot;<br />If you use image generation, first set the model and API key.</p>
+<p><img src="/static/images/optimized/posts/stackface-maker/01-create-420.webp" srcset="/static/images/optimized/posts/stackface-maker/01-create-420.webp 420w, /static/images/optimized/posts/stackface-maker/01-create-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="StackFace Maker standard expression generation screen" loading="lazy" decoding="async" /></p>
+<h2 id="optional-create-the-first-standard-expression">Optional: Create the First Standard Expression</h2>
+<p>If you do not have the first standard-expression image yet, use the &quot;Standard Expression Generation&quot; tab.</p>
+<p>Here, select the character image you want to use and press &quot;Generate Standard Expression.&quot;<br />Internally, the app uses <code>sample/standard/eyeON_mouthON.png</code> included in the repository as a composition reference, then generates a standard expression that reflects the selected character image&#39;s hairstyle, eyes, and overall feel.</p>
+<p><img src="/static/images/optimized/posts/stackface-maker/reference-eyeON-mouthON-420.webp" srcset="/static/images/optimized/posts/stackface-maker/reference-eyeON-mouthON-420.webp 420w, /static/images/optimized/posts/stackface-maker/reference-eyeON-mouthON-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Composition reference image used for standard expression generation" loading="lazy" decoding="async" /></p>
+<p>If the result looks good, press &quot;Use this image as the standard expression&quot; and you can move directly to the &quot;Create 4 Patterns&quot; tab.<br />If the result is a little off, add extra instructions and regenerate it.</p>
+<p>If you already have a standard-expression image prepared, you can skip this tab.</p>
+<h2 id="create-the-four-patterns">Create the Four Patterns</h2>
+<p>First, load the standard expression.<br />If you have a standard-expression image on hand, select that image here.<br />If you use the image created in the &quot;Standard Expression Generation&quot; tab, it will be set as the standard expression when you accept the generated result.</p>
+<p>The final image is created at a 320x240 aspect ratio, so you need a landscape 4:3 image.<br />The eye and mouth states can be either setting, but I find that starting with both ON (open) usually makes it easier to get the expression I want.</p>
+<p>After that, generate the opposite-state image.<br />For example, if the standard image is &quot;eyes ON, mouth ON,&quot; create an opposite state image with &quot;eyes OFF, mouth OFF.&quot;</p>
+<p>When you press &quot;Generate Opposite State Image,&quot; the image-generation AI creates the opposite-state image.<br />You can also enter a prompt for the opposite state, so you might add an instruction like this:</p>
+<div class="code-block"><div class="code-lang">text</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-text">Make the closed mouth look like a gentle smile.</code></pre></div>
+<p>If you already have an opposite-state image, you can also specify it manually with &quot;Select Opposite State Image.&quot;</p>
+<h2 id="adjust-the-masks">Adjust the Masks</h2>
+<p>Once the standard image and opposite-state image are ready, press &quot;Create 4 Patterns.&quot;<br />The app aligns the images and automatically generates masks for the eyes and mouth.</p>
+<p><img src="/static/images/optimized/posts/stackface-maker/02-adjust-mask-420.webp" srcset="/static/images/optimized/posts/stackface-maker/02-adjust-mask-420.webp 420w, /static/images/optimized/posts/stackface-maker/02-adjust-mask-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Mask adjustment screen" loading="lazy" decoding="async" /></p>
+<p>The red areas are the masks that will be replaced.<br />The eye parts are on the left, and the mouth parts are below. You can paint or erase each mask with the brush.</p>
+<p>The automatically generated masks may be too large or may not select the right area, so adjust only the necessary parts while watching the preview.<br />When you edit the masks, the preview updates automatically.</p>
+<p>Feather controls how much the mask edges are blurred.<br />Adding a little feather reduces the pasted-on look, but if it is too large, surrounding skin or hair may get blended in too.<br />I think starting around 5 to 12px is a good range, though the default is often enough.</p>
+<h2 id="save">Save</h2>
+<p>If the preview looks good, save it.</p>
+<p>If you turn on &quot;Save at 320x240 for CoreS3&quot; when saving, the images will be resized for the actual device.<br />The ZIP contains a folder with the expression name, and inside it are four PNG files.</p>
+<div class="code-block"><div class="code-lang">text</div><button class="code-copy-btn" type="button">Copy</button><pre><code class="language-text">eyeOFF_mouthOFF.png
+eyeON_mouthOFF.png
+eyeOFF_mouthON.png
+eyeON_mouthON.png</code></pre></div>
+<h2 id="create-expression-variations">Create Expression Variations</h2>
+<p>Once you have made the four standard-expression patterns, you can create other expressions with the same workflow.</p>
+<p>In the &quot;Create 4 Patterns&quot; tab, choose an expression such as &quot;joy,&quot; &quot;sadness,&quot; &quot;anger,&quot; or &quot;thinking,&quot; then press &quot;Generate Image for This Expression&quot; to create an expression base image from the standard expression.<br />If you want to create an expression that is not in the list, enter a name such as &quot;surprised,&quot; &quot;sleepy,&quot; or &quot;smug face&quot; in the custom expression field, and it will generate that expression.</p>
+<p>With the prompt for expression images, you can also add instructions specific to that expression, such as how strong the smile should be or what angle the eyebrows should have.</p>
+<p>Once the expression base image is ready, the rest of the process is the same as usual.<br />Generate or select the opposite-state image for that expression, then press &quot;Create 4 Patterns&quot; to create the eye ON/OFF x mouth ON/OFF assets.</p>
+<p>When you save each expression, the folder name includes the expression name, so it is easy to organize later.<br />Here is what the created assets look like when lined up.</p>
+<p><img src="/static/images/optimized/posts/stackface-maker/03-output-faces-420.webp" srcset="/static/images/optimized/posts/stackface-maker/03-output-faces-420.webp 420w, /static/images/optimized/posts/stackface-maker/03-output-faces-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="List of created expression assets" loading="lazy" decoding="async" /></p>
+<h2 id="promotion">Promotion</h2>
+<p>I usually post about AI tools and AI characters on X, so I would be very happy if you followed me there.</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "What StackFace Maker Can Do",
+    "id": "what-stackface-maker-can-do"
+  },
+  {
+    "level": 2,
+    "text": "Setup",
+    "id": "setup"
+  },
+  {
+    "level": 2,
+    "text": "Trying It Out",
+    "id": "trying-it-out"
+  },
+  {
+    "level": 2,
+    "text": "Optional: Create the First Standard Expression",
+    "id": "optional-create-the-first-standard-expression"
+  },
+  {
+    "level": 2,
+    "text": "Create the Four Patterns",
+    "id": "create-the-four-patterns"
+  },
+  {
+    "level": 2,
+    "text": "Adjust the Masks",
+    "id": "adjust-the-masks"
+  },
+  {
+    "level": 2,
+    "text": "Save",
+    "id": "save"
+  },
+  {
+    "level": 2,
+    "text": "Create Expression Variations",
+    "id": "create-expression-variations"
+  },
+  {
+    "level": 2,
+    "text": "Promotion",
+    "id": "promotion"
+  }
+]
