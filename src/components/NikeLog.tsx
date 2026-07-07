@@ -1,4 +1,4 @@
-import { supabase, type Summary } from '../lib/supabase'
+import type { Summary } from '../lib/supabase'
 
 // 日付をYYYY-MMの形式に変換する関数
 const getYearMonth = (date: string) => {
@@ -56,10 +56,9 @@ const calculateDailyMetrics = (summaries: Summary[]) => {
 
 type NikeLogProps = {
   summaries: Summary[]
-  shuffledImageNumbers: number[]
 }
 
-export const NikeLog = ({ summaries, shuffledImageNumbers }: NikeLogProps) => {
+export const NikeLog = ({ summaries }: NikeLogProps) => {
   // サーバーサイドでの計算を最適化
   const totalSessions = summaries.reduce((sum, s) => sum + (s.public_chat_session_count || 0), 0);
   const totalMessages = summaries.reduce((sum, s) => sum + (s.public_message_count || 0), 0);

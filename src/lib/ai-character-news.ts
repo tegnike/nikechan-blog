@@ -1,10 +1,4 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js'
-
-declare const process:
-  | {
-      env?: Record<string, string | undefined>
-    }
-  | undefined
+import { getSupabase } from './supabase'
 
 export type AiCharacterNewsItem = {
   id: string
@@ -41,33 +35,6 @@ export type AiCharacterNewsPage = {
   nextOffset: number
 }
 
-let serverSupabase: SupabaseClient | null = null
-
-function getEnv(key: string): string | undefined {
-  const processValue = typeof process !== 'undefined' ? process.env?.[key] : undefined
-  const importValue = (import.meta.env as Record<string, string | undefined>)[key]
-  return processValue || importValue
-}
-
-function getServerSupabase(): SupabaseClient {
-  if (serverSupabase) return serverSupabase
-
-  const url = getEnv('VITE_SUPABASE_URL')
-  const key = getEnv('VITE_SUPABASE_ANON_KEY')
-
-  if (!url || !key) {
-    throw new Error('Missing Supabase environment variables for AI character news page')
-  }
-
-  serverSupabase = createClient(url, key, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-  })
-
-  return serverSupabase
-}
 
 export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiCharacterNewsItem[]> {
   const columns = [
@@ -96,7 +63,7 @@ export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiChar
   const optionalColumns = ['title_en', 'summary_en', 'nike_comment_en', 'key_points', 'digest_note']
   const baseColumns = columns.filter((column) => !optionalColumns.includes(column))
 
-  const runQuery = (selectColumns: string[]) => getServerSupabase()
+  const runQuery = (selectColumns: string[]) => getSupabase()
     .from('public_ai_character_news')
     .select(selectColumns.join(','))
     .order('published_at', { ascending: false, nullsFirst: false })
@@ -120,7 +87,7 @@ export async function getAiCharacterNews(limit = 50, offset = 0): Promise<AiChar
 export async function getRecentlyAddedAiCharacterNews(limit = 5, hours = 48): Promise<AiCharacterNewsItem[]> {
   const cutoff = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
-  const { data, error } = await getServerSupabase()
+  const { data, error } = await getSupabase()
     .from('public_ai_character_news')
     .select([
       'id',
@@ -281,7 +248,7 @@ export async function getAiCharacterNewsForDate(date: string, limit = 80): Promi
   const optionalColumns = ['title_en', 'summary_en', 'nike_comment_en', 'key_points', 'digest_note']
   const baseColumns = columns.filter((column) => !optionalColumns.includes(column))
 
-  const runQuery = (selectColumns: string[]) => getServerSupabase()
+  const runQuery = (selectColumns: string[]) => getSupabase()
     .from('public_ai_character_news')
     .select(selectColumns.join(','))
     .gte('published_at', start)

@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase'
+import type { MonthlySummaryRow } from '../lib/activity-log'
 
 // 月表示用の関数
 const formatMonthYear = (yearMonth: string) => {
@@ -15,23 +15,12 @@ const formatCurrency = (amount: number | null) => {
   }).format(amount)
 }
 
-export const MonthlySummary = async ({ yearMonth }: { yearMonth: string }) => {
-  try {
-    // データ取得
-    const { data: summary, error } = await supabase
-      .from('monthly_summaries')
-      .select('*')
-      .eq('target_month', `${yearMonth}-01`)
-      .single()
+type Props = {
+  yearMonth: string
+  summary: MonthlySummaryRow
+}
 
-    if (error) {
-      return (
-        <div className="text-center py-8 text-red-500">
-          エラーが発生しました
-        </div>
-      )
-    }
-
+export const MonthlySummary = ({ yearMonth, summary }: Props) => {
     return (
       <>
         <div className="pt-12 pb-12">
@@ -106,12 +95,4 @@ export const MonthlySummary = async ({ yearMonth }: { yearMonth: string }) => {
         </div>
       </>
     )
-  } catch (error) {
-    console.error('Failed to load monthly summary', error)
-    return (
-      <div className="text-center py-8 text-red-500">
-        エラーが発生しました
-      </div>
-    )
-  }
-} 
+}

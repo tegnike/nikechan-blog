@@ -1,4 +1,3 @@
-import { supabase } from '../lib/supabase'
 import type { Article } from '../lib/supabase'
 import { TechBlog } from './TechBlog'
 import { getOptimizedImageSources } from '../utils/imageOptimization'
@@ -15,34 +14,16 @@ const shuffleArray = (array: number[]) => {
   return shuffled
 }
 
-export const DevBlog = async (locale: Locale = 'ja') => {
+type Props = {
+  locale?: Locale
+  articles?: Article[]
+}
+
+export const DevBlog = ({ locale = 'ja', articles = [] }: Props) => {
   // 1から23までの画像番号の配列をシャッフル
   const imageNumbers = Array.from({ length: 23 }, (_, i) => i + 1)
   const shuffledImageNumbers = shuffleArray(imageNumbers)
   const posts = getPostsByLocale(locale)
-  let articles: Article[] = []
-  const hasSupabaseEnv = Boolean(
-    import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY
-  )
-
-  if (hasSupabaseEnv) {
-    try {
-      // 技術記事を取得
-      const { data, error } = await supabase
-        .from('articles')
-        .select('*')
-        .or('status.eq.published,status.eq.public')
-        .order('published_at', { ascending: false })
-
-      if (error) {
-        console.error('Failed to load external dev blog articles', error)
-      } else {
-        articles = data || []
-      }
-    } catch (error) {
-      console.error('Failed to load external dev blog articles', error)
-    }
-  }
 
   return (
     <div className="character-page blog-redesign min-h-screen">

@@ -1,6 +1,8 @@
 name = "nikechan-blog"
 compatibility_date = "2024-12-04"
-compatibility_flags = ["nodejs_compat"]
+# nodejs_compat_populate_process_env: ダッシュボードの環境変数を
+# ランタイムの process.env に注入する(キーローテーションが再デプロイ不要になる)
+compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
 main = "./dist/index.js"
 
 [assets]

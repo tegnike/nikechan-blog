@@ -1,4 +1,4 @@
-import { supabase, type Summary } from '../lib/supabase'
+import type { Summary } from '../lib/supabase'
 
 type V2Data = {
   conversation_length_metrics: {

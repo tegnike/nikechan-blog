@@ -35,6 +35,12 @@ import {
   getAiCharacterNewsPage,
   getRecentlyAddedAiCharacterNews,
 } from './lib/ai-character-news'
+import {
+  getDailySummaries,
+  getDailySummaryDetail,
+  getMonthlySummary,
+  getPublishedArticles,
+} from './lib/activity-log'
 import type { AiCharacterNewsDateGroup, AiCharacterNewsItem } from './lib/ai-character-news'
 
 const app = new Hono()
@@ -426,7 +432,14 @@ app.get('/terms', (c) => {
 // Log page (活動記録)
 app.get('/log', async (c) => {
   c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
-  const content = await Log()
+  let content: JSX.Element
+  try {
+    const summaries = await getDailySummaries()
+    content = <Log summaries={summaries} />
+  } catch (error) {
+    console.error('Failed to load log data', error)
+    content = <div className="text-center py-8 text-red-500">エラーが発生しました</div>
+  }
   const currentPath = c.req.path; // パスを取得
   return c.render(
     <Layout currentPath={currentPath}>
@@ -444,7 +457,16 @@ app.get('/log', async (c) => {
 // Log detail page
 app.get('/log/:id', async (c) => {
   const id = c.req.param('id')
-  const detailContent = await BlogDetail({ id })
+  let detailContent: JSX.Element
+  try {
+    const detail = await getDailySummaryDetail(id)
+    detailContent = detail
+      ? <BlogDetail summary={detail.summary} prevId={detail.prevId} nextId={detail.nextId} />
+      : <div className="text-center py-8 text-red-500">エラーが発生しました</div>
+  } catch (error) {
+    console.error(`Failed to load log detail: ${id}`, error)
+    detailContent = <div className="text-center py-8 text-red-500">エラーが発生しました</div>
+  }
   const currentPath = c.req.path; // パスを取得
   return c.render(
     <Layout currentPath={currentPath}>
@@ -457,7 +479,16 @@ app.get('/log/:id', async (c) => {
 // Log monthly summary page
 app.get('/log/summary/:yearMonth', async (c) => {
   const yearMonth = c.req.param('yearMonth')
-  const summaryContent = await MonthlySummary({ yearMonth })
+  let summaryContent: JSX.Element
+  try {
+    const summary = await getMonthlySummary(yearMonth)
+    summaryContent = summary
+      ? <MonthlySummary yearMonth={yearMonth} summary={summary} />
+      : <div className="text-center py-8 text-red-500">エラーが発生しました</div>
+  } catch (error) {
+    console.error('Failed to load monthly summary', error)
+    summaryContent = <div className="text-center py-8 text-red-500">エラーが発生しました</div>
+  }
   const currentPath = c.req.path; // パスを取得
   return c.render(
     <Layout currentPath={currentPath}>
@@ -518,11 +549,11 @@ app.get('/dev', (c) => {
 app.get('/dev-blog', async (c) => {
   c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
   const locale = c.get('locale') as Locale
-  const content = await DevBlog(locale)
+  const articles = await getPublishedArticles()
   const currentPath = c.req.path;
   return c.render(
     <Layout currentPath={currentPath} locale={locale}>
-      {content}
+      <DevBlog locale={locale} articles={articles} />
     </Layout>,
     {
       locale,
