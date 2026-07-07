@@ -975,7 +975,12 @@ function bootstrap() {
   function setupMarkdownCopyButton() {
     document.querySelectorAll<HTMLElement>('[data-copy-markdown]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const markdown = btn.getAttribute('data-markdown') || ''
+        const sourceId = btn.getAttribute('data-markdown-source') || ''
+        const source = sourceId ? document.getElementById(sourceId) : null
+        const markdown =
+          source instanceof HTMLTextAreaElement
+            ? source.value
+            : source?.textContent || ''
         navigator.clipboard.writeText(markdown).then(() => {
           const svg = btn.querySelector('svg')
           if (svg) svg.style.display = 'none'
@@ -1033,6 +1038,85 @@ function bootstrap() {
     // Show first platform by default
     const firstId = planets[0]?.getAttribute('data-platform')
     if (firstId) selectPlatform(firstId)
+  }
+
+  type FanGalleryItem = {
+    dataSrc: string
+    src: string
+    srcSet?: string
+    alt: string
+    caption: string
+    url?: string
+  }
+
+  function setupFanGalleryInfiniteScroll() {
+    const list = document.querySelector<HTMLElement>('[data-fan-gallery-list]')
+    const sentinel = document.querySelector<HTMLElement>('[data-fan-gallery-sentinel]')
+    const dataEl = document.querySelector<HTMLScriptElement>('[data-fan-gallery-remaining]')
+    if (!list || !sentinel || !dataEl || !('IntersectionObserver' in window)) return
+
+    let remaining: FanGalleryItem[] = []
+    try {
+      remaining = JSON.parse(dataEl.textContent || '[]')
+    } catch {
+      return
+    }
+    if (!remaining.length) {
+      sentinel.remove()
+      return
+    }
+
+    const pageSize = Number(dataEl.dataset.fanGalleryPageSize || 24)
+    let cursor = 0
+
+    const renderBatch = () => {
+      const batch = remaining.slice(cursor, cursor + pageSize)
+      cursor += batch.length
+      const fragment = document.createDocumentFragment()
+      batch.forEach((item) => {
+        const cell = document.createElement('div')
+        cell.className = 'relative group overflow-hidden rounded-lg cursor-pointer gallery-item aspect-square'
+        cell.dataset.src = item.dataSrc
+        cell.dataset.caption = item.caption
+        cell.dataset.url = item.url || ''
+        cell.dataset.caption2 = ''
+        cell.dataset.url2 = ''
+
+        const img = document.createElement('img')
+        img.src = item.src
+        if (item.srcSet) {
+          img.srcset = item.srcSet
+          img.sizes = '(max-width: 768px) 50vw, 25vw'
+        }
+        img.alt = item.alt
+        img.className = 'w-full h-full object-cover'
+        img.loading = 'lazy'
+        img.decoding = 'async'
+
+        cell.appendChild(img)
+        fragment.appendChild(cell)
+      })
+      list.appendChild(fragment)
+
+      if (cursor >= remaining.length) {
+        sentinel.remove()
+        observer.disconnect()
+        return
+      }
+      // sentinelが読み込み後も画面内に留まり続けると、交差状態が変化しないため
+      // 次の通知が発火しない（IntersectionObserverの既知の制約）。
+      // unobserve→observeで呼び出し時点の交差状態を強制的に再判定させる。
+      observer.unobserve(sentinel)
+      observer.observe(sentinel)
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        renderBatch()
+      }
+    }, { rootMargin: '600px 0px' })
+
+    observer.observe(sentinel)
   }
 
   type AiNewsItem = {
@@ -1290,6 +1374,7 @@ function bootstrap() {
     setupTwitterEmbeds() // Twitter埋め込みウィジェット
     setupWorldPlatformMap() // Worldページ放射状プラットフォームマップ
     setupAiNewsInfiniteScroll() // AIニュース無限スクロール
+    setupFanGalleryInfiniteScroll() // ファンアートギャラリー無限スクロール
   })
 }
 

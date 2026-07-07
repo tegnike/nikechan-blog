@@ -10,6 +10,7 @@
   "fan": {
     "notice": "The fan art displayed on this page is the copyrighted work of each artist. If you wish to make secondary use or create derivative works (re-editing, processing, using as input for generative AI or LoRA training, printing, distribution, etc.), you must obtain permission from the artist. Clicking on an image will display a link to the artist's X profile. Please refrain from secondary use if permission cannot be obtained.",
     "altText": "Fan art by {{author}}",
-    "caption": "Illus. {{author}}"
+    "caption": "Illus. {{author}}",
+    "loading": "Loading..."
   }
 }

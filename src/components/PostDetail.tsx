@@ -30,6 +30,7 @@ description: ${JSON.stringify(post.description)}
 ---
 
 ${post.content}`
+  const markdownScriptId = `post-markdown-${post.slug.replace(/[^a-zA-Z0-9_-]/g, '-')}`
 
   const ShareButtons = ({ className }: { className?: string }) => (
     <div className={`flex items-center gap-1 ${className || ''}`}>
@@ -55,7 +56,7 @@ ${post.content}`
       </button>
       <button
         data-copy-markdown
-        data-markdown={fullMarkdown}
+        data-markdown-source={markdownScriptId}
         className="post-tool-button"
         title="Markdownをコピー"
       >
@@ -69,6 +70,12 @@ ${post.content}`
 
   return (
     <div className="character-page post-redesign min-h-screen">
+      <textarea
+        id={markdownScriptId}
+        hidden
+        readOnly
+        value={fullMarkdown}
+      />
       <section className="site-page-hero post-redesign-hero">
         <div className="character-detail-hero__grid" aria-hidden="true" />
         <div className="site-page-hero__inner">
