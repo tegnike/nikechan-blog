@@ -1,6 +1,5 @@
 import { GalleryModalProvider } from '../context/GalleryModalContext'
 import { GalleryModal } from './GalleryModal'
-import { motion } from "motion/react"
 import { Languages } from 'lucide-react'
 import { getT, type Locale } from '../i18n/config'
 import { getOptimizedImageSources } from '../utils/imageOptimization'
@@ -45,11 +44,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
       <header className={`site-header ${currentPath.split(/[?#]/)[0].replace(/\/$/, '') === '/about' ? 'site-header--about' : ''}`}>
         <div className="site-header__pattern" aria-hidden="true"></div>
         <div className="site-header__inner">
-          <motion.div
-            className="site-header__brand"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400 }}
-          >
+          <div className="site-header__brand transition-transform duration-200 ease-out hover:scale-105">
             <a href={addLangParam("/")} className="site-header__logo" aria-label="Nike Chan - Official Website">
               <img
                 src={logoSources?.src ?? "/images/logos/logo_with_frame_and_shadow.png"}
@@ -60,7 +55,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
                 loading="eager"
               />
             </a>
-          </motion.div>
+          </div>
 
           <nav className="site-nav">
             {/* About */}
@@ -151,14 +146,11 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               <span>{locale === 'ja' ? 'JA' : 'EN'}</span>
             </button>
 
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <div className="transition-transform duration-150 ease-out hover:scale-105 active:scale-95">
               <button id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false" className="site-header__mobile-button">
                 {t('navigation:menu')}
               </button>
-            </motion.div>
+            </div>
           </div>
 
           {/* Mobile dropdown menu */}
