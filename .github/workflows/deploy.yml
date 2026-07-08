@@ -59,26 +59,31 @@ jobs:
             process.exit(1)
           }
 
-          const snippet = bundle.slice(Math.max(0, markerIndex - 300), markerIndex + 900)
+          const snippet = bundle.slice(Math.max(0, markerIndex - 700), markerIndex + 900)
           console.log('--- Supabase bundle snippet ---')
           console.log(snippet)
 
-          if (!snippet.includes(process.env.VITE_SUPABASE_URL)) {
-            console.error('❌ Supabase URL is not inlined near getSupabase()')
+          if (!snippet.includes('Reflect.get(globalThis,"process")')) {
+            console.error('❌ Runtime process env lookup is not preserved near getSupabase()')
             process.exit(1)
           }
 
-          if (!snippet.includes(process.env.VITE_SUPABASE_ANON_KEY)) {
-            console.error('❌ Supabase anon key is not inlined near getSupabase()')
+          if (!snippet.includes('VITE_SUPABASE_URL') || !snippet.includes('VITE_SUPABASE_ANON_KEY')) {
+            console.error('❌ Supabase env keys are not referenced near getSupabase()')
             process.exit(1)
           }
 
-          if (snippet.includes('VITE_SUPABASE_URL') || snippet.includes('VITE_SUPABASE_ANON_KEY')) {
-            console.error('❌ import.meta.env placeholders remain near getSupabase()')
+          if (!bundle.includes(process.env.VITE_SUPABASE_URL)) {
+            console.error('❌ Supabase URL build fallback is not inlined in the bundle')
             process.exit(1)
           }
 
-          console.log('✅ Supabase URL and anon key are inlined near getSupabase()')
+          if (!bundle.includes(process.env.VITE_SUPABASE_ANON_KEY)) {
+            console.error('❌ Supabase anon key build fallback is not inlined in the bundle')
+            process.exit(1)
+          }
+
+          console.log('✅ Supabase runtime env lookup and build fallbacks are present')
           EOF
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}

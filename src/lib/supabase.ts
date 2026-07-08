@@ -1,10 +1,8 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
-declare const process:
-  | {
-      env?: Record<string, string | undefined>
-    }
-  | undefined
+type RuntimeProcess = {
+  env?: Record<string, string | undefined>
+}
 
 /**
  * 環境変数の解決: ランタイム(process.env = Workers bindings)優先、
@@ -13,7 +11,8 @@ declare const process:
  * 再ビルドなしで反映される。
  */
 function getEnv(key: string): string | undefined {
-  const processValue = typeof process !== 'undefined' ? process.env?.[key] : undefined
+  const runtimeProcess = Reflect.get(globalThis, 'process') as RuntimeProcess | undefined
+  const processValue = runtimeProcess?.env?.[key]
   const importValue = (import.meta.env as Record<string, string | undefined>)[key]
   return processValue || importValue
 }
