@@ -143,11 +143,11 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <section className="ai-about-relationship" aria-labelledby="relationship-title">
           <div className="ai-about-section-head">
             <p className="ai-about-section-label">WHO DOES WHAT</p>
-            <h2 id="relationship-title">{t('つくるニケと、支えるAIニケちゃん。', 'Nike and AI Nike-chan have different roles.')}</h2>
+            <h2 id="relationship-title">{t('開発者ニケと働く、AIニケちゃん。', 'AI Nike-chan works alongside Nike.')}</h2>
             <p>
               {t(
-                '活動の主体は、人間の開発者ニケ。AIニケちゃんは、その制作をいちばん近くで進めるアシスタントとして生まれました。',
-                'The human developer Nike is the person leading the activity. AI Nike-chan began as the AI assistant working alongside that activity.'
+                'AIニケちゃんは、人間の開発者ニケ（マスター）が開発しているAIアシスタントです。AIキャラクターやAIエージェント、AIツールの制作を、調査、実装、検証、整理、記録で支えています。',
+                'AI Nike-chan is an AI assistant developed by the human developer Nike. She supports the creation of AI characters, agents, and tools through research, implementation, verification, organization, and documentation.'
               )}
             </p>
           </div>
