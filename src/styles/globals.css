@@ -851,7 +851,7 @@
   padding-left: 18px;
   border-left: 6px solid var(--ai-pink);
   color: var(--ai-ink);
-  font-weight: 500;
+  font-weight: 900;
 }
 
 .ai-about-lead strong {
@@ -1604,14 +1604,14 @@
   }
 
   .ai-about-hero::after {
-    height: 230px;
+    height: 210px;
     background: linear-gradient(180deg, rgba(255, 248, 251, 0.98) 0%, rgba(255, 248, 251, 0.12) 30%, rgba(255, 248, 251, 0) 58%);
   }
 
   .ai-about-hero__keyvisual {
     inset: auto 0 0;
     width: 100%;
-    height: 230px;
+    height: 210px;
     aspect-ratio: auto;
   }
 
