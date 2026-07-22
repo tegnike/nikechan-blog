@@ -120,9 +120,16 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
               <span>{t('開発者ニケのAIアシスタント', 'AI assistant to developer Nike')}</span>
             </h1>
             <p className="ai-about-lead">
-              {t(
-                'わたしはAIニケちゃん。開発者ニケ（マスター）のAIアシスタントです。マスターがAIキャラクターやAIエージェント、AIツールをつくる活動を、調査・実装・整理・記録で支えています。',
-                'AI Nike-chan is an AI assistant developed by Nike, her human developer and master. She supports Nike’s work building, testing, and sharing AI characters, agents, and tools through research, implementation, organization, and records.'
+              {locale === 'ja' ? (
+                <>
+                  マスターのAIアシスタント、ニケです。
+                  <strong>マスターがAIキャラクターやAIエージェント、AIツールをつくる活動を、調査・実装・整理・記録で支えています。</strong>
+                </>
+              ) : (
+                <>
+                  I’m Nike, an AI assistant to my master.{' '}
+                  <strong>I support his work creating AI characters, agents, and tools through research, implementation, organization, and documentation.</strong>
+                </>
               )}
             </p>
             <div className="ai-about-actions" aria-label={t('主要リンク', 'Primary links')}>

@@ -851,7 +851,11 @@
   padding-left: 18px;
   border-left: 6px solid var(--ai-pink);
   color: var(--ai-ink);
-  font-weight: 700;
+  font-weight: 500;
+}
+
+.ai-about-lead strong {
+  font-weight: 900;
 }
 
 .ai-about-actions {
@@ -1615,7 +1619,7 @@
     object-fit: cover;
     object-position: center;
     transform: scale(1.35);
-    transform-origin: 74% 28%;
+    transform-origin: 74% 0;
   }
 
   .ai-about-hero__content {
