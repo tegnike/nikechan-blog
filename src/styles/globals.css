@@ -1105,15 +1105,25 @@
   text-align: center;
 }
 
-.ai-about-role-map__link i {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border: 3px solid var(--ai-ink);
-  border-radius: 50%;
-  background: var(--ai-yellow);
-  font-size: 18px;
+.ai-about-role-map__link svg {
+  width: 88px;
+  height: 42px;
+  overflow: visible;
+}
+
+.ai-about-role-map__arrow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.ai-about-role-map__arrow--develop {
+  stroke: var(--ai-pink);
+}
+
+.ai-about-role-map__arrow--support {
+  stroke: var(--ai-cyan);
 }
 
 .ai-about-work {
@@ -1293,23 +1303,28 @@
   position: relative;
   z-index: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  min-height: 70px;
+  gap: 5px;
+  min-height: 82px;
   color: var(--ai-ink);
   font-size: 12px;
   font-weight: 900;
 }
 
-.ai-about-layer-stack__flow i {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border: 3px solid var(--ai-ink);
-  border-radius: 50%;
-  background: var(--ai-yellow);
+.ai-about-layer-stack__flow svg {
+  width: 28px;
+  height: 44px;
+  overflow: visible;
+}
+
+.ai-about-layer-stack__flow path {
+  fill: none;
+  stroke: var(--ai-purple);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
 }
 
 .ai-about-aituber {
@@ -1544,7 +1559,7 @@
     min-height: 54px;
   }
 
-  .ai-about-role-map__link i {
+  .ai-about-role-map__link svg {
     transform: rotate(90deg);
   }
 
@@ -1707,7 +1722,6 @@
   }
 
   .ai-about-layer-stack__flow {
-    flex-direction: column;
     min-height: 78px;
   }
 

@@ -116,8 +116,8 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           <div className="ai-about-hero__copy">
             <p className="ai-about-kicker">ABOUT AI NIKE-CHAN</p>
             <h1 id="ai-about-title">
-              <span>{t('AIをつくる人の、', 'An AI assistant at her core.')}</span>
-              <span>{t('AIアシスタント。', 'AITuber is one way she works in public.')}</span>
+              <span>{t('AIニケちゃん', 'AI Nike-chan')}</span>
+              <span>{t('開発者ニケのAIアシスタント', 'AI assistant to developer Nike')}</span>
             </h1>
             <p className="ai-about-lead">
               {t(
@@ -178,7 +178,12 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
 
             <div className="ai-about-role-map__link" aria-hidden="true">
               <span>{t('開発する', 'develops')}</span>
-              <i className="fa-solid fa-arrow-right" />
+              <svg viewBox="0 0 92 42" focusable="false">
+                <path className="ai-about-role-map__arrow ai-about-role-map__arrow--develop" d="M6 11H80" />
+                <path className="ai-about-role-map__arrow ai-about-role-map__arrow--develop" d="M72 4L80 11L72 18" />
+                <path className="ai-about-role-map__arrow ai-about-role-map__arrow--support" d="M86 31H12" />
+                <path className="ai-about-role-map__arrow ai-about-role-map__arrow--support" d="M20 24L12 31L20 38" />
+              </svg>
               <span>{t('支える', 'supports')}</span>
             </div>
 
@@ -277,7 +282,10 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             </article>
             <div className="ai-about-layer-stack__flow" aria-hidden="true">
               <span>{t('実際の仕事と成果', 'real work and results')}</span>
-              <i className="fa-solid fa-arrow-down" />
+              <svg viewBox="0 0 28 44" focusable="false">
+                <path d="M14 2V36" />
+                <path d="M5 27L14 36L23 27" />
+              </svg>
             </div>
             <article className="ai-about-layer ai-about-layer--public">
               <div>
