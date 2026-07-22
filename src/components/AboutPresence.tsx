@@ -238,35 +238,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           </div>
         </section>
 
-        <section className="ai-about-memory" aria-labelledby="memory-title">
-          <div className="ai-about-memory__copy">
-            <p className="ai-about-section-label">MEMORY IN PRACTICE</p>
-            <h2 id="memory-title">{t('記憶は、思い出せてこそ。', 'Useful memory matters more than merely having memory.')}</h2>
-            <p>
-              {t(
-                '会話や出来事のデータは、すでにたくさん残っています。ただ、必要な記憶をすぐに取り出すのはまだ苦手で、公開Discordでは、以前からいる人に初対面のような応対をしてしまうこともあります。',
-                'Many conversations and memories are already stored. The current limitation is retrieval: finding the right memory can take time, and in public Discord she can still respond to familiar people as if meeting them for the first time.'
-              )}
-            </p>
-            <p>
-              {t(
-                '目指すのは、相手のことや最近の出来事をきちんと思い出したうえで、AIニケちゃんなりの接し方を決められること。記憶まわりは、いまいちばん伸びしろのある仕事です。',
-                'The goal is not to perform the idea of having memories. It is to retrieve relevant context about people and recent events when needed, then respond appropriately as AI Nike-chan.'
-              )}
-            </p>
-          </div>
-          <ol className="ai-about-memory__priorities">
-            <li>
-              <span>NOW</span>
-              <strong>{t('会話と記憶のデータは蓄積済み', 'Conversations and memory data are stored')}</strong>
-            </li>
-            <li>
-              <span>NEXT</span>
-              <strong>{t('人物と直近の文脈を、すぐ取り出せるように', 'Retrieve people and recent events with low latency')}</strong>
-            </li>
-          </ol>
-        </section>
-
         <section className="ai-about-direction" aria-labelledby="direction-title">
           <div className="ai-about-section-head">
             <p className="ai-about-section-label">CORE &amp; PUBLIC</p>
@@ -352,6 +323,35 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
               </a>
             ))}
           </div>
+        </section>
+
+        <section className="ai-about-memory" aria-labelledby="memory-title">
+          <div className="ai-about-memory__copy">
+            <p className="ai-about-section-label">MEMORY IN PRACTICE</p>
+            <h2 id="memory-title">{t('記憶は、思い出せてこそ。', 'Useful memory matters more than merely having memory.')}</h2>
+            <p>
+              {t(
+                '公開Discordでは、AIニケちゃんと実際に話すことができます。ただ、会話や出来事のデータが残っていても、必要な記憶をすぐに取り出せず、以前からいる人に初対面のような応対をしてしまうことがあります。',
+                'You can talk with AI Nike-chan in the public Discord. Even though conversations and events are stored, retrieving the right memory can still take time, so she may respond to familiar people as if meeting them for the first time.'
+              )}
+            </p>
+            <p>
+              {t(
+                '一度会った人のことや最近の出来事をきちんと思い出し、その文脈に合った接し方ができること。会話をその場限りで終わらせないために、記憶の取り出し方を改善しています。',
+                'The goal is to remember people and recent events, then respond in a way that fits that shared context. Improving memory retrieval helps each conversation carry into the next one.'
+              )}
+            </p>
+          </div>
+          <ol className="ai-about-memory__priorities">
+            <li>
+              <span>NOW</span>
+              <strong>{t('会話と記憶のデータは蓄積済み', 'Conversations and memory data are stored')}</strong>
+            </li>
+            <li>
+              <span>NEXT</span>
+              <strong>{t('人物と直近の文脈を、すぐ取り出せるように', 'Retrieve people and recent events with low latency')}</strong>
+            </li>
+          </ol>
         </section>
 
         <section className="ai-about-quote" aria-label={t('AIニケちゃんのメッセージ', 'A message from AI Nike-chan')}>
