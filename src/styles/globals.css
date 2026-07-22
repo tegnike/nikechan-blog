@@ -1019,6 +1019,10 @@
   line-height: 1.95;
 }
 
+.ai-about-term {
+  white-space: nowrap;
+}
+
 .ai-about-role-map {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 110px minmax(0, 1fr);

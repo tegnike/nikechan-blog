@@ -145,8 +145,14 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             <p className="ai-about-section-label">WHO DOES WHAT</p>
             <h2 id="relationship-title">{t('開発者ニケと働く、AIニケちゃん。', 'AI Nike-chan works alongside Nike.')}</h2>
             <p>
-              {t(
-                'AIニケちゃんは、人間の開発者ニケ（マスター）が開発しているAIアシスタントです。AIキャラクターやAIエージェント、AIツールの制作を、調査、実装、検証、整理、記録で支えています。',
+              {locale === 'ja' ? (
+                <>
+                  AIニケちゃんは、人間の開発者ニケ（マスター）が開発しているAIアシスタントです。
+                  <span className="ai-about-term">AIキャラクター</span>や
+                  <span className="ai-about-term">AIエージェント</span>、
+                  <span className="ai-about-term">AIツール</span>の制作を、調査、実装、検証、整理、記録で支えています。
+                </>
+              ) : (
                 'AI Nike-chan is an AI assistant developed by the human developer Nike. She supports the creation of AI characters, agents, and tools through research, implementation, verification, organization, and documentation.'
               )}
             </p>
