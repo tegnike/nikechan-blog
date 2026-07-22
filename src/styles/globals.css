@@ -874,7 +874,7 @@
   background: #fff;
   font-weight: 900;
   text-decoration: none;
-  box-shadow: 6px 6px 0 var(--ai-ink);
+  box-shadow: 6px 6px 0 var(--ai-yellow);
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
@@ -886,7 +886,7 @@
 
 .ai-about-actions a:hover {
   transform: translate(3px, 3px);
-  box-shadow: 3px 3px 0 var(--ai-ink);
+  box-shadow: 3px 3px 0 var(--ai-yellow);
 }
 
 .ai-about-actions a:first-child:hover {
@@ -905,7 +905,7 @@
   font-weight: 900;
   letter-spacing: 0.2em;
   line-height: 1;
-  box-shadow: 4px 4px 0 var(--ai-ink);
+  box-shadow: 4px 4px 0 var(--ai-yellow);
 }
 
 .ai-about-hero {
@@ -1034,7 +1034,7 @@
   border: 3px solid var(--ai-ink);
   border-radius: 9px;
   background: #fff;
-  box-shadow: 6px 6px 0 var(--role-accent);
+  box-shadow: 6px 6px 0 var(--ai-yellow);
 }
 
 .ai-about-role-card--master {
@@ -1147,7 +1147,7 @@
   border: 3px solid var(--ai-ink);
   border-radius: 8px;
   background: #fff;
-  box-shadow: 5px 5px 0 var(--ai-ink);
+  box-shadow: 5px 5px 0 var(--ai-yellow);
 }
 
 .ai-about-work-card__top {
@@ -1203,7 +1203,7 @@
 }
 
 .ai-about-memory::after {
-  background: var(--ai-cyan);
+  background: var(--ai-yellow);
 }
 
 .ai-about-memory .ai-about-section-label {
@@ -1235,7 +1235,7 @@
   border-radius: 8px;
   color: var(--ai-ink);
   background: #fff;
-  box-shadow: 5px 5px 0 var(--ai-cyan);
+  box-shadow: 5px 5px 0 var(--ai-yellow);
 }
 
 .ai-about-memory__priorities span {
@@ -1269,12 +1269,12 @@
 
 .ai-about-layer--core {
   background: #E7F9FC;
-  box-shadow: 7px 7px 0 var(--ai-cyan);
+  box-shadow: 7px 7px 0 var(--ai-yellow);
 }
 
 .ai-about-layer--public {
   background: #FFF0F5;
-  box-shadow: 7px 7px 0 var(--ai-pink);
+  box-shadow: 7px 7px 0 var(--ai-yellow);
 }
 
 .ai-about-layer span {
@@ -1337,7 +1337,7 @@
   border: 3px solid var(--ai-ink);
   border-radius: 9px;
   background: #fff;
-  box-shadow: 6px 6px 0 var(--ai-ink);
+  box-shadow: 6px 6px 0 var(--ai-yellow);
 }
 
 .ai-about-aituber__icon {
@@ -1392,14 +1392,14 @@
   border-radius: 8px;
   color: var(--ai-ink);
   background: #fff;
-  box-shadow: 5px 5px 0 var(--ai-ink);
+  box-shadow: 5px 5px 0 var(--ai-yellow);
   text-decoration: none;
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
 .ai-about-touchpoint-card:hover {
   transform: translate(3px, 3px);
-  box-shadow: 2px 2px 0 var(--ai-ink);
+  box-shadow: 2px 2px 0 var(--ai-yellow);
 }
 
 .ai-about-touchpoint-card > i {
