@@ -994,15 +994,11 @@
 }
 
 .ai-about-section-head {
-  max-width: 860px;
+  max-width: none;
 }
 
 .ai-about-section-head--compact {
   max-width: 780px;
-}
-
-.ai-about-relationship .ai-about-section-head {
-  max-width: none;
 }
 
 .ai-about-section-head h2,

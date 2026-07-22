@@ -266,8 +266,8 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             <h2 id="direction-title">{t('実際の仕事から、キャラクターが育つ。', 'Grow the character around practical usefulness.')}</h2>
             <p>
               {t(
-                'まず優先するのは、マスターの制作と生活を実際に支えること。そのなかで手伝ったこと、一緒につくったものを表に出しながら、AIニケちゃんというキャラクターを少しずつ知ってもらいます。',
-                'AI Nike-chan is not going away. What changes is the priority between her inner and public roles. Improving Nike’s real work and daily life comes first; character recognition grows by showing selected parts of that work.'
+                'まず優先するのは、マスターの制作と生活を支えること。実際に手伝った仕事や一緒につくったものを通して、AIニケちゃんを少しずつ知ってもらいます。',
+                'Supporting Nike’s work and daily life comes first. AI Nike-chan grows through the work she helps with and the things they create together.'
               )}
             </p>
           </div>
