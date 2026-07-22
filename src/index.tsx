@@ -712,7 +712,7 @@ app.get('/about', (c) => {
     {
       locale,
       title: locale === 'ja' ? "AIニケちゃんについて | AIニケちゃんオフィシャルサイト" : "About AI Nike Chan | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんは、開発者ニケのもとで働くAIアシスタント。ふだんの仕事、記憶への取り組み、AITuberとしての活動、いま会える場所を紹介します。" : "Meet AI Nike-chan, the AI assistant developed by human developer Nike. Learn about her real work, memory, character IP, and role as an AITuber.",
+      description: locale === 'ja' ? "AIニケちゃんは、開発者ニケのもとで働くAIアシスタント。普段の仕事、記憶への取り組み、AITuberとしての活動、いま会える場所を紹介します。" : "Meet AI Nike-chan, the AI assistant developed by human developer Nike. Learn about her real work, memory, character IP, and role as an AITuber.",
       canonicalUrl: "https://nikechan.com/about",
       structuredData: {
         "@context": "https://schema.org",

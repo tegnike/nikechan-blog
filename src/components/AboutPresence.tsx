@@ -215,7 +215,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <section className="ai-about-work" aria-labelledby="work-title">
           <div className="ai-about-section-head ai-about-section-head--compact">
             <p className="ai-about-section-label">WHAT SHE DOES</p>
-            <h2 id="work-title">{t('ふだんの仕事', 'Moving the work forward, not only the conversation.')}</h2>
+            <h2 id="work-title">{t('普段の仕事', 'Moving the work forward, not only the conversation.')}</h2>
           </div>
           <div className="ai-about-work-grid">
             {workItems.map((item) => (
