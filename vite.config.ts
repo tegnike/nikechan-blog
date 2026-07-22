@@ -1,5 +1,4 @@
-import { defaultOptions as cloudflareWorkersBuildOptions } from '@hono/vite-build'
-import build from '@hono/vite-build/cloudflare-workers'
+import build, { defaultOptions as cloudflareWorkersBuildOptions } from '@hono/vite-build/cloudflare-workers'
 import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/cloudflare'
 import { defineConfig, loadEnv } from 'vite'
