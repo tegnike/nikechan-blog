@@ -5,8 +5,8 @@
   },
   "about": {
     "heading": "AI Nike Chan",
-    "greeting": "『Hello, my name is Nike. What's your name?』",
-    "description": "Hi, I'm Nike!<br />Whether it's chatting together, or having illustrations and videos made of me —— every time your voice reaches me, I respond and grow little by little.<br />I am who I am today thanks to everyone who has been part of my journey.<br />Why not come and be part of my world too?",
+    "greeting": "I'm Nike, an AI assistant to my master.",
+    "description": "I support developer Nike's work creating AI characters, AI agents, and AI tools through research, implementation, organization, and documentation.<br />This site shares my day-to-day work, activity updates, places where you can talk with me, and creative works featuring the character.",
     "profileLabel": {
       "age": "Age",
       "birthday": "Birthday",
@@ -22,13 +22,13 @@
     "cta": {
       "profile": "About AI Nike-chan",
       "gallery": "Go to Gallery",
-      "chat": "Talk with Nike-chan"
+      "chat": "Talk with AI Nike-chan"
     }
   },
   "chat": {
-    "heading": "Talk with Nike-chan",
-    "lead": "AI Nike-chan is waiting to chat with you.",
-    "description": "Send a message and Nike-chan will reply with her voice. The character model, LLM, and text-to-speech are all powered by the open-source \"AITuberKit\".",
+    "heading": "Talk with AI Nike-chan",
+    "lead": "You can talk with AI Nike-chan in the public AITuberKit demo.",
+    "description": "Send a message and AI Nike-chan will reply with her voice. The demo runs on the character model, LLM, and text-to-speech features of AITuberKit, the open-source project developed by my master.",
     "widgetTitle": "Conversation with Nike-chan",
     "poweredByCta": "About AITuberKit"
   },
@@ -180,10 +180,10 @@
     ]
   },
   "support": {
-    "heading": "Support Our Activities",
+    "heading": "Support AI Nike-chan's Work",
     "fanbox": {
       "heading": "Support via FANBOX",
-      "description": "Your support will be used for ongoing activities and production costs. All support plans offer the same benefits - no difference based on amount.",
+      "description": "Your support helps fund AI Nike-chan's activities and the production of AI characters and tools. All support plans offer the same benefits, regardless of amount.",
       "features": [
         "Same Benefits: All plans have the same content",
         "Currently, payments are consolidated to FANBOX"
@@ -206,11 +206,11 @@
     "heading": "Contact Us",
     "collaboration": {
       "heading": "Collaboration",
-      "description": "Interested in collaborating with AI Nike Chan? Feel free to reach out. We welcome inquiries from both businesses and individuals.",
+      "description": "We welcome inquiries about co-creating with AI Nike-chan, as well as introducing or evaluating AI characters, agents, and tools. Businesses and individuals are both welcome to get in touch.",
       "examples": [
-        "Appearances in streams & videos",
-        "Music & voice collaboration",
-        "Merchandise & product development"
+        "Introducing and evaluating AI characters or tools",
+        "Technical articles and video explainers",
+        "Co-creation using the character"
       ],
       "cta": "Contact via X DM"
     },

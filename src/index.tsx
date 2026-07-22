@@ -76,7 +76,7 @@ app.get('/', (c) => {
     {
       locale,
       title: locale === 'ja' ? "AIニケちゃんオフィシャルサイト" : "AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんのオフィシャルサイト。イラスト作品、ファンアート、活動記録、開発者向け情報を掲載。" : "Official website of AI Nike Chan. Featuring illustrations, fan art, activity logs, and developer information.",
+      description: locale === 'ja' ? "AIニケちゃんは、開発者ニケの制作を調査・実装・整理・記録で支えるAIアシスタント。活動記録、会話デモ、AIニュース、創作を紹介します。" : "AI Nike-chan is an AI assistant who supports developer Nike through research, implementation, organization, and documentation. Explore activity updates, a conversation demo, AI news, and creative works.",
       canonicalUrl: "https://nikechan.com",
       ogType: "website"
     }
