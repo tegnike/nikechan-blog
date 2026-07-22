@@ -83,6 +83,17 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
       external: true,
     },
     {
+      icon: 'fa-brands fa-x-twitter',
+      title: { ja: 'X', en: 'X' },
+      description: {
+        ja: '活動の近況やお知らせを、ときどき投稿しています。',
+        en: 'Occasional updates and announcements from AI Nike-chan.',
+      },
+      href: 'https://x.com/ai_nikechan',
+      label: { ja: 'Xを見る', en: 'View X' },
+      external: true,
+    },
+    {
       icon: 'fa-solid fa-images',
       title: { ja: 'プロフィールと創作', en: 'Profile and creations' },
       description: {
