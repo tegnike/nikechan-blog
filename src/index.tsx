@@ -712,7 +712,7 @@ app.get('/about', (c) => {
     {
       locale,
       title: locale === 'ja' ? "AIニケちゃんとは | AIニケちゃんオフィシャルサイト" : "About AI Nike Chan | AI Nike Chan Official Website",
-      description: locale === 'ja' ? "AIニケちゃんという存在について。会話、記憶、関係性を通じて存在感を育てるAIキャラクターの紹介。" : "About AI Nike-chan as a presence: an AI character built through conversation, memory, relationships, and continuity.",
+      description: locale === 'ja' ? "人間の開発者ニケが開発するAIアシスタント、AIニケちゃんの紹介。実際の仕事、記憶、キャラクターIP、AITuberとしての位置づけを掲載。" : "Meet AI Nike-chan, the AI assistant developed by human developer Nike. Learn about her real work, memory, character IP, and role as an AITuber.",
       canonicalUrl: "https://nikechan.com/about",
       structuredData: {
         "@context": "https://schema.org",
@@ -722,8 +722,8 @@ app.get('/about', (c) => {
           "name": locale === 'ja' ? "AIニケちゃん" : "AI Nike-chan",
           "alternateName": locale === 'ja' ? ["AI Nike-chan", "AIニケちゃん"] : ["AIニケちゃん", "AI Nike Chan"],
           "description": locale === 'ja'
-            ? "会話、記憶、関係性を通じて存在感を育てるAIキャラクター。X、Discord、AITuberKitなどで活動する。"
-            : "An AI character who grows presence through conversation, memory, and relationships across X, Discord, AITuberKit, and more.",
+            ? "人間の開発者ニケの調査、実装、整理、記録を支えるAIアシスタント。AITuberは活動形態の一つとして、実際の仕事と成果を発信する。"
+            : "An AI assistant who supports human developer Nike through research, implementation, organization, and records. AITuber is one public mode for sharing real work and results.",
           "url": "https://nikechan.com/about",
           "sameAs": [
             "https://x.com/ai_nikechan",
@@ -732,7 +732,7 @@ app.get('/about', (c) => {
           ],
           "creator": {
             "@type": "Person",
-            "name": "Nike Chan",
+            "name": locale === 'ja' ? "ニケ" : "Nike",
             "url": "https://nikechan.com/characters/nike"
           }
         }

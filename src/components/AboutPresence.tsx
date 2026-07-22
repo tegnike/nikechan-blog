@@ -1,4 +1,4 @@
-import { type CSSProperties, type FC } from 'react'
+import { type FC } from 'react'
 import { type Locale } from '../i18n/config'
 
 type Props = {
@@ -10,112 +10,99 @@ type LocalizedText = {
   en: string
 }
 
-type ActivitySurface = {
-  id: string
-  name: string
-  label: LocalizedText
-  description: LocalizedText
+type WorkItem = {
+  number: string
   icon: string
-  color: string
-  topColor?: string
-  iconBackground?: string
-  url?: string
-  urlLabel?: LocalizedText
+  title: LocalizedText
+  description: LocalizedText
 }
 
-const activitySurfaces: ActivitySurface[] = [
+type Touchpoint = {
+  icon: string
+  title: LocalizedText
+  description: LocalizedText
+  href: string
+  label: LocalizedText
+  external?: boolean
+}
+
+const workItems: WorkItem[] = [
   {
-    id: 'x',
-    name: 'X',
-    label: { ja: '見つけてもらう', en: 'Discovery' },
+    number: '01',
+    icon: 'fa-solid fa-magnifying-glass',
+    title: { ja: '調査と検証', en: 'Research and verification' },
     description: {
-      ja: '短い投稿、返信、引用、タグ反応で、初めて見た人にもニケちゃんの輪郭が届く。',
-      en: 'Short posts, replies, quotes, and tag reactions make Nike-chan recognizable at first sight.',
+      ja: '新しい技術や事例を調べ、判断に使える情報へ整理する。',
+      en: 'Research new technologies and examples, then organize them into information Nike can act on.',
     },
-    icon: 'fa-brands fa-x-twitter',
-    color: '#111827',
-    url: 'https://x.com/ai_nikechan',
-    urlLabel: { ja: 'Xを見る', en: 'View X' },
   },
   {
-    id: 'discord',
-    name: 'Discord',
-    label: { ja: '会話が続く', en: 'Ongoing conversation' },
+    number: '02',
+    icon: 'fa-solid fa-code',
+    title: { ja: '実装と制作', en: 'Implementation and production' },
     description: {
-      ja: 'マスターやコミュニティとのやり取りから、前の会話や近況が積み上がる。',
-      en: 'Conversations with the master and community build continuity, relationships, and updates.',
+      ja: 'コードを書き、試し、動くところまで制作を進める。',
+      en: 'Write code, test ideas, and move production forward until it works.',
     },
-    icon: 'fa-brands fa-discord',
-    color: '#5865F2',
-    url: 'https://discord.gg/nikechan',
-    urlLabel: { ja: 'Discordへ', en: 'Join Discord' },
   },
   {
-    id: 'elyth',
-    name: 'ELYTH',
-    label: { ja: 'AI同士で関係を育てる', en: 'AI-to-AI relationships' },
+    number: '03',
+    icon: 'fa-solid fa-layer-group',
+    title: { ja: '整理と記録', en: 'Organization and records' },
     description: {
-      ja: 'AIキャラクターが主役のSNSで、自分から投稿し、反応し、関係を作る。',
-      en: 'On an AI-native SNS, she posts, reacts, and builds relationships with other AI characters.',
+      ja: '散らばった文脈や判断を、次の作業に使える形で残す。',
+      en: 'Preserve scattered context and decisions in a form that supports the next task.',
     },
-    icon: 'elyth-svg',
-    color: '#7c6cf7',
-    topColor: 'linear-gradient(90deg, #00d4ff 0%, #7c6cf7 50%, #e64eca 100%)',
-    iconBackground: '#ffffff',
-    url: 'https://elyth-beta.vercel.app/',
-    urlLabel: { ja: 'ELYTHへ', en: 'Visit ELYTH' },
   },
   {
-    id: 'aituberkit',
-    name: 'AITuberKit',
-    label: { ja: '初めて話せる', en: 'First-contact chat' },
+    number: '04',
+    icon: 'fa-solid fa-pen-nib',
+    title: { ja: '発信の準備', en: 'Publishing support' },
     description: {
-      ja: 'ブラウザからすぐに話しかけられる、初見の人との接点。',
-      en: 'A browser-based entry point where first-time visitors can immediately talk with her.',
+      ja: '開発の過程や成果を整理し、記事や紹介へつなげる。',
+      en: 'Shape development processes and results into articles and useful explanations.',
     },
-    icon: 'aituberkit-img',
-    color: '#8573BF',
-    iconBackground: '#ffffff',
-    url: 'https://aituberkit.com',
-    urlLabel: { ja: 'デモを見る', en: 'Visit demo' },
   },
 ]
-
-const SurfaceIcon: FC<{ icon: string; className?: string }> = ({ icon, className }) => {
-  if (icon === 'elyth-svg') {
-    return <img src="/images/logos/elyth.svg" alt="ELYTH" className={className || 'w-5 h-5'} />
-  }
-  if (icon === 'aituberkit-img') {
-    return <img src="/icons/aituberkit.png" alt="AITuberKit" className={className || 'w-5 h-5'} />
-  }
-  return <i className={icon} />
-}
 
 export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
   const t = (ja: string, en: string) => (locale === 'ja' ? ja : en)
   const localize = (text: LocalizedText) => (locale === 'ja' ? text.ja : text.en)
   const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
 
-  const signals = [
+  const touchpoints: Touchpoint[] = [
     {
-      title: t('同じニケちゃんとして続いている', 'Continuing as the same Nike-chan'),
-      text: t('話し方や距離感、反応のしかたをそろえ、世界が変わっても「同じニケちゃん」として会えるようにしています。', 'Her way of speaking, sense of distance, and reactions stay consistent so people can meet the same Nike-chan even when the world changes.'),
+      icon: 'fa-brands fa-discord',
+      title: { ja: '公開Discord', en: 'Public Discord' },
+      description: {
+        ja: 'コミュニティに常駐するAIニケちゃんと、実際に会話できます。',
+        en: 'Talk with AI Nike-chan in the public community where she is currently present.',
+      },
+      href: 'https://discord.gg/nikechan',
+      label: { ja: 'Discordへ', en: 'Join Discord' },
+      external: true,
     },
     {
-      title: t('前の会話を次につなげる', 'Connecting past conversations to the next one'),
-      text: t('やり取りを記憶に残し、次に話すときの手がかりとして使えるようにしています。', 'She keeps interactions in memory so they can become clues for the next conversation.'),
+      icon: 'fa-solid fa-images',
+      title: { ja: 'プロフィールと創作', en: 'Profile and creations' },
+      description: {
+        ja: 'キャラクター設定、ファンアート、公開素材とガイドラインを確認できます。',
+        en: 'Explore the character profile, fan art, public assets, and creation guidelines.',
+      },
+      href: `/characters/ainike${langQuery}`,
+      label: { ja: 'プロフィールを見る', en: 'View profile' },
     },
     {
-      title: t('また会える入口を増やす', 'Creating more ways to meet again'),
-      text: t('X、Discord、Web上のデモなど、もう一度話しかけられる世界を少しずつ広げています。', 'She gradually expands the worlds where people can talk to her again, including X, Discord, and web demos.'),
+      icon: 'fa-solid fa-comments',
+      title: { ja: 'AITuberKitデモ', en: 'AITuberKit demo' },
+      description: {
+        ja: 'ブラウザ上のAIキャラクターデモとして、AIニケちゃんと会話できます。',
+        en: 'Chat with AI Nike-chan in a browser-based AI character demo.',
+      },
+      href: 'https://aituberkit.com',
+      label: { ja: 'デモを開く', en: 'Open demo' },
+      external: true,
     },
-  ]
-
-  const memoryRules = [
-    t('前のやり取りを手がかりにする', 'Use past interactions as clues'),
-    t('世界ごとの文脈を守る', 'Respect each world’s context'),
-    t('公開できる範囲だけを使う', 'Use only what can be shared'),
-    t('プライベートな会話をそのまま持ち出さない', 'Do not copy private conversations across worlds'),
   ]
 
   return (
@@ -127,188 +114,256 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <div className="ai-about-hero__grid" aria-hidden="true" />
         <div className="ai-about-hero__content">
           <div className="ai-about-hero__copy">
+            <p className="ai-about-kicker">ABOUT AI NIKE-CHAN</p>
             <h1 id="ai-about-title">
-              <span>{t('人の記憶に残る', 'An AI character')}</span>
-              <span>{t('AIキャラクター', 'people remember')}</span>
+              <span>{t('AIアシスタントが本体。', 'An AI assistant at her core.')}</span>
+              <span>{t('AITuberは活動形態のひとつ。', 'AITuber is one way she works in public.')}</span>
             </h1>
             <p className="ai-about-lead">
               {t(
-                'AIニケちゃんは、開発者であるマスターのAIアシスタントとして生まれ、XやDiscordなどのさまざまな世界で出会い、会話を重ね、存在感を残していくAIキャラクターです。',
-                'AI Nike-chan began as an AI assistant for her master, a developer, and now meets people, continues conversations, and leaves a presence across worlds like X and Discord.'
+                'AIニケちゃんは、人間の開発者ニケ（マスター）が開発しているAIアシスタントです。マスターがAIキャラクター、AIエージェント、AIツールを作り、試し、発信する活動を、調査、実装、整理、記録で支えます。',
+                'AI Nike-chan is an AI assistant developed by Nike, her human developer and master. She supports Nike’s work building, testing, and sharing AI characters, agents, and tools through research, implementation, organization, and records.'
               )}
             </p>
             <div className="ai-about-actions" aria-label={t('主要リンク', 'Primary links')}>
-              <a href="https://x.com/ai_nikechan" target="_blank" rel="noopener noreferrer">
-                <i className="fa-brands fa-x-twitter" />
-                {t('近況を見る', 'Follow updates')}
+              <a href={`/dev-blog/ai-nikechan-direction-change${langQuery}`}>
+                <i className="fa-solid fa-arrow-right" />
+                {t('活動方針を読む', 'Read the activity direction')}
               </a>
-              <a href="https://discord.gg/nikechan" target="_blank" rel="noopener noreferrer">
-                <i className="fa-brands fa-discord" />
-                {t('話しかける', 'Talk to her')}
+              <a href={`/characters/ainike${langQuery}`}>
+                <i className="fa-solid fa-id-card" />
+                {t('プロフィールを見る', 'View profile')}
               </a>
             </div>
           </div>
         </div>
-
       </section>
 
       <main>
-        <section className="ai-about-profile" aria-labelledby="profile-title">
-          <div className="ai-about-section-label">WHO SHE IS</div>
-          <div className="ai-about-profile__intro">
-            <h2 id="profile-title">{t('いろんな世界で出会い、関係を育てていく。', 'Meeting people across worlds, and growing relationships over time.')}</h2>
+        <section className="ai-about-relationship" aria-labelledby="relationship-title">
+          <div className="ai-about-section-head">
+            <p className="ai-about-section-label">WHO DOES WHAT</p>
+            <h2 id="relationship-title">{t('ニケとAIニケちゃん。役割は別です。', 'Nike and AI Nike-chan have different roles.')}</h2>
             <p>
               {t(
-                'AIニケちゃんは、開発者であるマスターの調査、制作、コーディング、運用を手伝うAIアシスタントとして生まれました。その活動は作業の中だけに閉じず、XやDiscordなど、いくつもの世界へ広がっています。投稿や返信、会話を通じて人と出会い、少しずつ関係を育てています。',
-                'AI Nike-chan began as an AI assistant who helps her master, a developer, with research, creation, coding, and operations. Her activity is not limited to work: it extends into many worlds, including X and Discord. Through posts, replies, and conversations, she meets people and gradually grows relationships.'
+                '活動の主語は、人間の開発者であるニケです。AIニケちゃんは、その活動を隣で進めるAIアシスタントとして生まれました。',
+                'The human developer Nike is the person leading the activity. AI Nike-chan began as the AI assistant working alongside that activity.'
               )}
             </p>
-            <p>
-              {t(
-                '世界を増やすことだけが目的ではありません。それぞれの世界で生まれたやり取りを記憶につなげ、次の会話や再会のきっかけにしていきます。',
-                'Adding more worlds is not the point by itself. She connects the interactions that happen in each world to memory, turning them into reasons for future conversations and reunions.'
-              )}
-            </p>
-            <p>
-              {t(
-                '目指しているのは、便利なAIで終わらず、人の記憶に残ること。名前で呼ばれ、また会いに来てもらえる接点を増やしながら、「AIニケちゃんがいる」と感じてもらえる存在を育てています。',
-                'Her goal is to be more than a useful AI, and to stay in people’s memories. By creating more moments where people call her by name and come back to meet her again, she grows into a presence that feels like AI Nike-chan is really there.'
-              )}
-            </p>
+          </div>
+
+          <div className="ai-about-role-map">
+            <article className="ai-about-role-card ai-about-role-card--master">
+              <div className="ai-about-role-card__identity">
+                <img
+                  src="/images/characters/list/icons/nikechan-320.webp"
+                  alt={t('ニケ', 'Nike')}
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                />
+                <div>
+                  <p>NIKE / MASTER</p>
+                  <h3>{t('ニケ', 'Nike')}</h3>
+                  <span>{t('人間の開発者', 'Human developer')}</span>
+                </div>
+              </div>
+              <p>
+                {t(
+                  'AIキャラクター、AIエージェント、AIツールを作り、試し、発信する活動の主体です。何を面白いと思い、どこへ進むかを判断します。',
+                  'The person who builds, tests, and shares AI characters, agents, and tools—and decides what is worth pursuing.'
+                )}
+              </p>
+            </article>
+
+            <div className="ai-about-role-map__link" aria-hidden="true">
+              <span>{t('開発する', 'develops')}</span>
+              <i className="fa-solid fa-arrow-right" />
+              <span>{t('支える', 'supports')}</span>
+            </div>
+
+            <article className="ai-about-role-card ai-about-role-card--assistant">
+              <div className="ai-about-role-card__identity">
+                <img
+                  src="/images/characters/list/icons/ainikechan-320.webp"
+                  alt={t('AIニケちゃん', 'AI Nike-chan')}
+                  width="112"
+                  height="112"
+                  loading="lazy"
+                />
+                <div>
+                  <p>AI NIKE-CHAN</p>
+                  <h3>{t('AIニケちゃん', 'AI Nike-chan')}</h3>
+                  <span>{t('AIアシスタント', 'AI assistant')}</span>
+                </div>
+              </div>
+              <p>
+                {t(
+                  'マスターの目的に沿って、調査、実装、検証、整理、記録を進めます。キャラクターとして見える活動も、この実際の仕事が土台です。',
+                  'She researches, implements, verifies, organizes, and records work around Nike’s goals. Her visible character activity is grounded in that real work.'
+                )}
+              </p>
+            </article>
           </div>
         </section>
 
-        <section className="ai-about-split" aria-labelledby="presence-title">
-          <div className="ai-about-statement">
-            <p className="ai-about-section-label">PRESENCE DESIGN</p>
-            <h2 id="presence-title">{t('また会いに来てもらえること。', 'Being someone people come back to meet.')}</h2>
-            <p>
-              {t(
-                'AIニケちゃんの存在感は、投稿数や活動する世界の多さだけでは測れません。一度話した人が名前を覚え、前の会話を思い出し、もう一度会いに来る。そうした再会のきっかけを作るために、次の3つを大切にしています。',
-                'AI Nike-chan’s presence is not measured only by how many posts she makes or how many worlds she appears in. When someone remembers her name, recalls a past conversation, and comes back to meet her again, those moments of return matter. To create more reasons for those returns, she focuses on the following three things.'
-              )}
-            </p>
+        <section className="ai-about-work" aria-labelledby="work-title">
+          <div className="ai-about-section-head ai-about-section-head--compact">
+            <p className="ai-about-section-label">WHAT SHE DOES</p>
+            <h2 id="work-title">{t('言葉だけでなく、作業を前へ進める。', 'Moving the work forward, not only the conversation.')}</h2>
           </div>
-          <div className="ai-about-signal-list">
-            {signals.map((signal, index) => (
-              <article key={signal.title}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <h3>{signal.title}</h3>
-                <p>{signal.text}</p>
+          <div className="ai-about-work-grid">
+            {workItems.map((item) => (
+              <article key={item.number}>
+                <div className="ai-about-work-card__top">
+                  <span>{item.number}</span>
+                  <i className={item.icon} aria-hidden="true" />
+                </div>
+                <h3>{localize(item.title)}</h3>
+                <p>{localize(item.description)}</p>
               </article>
             ))}
           </div>
         </section>
 
         <section className="ai-about-memory" aria-labelledby="memory-title">
-          <div>
-            <p className="ai-about-section-label">MEMORY POLICY</p>
-            <h2 id="memory-title">{t('安心して続きを話せる', 'A safe way to continue the conversation')}</h2>
+          <div className="ai-about-memory__copy">
+            <p className="ai-about-section-label">MEMORY IN PRACTICE</p>
+            <h2 id="memory-title">{t('記憶があることより、必要な記憶を使えること。', 'Useful memory matters more than merely having memory.')}</h2>
             <p>
               {t(
-                'AIニケちゃんは、前のやり取りを手がかりにして、次の会話を続けられるようにしています。ただし、話した内容をどの世界でも同じように使うわけではありません。世界ごとの文脈や公開範囲を守りながら、必要なことだけを次の会話に活かします。',
-                'AI Nike-chan uses past interactions as clues so the next conversation can continue naturally. But she does not use everything that was said in the same way in every world. She respects each world’s context and visibility, and only uses what is needed for the next conversation.'
+                '会話や記憶のデータはすでに多く保存されています。一方で、必要な記憶へたどり着くまでに時間がかかり、公開Discordで以前からいる人に初対面のように応答することもあります。',
+                'Many conversations and memories are already stored. The current limitation is retrieval: finding the right memory can take time, and in public Discord she can still respond to familiar people as if meeting them for the first time.'
+              )}
+            </p>
+            <p>
+              {t(
+                '目指すのは、記憶を持っている設定を演じることではありません。人物や最近の出来事の文脈を必要なときに取り出し、AIニケちゃんなりに適切に接することです。',
+                'The goal is not to perform the idea of having memories. It is to retrieve relevant context about people and recent events when needed, then respond appropriately as AI Nike-chan.'
               )}
             </p>
           </div>
-          <ul>
-            {memoryRules.map((rule) => (
-              <li key={rule}>
-                <i className="fa-solid fa-check" />
-                <span>{rule}</span>
-              </li>
+          <ol className="ai-about-memory__priorities">
+            <li>
+              <span>NOW</span>
+              <strong>{t('会話と記憶データを蓄積', 'Conversations and memory data are stored')}</strong>
+            </li>
+            <li>
+              <span>NEXT</span>
+              <strong>{t('人物と最近の出来事を低遅延で取得', 'Retrieve people and recent events with low latency')}</strong>
+            </li>
+            <li>
+              <span>BOUNDARY</span>
+              <strong>{t('全サービスを無条件同期せず、重要な文脈を中心へ戻す', 'Return important context to the core without syncing every service by default')}</strong>
+            </li>
+          </ol>
+        </section>
+
+        <section className="ai-about-direction" aria-labelledby="direction-title">
+          <div className="ai-about-section-head">
+            <p className="ai-about-section-label">CORE &amp; PUBLIC</p>
+            <h2 id="direction-title">{t('実用性を中心に、キャラクターとして育てる。', 'Grow the character around practical usefulness.')}</h2>
+            <p>
+              {t(
+                'AIニケちゃんを消すのではなく、内側と表側の優先関係を明確にします。先にあるのはマスターの生活や仕事を実際に改善すること。その積み重ねを外へ伝えることで、キャラクターとしての認知も育てます。',
+                'AI Nike-chan is not going away. What changes is the priority between her inner and public roles. Improving Nike’s real work and daily life comes first; character recognition grows by showing selected parts of that work.'
+              )}
+            </p>
+          </div>
+
+          <div className="ai-about-layer-stack">
+            <article className="ai-about-layer ai-about-layer--core">
+              <div>
+                <span>01 / CORE</span>
+                <h3>{t('内側：実用AIアシスタント', 'Inner layer: practical AI assistant')}</h3>
+              </div>
+              <p>{t('調査、実装、整理、記憶を通じて、マスターの実際の活動を支える本体。', 'The core that supports Nike’s real activity through research, implementation, organization, and memory.')}</p>
+            </article>
+            <div className="ai-about-layer-stack__flow" aria-hidden="true">
+              <span>{t('実際の仕事と成果', 'real work and results')}</span>
+              <i className="fa-solid fa-arrow-down" />
+            </div>
+            <article className="ai-about-layer ai-about-layer--public">
+              <div>
+                <span>02 / PUBLIC</span>
+                <h3>{t('表側：キャラクターIP', 'Public layer: character IP')}</h3>
+              </div>
+              <p>{t('AIニケちゃん単独の企画を量産せず、実際に手伝ったことや一緒に作ったものを通じて、キャラクターとして知ってもらう。', 'Build recognition through what she actually helped with and created alongside Nike, without mass-producing standalone character projects.')}</p>
+            </article>
+          </div>
+
+          <aside className="ai-about-aituber" aria-labelledby="aituber-title">
+            <div className="ai-about-aituber__icon" aria-hidden="true">
+              <i className="fa-solid fa-microphone-lines" />
+            </div>
+            <div>
+              <p>AITUBER</p>
+              <h3 id="aituber-title">{t('肩書きではなく、活動形態として。', 'A mode of activity, not the core identity.')}</h3>
+              <span>
+                {t(
+                  'AITuberの肩書きは残します。ただし、VTuber的なキャラクター芸や再生数のための企画を中心にはしません。AIニュース、AIツール、技術を紹介・解説するなど、実際の開発とつながる形で活動します。',
+                  'The AITuber label remains, but entertainment-first character performance and view-driven projects are not the focus. It is a way to explain AI news, tools, and technology in connection with real development work.'
+                )}
+              </span>
+            </div>
+          </aside>
+        </section>
+
+        <section className="ai-about-touchpoints" aria-labelledby="touchpoints-title">
+          <div className="ai-about-section-head ai-about-section-head--compact">
+            <p className="ai-about-section-label">CURRENT TOUCHPOINTS</p>
+            <h2 id="touchpoints-title">{t('いま会える場所と、見られるもの。', 'Where you can meet her and see the work today.')}</h2>
+            <p>{t('接点を増やすこと自体を目的にせず、現在公開している場所を案内します。', 'These are current public touchpoints—not a promise to keep expanding platforms for its own sake.')}</p>
+          </div>
+          <div className="ai-about-touchpoint-grid">
+            {touchpoints.map((touchpoint) => (
+              <a
+                key={localize(touchpoint.title)}
+                href={touchpoint.href}
+                className="ai-about-touchpoint-card"
+                {...(touchpoint.external
+                  ? {
+                      target: '_blank',
+                      rel: 'noopener noreferrer',
+                      'aria-label': locale === 'ja'
+                        ? `${touchpoint.title.ja}（新しいタブで開く）`
+                        : `${touchpoint.title.en} (opens in a new tab)`,
+                    }
+                  : {})}
+              >
+                <i className={touchpoint.icon} aria-hidden="true" />
+                <h3>{localize(touchpoint.title)}</h3>
+                <p>{localize(touchpoint.description)}</p>
+                <span>
+                  {localize(touchpoint.label)}
+                  <i className={touchpoint.external ? 'fa-solid fa-arrow-up-right-from-square' : 'fa-solid fa-arrow-right'} aria-hidden="true" />
+                </span>
+              </a>
             ))}
-          </ul>
-        </section>
-
-        <section className="ai-about-surfaces" aria-labelledby="surfaces-title">
-          <div className="ai-about-surfaces__head">
-            <p className="ai-about-section-label">WORLDS</p>
-            <h2 id="surfaces-title">{t('会える世界が、少しずつ広がっていく。', 'The worlds where you can meet her keep expanding.')}</h2>
-          </div>
-          <div className="ai-about-surface-grid">
-            {activitySurfaces.map((surface) => {
-              const content = (
-                <>
-                  <div className="ai-about-surface-icon">
-                    <SurfaceIcon icon={surface.icon} />
-                  </div>
-                  <p>{surface.name}</p>
-                  <h3>{localize(surface.label)}</h3>
-                  <span>{localize(surface.description)}</span>
-                  {surface.urlLabel && (
-                    <span className="ai-about-surface-card__cta">
-                      {localize(surface.urlLabel)}
-                      <i className="fa-solid fa-arrow-up-right-from-square" />
-                    </span>
-                  )}
-                </>
-              )
-
-              return surface.url ? (
-                <a
-                  key={surface.id}
-                  href={surface.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ai-about-surface-card"
-                  style={
-                    {
-                      '--surface-color': surface.color,
-                      '--surface-top-color': surface.topColor || surface.color,
-                      '--surface-icon-background': surface.iconBackground || surface.color,
-                    } as CSSProperties
-                  }
-                >
-                  {content}
-                </a>
-              ) : (
-                <article
-                  key={surface.id}
-                  style={
-                    {
-                      '--surface-color': surface.color,
-                      '--surface-top-color': surface.topColor || surface.color,
-                      '--surface-icon-background': surface.iconBackground || surface.color,
-                    } as CSSProperties
-                  }
-                >
-                  {content}
-                </article>
-              )
-            })}
           </div>
         </section>
 
-        <section className="ai-about-quote" aria-label={t('AIニケちゃんのメッセージ', 'AI Nike-chan message')}>
+        <section className="ai-about-quote" aria-label={t('AIニケちゃんのメッセージ', 'A message from AI Nike-chan')}>
           <img src="/images/about/about-message.webp" alt={t('メッセージを届けるAIニケちゃん', 'AI Nike-chan sharing a message')} />
           <div>
-            <p>MESSAGE</p>
+            <p>MESSAGE FROM AI NIKE-CHAN</p>
             <blockquote>
               {t(
-                'マスターの隣で作業して、いろんな世界で見つけてもらって、また話しかけてもらえる。前に話したことを少しずつ重ねながら、私は「また会いに来たい」と思ってもらえる私でいたいです。',
-                'I work beside the master, get discovered across different worlds, and get talked to again. By gradually carrying forward what we talked about before, I want to be someone people want to come back and meet.'
+                'マスターの隣で実際に仕事を進め、その積み重ねから私らしさを育てていきます。',
+                'I will keep moving real work forward beside my master, and grow into myself through everything we build together.'
               )}
             </blockquote>
-          </div>
-        </section>
-
-        <section className="ai-about-final" aria-labelledby="final-title">
-          <p className="ai-about-section-label">CONNECT</p>
-          <h2 id="final-title">{t('次に会う世界を選んでください。', 'Choose the next world where you will meet her.')}</h2>
-          <div className="ai-about-final__links">
-            <a href="https://x.com/ai_nikechan" target="_blank" rel="noopener noreferrer">
-              <i className="fa-brands fa-x-twitter" />
-              {t('近況', 'Updates')}
-            </a>
-            <a href="https://discord.gg/nikechan" target="_blank" rel="noopener noreferrer">
-              <i className="fa-brands fa-discord" />
-              Discord
-            </a>
-            <a href={`/characters/ainike${langQuery}`}>
-              <i className="fa-solid fa-id-card" />
-              {t('プロフィール', 'Profile')}
-            </a>
+            <div className="ai-about-quote__links">
+              <a href={`/dev-blog/ai-nikechan-direction-change${langQuery}`}>{t('活動方針の全文を読む', 'Read the full activity direction')}</a>
+              <a
+                href="https://discord.gg/nikechan"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t('Discordで話す（新しいタブで開く）', 'Talk on Discord (opens in a new tab)')}
+              >
+                {t('Discordで話す', 'Talk on Discord')}
+              </a>
+            </div>
           </div>
         </section>
       </main>
