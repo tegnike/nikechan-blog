@@ -1605,7 +1605,7 @@
 
   .ai-about-hero::after {
     height: 230px;
-    background: none;
+    background: linear-gradient(180deg, var(--ai-paper) 0, rgba(255, 248, 251, 0.55) 8px, rgba(255, 248, 251, 0) 28px);
   }
 
   .ai-about-hero__keyvisual {
@@ -1618,7 +1618,7 @@
   .ai-about-hero__keyvisual img {
     object-fit: cover;
     object-position: center;
-    transform: translateY(10px) scale(1.25);
+    transform: translateY(16px) scale(1.25);
     transform-origin: 74% 0;
   }
 
