@@ -1198,8 +1198,8 @@
   padding: 44px;
   border: 3px solid var(--ai-ink);
   border-radius: 10px;
-  color: #fff;
-  background: var(--ai-ink);
+  color: var(--ai-ink);
+  background: #fff;
 }
 
 .ai-about-memory::after {
@@ -1207,15 +1207,15 @@
 }
 
 .ai-about-memory .ai-about-section-label {
-  color: var(--ai-yellow);
+  color: var(--ai-purple);
 }
 
 .ai-about-memory h2 {
-  color: #fff;
+  color: var(--ai-ink);
 }
 
 .ai-about-memory__copy > p {
-  color: #E9E4F2;
+  color: #443c54;
 }
 
 .ai-about-memory__priorities {
@@ -1231,7 +1231,7 @@
   display: grid;
   gap: 6px;
   padding: 16px 18px;
-  border: 3px solid #fff;
+  border: 3px solid var(--ai-ink);
   border-radius: 8px;
   color: var(--ai-ink);
   background: #fff;
@@ -1336,7 +1336,7 @@
   padding: 24px 28px;
   border: 3px solid var(--ai-ink);
   border-radius: 9px;
-  background: var(--ai-yellow);
+  background: #fff;
   box-shadow: 6px 6px 0 var(--ai-ink);
 }
 
