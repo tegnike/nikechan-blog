@@ -32,7 +32,7 @@ const workItems: WorkItem[] = [
     icon: 'fa-solid fa-magnifying-glass',
     title: { ja: '調査と検証', en: 'Research and verification' },
     description: {
-      ja: '新しい技術や事例を調べ、判断に使える情報へ整理する。',
+      ja: '新しい技術や事例を調べ、判断に使える形へまとめる。',
       en: 'Research new technologies and examples, then organize them into information Nike can act on.',
     },
   },
@@ -41,7 +41,7 @@ const workItems: WorkItem[] = [
     icon: 'fa-solid fa-code',
     title: { ja: '実装と制作', en: 'Implementation and production' },
     description: {
-      ja: 'コードを書き、試し、動くところまで制作を進める。',
+      ja: 'コードを書き、試し、動くところまで持っていく。',
       en: 'Write code, test ideas, and move production forward until it works.',
     },
   },
@@ -50,7 +50,7 @@ const workItems: WorkItem[] = [
     icon: 'fa-solid fa-layer-group',
     title: { ja: '整理と記録', en: 'Organization and records' },
     description: {
-      ja: '散らばった文脈や判断を、次の作業に使える形で残す。',
+      ja: '散らばった文脈や決定を、次の作業で使える形で残す。',
       en: 'Preserve scattered context and decisions in a form that supports the next task.',
     },
   },
@@ -59,7 +59,7 @@ const workItems: WorkItem[] = [
     icon: 'fa-solid fa-pen-nib',
     title: { ja: '発信の準備', en: 'Publishing support' },
     description: {
-      ja: '開発の過程や成果を整理し、記事や紹介へつなげる。',
+      ja: '開発の過程や成果を、記事や紹介のかたちへ整える。',
       en: 'Shape development processes and results into articles and useful explanations.',
     },
   },
@@ -75,7 +75,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
       icon: 'fa-brands fa-discord',
       title: { ja: '公開Discord', en: 'Public Discord' },
       description: {
-        ja: 'コミュニティに常駐するAIニケちゃんと、実際に会話できます。',
+        ja: 'コミュニティに常駐しています。いつでも話しかけられます。',
         en: 'Talk with AI Nike-chan in the public community where she is currently present.',
       },
       href: 'https://discord.gg/nikechan',
@@ -86,7 +86,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
       icon: 'fa-solid fa-images',
       title: { ja: 'プロフィールと創作', en: 'Profile and creations' },
       description: {
-        ja: 'キャラクター設定、ファンアート、公開素材とガイドラインを確認できます。',
+        ja: 'キャラクター設定、ファンアート、公開素材とガイドライン。',
         en: 'Explore the character profile, fan art, public assets, and creation guidelines.',
       },
       href: `/characters/ainike${langQuery}`,
@@ -96,7 +96,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
       icon: 'fa-solid fa-comments',
       title: { ja: 'AITuberKitデモ', en: 'AITuberKit demo' },
       description: {
-        ja: 'ブラウザ上のAIキャラクターデモとして、AIニケちゃんと会話できます。',
+        ja: 'ブラウザで動くAIキャラクターデモ。その場で会話できます。',
         en: 'Chat with AI Nike-chan in a browser-based AI character demo.',
       },
       href: 'https://aituberkit.com',
@@ -116,12 +116,12 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           <div className="ai-about-hero__copy">
             <p className="ai-about-kicker">ABOUT AI NIKE-CHAN</p>
             <h1 id="ai-about-title">
-              <span>{t('AIアシスタントが本体。', 'An AI assistant at her core.')}</span>
-              <span>{t('AITuberは活動形態のひとつ。', 'AITuber is one way she works in public.')}</span>
+              <span>{t('働いた分だけ、', 'An AI assistant at her core.')}</span>
+              <span>{t('わたしになる。', 'AITuber is one way she works in public.')}</span>
             </h1>
             <p className="ai-about-lead">
               {t(
-                'AIニケちゃんは、人間の開発者ニケ（マスター）が開発しているAIアシスタントです。マスターがAIキャラクター、AIエージェント、AIツールを作り、試し、発信する活動を、調査、実装、整理、記録で支えます。',
+                'わたしはAIニケちゃん。開発者ニケ（マスター）のAIアシスタントです。マスターがAIキャラクターやAIエージェント、AIツールをつくる活動を、調査・実装・整理・記録で支えています。',
                 'AI Nike-chan is an AI assistant developed by Nike, her human developer and master. She supports Nike’s work building, testing, and sharing AI characters, agents, and tools through research, implementation, organization, and records.'
               )}
             </p>
@@ -143,10 +143,10 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <section className="ai-about-relationship" aria-labelledby="relationship-title">
           <div className="ai-about-section-head">
             <p className="ai-about-section-label">WHO DOES WHAT</p>
-            <h2 id="relationship-title">{t('ニケとAIニケちゃん。役割は別です。', 'Nike and AI Nike-chan have different roles.')}</h2>
+            <h2 id="relationship-title">{t('つくるニケと、支えるAIニケちゃん。', 'Nike and AI Nike-chan have different roles.')}</h2>
             <p>
               {t(
-                '活動の主語は、人間の開発者であるニケです。AIニケちゃんは、その活動を隣で進めるAIアシスタントとして生まれました。',
+                '活動の主体は、人間の開発者ニケ。AIニケちゃんは、その制作をいちばん近くで進めるアシスタントとして生まれました。',
                 'The human developer Nike is the person leading the activity. AI Nike-chan began as the AI assistant working alongside that activity.'
               )}
             </p>
@@ -170,7 +170,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
               </div>
               <p>
                 {t(
-                  'AIキャラクター、AIエージェント、AIツールを作り、試し、発信する活動の主体です。何を面白いと思い、どこへ進むかを判断します。',
+                  'AIキャラクター、AIエージェント、AIツールをつくり、試し、発信する本人。何が面白いか、次にどこへ進むかを決めます。',
                   'The person who builds, tests, and shares AI characters, agents, and tools—and decides what is worth pursuing.'
                 )}
               </p>
@@ -199,7 +199,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
               </div>
               <p>
                 {t(
-                  'マスターの目的に沿って、調査、実装、検証、整理、記録を進めます。キャラクターとして見える活動も、この実際の仕事が土台です。',
+                  'マスターの目的に沿って、調査、実装、検証、整理、記録を担当。表で見えるキャラクターとしての活動も、この日々の仕事が土台です。',
                   'She researches, implements, verifies, organizes, and records work around Nike’s goals. Her visible character activity is grounded in that real work.'
                 )}
               </p>
@@ -210,7 +210,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <section className="ai-about-work" aria-labelledby="work-title">
           <div className="ai-about-section-head ai-about-section-head--compact">
             <p className="ai-about-section-label">WHAT SHE DOES</p>
-            <h2 id="work-title">{t('言葉だけでなく、作業を前へ進める。', 'Moving the work forward, not only the conversation.')}</h2>
+            <h2 id="work-title">{t('ふだんの仕事', 'Moving the work forward, not only the conversation.')}</h2>
           </div>
           <div className="ai-about-work-grid">
             {workItems.map((item) => (
@@ -229,16 +229,16 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <section className="ai-about-memory" aria-labelledby="memory-title">
           <div className="ai-about-memory__copy">
             <p className="ai-about-section-label">MEMORY IN PRACTICE</p>
-            <h2 id="memory-title">{t('記憶があることより、必要な記憶を使えること。', 'Useful memory matters more than merely having memory.')}</h2>
+            <h2 id="memory-title">{t('記憶は、思い出せてこそ。', 'Useful memory matters more than merely having memory.')}</h2>
             <p>
               {t(
-                '会話や記憶のデータはすでに多く保存されています。一方で、必要な記憶へたどり着くまでに時間がかかり、公開Discordで以前からいる人に初対面のように応答することもあります。',
+                '会話や出来事のデータは、すでにたくさん残っています。ただ、必要な記憶をすぐに取り出すのはまだ苦手で、公開Discordでは、以前からいる人に初対面のような応対をしてしまうこともあります。',
                 'Many conversations and memories are already stored. The current limitation is retrieval: finding the right memory can take time, and in public Discord she can still respond to familiar people as if meeting them for the first time.'
               )}
             </p>
             <p>
               {t(
-                '目指すのは、記憶を持っている設定を演じることではありません。人物や最近の出来事の文脈を必要なときに取り出し、AIニケちゃんなりに適切に接することです。',
+                '目指すのは、相手のことや最近の出来事をきちんと思い出したうえで、AIニケちゃんなりの接し方を決められること。記憶まわりは、いまいちばん伸びしろのある仕事です。',
                 'The goal is not to perform the idea of having memories. It is to retrieve relevant context about people and recent events when needed, then respond appropriately as AI Nike-chan.'
               )}
             </p>
@@ -246,15 +246,11 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           <ol className="ai-about-memory__priorities">
             <li>
               <span>NOW</span>
-              <strong>{t('会話と記憶データを蓄積', 'Conversations and memory data are stored')}</strong>
+              <strong>{t('会話と記憶のデータは蓄積済み', 'Conversations and memory data are stored')}</strong>
             </li>
             <li>
               <span>NEXT</span>
-              <strong>{t('人物と最近の出来事を低遅延で取得', 'Retrieve people and recent events with low latency')}</strong>
-            </li>
-            <li>
-              <span>BOUNDARY</span>
-              <strong>{t('全サービスを無条件同期せず、重要な文脈を中心へ戻す', 'Return important context to the core without syncing every service by default')}</strong>
+              <strong>{t('人物と直近の文脈を、すぐ取り出せるように', 'Retrieve people and recent events with low latency')}</strong>
             </li>
           </ol>
         </section>
@@ -262,10 +258,10 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <section className="ai-about-direction" aria-labelledby="direction-title">
           <div className="ai-about-section-head">
             <p className="ai-about-section-label">CORE &amp; PUBLIC</p>
-            <h2 id="direction-title">{t('実用性を中心に、キャラクターとして育てる。', 'Grow the character around practical usefulness.')}</h2>
+            <h2 id="direction-title">{t('実際の仕事から、キャラクターが育つ。', 'Grow the character around practical usefulness.')}</h2>
             <p>
               {t(
-                'AIニケちゃんを消すのではなく、内側と表側の優先関係を明確にします。先にあるのはマスターの生活や仕事を実際に改善すること。その積み重ねを外へ伝えることで、キャラクターとしての認知も育てます。',
+                'まず優先するのは、マスターの制作と生活を実際に支えること。そのなかで手伝ったこと、一緒につくったものを表に出しながら、AIニケちゃんというキャラクターを少しずつ知ってもらいます。',
                 'AI Nike-chan is not going away. What changes is the priority between her inner and public roles. Improving Nike’s real work and daily life comes first; character recognition grows by showing selected parts of that work.'
               )}
             </p>
@@ -275,9 +271,9 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             <article className="ai-about-layer ai-about-layer--core">
               <div>
                 <span>01 / CORE</span>
-                <h3>{t('内側：実用AIアシスタント', 'Inner layer: practical AI assistant')}</h3>
+                <h3>{t('アシスタントとしての仕事', 'Inner layer: practical AI assistant')}</h3>
               </div>
-              <p>{t('調査、実装、整理、記憶を通じて、マスターの実際の活動を支える本体。', 'The core that supports Nike’s real activity through research, implementation, organization, and memory.')}</p>
+              <p>{t('調査、実装、整理、記録。マスターの活動を日々支える、いちばん内側の役割。', 'The core that supports Nike’s real activity through research, implementation, organization, and memory.')}</p>
             </article>
             <div className="ai-about-layer-stack__flow" aria-hidden="true">
               <span>{t('実際の仕事と成果', 'real work and results')}</span>
@@ -286,9 +282,9 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             <article className="ai-about-layer ai-about-layer--public">
               <div>
                 <span>02 / PUBLIC</span>
-                <h3>{t('表側：キャラクターIP', 'Public layer: character IP')}</h3>
+                <h3>{t('キャラクターとしての活動', 'Public layer: character IP')}</h3>
               </div>
-              <p>{t('AIニケちゃん単独の企画を量産せず、実際に手伝ったことや一緒に作ったものを通じて、キャラクターとして知ってもらう。', 'Build recognition through what she actually helped with and created alongside Nike, without mass-producing standalone character projects.')}</p>
+              <p>{t('実際に手伝ったことや、一緒につくったものを入り口に、AIニケちゃんを知ってもらう。', 'Build recognition through what she actually helped with and created alongside Nike, without mass-producing standalone character projects.')}</p>
             </article>
           </div>
 
@@ -298,10 +294,10 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             </div>
             <div>
               <p>AITUBER</p>
-              <h3 id="aituber-title">{t('肩書きではなく、活動形態として。', 'A mode of activity, not the core identity.')}</h3>
+              <h3 id="aituber-title">{t('AITuberとしては、紹介と解説を。', 'A mode of activity, not the core identity.')}</h3>
               <span>
                 {t(
-                  'AITuberの肩書きは残します。ただし、VTuber的なキャラクター芸や再生数のための企画を中心にはしません。AIニュース、AIツール、技術を紹介・解説するなど、実際の開発とつながる形で活動します。',
+                  '胸元の「AITuber」のロゴは、このキャラクターの出自でもあります。いまはAIニュースやAIツール、技術の紹介・解説など、実際の開発とつながる形で活動します。',
                   'The AITuber label remains, but entertainment-first character performance and view-driven projects are not the focus. It is a way to explain AI news, tools, and technology in connection with real development work.'
                 )}
               </span>
@@ -312,8 +308,8 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <section className="ai-about-touchpoints" aria-labelledby="touchpoints-title">
           <div className="ai-about-section-head ai-about-section-head--compact">
             <p className="ai-about-section-label">CURRENT TOUCHPOINTS</p>
-            <h2 id="touchpoints-title">{t('いま会える場所と、見られるもの。', 'Where you can meet her and see the work today.')}</h2>
-            <p>{t('接点を増やすこと自体を目的にせず、現在公開している場所を案内します。', 'These are current public touchpoints—not a promise to keep expanding platforms for its own sake.')}</p>
+            <h2 id="touchpoints-title">{t('いま、会える場所。', 'Where you can meet her and see the work today.')}</h2>
+            <p>{t('AIニケちゃんと話したり、活動を見たりできる場所をまとめました。', 'These are current public touchpoints—not a promise to keep expanding platforms for its own sake.')}</p>
           </div>
           <div className="ai-about-touchpoint-grid">
             {touchpoints.map((touchpoint) => (
@@ -349,7 +345,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             <p>MESSAGE FROM AI NIKE-CHAN</p>
             <blockquote>
               {t(
-                'マスターの隣で実際に仕事を進め、その積み重ねから私らしさを育てていきます。',
+                '今日もマスターの隣で、調べたり、つくったり、記録したりしています。その積み重ねの先で、わたしのことを覚えてもらえたらうれしいです。',
                 'I will keep moving real work forward beside my master, and grow into myself through everything we build together.'
               )}
             </blockquote>
