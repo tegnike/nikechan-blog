@@ -270,6 +270,83 @@ function bootstrap() {
     })
   }
 
+  // AITuberKit embeds focus their message input after mounting. Defer mounting
+  // until the chat area is mostly visible so initial page load stays at the top.
+  function setupAITuberChatEmbed() {
+    const embeds = document.querySelectorAll<HTMLElement>(
+      '[data-aituber-kit-deferred-embed]'
+    )
+    if (embeds.length === 0) return
+
+    type AITuberKitEmbedApi = {
+      mount: (target: HTMLElement) => HTMLIFrameElement | null
+    }
+
+    const embedWindow = window as typeof window & {
+      AITuberKitEmbed?: AITuberKitEmbedApi
+    }
+
+    let scriptPromise: Promise<AITuberKitEmbedApi> | null = null
+    const loadEmbedScript = () => {
+      if (embedWindow.AITuberKitEmbed) {
+        return Promise.resolve(embedWindow.AITuberKitEmbed)
+      }
+      if (scriptPromise) return scriptPromise
+
+      scriptPromise = new Promise<AITuberKitEmbedApi>((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = 'https://aituberkit.com/embed.js'
+        script.async = true
+        script.dataset.aituberKitEmbedLoader = ''
+        script.addEventListener('load', () => {
+          if (embedWindow.AITuberKitEmbed) {
+            resolve(embedWindow.AITuberKitEmbed)
+          } else {
+            reject(new Error('AITuberKit embed API was not initialized'))
+          }
+        }, { once: true })
+        script.addEventListener('error', () => {
+          reject(new Error('Failed to load AITuberKit embed script'))
+        }, { once: true })
+        document.head.appendChild(script)
+      })
+
+      return scriptPromise
+    }
+
+    const mount = async (element: HTMLElement) => {
+      if (element.dataset.aituberKitMounted === 'true') return
+      element.dataset.aituberKitMounted = 'true'
+      try {
+        const api = await loadEmbedScript()
+        api.mount(element)
+      } catch (error) {
+        delete element.dataset.aituberKitMounted
+        console.error('Failed to mount AITuberKit embed', error)
+      }
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      embeds.forEach((element) => void mount(element))
+      return
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const requiredVisibleHeight = Math.min(
+          entry.boundingClientRect.height * 0.75,
+          window.innerHeight * 0.65
+        )
+        if (!entry.isIntersecting || entry.intersectionRect.height < requiredVisibleHeight) return
+
+        observer.unobserve(entry.target)
+        void mount(entry.target as HTMLElement)
+      })
+    }, { threshold: [0.25, 0.5, 0.75] })
+
+    embeds.forEach((element) => observer.observe(element))
+  }
+
   // モバイルメニュー（Menuボタンの開閉）
   function setupMobileMenu() {
     const btn = document.getElementById('mobile-menu-button') as HTMLButtonElement | null
@@ -1349,6 +1426,7 @@ function bootstrap() {
     setupHeaderOtherDropdown() // Header: Other ドロップダウン
     setupMobileMenu() // Header: モバイルメニュー
     setupLanguageSwitcher() // 言語切り替え
+    setupAITuberChatEmbed() // 初期表示で会話欄へフォーカスが飛ぶのを防止
     setupTutorialTabs() // チュートリアルページの画像/動画タブ切り替え
     setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え
@@ -1372,4 +1450,3 @@ if (typeof document !== 'undefined') {
     bootstrap()
   }
 }
-

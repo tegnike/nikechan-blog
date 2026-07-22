@@ -5,7 +5,6 @@ type Props = {
 };
 
 const AITUBERKIT_BASE_URL = "https://aituberkit.com";
-const AITUBERKIT_EMBED_SCRIPT_URL = `${AITUBERKIT_BASE_URL}/embed.js`;
 const AITUBERKIT_SITE_URL = "https://promotion.aituberkit.com/";
 
 export function AITuberChatSection({ locale = "ja" }: Props) {
@@ -58,17 +57,13 @@ export function AITuberChatSection({ locale = "ja" }: Props) {
             {/* 右カラム: AITuberKit埋め込みウィジェット */}
             <div className="home-chat-widget-frame">
               <div
-                data-aituber-kit-embed
+                data-aituber-kit-deferred-embed
                 data-base-url={AITUBERKIT_BASE_URL}
                 data-embed-id="default"
                 data-height="640"
-                data-loading="eager"
+                data-loading="lazy"
                 data-title={t("home:chat.widgetTitle")}
-              />
-              <script
-                src={AITUBERKIT_EMBED_SCRIPT_URL}
-                defer
-                data-aituber-kit-embed-loader
+                style={{ minHeight: "640px" }}
               />
             </div>
           </div>
