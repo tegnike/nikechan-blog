@@ -1001,6 +1001,10 @@
   max-width: 780px;
 }
 
+.ai-about-relationship .ai-about-section-head {
+  max-width: none;
+}
+
 .ai-about-section-head h2,
 .ai-about-memory h2 {
   margin: 12px 0 0;
@@ -1017,10 +1021,6 @@
   color: #443c54;
   font-size: 16px;
   line-height: 1.95;
-}
-
-.ai-about-term {
-  white-space: nowrap;
 }
 
 .ai-about-role-map {
