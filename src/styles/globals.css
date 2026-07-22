@@ -1605,7 +1605,7 @@
 
   .ai-about-hero::after {
     height: 230px;
-    background: linear-gradient(180deg, var(--ai-paper) 0, rgba(255, 248, 251, 0.55) 8px, rgba(255, 248, 251, 0) 28px);
+    background: linear-gradient(180deg, var(--ai-paper) 0, rgba(255, 248, 251, 0.86) 18px, rgba(255, 248, 251, 0.35) 58px, rgba(255, 248, 251, 0) 100px);
   }
 
   .ai-about-hero__keyvisual {
