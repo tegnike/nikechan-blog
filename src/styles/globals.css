@@ -1591,29 +1591,36 @@
   }
 
   .ai-about-hero {
-    min-height: 690px;
+    min-height: auto;
+    background: var(--ai-paper);
   }
 
   .ai-about-hero::before {
-    display: block;
-    background: linear-gradient(180deg, rgba(255, 248, 251, 0.98) 0%, rgba(255, 248, 251, 0.96) 48%, rgba(255, 248, 251, 0.76) 66%, rgba(255, 248, 251, 0.12) 100%);
+    background: none;
+  }
+
+  .ai-about-hero::after {
+    height: 230px;
+    background: linear-gradient(180deg, rgba(255, 248, 251, 0.98) 0%, rgba(255, 248, 251, 0.12) 30%, rgba(255, 248, 251, 0) 58%);
   }
 
   .ai-about-hero__keyvisual {
-    inset: 0;
+    inset: auto 0 0;
     width: 100%;
-    height: 100%;
+    height: 230px;
     aspect-ratio: auto;
   }
 
   .ai-about-hero__keyvisual img {
     object-fit: cover;
-    object-position: 69% center;
+    object-position: center;
+    transform: scale(1.35);
+    transform-origin: 74% 28%;
   }
 
   .ai-about-hero__content {
     align-items: start;
-    padding: 26px 0 250px;
+    padding: 26px 0 230px;
   }
 
   .ai-about-kicker {
