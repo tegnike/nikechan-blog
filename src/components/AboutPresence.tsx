@@ -116,8 +116,8 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           <div className="ai-about-hero__copy">
             <p className="ai-about-kicker">ABOUT AI NIKE-CHAN</p>
             <h1 id="ai-about-title">
-              <span>{t('働いた分だけ、', 'An AI assistant at her core.')}</span>
-              <span>{t('わたしになる。', 'AITuber is one way she works in public.')}</span>
+              <span>{t('AIをつくる人の、', 'An AI assistant at her core.')}</span>
+              <span>{t('AIアシスタント。', 'AITuber is one way she works in public.')}</span>
             </h1>
             <p className="ai-about-lead">
               {t(
