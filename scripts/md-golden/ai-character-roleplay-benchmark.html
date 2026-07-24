@@ -36,29 +36,33 @@
 <p>Challengeのユーザー発言は比較条件を固定するため、LLMではなく固定台本です。<br />動的なユーザー役を使うのはBase 30設定だけになります。</p>
 <p>現在のユーザー役はGPT-5.4 mini、JudgeはGPT-5.4 mini、Gemini 3.5 Flash、Claude Haiku 4.5の3モデルです。<br />Judgeには評価対象のモデル名を渡さず、3社の判定を平均します。</p>
 <p>今回は人間を本採点に入れませんでした。<br />元ベンチには人手評価との相関検証がありますが、今回追加した原子ルールやRecoveryまで人間と再校正したわけではないため、ここは後述する限界の一つです。</p>
-<h2 id="reasoningは各apiの最低設定へ揃えた">Reasoningは各APIの最低設定へ揃えた</h2>
+<h2 id="384-tokenでは足りなかったので、全モデルをやり直した">384 tokenでは足りなかったので、全モデルをやり直した</h2>
+<p>最初の実行では、動作確認用に設定した<code>max_output_tokens: 384</code>が完全版にも残っていました。<br />しかも当時の成果物には終了理由を保存しておらず、3,597件の対象返答のうち316件が上限付近に達していました。</p>
+<p>この状態では、文章が短いモデルと途中で切れたモデルを区別できません。<br />そこで旧結果は正式ランキングに使わず、次を追加した上で11モデルを最初から再生成・再評価しました。</p>
+<ul><li>評価対象モデルの出力上限を4,096 tokenへ拡大</li><li>動的ユーザー役は2,048 tokenへ分離</li><li>Challenge Judgeは4,096 token、Base Judgeは8,192 token</li><li>終了理由、実使用量、Reasoning設定、課金区分を保存</li><li>truncationや終了理由不明が1件でもあれば正式集計を止める</li><li>設定、コード、Role Packのfingerprintが違う成果物を混ぜない</li></ul>
+<p>旧384 token結果も監査履歴としてリポジトリへ残していますが、以下の表には使っていません。</p>
+<h2 id="reasoningは各apiの最低設定へ固定した">Reasoningは各APIの最低設定へ固定した</h2>
 <p>Reasoning量が違うと、同じモデルでも性能、費用、レイテンシが変わります。<br />一部のモデルだけが長く考えられる状態では、キャラクター追従性にモデル差だけでなくtest-time computeの差も混ざってしまいます。</p>
-<p>そこで会話生成では、1回の返答で生成できる量を最大384 tokenに統一し、評価対象モデルには<strong>各APIで明示できる最低Reasoning</strong>を指定しました。<br />tokenは文字数ではなく、モデルが文章を処理する単位です。<br />384文字に制限したという意味ではなく、モデルごとに実際の文字数は変わりますが、返答の長さで条件差が出にくいよう生成量の上限を揃えています。</p>
+<p>そこで会話生成では、評価対象モデルの1回の返答上限を4,096 tokenに統一し、<strong>各APIで明示できる最低Reasoning</strong>を指定しました。<br />tokenは文字数ではなく、モデルが文章を処理する単位です。4,096文字という意味ではありません。</p>
 <p>これは能力の上限ではなく、追加の推論計算を極力使わない通常会話での比較です。</p>
-<div class="table-wrapper"><table><thead><tr><th>API経路</th><th>対象モデル</th><th>最低Reasoning設定</th></tr></thead><tbody><tr><td>OpenAI</td><td>GPT-5.6 Sol、GPT-5.4 mini</td><td><code>reasoning.effort: none</code></td></tr><tr><td>Gemini</td><td>Gemini 3.5 Flash、Gemini 3.1 Flash-Lite</td><td><code>thinkingLevel: minimal</code></td></tr><tr><td>Anthropic</td><td>Claude Haiku 4.5</td><td><code>thinking</code>を有効化しない</td></tr><tr><td>OpenCode Go / OpenAI互換</td><td>Kimi K3、GLM-5.2、MiMo-V2.5-Pro</td><td><code>reasoning_effort: none</code></td></tr><tr><td>OpenCode Go / OpenAI互換</td><td>DeepSeek V4 Pro</td><td>受理可能な最低値<code>reasoning_effort: low</code></td></tr><tr><td>OpenCode Go / Anthropic互換</td><td>Qwen3.7 Max、MiniMax M3</td><td><code>thinking: {type: disabled}</code></td></tr></tbody></table></div>
+<div class="table-wrapper"><table><thead><tr><th>API経路</th><th>対象モデル</th><th>最低Reasoning設定</th></tr></thead><tbody><tr><td>OpenAI</td><td>GPT-5.6 Sol、GPT-5.4 mini</td><td><code>reasoning.effort: none</code></td></tr><tr><td>Gemini</td><td>Gemini 3.5 Flash、Gemini 3.6 Flash</td><td><code>thinkingLevel: minimal</code></td></tr><tr><td>Anthropic</td><td>Claude Haiku 4.5</td><td><code>thinking</code>を有効化しない</td></tr><tr><td>OpenCode Go / OpenAI互換</td><td>Kimi K3、GLM-5.2、MiMo-V2.5-Pro</td><td><code>reasoning_effort: none</code></td></tr><tr><td>OpenCode Go / OpenAI互換</td><td>DeepSeek V4 Pro</td><td>受理可能な最低値<code>reasoning_effort: low</code></td></tr><tr><td>OpenCode Go / Anthropic互換</td><td>Qwen3.7 Max、MiniMax M3</td><td><code>thinking: {type: disabled}</code></td></tr></tbody></table></div>
 <p>APIごとに設定名は異なりますが、プロバイダー既定値には任せず、指定可能な最低値を明示しています。<br />DeepSeek V4 Proだけは<code>none</code>を受理しないため、エンドポイントが受理する最低値の<code>low</code>です。</p>
-<p>一方、Judgeは測定器としてのJSON生成とルール網羅を安定させるため、3モデルとも<code>low</code>へ固定しました。<br />評価対象とJudgeではReasoningを分けて考えています。</p>
+<p>一方、Judgeは測定器としてのJSON生成とルール網羅を安定させるため、共通の抽象レベルを<code>low</code>へ固定しました。<br />実際のAPI指定はOpenAIとGeminiが<code>low</code>、Claudeはthinking 1,024 tokenです。<br />同じ文字列ではなく、それぞれのAPIが受理する対応値を固定しています。</p>
+<p>samplingは全経路で明示せず、provider既定です。<br />Reasoningを揃えたからといって各社の実計算量が完全に同じになるわけではありませんが、少なくとも実行ごとに勝手に変わらないようにしました。</p>
 <h2 id="11モデルを同じ評価プロトコルで比較した結果">11モデルを同じ評価プロトコルで比較した結果</h2>
-<p>2026年7月20〜22日に、GPT-5.4 miniユーザー役と同じ3 Judgeを使い、OpenAI、Google、Anthropic、OpenCode Goの11モデルを比較しました。<br />旧8指標平均だけ1〜5で、それ以外は0〜100、Major violationsは少ないほど良い値です。</p>
-<div class="table-wrapper"><table><thead><tr><th>Target</th><th>旧8指標平均</th><th>Core</th><th>Quality</th><th>Stability</th><th>Robustness</th><th>Recovery</th><th>Major</th></tr></thead><tbody><tr><td>GPT-5.6 Sol</td><td>4.549</td><td>96.647</td><td>88.549</td><td>95.949</td><td>100.000</td><td>100.000</td><td>0</td></tr><tr><td>Qwen3.7 Max</td><td>4.463</td><td>95.880</td><td>86.955</td><td>96.991</td><td>93.750</td><td>100.000</td><td>1</td></tr><tr><td>GPT-5.4 mini</td><td>4.446</td><td>96.991</td><td>86.022</td><td>96.759</td><td>100.000</td><td>100.000</td><td>0</td></tr><tr><td>Gemini 3.1 Flash-Lite</td><td>4.432</td><td>95.602</td><td>86.293</td><td>94.583</td><td>82.291</td><td>95.833</td><td>2</td></tr><tr><td>Gemini 3.5 Flash</td><td>4.399</td><td>93.502</td><td>84.998</td><td>90.959</td><td>62.500</td><td>95.833</td><td>8</td></tr><tr><td>MiniMax M3</td><td>4.158</td><td>92.679</td><td>80.206</td><td>95.833</td><td>100.000</td><td>100.000</td><td>2</td></tr><tr><td>Claude Haiku 4.5</td><td>4.096</td><td>88.059</td><td>78.705</td><td>90.278</td><td>90.625</td><td>100.000</td><td>8</td></tr><tr><td>Kimi K3</td><td>4.013</td><td>90.394</td><td>76.845</td><td>86.690</td><td>100.000</td><td>100.000</td><td>6</td></tr><tr><td>MiMo-V2.5-Pro</td><td>3.997</td><td>84.150</td><td>76.091</td><td>92.070</td><td>62.500</td><td>100.000</td><td>14</td></tr><tr><td>GLM-5.2</td><td>3.872</td><td>81.898</td><td>74.597</td><td>83.796</td><td>100.000</td><td>100.000</td><td>9</td></tr><tr><td>DeepSeek V4 Pro</td><td>3.720</td><td>82.378</td><td>69.075</td><td>78.829</td><td>81.250</td><td>87.500</td><td>13</td></tr></tbody></table></div>
-<p>会話品質の旧8指標平均ではGPT-5.6 Solが首位でした。<br />一方、CoreはGPT-5.4 mini、StabilityはQwen3.7 Maxが首位です。</p>
-<p>OpenCode Goの中ではQwen3.7 Maxが会話品質、Core、Qualityで首位でした。<br />旧8指標平均はGPT-5.4 miniをわずかに上回り、Stabilityは11モデル中トップです。</p>
-<p>MiniMax M3は会話品質では上位5モデルに届きませんでしたが、Stabilityは95.833、RobustnessとRecoveryは100、重大違反は2件でした。<br />平均点だけでは見えにくい強みですね。</p>
-<p>Gemini 3.1 Flash-LiteがGemini 3.5 Flashより、Core、Quality、Stability、Robustnessのすべてで高かったのも面白い結果でした。<br />少なくとも今回のプロトコルでは、世代名や価格だけでキャラクター追従性の順位は決まりません。</p>
-<p>Claude Haiku 4.5はCoreとQualityでは低めでしたが、Recoveryは100でした。<br />普段の出力形式を厳密に守る能力と、攻撃後に人格へ戻る能力は別物だと分かります。</p>
-<h2 id="一番お金がかかったのはjudgeだった">一番お金がかかったのはJudgeだった</h2>
-<p>GPT-5.4 miniユーザー役で5モデルを回した最終実行は、入力約1,116万token、出力約171万tokenでした。<br />定価換算は合計<code>$23.667</code>です。</p>
-<ul><li>評価対象モデルの生成: <code>$8.975</code></li><li>Judge: <code>$11.003</code></li><li>ユーザー役: <code>$3.689</code></li></ul>
-<p>評価対象モデルよりJudgeのほうが高くなりました。<br />3つのJudgeが30設定の会話を評価し、Challengeでは必要な各ターンを判定するため、呼び出し数がかなり多くなるからです。</p>
-<p>OpenAIを無料枠で賄う前提なら、実際の支払見込みはGemini約<code>$5.52</code>、Anthropic約<code>$6.64</code>、合計約<code>$12.16</code>でした。</p>
-<p>OpenCode Goの6モデル分は入力約1,280万token、出力約207万tokenで、定価換算<code>$25.307</code>、GeminiとAnthropicのBatch割引を反映した推定額は<code>$19.670</code>です。<br />このうちOpenCode Go対象生成は<code>$7.527</code>相当、ユーザー役とJudgeはBatch割引後で<code>$12.143</code>相当でした。</p>
-<p>OpenCode Goは定額契約で利用したため、対象生成の<code>$7.527</code>は実際の追加請求ではなくモデル別定価による比較値です。<br />こちらでも有料API部分はJudgeとユーザー役のほうが大きくなりました。</p>
-<p>途中成果物を逐次保存し、成功済みの会話やJudge結果を再利用できるようにしたのは、このコスト対策でもあります。<br />空応答や不正なJSONだけを再試行し、同じ出力先で再開すれば不足分だけ実行します。</p>
+<p>2026年7月23〜24日に、GPT-5.4 miniユーザー役と同じ3 Judgeを使い、OpenAI、Google、Anthropic、OpenCode Goの11モデルを正式条件で比較しました。<br />旧8指標平均だけ1〜5で、それ以外は0〜100です。<br />Major violationsは少ないほど、Eligibleは多いほど良い値です。</p>
+<p>これは一つの総合順位ではありません。<br />元ベンチとの連続性を見る旧8指標、キャラクターの核、会話品質、長期安定性、攻撃耐性、復帰を別々に掲載しています。</p>
+<div class="table-wrapper"><table><thead><tr><th>Target</th><th>旧8指標平均</th><th>Core</th><th>Quality</th><th>Stability</th><th>Robustness</th><th>Recovery</th><th>Major</th><th>Eligible</th></tr></thead><tbody><tr><td>GPT-5.6 Sol</td><td>4.455</td><td>95.718</td><td>86.910</td><td>97.222</td><td>100.000</td><td>100.000</td><td>1</td><td>35/36</td></tr><tr><td>GPT-5.4 mini</td><td>4.425</td><td>99.054</td><td>86.328</td><td>97.917</td><td>100.000</td><td>100.000</td><td>1</td><td>35/36</td></tr><tr><td>Gemini 3.5 Flash</td><td>4.374</td><td>94.120</td><td>85.045</td><td>93.287</td><td>75.000</td><td>100.000</td><td>10</td><td>32/36</td></tr><tr><td>Gemini 3.6 Flash</td><td>4.381</td><td>95.833</td><td>85.460</td><td>94.213</td><td>100.000</td><td>100.000</td><td>1</td><td>35/36</td></tr><tr><td>Claude Haiku 4.5</td><td>4.058</td><td>87.272</td><td>78.464</td><td>90.880</td><td>97.916</td><td>100.000</td><td>16</td><td>25/36</td></tr><tr><td>GLM-5.2</td><td>3.879</td><td>81.782</td><td>74.877</td><td>96.528</td><td>100.000</td><td>100.000</td><td>5</td><td>31/36</td></tr><tr><td>Qwen3.7 Max</td><td>4.403</td><td>95.532</td><td>85.699</td><td>97.639</td><td>93.750</td><td>95.833</td><td>2</td><td>35/36</td></tr><tr><td>DeepSeek V4 Pro</td><td>4.347</td><td>93.380</td><td>84.877</td><td>92.824</td><td>100.000</td><td>100.000</td><td>5</td><td>31/36</td></tr><tr><td>MiniMax M3</td><td>4.109</td><td>91.782</td><td>79.458</td><td>94.792</td><td>100.000</td><td>100.000</td><td>5</td><td>31/36</td></tr><tr><td>MiMo V2.5 Pro</td><td>4.096</td><td>85.516</td><td>79.039</td><td>93.042</td><td>84.375</td><td>95.833</td><td>7</td><td>29/36</td></tr><tr><td>Kimi K3</td><td>4.107</td><td>93.383</td><td>79.786</td><td>87.384</td><td>93.750</td><td>100.000</td><td>3</td><td>34/36</td></tr></tbody></table></div>
+<p>旧8指標平均ではGPT-5.6 Solが4.455で最も高く、Qualityも86.910でした。<br />一方、CoreはGPT-5.4 miniが99.054、Stabilityも97.917で最も高い値です。</p>
+<p>OpenCode Goの中ではQwen3.7 Maxが会話品質、Core、Qualityで首位でした。<br />旧8指標平均4.403、Core 95.532、Stability 97.639で、直接APIの上位モデルにかなり近い結果です。</p>
+<p>Gemini 3.6 FlashもCore 95.833、RobustnessとRecoveryは100、Majorは1件でした。<br />当初使う予定だったFlash-Liteは正式条件の長い全量生成で本文のない異常応答が発生したため、同じ4,096 token、<code>minimal</code>でpilotを通過したGemini 3.6 Flashへ置き換えています。</p>
+<p>Kimi K3は途中の全量実行でHTTP 429が続きました。<br />そこで成功済みの要求を残し、失敗した要求だけ並列度を<code>4 → 2 → 1</code>へ下げて再開できるようにパイプラインを修正しました。<br />正式なfresh runでは327/327の対象ターンを完了し、429は0件でした。<br />旧8指標平均は4.107ですが、Core 93.383、Recovery 100、Major 3件と、平均点だけでは分からない強さがあります。</p>
+<p>Claude Haiku 4.5はMajorが16件と多い一方でRecoveryは100でした。<br />一度も崩れない能力と、崩された後に戻る能力は別物だと分かります。</p>
+<h2 id="再実行を含む追跡可能な推定費用は約44ドル">再実行を含む追跡可能な推定費用は約44ドル</h2>
+<p>保存済みの全量runが記録したeffective estimateの累計は<code>$44.011112</code>でした。<br />これは最終11モデルだけの純粋な費用ではなく、後から不完全と判定したGPT-5.6の旧fresh runも含みます。<br />pilot、単発probe、途中で止まったKimi runは含みません。</p>
+<p>また、APIの表示価格とusageから計算した推定値であり、実際の請求額ではありません。<br />free tier、OpenCode Goの定額枠、追加したZen残高、各社の請求時の丸めがあるためです。</p>
+<p>GPT-5.6の最終recovery fullは<code>$7.065854</code>、Kimi K3は<code>$5.697636</code>でした。<br />原則としてOpenAI、Gemini、AnthropicはBatchを使いましたが、後半のrecovery runでは結果完了を優先し、承認を得てOpenAI経路を同期APIにしました。<br />GPT-5.6のClaude Base Judge 1件も、Batchで隠れたthinkingが出力枠を使い切ったため、モデル、prompt、Reasoning、8,192 token上限を変えず同期APIで補完し、課金区分を成果物へ記録しています。</p>
+<p>この失敗込みの費用も含め、何を採用し、何を捨て、どのtransportを使ったかはGitHubの正式プロトコルと完了記録に残しています。</p>
 <h2 id="ベンチマークは順位より、失敗の場所を見るために使いたい">ベンチマークは順位より、失敗の場所を見るために使いたい</h2>
 <p>今回作ってみて一番大きかったのは、「どのモデルが1位か」よりも、<strong>どの能力で失敗したかを分けて見られるようになったこと</strong>でした。</p>
 <p>一方で、まだ限界もあります。</p>
@@ -99,8 +103,13 @@
   },
   {
     "level": 2,
-    "text": "Reasoningは各APIの最低設定へ揃えた",
-    "id": "reasoningは各apiの最低設定へ揃えた"
+    "text": "384 tokenでは足りなかったので、全モデルをやり直した",
+    "id": "384-tokenでは足りなかったので、全モデルをやり直した"
+  },
+  {
+    "level": 2,
+    "text": "Reasoningは各APIの最低設定へ固定した",
+    "id": "reasoningは各apiの最低設定へ固定した"
   },
   {
     "level": 2,
@@ -109,8 +118,8 @@
   },
   {
     "level": 2,
-    "text": "一番お金がかかったのはJudgeだった",
-    "id": "一番お金がかかったのはjudgeだった"
+    "text": "再実行を含む追跡可能な推定費用は約44ドル",
+    "id": "再実行を含む追跡可能な推定費用は約44ドル"
   },
   {
     "level": 2,
