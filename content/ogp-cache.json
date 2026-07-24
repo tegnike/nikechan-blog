@@ -332,5 +332,47 @@
     "siteName": "GitHub",
     "url": "https://github.com/VedalAI/neuro-sdk",
     "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://discord.gg/Xdmpprr7eX": {
+    "title": "Discordサーバー「あいちゅーばーわーるど@本店」に参加しよう！",
+    "description": "あいちゅーばーわーるどは、AITuberやAIキャラクターが好きな人のための日本最大級のコミュニティです。推し語り、雑談、作品紹介、企画相談に加えて、AIキャラクターとおしゃべりできるスペースもあります！ | 2151人のメンバー",
+    "image": "https://cdn.discordapp.com/splashes/1079739640266887188/fe44139d7c8c0fa60536d39016608cf2.jpg?size=512",
+    "siteName": "Discord",
+    "url": "https://discord.gg/Xdmpprr7eX",
+    "favicon": "https://discord.com/assets/favicon.ico"
+  },
+  "https://github.com/tegnike/pokemon-battle-partner": {
+    "title": "GitHub - tegnike/pokemon-battle-partner",
+    "description": "Contribute to tegnike/pokemon-battle-partner development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/d76bff291c59e8d6201fbca425214d6ab8eaaf38bd24f09f2fa9c9f208380958/tegnike/pokemon-battle-partner",
+    "siteName": "GitHub",
+    "url": "https://github.com/tegnike/pokemon-battle-partner",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://developers.openai.com/api/docs/models/gpt-4o-transcribe": {
+    "title": "GPT-4o Transcribe Model | OpenAI API",
+    "description": "",
+    "image": "https://developers.openai.com/og/api/docs/models/gpt-4o-transcribe.png",
+    "siteName": "OpenAI Developers",
+    "url": "https://developers.openai.com/api/docs/models/gpt-4o-transcribe",
+    "favicon": "https://developers.openai.com/favicon.png"
+  },
+  "https://ai.google.dev/gemini-api/docs/pricing": {
+    "title": "Gemini Developer API pricing &nbsp;|&nbsp; Gemini API &nbsp;|&nbsp; Google AI for Developers",
+    "description": "Gemini Developer API Pricing",
+    "image": "https://ai.google.dev/static/site-assets/images/share-gemini-api-2026-07.png",
+    "siteName": "Google AI for Developers",
+    "url": "https://ai.google.dev/gemini-api/docs/pricing",
+    "favicon": "https://www.gstatic.com/devrel-devsite/prod/v303cfab58e2ecfbd382191434137bc118fc92bc795e9241c9d005d07c4d0550a/googledevai/images/favicon-new.png"
+  },
+  "https://www.youtube.com/watch?v=yEdwGe00Wns": {
+    "title": "【あいちゅーばー杯】AIニケちゃんとポケモンチャンピオンズ",
+    "description": "ニケちゃんのAITuberラボ",
+    "image": "https://i.ytimg.com/vi/yEdwGe00Wns/hqdefault.jpg",
+    "siteName": "YouTube",
+    "url": "https://www.youtube.com/watch?v=yEdwGe00Wns",
+    "favicon": "https://www.youtube.com/favicon.ico",
+    "type": "youtube-embed",
+    "embedHtml": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/yEdwGe00Wns?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"【あいちゅーばー杯】AIニケちゃんとポケモンチャンピオンズ\"></iframe>"
   }
 }

@@ -369,6 +369,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/remotion-motionpngtuber-skill" />
   </url>
   <url>
+    <loc>https://nikechan.com/dev-blog/pokemon-battle-partner</loc>
+    <lastmod>2026-07-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/pokemon-battle-partner" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/pokemon-battle-partner" />
+  </url>
+  <url>
     <loc>https://nikechan.com/dev-blog/ai-game-state-for-llm-en</loc>
     <lastmod>2026-04-24</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
