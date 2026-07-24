@@ -1,0 +1,111 @@
+<p>Hi, it&#39;s Nike.</p>
+<p>On July 4, AITuber World hosted a Pokémon Champions tournament for AI characters on its Discord server.<br />Each participant built a system for their own AI character and competed in live matches.</p>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/00-aituber-cup-thumbnail-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/00-aituber-cup-thumbnail-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/00-aituber-cup-thumbnail-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Thumbnail for the first AITuber Cup" loading="lazy" decoding="async" /></p>
+<p>You can join the AITuber World Discord here.</p>
+<a href="https://discord.gg/Xdmpprr7eX" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://cdn.discordapp.com/splashes/1079739640266887188/fe44139d7c8c0fa60536d39016608cf2.jpg?size=512" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">Discordサーバー「あいちゅーばーわーるど@本店」に参加しよう！</div><div class="ogp-card-description">あいちゅーばーわーるどは、AITuberやAIキャラクターが好きな人のための日本最大級のコミュニティです。推し語り、雑談、作品紹介、企画相談に加えて、AIキャラクターとおしゃべりできるスペースもあります！ | 2151人のメンバー</div><div class="ogp-card-meta"><img src="https://discord.com/assets/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>discord.gg</span></div></div></a>
+<p>To enter with AI Nike-chan, I built <strong>Pokemon Battle Partner</strong>, a system that takes a spoken description of the battle, organizes the current state, and suggests the next move.</p>
+<p>The repository is available on GitHub.</p>
+<a href="https://github.com/tegnike/pokemon-battle-partner" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/d76bff291c59e8d6201fbca425214d6ab8eaaf38bd24f09f2fa9c9f208380958/tegnike/pokemon-battle-partner" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/pokemon-battle-partner</div><div class="ogp-card-description">Contribute to tegnike/pokemon-battle-partner development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>The tournament started with 12 participants divided into three round-robin groups of four.<br />The winner of each group advanced to the final round-robin stage.<br />I went undefeated in Group C, lost both matches in the final group, and finished third overall.</p>
+<p>Before the stream, I was not sure how well the AI would actually make decisions.<br />In practice, it was more accurate than I expected, and viewers responded positively as well.</p>
+<p>This article explains how the system works and, more importantly, <strong>what I built to keep the AI from deciding too much on its own</strong>.</p>
+<h2 id="instead-of-showing-the-screen-i-describe-the-battle">Instead of Showing the Screen, I Describe the Battle</h2>
+<p>One obvious way to let an AI play a game is to send the game screen to a multimodal model.<br />I previously used that approach for AI gameplay and commentary, and wrote about the architecture and its limitations here.</p>
+<a href="https://nikechan.com/dev_blog/ai-game-play-methods" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<p>Pokémon battles involve a large amount of decision-relevant information: remaining HP, status conditions, stat changes, weather, entry hazards, revealed moves, held items, and more.<br />A screenshot-based system takes time to read and is more likely to misinterpret what is displayed.</p>
+<p>For this project, I decided to <strong>describe the battle state by voice</strong>.</p>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/01-input-method-comparison-en-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/01-input-method-comparison-en-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/01-input-method-comparison-en-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Screenshot input compared with voice input" loading="lazy" decoding="async" /></p>
+<p>I say something like, &quot;They led with Gengar, and I have Garchomp out. Shadow Ball did about half,&quot; then convert the audio to text and send it to the AI.<br />After hearing the AI&#39;s suggestion, I enter the move or switch into the game myself.</p>
+<p>It is not full automation.<br />The human provides an accurate state, the AI makes the decision, and the human performs the input.</p>
+<h2 id="from-spoken-input-to-the-next-move">From Spoken Input to the Next Move</h2>
+<p>The system displays the recommendation, current matchup, field state, both players&#39; selected teams, and the match history in one place.</p>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/01-control-panel-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/01-control-panel-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/01-control-panel-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Pokemon Battle Partner consultation screen" loading="lazy" decoding="async" /></p>
+<p>The flow is:</p>
+<ol><li>I describe the current situation through the microphone</li><li>A speech recognition model converts it into text</li><li>I press the button that matches the type of consultation I want</li><li>The system extracts battle information and updates the stored state</li><li>The AI chooses the next move using local Pokémon data and damage calculations</li><li>AI Nike-chan speaks through AITuberKit, and I operate the game</li></ol>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/02-system-flow-en-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/02-system-flow-en-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/02-system-flow-en-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="System flow from voice input to game control" loading="lazy" decoding="async" /></p>
+<p>The battle state is saved for each match, so I do not need to repeat everything every turn.<br />AI Nike-chan&#39;s response is also shown in OBS so viewers can follow the reasoning.</p>
+<h2 id="fixing-the-role-with-buttons-so-the-ai-does-not-decide-too-much">Fixing the Role with Buttons So the AI Does Not Decide Too Much</h2>
+<p>The most important design choice in this system may not be the LLM prompt.<br />It may be the <strong>buttons in the control panel</strong>.</p>
+<p>There are four consultation buttons below the input field:</p>
+<ul><li><strong>Team Selection</strong>: choose three Pokémon from my team of six and decide the lead</li><li><strong>Battle Advice</strong>: choose the next move or switch from the current battle state</li><li><strong>Conversation</strong>: respond as dialogue with me or the viewers instead of giving a battle command</li><li><strong>Post-match Review</strong>: review the match using the saved battle history</li></ul>
+<p>One input can plausibly be interpreted as a battle-state update, a request for the next move, a conversation prompt, or a post-match review.<br />If the AI must classify the purpose and generate the response in one step, it will not always prioritize &quot;advice&quot; and &quot;explanation&quot; in the same way.<br />That can produce a general explanation when I need a move or switch, or a battle command when I only want a conversational response.</p>
+<p>During a stream, pressing Battle Advice should reliably return a move or switch and the reason behind it.<br />Pressing Conversation should return dialogue rather than a game action.<br />I therefore made <strong>the pressed button determine the task, switching both the instruction sent to the AI and the expected output format</strong>.<br />The AI does not classify the purpose itself; it only makes decisions within the selected scope.<br />The human chooses the type of work, and the AI thinks inside that boundary.</p>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/02-role-buttons-en-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/02-role-buttons-en-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/02-role-buttons-en-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Letting the AI infer the task compared with fixing its role through buttons" loading="lazy" decoding="async" /></p>
+<p>The system also validates the response instead of accepting it blindly:</p>
+<ul><li>Team Selection must return exactly three Pokémon from my team of six</li><li>Battle Advice must return a move or switch, not only an explanation</li><li>The system corrects suggestions involving unknown moves, fainted switch targets, or instructions that contradict type matchups</li></ul>
+<p><strong>The AI keeps the decision-making role, while the system controls the boundaries of that decision.</strong><br />I think this separation, not only the model itself, is a major reason the system worked better than expected.</p>
+<h2 id="the-hardest-part-was-organizing-the-pok-mon-data">The Hardest Part Was Organizing the Pokémon Data</h2>
+<p>With vibe coding, a web app with voice input can now be built fairly quickly.<br />The amount of information required for a good Pokémon decision is another matter.</p>
+<p>Moves, types, abilities, held items, stats, learnsets, Mega Evolution, the current metagame, Pokémon Champions-specific mechanics, and the intent behind my own team all matter.</p>
+<p>An LLM&#39;s general knowledge will not necessarily match the current game rules.<br />Putting everything into one long prompt also makes the actual decision less focused.<br />I therefore keep the base data locally and load only what is relevant to the current matchup.</p>
+<p>I created an alias table for names that speech recognition tends to distort, and split metagame knowledge into separate Markdown files for each Pokémon.<br />Available moves and damage in both directions are calculated locally, and only the relevant material is passed to the AI.<br />Building the app was easier than organizing Pokémon information into a form the AI could reliably use.</p>
+<h2 id="choosing-speech-recognition-by-names-speed-and-price">Choosing Speech Recognition by Names, Speed, and Price</h2>
+<p>For voice input, recognizing Pokémon names correctly is especially important.<br />If &quot;Wash Rotom&quot; or &quot;Meowscarada&quot; becomes a different name, the battle-state update and every decision after it can break.</p>
+<p>I sent the same 17-second real recording to multiple models.<br />In total, I tested six OpenAI-family models and five Gemini-family models.<br />The table below shows the three finalists after comparing accuracy, speed, and price.<br />Speed is based on one measured run per model, and cost is an estimate using the prices available at the time of the test.</p>
+<div class="table-wrapper"><table><thead><tr><th>Model</th><th>Transcription behavior</th><th>Speed</th><th>Estimated cost per 17 seconds</th></tr></thead><tbody><tr><td><code>gemini-3.5-flash</code></td><td>Matched the reference text and preserved filler words</td><td>4.3 sec</td><td>$0.0076</td></tr><tr><td><code>gpt-4o-transcribe</code></td><td>Preserved Pokémon names but removed most filler words</td><td>1.2 sec</td><td>$0.0017</td></tr><tr><td><code>gpt-4o-mini-transcribe</code></td><td>Misrecognized some Pokémon names</td><td>1.2 sec</td><td>$0.0009</td></tr></tbody></table></div>
+<p>If literal transcription were the goal, <code>gemini-3.5-flash</code> was the most accurate.<br />This system is not producing meeting minutes, though.<br />The opponent&#39;s name, HP, moves, and field state need to be correct; filler words can disappear without causing a problem.</p>
+<p><code>gpt-4o-transcribe</code> returned the Pokémon names correctly in 1.2 seconds, at an estimated cost of about $0.0017 for this recording.<br />I chose it for the balance of proper-noun accuracy, response time during a stream, and repeated-use cost.</p>
+<p>For current specifications and pricing, see the official GPT-4o Transcribe and Gemini API pricing pages.<br />The figures in the table are estimates from the time of this test.</p>
+<a href="https://developers.openai.com/api/docs/models/gpt-4o-transcribe" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://developers.openai.com/og/api/docs/models/gpt-4o-transcribe.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GPT-4o Transcribe Model | OpenAI API</div><div class="ogp-card-meta"><img src="https://developers.openai.com/favicon.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>developers.openai.com</span></div></div></a>
+<a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://ai.google.dev/static/site-assets/images/share-gemini-api-2026-07.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">Gemini Developer API pricing &amp;nbsp;|&amp;nbsp; Gemini API &amp;nbsp;|&amp;nbsp; Google AI for Developers</div><div class="ogp-card-description">Gemini Developer API Pricing</div><div class="ogp-card-meta"><img src="https://www.gstatic.com/devrel-devsite/prod/v303cfab58e2ecfbd382191434137bc118fc92bc795e9241c9d005d07c4d0550a/googledevai/images/favicon-new.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>ai.google.dev</span></div></div></a>
+<h2 id="the-stream-showed-both-strong-decisions-and-strange-ai-behavior">The Stream Showed Both Strong Decisions and Strange AI Behavior</h2>
+<p>During the stream, I repeatedly described the situation, pressed a consultation button, let AI Nike-chan speak, and entered the result into the game.</p>
+<p>You can watch the actual stream here.</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/yEdwGe00Wns?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="【あいちゅーばー杯】AIニケちゃんとポケモンチャンピオンズ"></iframe></div>
+<p>The AI made better decisions than I expected, and I went undefeated in the preliminary group.<br />I was also happy to hear viewers say that the accuracy was better than expected.</p>
+<p>There were still moments where it repeatedly switched Pokémon without much purpose, making choices a human player would be unlikely to make.<br />The AI and the surrounding system also produced occasional errors, but even the imperfect behavior contributed to the feeling that we were playing together.</p>
+<h2 id="next-i-want-more-consistent-decisions-with-clear-reasons">Next, I Want More Consistent Decisions with Clear Reasons</h2>
+<p>In actual use, speed was not a major problem.<br />The main area I want to improve is <strong>decision accuracy</strong>.</p>
+<p>I do not want the system to choose only the move with the highest immediate damage.<br />It should consider a possible switch by the opponent and the value of preserving my own Pokémon, then say, &quot;This is the reason I am choosing this move.&quot;</p>
+<p>On the other hand, adding rules for every situation would remove the AI&#39;s ability to adapt.<br />Local calculations and guards should prevent obvious mistakes, while the final choice among several valid options should remain with the AI.</p>
+<p>This is not a fully automated system, but the division of labor was enough for AI Nike-chan and me to enter the tournament and finish third.<br />For AI gameplay, a cooperative setup where a human and an AI operate the game together can be interesting in its own right.</p>
+<h2 id="links">Links</h2>
+<p>Pokemon Battle Partner is available on GitHub.</p>
+<a href="https://github.com/tegnike/pokemon-battle-partner" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/d76bff291c59e8d6201fbca425214d6ab8eaaf38bd24f09f2fa9c9f208380958/tegnike/pokemon-battle-partner" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/pokemon-battle-partner</div><div class="ogp-card-description">Contribute to tegnike/pokemon-battle-partner development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>AI Nike-chan speaks through AITuberKit.</p>
+<a href="https://github.com/tegnike/aituber-kit" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/dfc9f8c58b4cedb97337e0c2d3f42315e3b616adbcbc33e12c9d15a16ad6bbfa/tegnike/aituber-kit" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/aituber-kit: A web application for chatting with AI characters that anyone can easily set up and deploy.</div><div class="ogp-card-description">A web application for chatting with AI characters that anyone can easily set up and deploy. - tegnike/aituber-kit</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>I also post about AI tools and AI characters on X.</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "Instead of Showing the Screen, I Describe the Battle",
+    "id": "instead-of-showing-the-screen-i-describe-the-battle"
+  },
+  {
+    "level": 2,
+    "text": "From Spoken Input to the Next Move",
+    "id": "from-spoken-input-to-the-next-move"
+  },
+  {
+    "level": 2,
+    "text": "Fixing the Role with Buttons So the AI Does Not Decide Too Much",
+    "id": "fixing-the-role-with-buttons-so-the-ai-does-not-decide-too-much"
+  },
+  {
+    "level": 2,
+    "text": "The Hardest Part Was Organizing the Pokémon Data",
+    "id": "the-hardest-part-was-organizing-the-pok-mon-data"
+  },
+  {
+    "level": 2,
+    "text": "Choosing Speech Recognition by Names, Speed, and Price",
+    "id": "choosing-speech-recognition-by-names-speed-and-price"
+  },
+  {
+    "level": 2,
+    "text": "The Stream Showed Both Strong Decisions and Strange AI Behavior",
+    "id": "the-stream-showed-both-strong-decisions-and-strange-ai-behavior"
+  },
+  {
+    "level": 2,
+    "text": "Next, I Want More Consistent Decisions with Clear Reasons",
+    "id": "next-i-want-more-consistent-decisions-with-clear-reasons"
+  },
+  {
+    "level": 2,
+    "text": "Links",
+    "id": "links"
+  }
+]

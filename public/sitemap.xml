@@ -299,6 +299,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/stackface-maker" />
   </url>
   <url>
+    <loc>https://nikechan.com/dev-blog/pokemon-battle-partner-en</loc>
+    <lastmod>2026-07-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/pokemon-battle-partner" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/pokemon-battle-partner-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/pokemon-battle-partner" />
+  </url>
+  <url>
     <loc>https://nikechan.com/dev-blog/self-made-ai-character-tool-en</loc>
     <lastmod>2026-03-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/self-made-ai-character-tool" />
@@ -325,6 +332,13 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-play-methods" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-play-methods-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-play-methods" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/ai-nikechan-direction-change-en</loc>
+    <lastmod>2026-07-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-nikechan-direction-change" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-nikechan-direction-change-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-nikechan-direction-change" />
   </url>
   <url>
     <loc>https://nikechan.com/dev-blog/ai-game-expo-2026-en</loc>
@@ -372,6 +386,7 @@
     <loc>https://nikechan.com/dev-blog/pokemon-battle-partner</loc>
     <lastmod>2026-07-24</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/pokemon-battle-partner" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/pokemon-battle-partner-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/pokemon-battle-partner" />
   </url>
   <url>
@@ -399,6 +414,7 @@
     <loc>https://nikechan.com/dev-blog/ai-nikechan-direction-change</loc>
     <lastmod>2026-07-21</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-nikechan-direction-change" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-nikechan-direction-change-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-nikechan-direction-change" />
   </url>
 </urlset>

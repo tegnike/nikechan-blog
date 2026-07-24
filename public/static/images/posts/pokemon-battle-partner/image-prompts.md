@@ -11,6 +11,17 @@
 【制約】文字、キャラクター、ゲーム画面の内容は変更しない
 ```
 
+## thumbnail-en.png "The Real Build Report!!"
+
+```text
+[Image type] Completed English thumbnail supplied by the author; do not regenerate with AI
+[Size] 1200×630px (OGP standard)
+[Source image] ai-character-roleplay-benchmark.png (1280×720px)
+[Processing] Center-crop to the OGP aspect ratio, then resize to 1200×630px
+[Content] Pokémon Champions menu screen, AI Nike-chan, and a tall jagged speech burst reading "THE REAL BUILD REPORT!!"
+[Constraints] Do not change the text, character, game screen, colors, or composition
+```
+
 ---
 
 ## 00-aituber-cup-thumbnail.png「第1回あいちゅーばー杯」
@@ -157,4 +168,89 @@
 - キャラクター、ポケモン、ゲーム画面、ロゴ、モンスターボールを入れない
 - 追加テキストを入れない
 - グラデーション、3D、装飾イラストを使わない
+```
+
+---
+
+# English image variants
+
+## 01-input-method-comparison-en.png
+
+```text
+[Generation] OpenAI built-in image generation, using the Japanese figure as a visual reference
+[Size] 1200×675px (16:9)
+[Title] "Two Ways to Send Battle State to AI"
+
+[Left: Screenshot Method]
+- "Game Screen" → "Image Recognition" → "AI"
+- "Takes time to read"
+- "Can misread the screen"
+
+[Right: This System: Voice Input]
+- "User Describes State" → "Speech Recognition" → "AI"
+- "Sends only needed info"
+- "Faster and more reliable"
+
+[Constraints]
+- Preserve the reference layout, colors, icons, arrows, and typography hierarchy
+- Use only the exact English text above
+- Keep all text legible at 840px width
+- Do not add characters, Pokémon, logos, or extra text
+```
+
+---
+
+## 02-role-buttons-en.png
+
+```text
+[Generation] OpenAI built-in image generation, using the Japanese figure as a visual reference
+[Size] 1200×675px (16:9)
+[Title] "Define What the AI Decides"
+
+[Left: Let AI Infer the Task]
+- "Battle State" → "AI"
+- Branch to "General Explanation", "Battle Action", and "Conversation"
+- Warning: "The response can drift"
+
+[Right: Fix the Role with Buttons]
+- "User selects the task"
+- Buttons: "Team Selection", "Battle Advice", "Conversation", "Post-match Review"
+- "AI decides within scope" → "Returns required format"
+- Conclusion: "Humans choose the task; AI decides within it"
+
+[Constraints]
+- Preserve the reference two-column layout, colors, icons, arrows, and typography hierarchy
+- Use only the exact English text above
+- Keep all text legible at 840px width
+- Do not add characters, Pokémon, logos, or extra text
+```
+
+---
+
+## 02-system-flow-en.png
+
+```text
+[Generation] OpenAI built-in image generation, using the Japanese figure as a visual reference
+[Size] 1200×675px (16:9)
+[Top note] "Humans choose the task"
+
+[Main flow]
+1. "User's Voice" / "Describe battle state"
+2. "GPT-4o Transcribe" / "Speech → Text"
+3. "Consultation Mode" with "Team Selection", "Battle Advice", "Conversation", and "Post-match Review"
+4. "Update Battle State" / "Field · Team · History"
+5. "AI Nike-chan Decides" / "Next move and reason"
+6. "AITuberKit / OBS" / "Speech · Captions"
+7. "User Controls Game" / "Move · Switch"
+
+[Supporting input]
+- "Local Data" containing "Pokémon Data" and "Damage Calc"
+- Draw exactly one arrow from Local Data to the AI decision
+
+[Bottom note] "Final input stays human"
+
+[Constraints]
+- Preserve the reference architecture, arrows, colors, spacing, and typography hierarchy
+- Use only the exact English text above
+- Do not add characters, Pokémon illustrations, game screens, logos, or extra text
 ```

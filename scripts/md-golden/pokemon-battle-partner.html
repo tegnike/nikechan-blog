@@ -1,0 +1,111 @@
+<p>こんにちは、ニケです。</p>
+<p>7月4日にあいちゅーばーわーるどのDiscordサーバーで、AIキャラクターがポケモンチャンピオンズで対戦する大会が開かれました。<br />参加者はそれぞれ自分のAIキャラクター向けのシステムを作り、実際の対戦で競います。</p>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/00-aituber-cup-thumbnail-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/00-aituber-cup-thumbnail-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/00-aituber-cup-thumbnail-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="第1回あいちゅーばー杯の大会サムネイル" loading="lazy" decoding="async" /></p>
+<p>あいちゅーばーわーるどのDiscordはこちらから。</p>
+<a href="https://discord.gg/Xdmpprr7eX" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://cdn.discordapp.com/splashes/1079739640266887188/fe44139d7c8c0fa60536d39016608cf2.jpg?size=512" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">Discordサーバー「あいちゅーばーわーるど@本店」に参加しよう！</div><div class="ogp-card-description">あいちゅーばーわーるどは、AITuberやAIキャラクターが好きな人のための日本最大級のコミュニティです。推し語り、雑談、作品紹介、企画相談に加えて、AIキャラクターとおしゃべりできるスペースもあります！ | 2151人のメンバー</div><div class="ogp-card-meta"><img src="https://discord.com/assets/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>discord.gg</span></div></div></a>
+<p>私もAIニケちゃんと参加するため、対戦状況を音声で伝えると、盤面を整理して次の一手を提案してくれる <strong>Pokemon Battle Partner</strong> を作りました。</p>
+<p>GitHubでリポジトリを公開しているので気になる方は見てください。</p>
+<a href="https://github.com/tegnike/pokemon-battle-partner" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/d76bff291c59e8d6201fbca425214d6ab8eaaf38bd24f09f2fa9c9f208380958/tegnike/pokemon-battle-partner" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/pokemon-battle-partner</div><div class="ogp-card-description">Contribute to tegnike/pokemon-battle-partner development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>大会は12人を4人ずつ3グループに分けた総当たり戦から始まり、各グループ1位が決勝リーグへ進む形式でした。<br />私はグループCを全勝し、決勝リーグでは2敗して、最終結果は3位です。</p>
+<p>配信で使う前は、AIがどこまでまともに判断できるか少し不安でした。<br />ところが実際には思っていたより精度が高く、視聴者の方からも良い反応をもらえました。</p>
+<p>今回は、このシステムがどう動いているのか、そして <strong>AIに任せすぎないために何を作ったのか</strong> を紹介します。</p>
+<h2 id="画面を見せるのではなく、私が状況を話す">画面を見せるのではなく、私が状況を話す</h2>
+<p>AIにゲームを遊ばせる方法として、まず思いつくのはゲーム画面をマルチモーダルAIへ渡す構成です。<br />私も以前、同じ方法でAIゲーム実況やAIプレイを作り、別の記事で構成と課題をまとめました。</p>
+<a href="https://nikechan.com/dev_blog/ai-game-play-methods" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://nikechan.com/static/images/posts/ai-game-play-3-methods/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">AIにゲーム実況をさせてみよう！ AIプレイも含めて考える | AIニケちゃんオフィシャルサイト</div><div class="ogp-card-description">1年半前にnoteで書いたAIゲーム実況システムの続編。マルチモーダル処理の遅さ・コストという課題に対して、今なら取れるアプローチを紹介します。</div><div class="ogp-card-meta"><img src="https://nikechan.com/static/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>nikechan.com</span></div></div></a>
+<p>ただ、ポケモンバトルでは、残りHP、状態異常、能力変化、天候、設置技、判明している技や持ち物など、判断に使う情報がかなり多いです。<br />スクリーンショット方式は、読み取りに時間がかかり、表示内容を誤認しやすいのが課題です。</p>
+<p>そこで今回は、<strong>私が対戦状況を音声で伝える</strong>ことにしました。</p>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/01-input-method-comparison-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/01-input-method-comparison-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/01-input-method-comparison-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="スクリーンショット方式と音声入力方式の違い" loading="lazy" decoding="async" /></p>
+<p>「相手は初手ゲンガー、こちらはガブリアスです。シャドーボールで半分くらい削られました」のように話し、音声をテキストに変換してAIへ渡します。<br />AIの提案を聞いたあと、実際の技や交代先をゲームへ入力するのは私です。</p>
+<p>完全自動ではなく、人間が正確な状態を渡し、AIが判断し、人間が操作する共同プレイになっています。</p>
+<h2 id="音声から次の一手が返るまで">音声から次の一手が返るまで</h2>
+<p>このシステムでは、相談結果、現在対面、場の状態、自分と相手の選出、これまでの履歴をまとめて確認できます。</p>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/01-control-panel-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/01-control-panel-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/01-control-panel-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Pokemon Battle Partnerの相談画面" loading="lazy" decoding="async" /></p>
+<p>処理の流れは次の通りです。</p>
+<ol><li>私がマイクで現在の状況を話す</li><li>音声認識モデルで日本語テキストへ変換する</li><li>私が相談内容に合うボタンを押す</li><li>入力から対戦情報を抽出し、保存している盤面状態を更新する</li><li>ローカルのポケモン情報やダメージ計算を材料に、AIが次の一手を決める</li><li>AITuberKit経由でAIニケちゃんが発話し、私がゲームを操作する</li></ol>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/02-system-flow-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/02-system-flow-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/02-system-flow-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="音声入力からゲーム操作までのシステム構成" loading="lazy" decoding="async" /></p>
+<p>対戦状態は試合ごとに保存するため、毎回すべてを言い直す必要はありません。<br />AIニケちゃんのセリフはOBSにも表示し、視聴者が判断内容を確認できるようにしました。</p>
+<h2 id="aiに任せすぎないため、ボタンで役割を固定する">AIに任せすぎないため、ボタンで役割を固定する</h2>
+<p>このシステムで一番工夫したのは、LLMのプロンプトよりも <strong>操作画面のボタン</strong> かもしれません。</p>
+<p>入力欄の下には、4つの相談ボタンがあります。</p>
+<ul><li><strong>選出相談</strong>: 自分の6体から、対戦に出す3体と先発を決める</li><li><strong>対戦相談</strong>: 現在の盤面から、次に使う技または交代先を決める</li><li><strong>会話</strong>: 対戦指示ではなく、私や視聴者との会話として返す</li><li><strong>反省会</strong>: 保存した試合履歴をもとに、対戦後の振り返りを行う</li></ul>
+<p>1つの入力文には、対戦状況の報告、次の一手の相談、視聴者との会話、対戦後の振り返りなど、複数の用途がありえます。<br />この用途の分類から回答までをAIへまとめて任せると、「相談」と「状況の解説」のどちらを優先するかが毎回一定になりません。<br />その結果、技や交代先が欲しい場面で一般的な解説だけ返したり、会話をしたい場面で対戦指示を返したりします。</p>
+<p>配信中は、対戦相談を押したら必ず技か交代先とその理由が返り、会話を押したら対戦操作ではなく会話が返るほうが扱いやすいです。<br />そこで、<strong>何をさせるかは押したボタンで決め、ボタンごとにAIへ渡す指示と期待する出力を切り替える</strong>構成にしました。<br />AIには用途の分類をさせず、その範囲内の判断だけを任せます。<br />人間が仕事の種類を決め、AIがその仕事の中で考える分担です。</p>
+<p><img src="/static/images/optimized/posts/pokemon-battle-partner/02-role-buttons-420.webp" srcset="/static/images/optimized/posts/pokemon-battle-partner/02-role-buttons-420.webp 420w, /static/images/optimized/posts/pokemon-battle-partner/02-role-buttons-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="用途判断をAIへ任せる場合とボタンで役割を固定する場合の違い" loading="lazy" decoding="async" /></p>
+<p>AIの回答をそのまま採用せず、システム側でも確認を通します。</p>
+<ul><li>選出は自分の6体から必ず3体を選ぶ</li><li>対戦相談では、解説だけで終わらせず技か交代を返す</li><li>覚えていない技、ひんしの交代先、タイプ相性と矛盾する指示を補正する</li></ul>
+<p><strong>判断する部分はAIに残しつつ、判断してよい範囲はシステム側で管理する。</strong><br />思ったより精度よく動いた理由は、モデルだけでなく、この境界の作り方にあったと思います。</p>
+<h2 id="一番大変だったのは、ポケモンの情報を揃えること">一番大変だったのは、ポケモンの情報を揃えること</h2>
+<p>今はVibe codingで、音声入力のあるWebアプリ自体はかなり速く作れます。<br />一方で、ポケモンの判断に必要な情報は膨大です。</p>
+<p>技、タイプ、特性、持ち物、能力値、覚える技、メガシンカ、現在の対戦環境に加え、ポケモンチャンピオンズ固有の仕様や自分の構築意図もあります。</p>
+<p>LLMの一般知識だけでは現在のゲーム仕様と一致するとは限らず、すべてを長いプロンプトへ詰め込むと判断がぼやけます。<br />そこで基礎データはローカルに持ち、今回の対面に必要なものだけを読み込むようにしました。</p>
+<p>音声で崩れやすい名前には別名テーブルを用意し、環境知識はポケモン別のMarkdownに分割しました。<br />使える技や双方のダメージもローカルで計算し、関係する材料だけをAIへ渡します。<br />システムを作るより、AIが使える形へポケモン情報を整えるほうが大変でした。</p>
+<h2 id="音声認識モデルは、固有名詞・速度・価格で選んだ">音声認識モデルは、固有名詞・速度・価格で選んだ</h2>
+<p>音声入力では、ポケモン名を正しく拾えることが特に重要です。<br />「ウォッシュロトム」や「マスカーニャ」が別の名前になると、その後の盤面更新も判断も崩れます。</p>
+<p>そこで、17秒の同じ実音声を複数モデルへ渡して比較しました。<br />OpenAI系6モデル、Gemini系5モデルの計11モデルを試し、以下の表には精度・速度・価格を比べたうえで、最終候補として残った3モデルを抜粋しています。<br />速度は各モデル1回の実測、料金はテスト時点の単価から計算した概算です。</p>
+<div class="table-wrapper"><table><thead><tr><th>モデル</th><th>文字起こしの傾向</th><th>速度</th><th>17秒あたりの概算</th></tr></thead><tbody><tr><td><code>gemini-3.5-flash</code></td><td>正解文と一致。フィラーも残る</td><td>4.3秒</td><td>$0.0076</td></tr><tr><td><code>gpt-4o-transcribe</code></td><td>固有名詞は正確。フィラーをかなり削る</td><td>1.2秒</td><td>$0.0017</td></tr><tr><td><code>gpt-4o-mini-transcribe</code></td><td>一部のポケモン名が崩れる</td><td>1.2秒</td><td>$0.0009</td></tr></tbody></table></div>
+<p>文字を忠実に残すなら <code>gemini-3.5-flash</code> が最も正確でしたが、このシステムで必要なのは議事録ではありません。<br />対戦相手の名前、HP、技、場の状態が正しければよく、フィラーは消えても困りません。</p>
+<p><code>gpt-4o-transcribe</code> はポケモン名を保ちながら1.2秒で返り、今回の試算では1回あたり約$0.0017でした。<br />固有名詞の精度、配信中の待ち時間、繰り返し使うコストのバランスから採用しています。</p>
+<p>現在の仕様と料金は、OpenAIのGPT-4o Transcribe公式ページとGemini APIの料金ページを参照してください。<br />表の金額は今回の検証時点の概算です。</p>
+<a href="https://developers.openai.com/api/docs/models/gpt-4o-transcribe" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://developers.openai.com/og/api/docs/models/gpt-4o-transcribe.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GPT-4o Transcribe Model | OpenAI API</div><div class="ogp-card-meta"><img src="https://developers.openai.com/favicon.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>developers.openai.com</span></div></div></a>
+<a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://ai.google.dev/static/site-assets/images/share-gemini-api-2026-07.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">Gemini Developer API pricing &amp;nbsp;|&amp;nbsp; Gemini API &amp;nbsp;|&amp;nbsp; Google AI for Developers</div><div class="ogp-card-description">Gemini Developer API Pricing</div><div class="ogp-card-meta"><img src="https://www.gstatic.com/devrel-devsite/prod/v303cfab58e2ecfbd382191434137bc118fc92bc795e9241c9d005d07c4d0550a/googledevai/images/favicon-new.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>ai.google.dev</span></div></div></a>
+<h2 id="配信では、強さとaiらしい変な行動の両方が出た">配信では、強さとAIらしい変な行動の両方が出た</h2>
+<p>配信では、私が状況を話し、相談ボタンを押し、AIニケちゃんが発話し、私がゲームへ入力する流れを繰り返しました。</p>
+<p>実際の配信はこちらです。</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/yEdwGe00Wns?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="【あいちゅーばー杯】AIニケちゃんとポケモンチャンピオンズ"></iframe></div>
+<p>AIは思っていたより良い判断を返し、予選グループを全勝できました。<br />視聴者から精度を評価してもらえたのも嬉しかったです。</p>
+<p>もちろん、あまり意味のない交代を繰り返すなど、人間なら選びにくい動きをする場面もありました。<br />AI側のエラーもありましたが、完璧ではない行動まで含めて、一緒に対戦している感覚はかなりありました。</p>
+<h2 id="次は「理由のある一手」を安定させたい">次は「理由のある一手」を安定させたい</h2>
+<p>今回使ってみて、速度は大きな問題になりませんでした。<br />今後一番改善したいのは <strong>判断精度</strong> です。</p>
+<p>単に一番ダメージが出る技ではなく、相手の交代やこちらの温存価値まで含めて、「この理由があるから、この一手を選ぶ」と判断してほしいです。</p>
+<p>一方で、ルールを増やしてすべてを決め打ちすると、AIの応用力を消してしまいます。<br />ローカル計算とガードで明らかな間違いを防ぎ、複数の材料から最後の一手を選ぶ部分はAIに残す。</p>
+<p>今回作ったものは完全自動化ではありませんが、この分担でAIニケちゃんと大会へ出て3位まで進めました。<br />AIにゲームを遊ばせる方法として、人間とAIが一緒に操作する形も十分面白いと思います。</p>
+<h2 id="宣伝">宣伝</h2>
+<p>Pokemon Battle PartnerはGitHubで公開しています。</p>
+<a href="https://github.com/tegnike/pokemon-battle-partner" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/d76bff291c59e8d6201fbca425214d6ab8eaaf38bd24f09f2fa9c9f208380958/tegnike/pokemon-battle-partner" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/pokemon-battle-partner</div><div class="ogp-card-description">Contribute to tegnike/pokemon-battle-partner development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>AIニケちゃんの発話にはAITuberKitを使っています。</p>
+<a href="https://github.com/tegnike/aituber-kit" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/dfc9f8c58b4cedb97337e0c2d3f42315e3b616adbcbc33e12c9d15a16ad6bbfa/tegnike/aituber-kit" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/aituber-kit: A web application for chatting with AI characters that anyone can easily set up and deploy.</div><div class="ogp-card-description">A web application for chatting with AI characters that anyone can easily set up and deploy. - tegnike/aituber-kit</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>普段XでAIツールやAIキャラクターについて発信しているので、興味があったらフォローしていただけると大変喜びます🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "画面を見せるのではなく、私が状況を話す",
+    "id": "画面を見せるのではなく、私が状況を話す"
+  },
+  {
+    "level": 2,
+    "text": "音声から次の一手が返るまで",
+    "id": "音声から次の一手が返るまで"
+  },
+  {
+    "level": 2,
+    "text": "AIに任せすぎないため、ボタンで役割を固定する",
+    "id": "aiに任せすぎないため、ボタンで役割を固定する"
+  },
+  {
+    "level": 2,
+    "text": "一番大変だったのは、ポケモンの情報を揃えること",
+    "id": "一番大変だったのは、ポケモンの情報を揃えること"
+  },
+  {
+    "level": 2,
+    "text": "音声認識モデルは、固有名詞・速度・価格で選んだ",
+    "id": "音声認識モデルは、固有名詞・速度・価格で選んだ"
+  },
+  {
+    "level": 2,
+    "text": "配信では、強さとAIらしい変な行動の両方が出た",
+    "id": "配信では、強さとaiらしい変な行動の両方が出た"
+  },
+  {
+    "level": 2,
+    "text": "次は「理由のある一手」を安定させたい",
+    "id": "次は「理由のある一手」を安定させたい"
+  },
+  {
+    "level": 2,
+    "text": "宣伝",
+    "id": "宣伝"
+  }
+]

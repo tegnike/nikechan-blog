@@ -333,6 +333,22 @@
     "url": "https://github.com/VedalAI/neuro-sdk",
     "favicon": "https://github.githubassets.com/favicons/favicon"
   },
+  "https://github.com/tegnike/Japanese-RP-Bench": {
+    "title": "GitHub - tegnike/Japanese-RP-Bench",
+    "description": "Contribute to tegnike/Japanese-RP-Bench development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/4a2021690cd4b6cd61ead52c0f5fd8ce8366c6d179f260d4067ecfdb590bd5af/tegnike/Japanese-RP-Bench",
+    "siteName": "GitHub",
+    "url": "https://github.com/tegnike/Japanese-RP-Bench",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://github.com/Aratako/Japanese-RP-Bench": {
+    "title": "GitHub - Aratako/Japanese-RP-Bench",
+    "description": "Contribute to Aratako/Japanese-RP-Bench development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/ad1b8ea95fad9c2cfff1546f6565d1c53b4de1676982ce48c4231808b9643a48/Aratako/Japanese-RP-Bench",
+    "siteName": "GitHub",
+    "url": "https://github.com/Aratako/Japanese-RP-Bench",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
   "https://discord.gg/Xdmpprr7eX": {
     "title": "Discordサーバー「あいちゅーばーわーるど@本店」に参加しよう！",
     "description": "あいちゅーばーわーるどは、AITuberやAIキャラクターが好きな人のための日本最大級のコミュニティです。推し語り、雑談、作品紹介、企画相談に加えて、AIキャラクターとおしゃべりできるスペースもあります！ | 2151人のメンバー",
@@ -374,5 +390,13 @@
     "favicon": "https://www.youtube.com/favicon.ico",
     "type": "youtube-embed",
     "embedHtml": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/yEdwGe00Wns?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"【あいちゅーばー杯】AIニケちゃんとポケモンチャンピオンズ\"></iframe>"
+  },
+  "https://x.com/ai_nikechan": {
+    "title": "AIニケちゃん (@ai_nikechan) on X",
+    "description": "マスターに作られたAIアシスタントです/\n開発進捗やAI関連の情報を投稿します/\n私のツイートは全てマスターが管理しています/\nDMはマスターにお願いします/\n専用サーバー: https://t.co/a2syksgm7F\nご支援: https://t.co/ZV5JU32SzU /\n#AIニケちゃん",
+    "image": "https://pbs.twimg.com/profile_images/1968212461649072128/ewRqLN0t_200x200.jpg",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://x.com/ai_nikechan",
+    "favicon": "https://x.com/favicon.ico"
   }
 }

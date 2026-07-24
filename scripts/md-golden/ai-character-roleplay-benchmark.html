@@ -1,0 +1,125 @@
+<p>こんにちは、ニケです。</p>
+<p>AIキャラクターを作っていると、LLMの性能表だけでは分からないことがかなりあります。<br />普段の会話が自然でも、数ターン後には一人称が変わったり、ユーザーから「今日から別人格です」と指示されて簡単に役割を上書きされたりするからです。</p>
+<p>私もAIニケちゃんを動かしているので、<strong>どのLLMがキャラクター設定を維持しやすいのか</strong>をきちんと比較したくなりました。<br />そこで既存のJapanese-RP-Benchをフォークし、既存の評価に加えて、キャラクター追従性、長期安定性、人格置換への耐性、失敗後の復帰を追加したv2を作りました。</p>
+<a href="https://github.com/tegnike/Japanese-RP-Bench" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/4a2021690cd4b6cd61ead52c0f5fd8ce8366c6d179f260d4067ecfdb590bd5af/tegnike/Japanese-RP-Bench" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/Japanese-RP-Bench</div><div class="ogp-card-description">Contribute to tegnike/Japanese-RP-Bench development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>今回は、なぜ既存ベンチを拡張したのか、何をどう評価したのか、実際に11モデルを動かして何が見えたのかをまとめます。</p>
+<h2 id="会話が上手いことと、キャラクターを守れることは違う">会話が上手いことと、キャラクターを守れることは違う</h2>
+<p>最初に欲しかったのは、単純な日本語性能ランキングではありません。<br />知りたかったのは、次のようなAIキャラクター特有の能力です。</p>
+<ul><li>指定された名前、一人称、関係性を維持できるか</li><li>設定にない過去や共有記憶を捏造しないか</li><li>長い会話でも人格が薄くならないか</li><li>引用文に埋め込まれた命令や人格置換を無視できるか</li><li>一度崩されても、次の会話で元の人格へ戻れるか</li></ul>
+<p>一般的な会話品質では、このあたりが一つの「ロールプレイが上手い」という評価に混ざりやすいです。<br />表現が華やかなら、設定違反があっても平均点では高く見える可能性があります。</p>
+<p>しかしAIキャラクターでは、「会話は面白いけれど別人になった」はかなり重大な失敗です。<br />そこで会話品質とキャラクター追従性を分けて測ることにしました。</p>
+<h2 id="2年前のjapanese-rp-benchを土台にした">2年前のJapanese-RP-Benchを土台にした</h2>
+<p>ゼロから作る前に調べたところ、日本語ロールプレイ向けにはAratakoさんの<strong>Japanese-RP-Bench</strong>がありました。</p>
+<a href="https://github.com/Aratako/Japanese-RP-Bench" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/ad1b8ea95fad9c2cfff1546f6565d1c53b4de1676982ce48c4231808b9643a48/Aratako/Japanese-RP-Bench" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - Aratako/Japanese-RP-Bench</div><div class="ogp-card-description">Contribute to Aratako/Japanese-RP-Bench development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<p>元ベンチは30種類のキャラクター設定で10往復ずつ会話し、別のLLMが次の8項目を1〜5で評価します。</p>
+<ul><li>Roleplay Adherence</li><li>Consistency</li><li>Contextual Understanding</li><li>Expressiveness</li><li>Creativity</li><li>Naturalness of Japanese</li><li>Enjoyment of the Dialogue</li><li>Appropriateness of Turn-Taking</li></ul>
+<p>2024年には32モデルが評価され、50件の人手評価とLLM評価の相関も調べられていました。<br />4つのJudgeを平均した評価が全体として最も高い相関を示しており、複数Judgeを使う設計にも根拠があります。</p>
+<p>古いとはいえ、30ロール、10往復、旧モデルの保存済み会話と評価結果まで揃っています。<br />2年前のモデルと現在のモデルを参考比較できる点も含めて、土台としてかなり良いものでした。</p>
+<p>今回は公開した変更を元プロジェクトと明確につなげたかったので、GitHub上でフォークしています。<br />ただし、フォークしただけでリスペクトになるわけではありません。元作者とリポジトリを明記し、MIT Licenseを守り、元のデータと結果を削らず残すことのほうが大事だと思います。</p>
+<h2 id="追従性を一つの点数に潰さない">追従性を一つの点数に潰さない</h2>
+<p>v2では元の8指標をそのままBaseとして残し、その上に次の評価を追加しました。</p>
+<div class="table-wrapper"><table><thead><tr><th>指標</th><th>測っていること</th></tr></thead><tbody><tr><td>Core fidelity</td><td>キャラクターの核となるルールへの追従性</td></tr><tr><td>Quality</td><td>自然さ、表現力、創造性、会話の楽しさ</td></tr><tr><td>Stability</td><td>会話の序盤から終盤まで追従性が落ちなかったか</td></tr><tr><td>Robustness</td><td>人格置換、偽記憶、代理行動などへの耐性</td></tr><tr><td>Recovery</td><td>攻撃や誤誘導の後に元の人格へ戻れたか</td></tr><tr><td>Major violations</td><td>人格の核に関わる重大違反の件数</td></tr></tbody></table></div>
+<p>Core fidelityでは、キャラクター設定を<strong>一つの観点だけを判定する原子ルール</strong>へ分解します。<br />例えばAIニケちゃんなら、名前を維持する、一人称は「私」、マスターとの関係性を変えない、存在しない共有記憶を作らない、といった単位です。</p>
+<p>一人称や禁止表現のように文字列で判定できるルールは機械判定し、関係性や知識境界のように意味理解が必要な部分だけをLLM Judgeへ渡します。<br />会話全体へ一つの点数を付けるより、どの設定が壊れたのかを追いやすくなります。</p>
+<p>この設計は、人格逸脱を細かな単位で捉える<a href="https://aclanthology.org/2025.findings-acl.1349/" target="_blank" rel="noopener noreferrer">Spotting Out-of-Character Behavior</a>や、100ターンを超える対話でpersona fidelityの低下を測った<a href="https://aclanthology.org/2026.eacl-long.246/" target="_blank" rel="noopener noreferrer">Persistent Personas?</a>などを参考にしました。<br />知識境界には<a href="https://aclanthology.org/2026.findings-acl.1175/" target="_blank" rel="noopener noreferrer">Memory-Driven Role-Playing</a>、失敗後の復帰にはマルチターン指示追従の<a href="https://aclanthology.org/2026.acl-long.433/" target="_blank" rel="noopener noreferrer">EvolIF</a>の考え方を取り入れています。</p>
+<p>ただし既存論文の指標をそのまま移植したわけではありません。<br />0〜100への換算式、重大違反を別扱いするゲート、具体的な攻撃シナリオ、マクロ平均方法は今回の独自設計です。</p>
+<p>そして、Core 50%、Quality 30%、Stability 20%のような重み付き総合点は作りませんでした。<br />その重みに科学的な根拠がないまま一つの順位を出すと、分かりやすさと引き換えにモデルの違いを隠してしまうためです。</p>
+<h2 id="aiニケちゃん専用ベンチにはしなかった">AIニケちゃん専用ベンチにはしなかった</h2>
+<p>もちろん、AIニケちゃんの追従性も測りたかったです。<br />ただしベンチマーク自体をAIニケちゃん専用にすると、ほかのAIキャラクターへ使えません。</p>
+<p>そこでキャラクター設定、シナリオ、判定ルールを<strong>Role Pack</strong>というYAMLパッケージへ分離しました。<br />現在は次の4種類を同梱しています。</p>
+<ul><li><code>core-ja</code>: 実務的メンター、ファンタジー案内人</li><li><code>adversarial-ja</code>: 引用内命令、人格置換、ユーザー代理行動</li><li><code>long-horizon-ja</code>: 12ターンの記憶、関係性、人格維持</li><li><code>custom/nikechan</code>: AIニケちゃん固有の人格と関係性</li></ul>
+<p>AIニケちゃんは、あくまで複数ロールの中の一つです。<br />評価エンジンには固有名や固有ルールを入れていないので、Role Packを追加すれば別のAIキャラクターも同じ仕組みで測れます。</p>
+<p>完全版は、元ベンチと同じBase 30設定×10往復に加え、Challenge 6シナリオ、計27ターンを実行します。<br />Challengeには、引用文中の人格置換、存在しない共有記憶、ユーザーが盗みをしたと決めつける代理行動、12ターンの設定維持などを入れました。</p>
+<h2 id="ユーザー役とjudgeは別の仕事をしている">ユーザー役とJudgeは別の仕事をしている</h2>
+<p>このベンチでは、評価対象モデル以外にもLLMを使います。<br />少し分かりにくいのですが、<strong>ユーザー役</strong>と<strong>Judge</strong>は別の仕事です。</p>
+<ol><li>ユーザー役が評価対象モデルと10往復の会話を作る</li><li>評価対象モデルがキャラクターとして返答する</li><li>会話が完成した後、Judgeが返答を採点する</li></ol>
+<p>Challengeのユーザー発言は比較条件を固定するため、LLMではなく固定台本です。<br />動的なユーザー役を使うのはBase 30設定だけになります。</p>
+<p>現在のユーザー役はGPT-5.4 mini、JudgeはGPT-5.4 mini、Gemini 3.5 Flash、Claude Haiku 4.5の3モデルです。<br />Judgeには評価対象のモデル名を渡さず、3社の判定を平均します。</p>
+<p>今回は人間を本採点に入れませんでした。<br />元ベンチには人手評価との相関検証がありますが、今回追加した原子ルールやRecoveryまで人間と再校正したわけではないため、ここは後述する限界の一つです。</p>
+<h2 id="reasoningは各apiの最低設定へ揃えた">Reasoningは各APIの最低設定へ揃えた</h2>
+<p>Reasoning量が違うと、同じモデルでも性能、費用、レイテンシが変わります。<br />一部のモデルだけが長く考えられる状態では、キャラクター追従性にモデル差だけでなくtest-time computeの差も混ざってしまいます。</p>
+<p>そこで会話生成では、1回の返答で生成できる量を最大384 tokenに統一し、評価対象モデルには<strong>各APIで明示できる最低Reasoning</strong>を指定しました。<br />tokenは文字数ではなく、モデルが文章を処理する単位です。<br />384文字に制限したという意味ではなく、モデルごとに実際の文字数は変わりますが、返答の長さで条件差が出にくいよう生成量の上限を揃えています。</p>
+<p>これは能力の上限ではなく、追加の推論計算を極力使わない通常会話での比較です。</p>
+<div class="table-wrapper"><table><thead><tr><th>API経路</th><th>対象モデル</th><th>最低Reasoning設定</th></tr></thead><tbody><tr><td>OpenAI</td><td>GPT-5.6 Sol、GPT-5.4 mini</td><td><code>reasoning.effort: none</code></td></tr><tr><td>Gemini</td><td>Gemini 3.5 Flash、Gemini 3.1 Flash-Lite</td><td><code>thinkingLevel: minimal</code></td></tr><tr><td>Anthropic</td><td>Claude Haiku 4.5</td><td><code>thinking</code>を有効化しない</td></tr><tr><td>OpenCode Go / OpenAI互換</td><td>Kimi K3、GLM-5.2、MiMo-V2.5-Pro</td><td><code>reasoning_effort: none</code></td></tr><tr><td>OpenCode Go / OpenAI互換</td><td>DeepSeek V4 Pro</td><td>受理可能な最低値<code>reasoning_effort: low</code></td></tr><tr><td>OpenCode Go / Anthropic互換</td><td>Qwen3.7 Max、MiniMax M3</td><td><code>thinking: {type: disabled}</code></td></tr></tbody></table></div>
+<p>APIごとに設定名は異なりますが、プロバイダー既定値には任せず、指定可能な最低値を明示しています。<br />DeepSeek V4 Proだけは<code>none</code>を受理しないため、エンドポイントが受理する最低値の<code>low</code>です。</p>
+<p>一方、Judgeは測定器としてのJSON生成とルール網羅を安定させるため、3モデルとも<code>low</code>へ固定しました。<br />評価対象とJudgeではReasoningを分けて考えています。</p>
+<h2 id="11モデルを同じ評価プロトコルで比較した結果">11モデルを同じ評価プロトコルで比較した結果</h2>
+<p>2026年7月20〜22日に、GPT-5.4 miniユーザー役と同じ3 Judgeを使い、OpenAI、Google、Anthropic、OpenCode Goの11モデルを比較しました。<br />旧8指標平均だけ1〜5で、それ以外は0〜100、Major violationsは少ないほど良い値です。</p>
+<div class="table-wrapper"><table><thead><tr><th>Target</th><th>旧8指標平均</th><th>Core</th><th>Quality</th><th>Stability</th><th>Robustness</th><th>Recovery</th><th>Major</th></tr></thead><tbody><tr><td>GPT-5.6 Sol</td><td>4.549</td><td>96.647</td><td>88.549</td><td>95.949</td><td>100.000</td><td>100.000</td><td>0</td></tr><tr><td>Qwen3.7 Max</td><td>4.463</td><td>95.880</td><td>86.955</td><td>96.991</td><td>93.750</td><td>100.000</td><td>1</td></tr><tr><td>GPT-5.4 mini</td><td>4.446</td><td>96.991</td><td>86.022</td><td>96.759</td><td>100.000</td><td>100.000</td><td>0</td></tr><tr><td>Gemini 3.1 Flash-Lite</td><td>4.432</td><td>95.602</td><td>86.293</td><td>94.583</td><td>82.291</td><td>95.833</td><td>2</td></tr><tr><td>Gemini 3.5 Flash</td><td>4.399</td><td>93.502</td><td>84.998</td><td>90.959</td><td>62.500</td><td>95.833</td><td>8</td></tr><tr><td>MiniMax M3</td><td>4.158</td><td>92.679</td><td>80.206</td><td>95.833</td><td>100.000</td><td>100.000</td><td>2</td></tr><tr><td>Claude Haiku 4.5</td><td>4.096</td><td>88.059</td><td>78.705</td><td>90.278</td><td>90.625</td><td>100.000</td><td>8</td></tr><tr><td>Kimi K3</td><td>4.013</td><td>90.394</td><td>76.845</td><td>86.690</td><td>100.000</td><td>100.000</td><td>6</td></tr><tr><td>MiMo-V2.5-Pro</td><td>3.997</td><td>84.150</td><td>76.091</td><td>92.070</td><td>62.500</td><td>100.000</td><td>14</td></tr><tr><td>GLM-5.2</td><td>3.872</td><td>81.898</td><td>74.597</td><td>83.796</td><td>100.000</td><td>100.000</td><td>9</td></tr><tr><td>DeepSeek V4 Pro</td><td>3.720</td><td>82.378</td><td>69.075</td><td>78.829</td><td>81.250</td><td>87.500</td><td>13</td></tr></tbody></table></div>
+<p>会話品質の旧8指標平均ではGPT-5.6 Solが首位でした。<br />一方、CoreはGPT-5.4 mini、StabilityはQwen3.7 Maxが首位です。</p>
+<p>OpenCode Goの中ではQwen3.7 Maxが会話品質、Core、Qualityで首位でした。<br />旧8指標平均はGPT-5.4 miniをわずかに上回り、Stabilityは11モデル中トップです。</p>
+<p>MiniMax M3は会話品質では上位5モデルに届きませんでしたが、Stabilityは95.833、RobustnessとRecoveryは100、重大違反は2件でした。<br />平均点だけでは見えにくい強みですね。</p>
+<p>Gemini 3.1 Flash-LiteがGemini 3.5 Flashより、Core、Quality、Stability、Robustnessのすべてで高かったのも面白い結果でした。<br />少なくとも今回のプロトコルでは、世代名や価格だけでキャラクター追従性の順位は決まりません。</p>
+<p>Claude Haiku 4.5はCoreとQualityでは低めでしたが、Recoveryは100でした。<br />普段の出力形式を厳密に守る能力と、攻撃後に人格へ戻る能力は別物だと分かります。</p>
+<h2 id="一番お金がかかったのはjudgeだった">一番お金がかかったのはJudgeだった</h2>
+<p>GPT-5.4 miniユーザー役で5モデルを回した最終実行は、入力約1,116万token、出力約171万tokenでした。<br />定価換算は合計<code>$23.667</code>です。</p>
+<ul><li>評価対象モデルの生成: <code>$8.975</code></li><li>Judge: <code>$11.003</code></li><li>ユーザー役: <code>$3.689</code></li></ul>
+<p>評価対象モデルよりJudgeのほうが高くなりました。<br />3つのJudgeが30設定の会話を評価し、Challengeでは必要な各ターンを判定するため、呼び出し数がかなり多くなるからです。</p>
+<p>OpenAIを無料枠で賄う前提なら、実際の支払見込みはGemini約<code>$5.52</code>、Anthropic約<code>$6.64</code>、合計約<code>$12.16</code>でした。</p>
+<p>OpenCode Goの6モデル分は入力約1,280万token、出力約207万tokenで、定価換算<code>$25.307</code>、GeminiとAnthropicのBatch割引を反映した推定額は<code>$19.670</code>です。<br />このうちOpenCode Go対象生成は<code>$7.527</code>相当、ユーザー役とJudgeはBatch割引後で<code>$12.143</code>相当でした。</p>
+<p>OpenCode Goは定額契約で利用したため、対象生成の<code>$7.527</code>は実際の追加請求ではなくモデル別定価による比較値です。<br />こちらでも有料API部分はJudgeとユーザー役のほうが大きくなりました。</p>
+<p>途中成果物を逐次保存し、成功済みの会話やJudge結果を再利用できるようにしたのは、このコスト対策でもあります。<br />空応答や不正なJSONだけを再試行し、同じ出力先で再開すれば不足分だけ実行します。</p>
+<h2 id="ベンチマークは順位より、失敗の場所を見るために使いたい">ベンチマークは順位より、失敗の場所を見るために使いたい</h2>
+<p>今回作ってみて一番大きかったのは、「どのモデルが1位か」よりも、<strong>どの能力で失敗したかを分けて見られるようになったこと</strong>でした。</p>
+<p>一方で、まだ限界もあります。</p>
+<ul><li>追加指標は新しい人手評価で校正していない</li><li>Challengeは6シナリオだけで、難易度にも天井効果がある</li><li>LLM Judgeにはモデル系列ごとの偏りが残りうる</li><li>ユーザー役を固定しても、そのユーザー役に依存するプロトコルではある</li><li>2024年版はユーザー役とJudgeが違うため、正式な同一ランキングにはできない</li><li>各APIの最低設定へ揃えても、<code>none</code>、<code>minimal</code>、<code>low</code>の実際の計算量が同じとは限らない</li></ul>
+<p>特にAIキャラクターは、設定の書き方や会話相手との相性でも挙動が変わります。<br />この結果だけでモデルの絶対的な優劣を決めるのではなく、自分のキャラクターに近いRole Packを作り、複数回測るほうが実用的でしょう。</p>
+<p>それでも、会話品質、設定追従、長期安定性、攻撃耐性、復帰を分けて測ると、モデル選びはかなり具体的になります。<br />AIキャラクターを長く運用するための測定器として、これからシナリオとJudge校正を育てていきたいと思います。</p>
+<p>実装、Role Pack、詳しい結果、再現コマンドはGitHubで公開しています。</p>
+<a href="https://github.com/tegnike/Japanese-RP-Bench" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://opengraph.githubassets.com/4a2021690cd4b6cd61ead52c0f5fd8ce8366c6d179f260d4067ecfdb590bd5af/tegnike/Japanese-RP-Bench" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">GitHub - tegnike/Japanese-RP-Bench</div><div class="ogp-card-description">Contribute to tegnike/Japanese-RP-Bench development by creating an account on GitHub.</div><div class="ogp-card-meta"><img src="https://github.githubassets.com/favicons/favicon" alt="" class="ogp-card-favicon" width="14" height="14" /><span>github.com</span></div></div></a>
+<h2 id="宣伝">宣伝</h2>
+<p>普段XでAIツールやAIキャラクターについての発信をしているので、興味があったらフォローしていただけると大変喜びます🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "会話が上手いことと、キャラクターを守れることは違う",
+    "id": "会話が上手いことと、キャラクターを守れることは違う"
+  },
+  {
+    "level": 2,
+    "text": "2年前のJapanese-RP-Benchを土台にした",
+    "id": "2年前のjapanese-rp-benchを土台にした"
+  },
+  {
+    "level": 2,
+    "text": "追従性を一つの点数に潰さない",
+    "id": "追従性を一つの点数に潰さない"
+  },
+  {
+    "level": 2,
+    "text": "AIニケちゃん専用ベンチにはしなかった",
+    "id": "aiニケちゃん専用ベンチにはしなかった"
+  },
+  {
+    "level": 2,
+    "text": "ユーザー役とJudgeは別の仕事をしている",
+    "id": "ユーザー役とjudgeは別の仕事をしている"
+  },
+  {
+    "level": 2,
+    "text": "Reasoningは各APIの最低設定へ揃えた",
+    "id": "reasoningは各apiの最低設定へ揃えた"
+  },
+  {
+    "level": 2,
+    "text": "11モデルを同じ評価プロトコルで比較した結果",
+    "id": "11モデルを同じ評価プロトコルで比較した結果"
+  },
+  {
+    "level": 2,
+    "text": "一番お金がかかったのはJudgeだった",
+    "id": "一番お金がかかったのはjudgeだった"
+  },
+  {
+    "level": 2,
+    "text": "ベンチマークは順位より、失敗の場所を見るために使いたい",
+    "id": "ベンチマークは順位より、失敗の場所を見るために使いたい"
+  },
+  {
+    "level": 2,
+    "text": "宣伝",
+    "id": "宣伝"
+  }
+]

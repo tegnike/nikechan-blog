@@ -8,6 +8,16 @@
 クリーム紙に紫、青緑、ピンクのインクを重ねた、日本のインディーズ誌風リソグラフ見開き。中央の折り目をまたいで、資料と校正ペンを持ったAIニケちゃんが歩く。閉じた舞台、実用アシスタントの仕事場、AIニュースのマイク、コミュニティと記憶のネットワークを4つの誌面モジュールで見せ、校正丸、矢印、トンボ、版ずれで「方針を編集し直した」感覚を表現する。比較案のthumbnail-v7.pngを正式サムネイルとして採用したもの。
 ```
 
+## thumbnail-en.png "Rethinking AI Nike-chan's Direction"
+
+```text
+[Generation] OpenAI built-in image generation, using thumbnail.png as a visual reference
+[Size] 1200×630px (OGP standard)
+[Design] Preserve the cream paper texture, purple/teal/pink risograph palette, two-page magazine spread, central AI Nike-chan, four editorial modules, arrows, crop marks, and halftone texture
+[Title] Display only "RETHINKING AI NIKE-CHAN'S DIRECTION" as oversized condensed lettering in purple, black, and teal
+[Constraints] Remove the Japanese headline and do not add any other words, labels, logos, people, characters, or watermarks. Preserve the decorative page numbers 01 and 02
+```
+
 ## thumbnail-v1.png「舞台から仕事場へ」
 
 ```text
