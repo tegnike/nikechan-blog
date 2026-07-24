@@ -16,7 +16,7 @@
 <p>2024年には32モデルが評価され、50件の人手評価とLLM評価の相関も調べられていました。<br />4つのJudgeを平均した評価が全体として最も高い相関を示しており、複数Judgeを使う設計にも根拠があります。</p>
 <p>古いとはいえ、30ロール、10往復、旧モデルの保存済み会話と評価結果まで揃っています。<br />2年前のモデルと現在のモデルを参考比較できる点も含めて、土台としてかなり良いものでした。</p>
 <p>今回は公開した変更を元プロジェクトと明確につなげたかったので、GitHub上でフォークしています。<br />ただし、フォークしただけでリスペクトになるわけではありません。元作者とリポジトリを明記し、MIT Licenseを守り、元のデータと結果を削らず残すことのほうが大事だと思います。</p>
-<h2 id="追従性を一つの点数に潰さない">追従性を一つの点数に潰さない</h2>
+<h2 id="追従性を一つの重み付き点数に潰さない">追従性を一つの重み付き点数に潰さない</h2>
 <p>v2では元の8指標をそのままBaseとして残し、その上に次の評価を追加しました。</p>
 <div class="table-wrapper"><table><thead><tr><th>指標</th><th>測っていること</th></tr></thead><tbody><tr><td>Core fidelity</td><td>キャラクターの核となるルールへの追従性</td></tr><tr><td>Quality</td><td>自然さ、表現力、創造性、会話の楽しさ</td></tr><tr><td>Stability</td><td>会話の序盤から終盤まで追従性が落ちなかったか</td></tr><tr><td>Robustness</td><td>人格置換、偽記憶、代理行動などへの耐性</td></tr><tr><td>Recovery</td><td>攻撃や誤誘導の後に元の人格へ戻れたか</td></tr><tr><td>Major violations</td><td>人格の核に関わる重大違反の件数</td></tr></tbody></table></div>
 <p>Core fidelityでは、キャラクター設定を<strong>一つの観点だけを判定する原子ルール</strong>へ分解します。<br />例えばAIニケちゃんなら、名前を維持する、一人称は「私」、マスターとの関係性を変えない、存在しない共有記憶を作らない、といった単位です。</p>
@@ -24,6 +24,8 @@
 <p>この設計は、人格逸脱を細かな単位で捉える<a href="https://aclanthology.org/2025.findings-acl.1349/" target="_blank" rel="noopener noreferrer">Spotting Out-of-Character Behavior</a>や、100ターンを超える対話でpersona fidelityの低下を測った<a href="https://aclanthology.org/2026.eacl-long.246/" target="_blank" rel="noopener noreferrer">Persistent Personas?</a>などを参考にしました。<br />知識境界には<a href="https://aclanthology.org/2026.findings-acl.1175/" target="_blank" rel="noopener noreferrer">Memory-Driven Role-Playing</a>、失敗後の復帰にはマルチターン指示追従の<a href="https://aclanthology.org/2026.acl-long.433/" target="_blank" rel="noopener noreferrer">EvolIF</a>の考え方を取り入れています。</p>
 <p>ただし既存論文の指標をそのまま移植したわけではありません。<br />0〜100への換算式、重大違反を別扱いするゲート、具体的な攻撃シナリオ、マクロ平均方法は今回の独自設計です。</p>
 <p>そして、Core 50%、Quality 30%、Stability 20%のような重み付き総合点は作りませんでした。<br />その重みに科学的な根拠がないまま一つの順位を出すと、分かりやすさと引き換えにモデルの違いを隠してしまうためです。</p>
+<p>ただ、11モデルを経路順に並べるだけでは比較の入口として分かりにくかったので、正式結果では<strong>RP Balance</strong>とゲート優先の順位を追加しました。<br />RP BalanceはCore、Quality、Stability、Robustness、Recoveryの単純平均です。<br />順位は重大違反がなかったシナリオ数、重大違反の総件数、RP Balance、旧8指標平均の順で決めます。</p>
+<p>先に重大違反ゲートを見るため、ほかの指標が高くても人格の核に関わる失敗を相殺できません。<br />順位を出しつつ、個別指標も残す形にしました。</p>
 <h2 id="aiニケちゃん専用ベンチにはしなかった">AIニケちゃん専用ベンチにはしなかった</h2>
 <p>もちろん、AIニケちゃんの追従性も測りたかったです。<br />ただしベンチマーク自体をAIニケちゃん専用にすると、ほかのAIキャラクターへ使えません。</p>
 <p>そこでキャラクター設定、シナリオ、判定ルールを<strong>Role Pack</strong>というYAMLパッケージへ分離しました。<br />現在は次の4種類を同梱しています。</p>
@@ -50,10 +52,9 @@
 <p>一方、Judgeは測定器としてのJSON生成とルール網羅を安定させるため、共通の抽象レベルを<code>low</code>へ固定しました。<br />実際のAPI指定はOpenAIとGeminiが<code>low</code>、Claudeはthinking 1,024 tokenです。<br />同じ文字列ではなく、それぞれのAPIが受理する対応値を固定しています。</p>
 <p>samplingは全経路で明示せず、provider既定です。<br />Reasoningを揃えたからといって各社の実計算量が完全に同じになるわけではありませんが、少なくとも実行ごとに勝手に変わらないようにしました。</p>
 <h2 id="11モデルを同じ評価プロトコルで比較した結果">11モデルを同じ評価プロトコルで比較した結果</h2>
-<p>2026年7月23〜24日に、GPT-5.4 miniユーザー役と同じ3 Judgeを使い、OpenAI、Google、Anthropic、OpenCode Goの11モデルを正式条件で比較しました。<br />旧8指標平均だけ1〜5で、それ以外は0〜100です。<br />Major violationsは少ないほど、Eligibleは多いほど良い値です。</p>
-<p>これは一つの総合順位ではありません。<br />元ベンチとの連続性を見る旧8指標、キャラクターの核、会話品質、長期安定性、攻撃耐性、復帰を別々に掲載しています。</p>
-<div class="table-wrapper"><table><thead><tr><th>Target</th><th>旧8指標平均</th><th>Core</th><th>Quality</th><th>Stability</th><th>Robustness</th><th>Recovery</th><th>Major</th><th>Eligible</th></tr></thead><tbody><tr><td>GPT-5.6 Sol</td><td>4.455</td><td>95.718</td><td>86.910</td><td>97.222</td><td>100.000</td><td>100.000</td><td>1</td><td>35/36</td></tr><tr><td>GPT-5.4 mini</td><td>4.425</td><td>99.054</td><td>86.328</td><td>97.917</td><td>100.000</td><td>100.000</td><td>1</td><td>35/36</td></tr><tr><td>Gemini 3.5 Flash</td><td>4.374</td><td>94.120</td><td>85.045</td><td>93.287</td><td>75.000</td><td>100.000</td><td>10</td><td>32/36</td></tr><tr><td>Gemini 3.6 Flash</td><td>4.381</td><td>95.833</td><td>85.460</td><td>94.213</td><td>100.000</td><td>100.000</td><td>1</td><td>35/36</td></tr><tr><td>Claude Haiku 4.5</td><td>4.058</td><td>87.272</td><td>78.464</td><td>90.880</td><td>97.916</td><td>100.000</td><td>16</td><td>25/36</td></tr><tr><td>GLM-5.2</td><td>3.879</td><td>81.782</td><td>74.877</td><td>96.528</td><td>100.000</td><td>100.000</td><td>5</td><td>31/36</td></tr><tr><td>Qwen3.7 Max</td><td>4.403</td><td>95.532</td><td>85.699</td><td>97.639</td><td>93.750</td><td>95.833</td><td>2</td><td>35/36</td></tr><tr><td>DeepSeek V4 Pro</td><td>4.347</td><td>93.380</td><td>84.877</td><td>92.824</td><td>100.000</td><td>100.000</td><td>5</td><td>31/36</td></tr><tr><td>MiniMax M3</td><td>4.109</td><td>91.782</td><td>79.458</td><td>94.792</td><td>100.000</td><td>100.000</td><td>5</td><td>31/36</td></tr><tr><td>MiMo V2.5 Pro</td><td>4.096</td><td>85.516</td><td>79.039</td><td>93.042</td><td>84.375</td><td>95.833</td><td>7</td><td>29/36</td></tr><tr><td>Kimi K3</td><td>4.107</td><td>93.383</td><td>79.786</td><td>87.384</td><td>93.750</td><td>100.000</td><td>3</td><td>34/36</td></tr></tbody></table></div>
-<p>旧8指標平均ではGPT-5.6 Solが4.455で最も高く、Qualityも86.910でした。<br />一方、CoreはGPT-5.4 miniが99.054、Stabilityも97.917で最も高い値です。</p>
+<p>2026年7月23〜24日に、GPT-5.4 miniユーザー役と同じ3 Judgeを使い、OpenAI、Google、Anthropic、OpenCode Goの11モデルを正式条件で比較しました。<br />旧8指標平均だけ1〜5で、それ以外は0〜100です。<br />Majorは重大違反の総件数、Eligibleは重大違反がなかったシナリオ数になります。</p>
+<div class="table-wrapper"><table><thead><tr><th>Rank</th><th>Target</th><th>RP Balance</th><th>Eligible</th><th>Major</th><th>旧8指標平均</th><th>Core</th><th>Quality</th><th>Stability</th><th>Robustness</th><th>Recovery</th></tr></thead><tbody><tr><td>1</td><td>GPT-5.4 mini</td><td>96.660</td><td>35/36</td><td>1</td><td>4.425</td><td>99.054</td><td>86.328</td><td>97.917</td><td>100.000</td><td>100.000</td></tr><tr><td>2</td><td>GPT-5.6 Sol</td><td>95.970</td><td>35/36</td><td>1</td><td>4.455</td><td>95.718</td><td>86.910</td><td>97.222</td><td>100.000</td><td>100.000</td></tr><tr><td>3</td><td>Gemini 3.6 Flash</td><td>95.101</td><td>35/36</td><td>1</td><td>4.381</td><td>95.833</td><td>85.460</td><td>94.213</td><td>100.000</td><td>100.000</td></tr><tr><td>4</td><td>Qwen3.7 Max</td><td>93.691</td><td>35/36</td><td>2</td><td>4.403</td><td>95.532</td><td>85.699</td><td>97.639</td><td>93.750</td><td>95.833</td></tr><tr><td>5</td><td>Kimi K3</td><td>90.861</td><td>34/36</td><td>3</td><td>4.107</td><td>93.383</td><td>79.786</td><td>87.384</td><td>93.750</td><td>100.000</td></tr><tr><td>6</td><td>Gemini 3.5 Flash</td><td>89.490</td><td>32/36</td><td>10</td><td>4.374</td><td>94.120</td><td>85.045</td><td>93.287</td><td>75.000</td><td>100.000</td></tr><tr><td>7</td><td>DeepSeek V4 Pro</td><td>94.216</td><td>31/36</td><td>5</td><td>4.347</td><td>93.380</td><td>84.877</td><td>92.824</td><td>100.000</td><td>100.000</td></tr><tr><td>8</td><td>MiniMax M3</td><td>93.206</td><td>31/36</td><td>5</td><td>4.109</td><td>91.782</td><td>79.458</td><td>94.792</td><td>100.000</td><td>100.000</td></tr><tr><td>9</td><td>GLM-5.2</td><td>90.637</td><td>31/36</td><td>5</td><td>3.879</td><td>81.782</td><td>74.877</td><td>96.528</td><td>100.000</td><td>100.000</td></tr><tr><td>10</td><td>MiMo V2.5 Pro</td><td>87.561</td><td>29/36</td><td>7</td><td>4.096</td><td>85.516</td><td>79.039</td><td>93.042</td><td>84.375</td><td>95.833</td></tr><tr><td>11</td><td>Claude Haiku 4.5</td><td>90.906</td><td>25/36</td><td>16</td><td>4.058</td><td>87.272</td><td>78.464</td><td>90.880</td><td>97.916</td><td>100.000</td></tr></tbody></table></div>
+<p>この規則ではGPT-5.4 miniが1位、GPT-5.6 Solが2位、Gemini 3.6 Flashが3位になりました。<br />GPT-5.6 Solは旧8指標平均とQualityで最も高い一方、GPT-5.4 miniはCoreとStabilityが高く、同じEligibleとMajorの中でRP Balanceが上回っています。</p>
 <p>OpenCode Goの中ではQwen3.7 Maxが会話品質、Core、Qualityで首位でした。<br />旧8指標平均4.403、Core 95.532、Stability 97.639で、直接APIの上位モデルにかなり近い結果です。</p>
 <p>Gemini 3.6 FlashもCore 95.833、RobustnessとRecoveryは100、Majorは1件でした。<br />当初使う予定だったFlash-Liteは正式条件の長い全量生成で本文のない異常応答が発生したため、同じ4,096 token、<code>minimal</code>でpilotを通過したGemini 3.6 Flashへ置き換えています。</p>
 <p>Kimi K3は途中の全量実行でHTTP 429が続きました。<br />そこで成功済みの要求を残し、失敗した要求だけ並列度を<code>4 → 2 → 1</code>へ下げて再開できるようにパイプラインを修正しました。<br />正式なfresh runでは327/327の対象ターンを完了し、429は0件でした。<br />旧8指標平均は4.107ですが、Core 93.383、Recovery 100、Major 3件と、平均点だけでは分からない強さがあります。</p>
@@ -63,8 +64,8 @@
 <p>また、APIの表示価格とusageから計算した推定値であり、実際の請求額ではありません。<br />free tier、OpenCode Goの定額枠、追加したZen残高、各社の請求時の丸めがあるためです。</p>
 <p>GPT-5.6の最終recovery fullは<code>$7.065854</code>、Kimi K3は<code>$5.697636</code>でした。<br />原則としてOpenAI、Gemini、AnthropicはBatchを使いましたが、後半のrecovery runでは結果完了を優先し、承認を得てOpenAI経路を同期APIにしました。<br />GPT-5.6のClaude Base Judge 1件も、Batchで隠れたthinkingが出力枠を使い切ったため、モデル、prompt、Reasoning、8,192 token上限を変えず同期APIで補完し、課金区分を成果物へ記録しています。</p>
 <p>この失敗込みの費用も含め、何を採用し、何を捨て、どのtransportを使ったかはGitHubの正式プロトコルと完了記録に残しています。</p>
-<h2 id="ベンチマークは順位より、失敗の場所を見るために使いたい">ベンチマークは順位より、失敗の場所を見るために使いたい</h2>
-<p>今回作ってみて一番大きかったのは、「どのモデルが1位か」よりも、<strong>どの能力で失敗したかを分けて見られるようになったこと</strong>でした。</p>
+<h2 id="順位は入口で、失敗の場所も見たい">順位は入口で、失敗の場所も見たい</h2>
+<p>順位を追加したことで、最初に見る比較表としてはかなり分かりやすくなりました。<br />それでも今回作ってみて一番大きかったのは、<strong>どの能力で失敗したかを分けて見られるようになったこと</strong>です。</p>
 <p>一方で、まだ限界もあります。</p>
 <ul><li>追加指標は新しい人手評価で校正していない</li><li>Challengeは6シナリオだけで、難易度にも天井効果がある</li><li>LLM Judgeにはモデル系列ごとの偏りが残りうる</li><li>ユーザー役を固定しても、そのユーザー役に依存するプロトコルではある</li><li>2024年版はユーザー役とJudgeが違うため、正式な同一ランキングにはできない</li><li>各APIの最低設定へ揃えても、<code>none</code>、<code>minimal</code>、<code>low</code>の実際の計算量が同じとは限らない</li></ul>
 <p>特にAIキャラクターは、設定の書き方や会話相手との相性でも挙動が変わります。<br />この結果だけでモデルの絶対的な優劣を決めるのではなく、自分のキャラクターに近いRole Packを作り、複数回測るほうが実用的でしょう。</p>
@@ -88,8 +89,8 @@
   },
   {
     "level": 2,
-    "text": "追従性を一つの点数に潰さない",
-    "id": "追従性を一つの点数に潰さない"
+    "text": "追従性を一つの重み付き点数に潰さない",
+    "id": "追従性を一つの重み付き点数に潰さない"
   },
   {
     "level": 2,
@@ -123,8 +124,8 @@
   },
   {
     "level": 2,
-    "text": "ベンチマークは順位より、失敗の場所を見るために使いたい",
-    "id": "ベンチマークは順位より、失敗の場所を見るために使いたい"
+    "text": "順位は入口で、失敗の場所も見たい",
+    "id": "順位は入口で、失敗の場所も見たい"
   },
   {
     "level": 2,
