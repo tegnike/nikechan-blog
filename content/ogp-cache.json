@@ -398,5 +398,25 @@
     "siteName": "X (formerly Twitter)",
     "url": "https://x.com/ai_nikechan",
     "favicon": "https://x.com/favicon.ico"
+  },
+  "https://x.com/tegnike/status/2073874010782232885/photo/1": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://x.com/tegnike/status/2073874010782232885",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">オリジナルTCG『Break Duel（仮）』をWebアプリとして公開したのでお時間ある方ぜひ遊んでみてください<br><br>最低限のチュートリアルも入れたので1週すればなんとなくルールも理解ると思います<a href=\"https://t.co/VlmfKb7FPK\">https://t.co/VlmfKb7FPK</a><br><br>※ スマホはほぼ確認できていないのでPC専用です <a href=\"https://t.co/Y6x1ilwBtW\">pic.twitter.com/Y6x1ilwBtW</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://x.com/tegnike/status/2073874010782232885?ref_src=twsrc%5Etfw\">July 5, 2026</a></blockquote>\n\n"
+  },
+  "https://x.com/tegnike/status/2080273096775196947/video/1": {
+    "title": "ニケちゃん",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://x.com/tegnike/status/2080273096775196947",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">AIキャラ人狼バトルだああああああ（思ってたよりは面白かった） <a href=\"https://t.co/CJV4xhgqvI\">https://t.co/CJV4xhgqvI</a> <a href=\"https://t.co/4alim8w67x\">pic.twitter.com/4alim8w67x</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://x.com/tegnike/status/2080273096775196947?ref_src=twsrc%5Etfw\">July 23, 2026</a></blockquote>\n\n"
   }
 }

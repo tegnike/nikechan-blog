@@ -410,6 +410,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
   </url>
   <url>
+    <loc>https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun</loc>
+    <lastmod>2026-07-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun" />
+  </url>
+  <url>
     <loc>https://nikechan.com/dev-blog/neuro-sama-game-api-design</loc>
     <lastmod>2026-05-27</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/neuro-sama-game-api-design" />

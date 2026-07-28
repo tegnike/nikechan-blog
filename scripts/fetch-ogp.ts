@@ -62,7 +62,10 @@ async function fetchWithTimeout(input: string, init: RequestInit = {}, timeoutMs
 
 async function fetchTwitterEmbed(url: string): Promise<OgpData | null> {
   try {
-    const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(url)}&omit_script=true`
+    // Xの共有URLには /photo/1 や /video/1 が付くことがあるが、
+    // oEmbed APIには投稿本体のURLを渡す必要がある。
+    const statusUrl = url.replace(/\/(?:photo|video)\/\d+\/?$/, '')
+    const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(statusUrl)}&omit_script=true`
     const response = await fetchWithTimeout(oembedUrl)
     if (!response.ok) return null
 
