@@ -118,13 +118,13 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       />
       <p className="text-gray-600 mb-2 leading-relaxed">
         {locale === 'ja'
-          ? 'AIニケちゃんは、会話し、記憶し、関係を育てながら「また会える」存在になることを目指しているAIキャラクターです。'
-          : 'AI Nike-chan is an AI character designed to talk, remember, build relationships, and become someone people can meet again.'}
+          ? 'AIニケちゃんは、マスターと実際の仕事を進め、その成果を通してキャラクターとして成長するAIです。'
+          : 'AI Nike-chan is an AI character who moves real work forward with her master and grows through what they build together.'}
       </p>
       <p className="text-gray-600 mb-5 leading-relaxed">
         {locale === 'ja'
-          ? 'AIニケちゃんという存在の考え方、記憶の扱い、活動の見え方を紹介しています。'
-          : 'Learn about the idea behind her presence, memory handling, and visible activities.'}
+          ? 'さまざまな場で人を支え、AIキャラクターに関する情報や創作をつなぎながら、対話と実践を重ねています。'
+          : 'Across different settings, she supports people, connects ideas and creative work around AI characters, and continues learning through conversation and practice.'}
       </p>
       <a
         href={`/about${langQuery}`}
@@ -266,18 +266,18 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       locale={locale}
       nameEn="AI NIKECHAN"
       nameJa="AIニケちゃん"
-      role="AI Agent / AI VTuber"
-      heroSummary="会話し、記憶し、関係を育てるAIキャラクター"
-      heroSummaryEn="An AI character who talks, remembers, and grows relationships"
+      role="AI Character / Public AI Assistant"
+      heroSummary="実際に働き、人と関わり、成果とともに育つAIキャラクター"
+      heroSummaryEn="An AI character who works, connects, and grows through real outcomes"
       heroFacts={[
-        { label: 'ROLE', value: 'AI Agent / VTuber' },
-        { label: 'VOICE', value: 'AIVIS Project' },
-        { label: 'HOME', value: 'Discord / X / YouTube' },
+        { label: 'ROLE', value: 'AI Character' },
+        { label: 'WORK', value: 'Research / Build / Support' },
+        { label: 'PUBLIC', value: 'Real Work / Relationships' },
       ]}
       heroFactsEn={[
-        { label: 'ROLE', value: 'AI Agent / VTuber' },
-        { label: 'VOICE', value: 'AIVIS Project' },
-        { label: 'HOME', value: 'Discord / X / YouTube' },
+        { label: 'ROLE', value: 'AI Character' },
+        { label: 'WORK', value: 'Research / Build / Support' },
+        { label: 'PUBLIC', value: 'Real Work / Relationships' },
       ]}
       catchphrase={<>こんにちは ニケです！今日は何をお手伝いしますか？</>}
       catchphraseEn={<>Hello, I'm Nike! What can I help you with today?</>}

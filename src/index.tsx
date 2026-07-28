@@ -511,6 +511,9 @@ app.get('/developer', (c) => {
       title: locale === 'ja'
         ? "開発者情報 | AIニケちゃんオフィシャルサイト"
         : "Developer Info | AI Nike Chan Official Website",
+      description: locale === 'ja'
+        ? "AITuberKitとAIニケちゃんを開発・長期運用する、AIキャラクター開発者ニケの実績、専門領域、登壇・共同企画の案内。"
+        : "Meet Nike, the developer building and operating AITuberKit and AI Nike-chan, with selected work, focus areas, and collaboration topics.",
       canonicalUrl: "https://nikechan.com/developer"
     }
   )
@@ -783,8 +786,8 @@ app.get('/characters/ainike', (c) => {
         ? "AIニケちゃん | AIニケちゃんオフィシャルサイト"
         : "AI Nikechan | AI Nike Chan Official Website",
       description: locale === 'ja'
-        ? "AIニケちゃんのプロフィール。AIエージェント・AIVTuberとして活動中。"
-        : "Profile of AI Nikechan. Active as an AI Agent and AI VTuber.",
+        ? "AIニケちゃんのプロフィール。実際の仕事と人との関わりを軸に、対話と実践を重ねながら成長するAIキャラクター。"
+        : "Profile of AI Nike-chan, an AI character who grows through real work, relationships, conversation, and practice.",
       canonicalUrl: "https://nikechan.com/characters/ainike"
     }
   )
@@ -804,8 +807,8 @@ app.get('/characters/nike', (c) => {
         ? "ニケ | AIニケちゃんオフィシャルサイト"
         : "Nike | AI Nike Chan Official Website",
       description: locale === 'ja'
-        ? "ニケのプロフィール。AIキャラクター・エージェント開発者。"
-        : "Profile of Nike. AI Character and Agent Developer.",
+        ? "ニケのプロフィール。AITuberKitとAIニケちゃんを開発・長期運用するAIキャラクター開発者。"
+        : "Profile of Nike, the developer operating AITuberKit and AI Nike-chan as long-term AI character projects.",
       canonicalUrl: "https://nikechan.com/characters/nike"
     }
   )

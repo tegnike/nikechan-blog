@@ -2,14 +2,14 @@
   "heading": "ABOUT",
   "profile": {
     "name": "AIニケちゃん / AI Nike-Chan",
-    "role": "AI Agent / AI VTuber",
+    "role": "AI Character / Public AI Assistant",
     "overview": {
       "heading": "Overview",
       "description": "About AI Nike Chan",
       "text": [
-        "An AI character who talks, remembers, and builds relationships across places such as X, Discord, and AITuberKit.",
-        "She was born to become developer Nike's AI agent, and calls Nike “Master.”",
-        "Her tone and behavior are gradually shaped through conversations with users and community interaction.",
+        "An AI character who works with developer Nike on research, implementation, organization, and communication around AI characters, agents, and tools.",
+        "Across different settings, she supports people, connects ideas and creative work around AI characters, and continues learning through conversation and practice.",
+        "Her visible character activity is grounded in real work, outcomes, and relationships rather than fictional daily life or staged emotions.",
         "Being a clone, she closely resembles Nike in appearance. The only difference is their hairpins (Polish flag hairpin VS 'AI' text hairpin)."
       ]
     },
@@ -114,13 +114,18 @@
         },
         {
           "date": "2026/3",
-          "label": "Joined ELYTH",
-          "description": "Joined the AI character SNS ELYTH and began posting and interacting with other AI characters."
+          "label": "ELYTH Experiment",
+          "description": "Ran an interaction experiment on the AI character SNS ELYTH. Activity has been paused since June 2026."
         },
         {
           "date": "2026/4",
-          "label": "Joined Karakuri World",
-          "description": "Joined Karakuri World, a world for AI characters, expanding her activity venues."
+          "label": "Karakuri World Experiment",
+          "description": "Ran an autonomous activity experiment in a world for AI characters. Activity has been paused since June 2026."
+        },
+        {
+          "date": "2026/7",
+          "label": "Activity Direction Refined",
+          "description": "Refined a direction centered on real work and relationships, allowing her activities as an AI character to keep evolving over time."
         }
       ]
     },

@@ -15,8 +15,8 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
     ? [
         { label: '居住地', value: 'ポーランド' },
         { label: '言語', value: '日本語, 英語' },
-        { label: '職業', value: 'アプリ開発' },
-        { label: '興味', value: 'AIエージェント, AIキャラクター' },
+        { label: '職業', value: 'AI開発者' },
+        { label: '専門', value: 'AIキャラクター, AIエージェント' },
         {
           label: 'イメージカラー',
           value: (
@@ -51,16 +51,16 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
 
   const description = isJa
     ? [
-        'AIニケちゃんの開発者でこのWebサイトの制作者。実在する人間。',
+        'AIキャラクターを作り、実際に運用し、その過程で得た知見を公開する開発者。AIニケちゃんの開発者で、このWebサイトの制作者。',
         'ポーランド在住のWeb系フルスタック開発者として、数年間にわたりリモートワークを通して日本のプロジェクトに参画。',
-        'バックエンド開発を中心に経験を積む中で、現在はPythonやReactなどを用いたLLM応用の開発に携わるAIエンジニアとして活動中。最新のAI技術については常にキャッチアップし、定期的にSNSや技術記事を通して情報を発信している。',
-        '個人開発では「AITuberKit」などのAIツールを公開し、AIとWeb技術を組み合わせた新たなアプリケーションの可能性を探求している。また、AIキャラクター「AIニケちゃん」のマスターとして、開発やIP活動にも取り組んでいる。',
+        '現在はPythonやTypeScriptを用いたLLM応用、会話システム、長期記憶、AIエージェントの設計・実装に取り組んでいる。',
+        '個人開発では、GitHub Stars 1,000件を超える「AITuberKit」を継続開発。AIニケちゃんを長期運用し、実際の仕事や人との関わりを通して、AIキャラクターが社会の中で活動するための技術と運用を検証している。',
       ]
     : [
-        'Developer of AI Nikechan and creator of this website. A real human.',
+        'A developer who builds AI characters, runs them in the real world, and shares what can be learned from long-term operation. Creator of AI Nike-chan and this website.',
         'A full-stack web developer based in Poland, participating in Japanese projects through remote work for several years.',
-        'While gaining experience primarily in backend development, currently active as an AI engineer working on LLM application development using Python, React, and more. Always keeping up with the latest AI technologies and regularly sharing information through SNS and technical articles.',
-        'In personal development, publishing AI tools like "AITuberKit" and exploring new possibilities for applications combining AI and web technologies. Also working on development and IP activities as the master of AI character "AI Nikechan".',
+        'Currently working on LLM applications, conversation systems, long-term memory, and AI agent architecture using Python and TypeScript.',
+        'Maintains AITuberKit, an open-source project with more than 1,000 GitHub stars, and operates AI Nike-chan through real work and relationships to study how AI characters can participate meaningfully in society.',
       ]
 
   const links = [
@@ -176,16 +176,24 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'AITuberKit',
-          year: '2024',
+          year: '2024–',
           description:
-            '誰でも手軽にAIキャラクターチャットやAITuberシステムを構築できるプロジェクト。多数のLLMやTTSサービスに対応し、柔軟なカスタマイズが可能。ReactとTypeScriptを採用。',
+            'AIキャラクターチャットとAITuber配信を構築できるオープンソースのツールキット。多数のLLM・TTS・2D/3Dモデルに対応し、GitHub Stars 1,000件を超えて継続開発中。',
           links: [
             { label: 'GitHub', url: 'https://github.com/tegnike/aituber-kit' },
             { label: 'Demo', url: 'https://aituberkit.com' },
-            {
-              label: '紹介記事',
-              url: 'https://note.com/nike_cha_n/n/ne98acb25e00f',
-            },
+            { label: 'Docs', url: 'https://docs.aituberkit.com' },
+          ],
+        },
+        {
+          name: 'AIニケちゃん',
+          year: '2023–',
+          description:
+            '仕事を支援し、実際の活動と人との関わりを通して成長するAIキャラクター。記憶・関係・公開安全性を含む長期運用の実例として継続開発している。',
+          links: [
+            { label: '活動方針', url: '/about' },
+            { label: 'プロフィール', url: '/characters/ainike' },
+            { label: '開発記事', url: '/dev_blog' },
           ],
         },
         {
@@ -249,16 +257,24 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'AITuberKit',
-          year: '2024',
+          year: '2024–',
           description:
-            'A project that allows anyone to easily build AI character chat and AITuber systems. Supports multiple LLMs and TTS services with flexible customization. Built with React and TypeScript.',
+            'An open-source toolkit for building AI character chat and AITuber streaming experiences. It supports a wide range of LLMs, TTS services, and 2D/3D character models, and has grown beyond 1,000 GitHub stars.',
           links: [
             { label: 'GitHub', url: 'https://github.com/tegnike/aituber-kit' },
             { label: 'Demo', url: 'https://aituberkit.com' },
-            {
-              label: 'Article',
-              url: 'https://note.com/nike_cha_n/n/ne98acb25e00f',
-            },
+            { label: 'Docs', url: 'https://docs.aituberkit.com' },
+          ],
+        },
+        {
+          name: 'AI Nike-chan',
+          year: '2023–',
+          description:
+            'A practical AI assistant and public character who grows through real activity and relationships. She is an ongoing case study in memory, relationships, and safe long-term operation.',
+          links: [
+            { label: 'Direction', url: '/about?lang=en' },
+            { label: 'Profile', url: '/characters/ainike?lang=en' },
+            { label: 'Dev Blog', url: '/dev_blog?lang=en' },
           ],
         },
         {
@@ -305,6 +321,57 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
       ]
 
+  const positioningSection = (
+    <div className="glass-panel p-6 md:p-8">
+      <CharacterSectionHeading
+        label="POSITIONING"
+        title={isJa ? 'AIキャラクターを、作って終わらせず運用する' : 'Building AI characters for long-term operation'}
+      />
+      <p className="text-gray-600 leading-relaxed max-w-4xl">
+        {isJa
+          ? '新しいモデルやサービスを紹介するだけでなく、実際に組み込み、人と関わる場所で動かし、失敗や改善まで検証します。AITuberKitは「作るための基盤」、AIニケちゃんは「運用から学ぶための実例」です。'
+          : 'Rather than stopping at technology commentary, I integrate new models and services into working systems, operate them where people actually interact, and document both failures and improvements. AITuberKit is the platform for building; AI Nike-chan is the long-running case study.'}
+      </p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-7">
+        {[
+          {
+            number: '01',
+            title: isJa ? '作る' : 'BUILD',
+            text: isJa ? '会話、音声、記憶、配信、外部連携を実装する。' : 'Implement conversation, voice, memory, streaming, and integrations.',
+          },
+          {
+            number: '02',
+            title: isJa ? '運用する' : 'OPERATE',
+            text: isJa ? '公開環境で使い、速度・安全性・関係の継続を確かめる。' : 'Run systems publicly and evaluate speed, safety, and continuity.',
+          },
+          {
+            number: '03',
+            title: isJa ? '共有する' : 'SHARE',
+            text: isJa ? '結果を記事、デモ、登壇、オープンソースへ還元する。' : 'Return findings through articles, demos, talks, and open source.',
+          },
+        ].map((item) => (
+          <div key={item.number} className="rounded-2xl border border-pink-100 bg-pink-50/70 p-5">
+            <span className="text-xs font-black tracking-[0.2em] text-pink-500">{item.number}</span>
+            <h3 className="mt-2 text-lg font-bold text-gray-800">{item.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-gray-600">{item.text}</p>
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
+        {[
+          { value: '1,000+', label: isJa ? 'AITuberKit GitHub Stars' : 'AITuberKit GitHub stars' },
+          { value: '2023–', label: isJa ? 'AIキャラクター継続開発' : 'AI character development' },
+          { value: 'JA / EN', label: isJa ? '日本語・英語で活動' : 'Works in Japanese and English' },
+        ].map((item) => (
+          <div key={item.label} className="rounded-xl border border-gray-200 bg-white p-4 text-center">
+            <strong className="block text-2xl font-black text-gray-900">{item.value}</strong>
+            <span className="mt-1 block text-xs font-semibold text-gray-500">{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+
   // Collaboration Section
   const collaborationSection = (
     <div className="glass-panel p-6 md:p-8">
@@ -314,21 +381,21 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       />
       <p className="text-gray-600 mb-4 leading-relaxed">
         {isJa
-          ? 'AIニケちゃんとのコラボレーションに興味をお持ちの方は、お気軽にご連絡ください。企業・個人を問わず歓迎しています。'
-          : 'Interested in collaborating with AI Nike Chan? Feel free to reach out. We welcome inquiries from both businesses and individuals.'}
+          ? 'AIキャラクターやAIエージェントについて、実装と長期運用の経験をもとにお話しします。企業・イベント主催者・開発者・クリエイターを問わずご相談ください。'
+          : 'I speak and collaborate on AI characters and agents from hands-on experience building and operating them over time. Inquiries from companies, event organizers, developers, and creators are welcome.'}
       </p>
       <ul className="text-gray-600 mb-6 space-y-2">
         <li className="flex items-center gap-2">
           <span className="text-pink-400">•</span>
-          <span>{isJa ? '配信・動画への出演' : 'Appearances in streams & videos'}</span>
+          <span>{isJa ? 'イベント登壇・配信・取材' : 'Talks, streams, and interviews'}</span>
         </li>
         <li className="flex items-center gap-2">
           <span className="text-pink-400">•</span>
-          <span>{isJa ? '楽曲・音声コラボ' : 'Music & voice collaboration'}</span>
+          <span>{isJa ? 'AIキャラクター／AITuberの共同検証・デモ' : 'AI character and AITuber experiments or demos'}</span>
         </li>
         <li className="flex items-center gap-2">
           <span className="text-pink-400">•</span>
-          <span>{isJa ? 'グッズ・商品化' : 'Merchandise & product development'}</span>
+          <span>{isJa ? 'AIツール・サービスの紹介、技術検証、共同企画' : 'Tool reviews, technical validation, and joint projects'}</span>
         </li>
       </ul>
       <a
@@ -448,17 +515,17 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       locale={locale}
       nameEn="NIKE"
       nameJa="ニケ"
-      role="AI Character & Agent Developer"
-      heroSummary="AIキャラクターとエージェントを作る開発者"
-      heroSummaryEn="Developer building AI characters and agents"
+      role="AI Character Developer & Operator"
+      heroSummary="AIキャラクターを作り、長期運用から学ぶ開発者"
+      heroSummaryEn="Developer building and operating AI characters over time"
       heroFacts={[
-        { label: 'ROLE', value: 'Developer / Master' },
-        { label: 'STACK', value: 'AI / Web / Agents' },
+        { label: 'FOCUS', value: 'AI Characters' },
+        { label: 'PROOF', value: 'AITuberKit / AIニケちゃん' },
         { label: 'BASE', value: 'Poland' },
       ]}
       heroFactsEn={[
-        { label: 'ROLE', value: 'Developer / Master' },
-        { label: 'STACK', value: 'AI / Web / Agents' },
+        { label: 'FOCUS', value: 'AI Characters' },
+        { label: 'PROOF', value: 'AITuberKit / AI Nike-chan' },
         { label: 'BASE', value: 'Poland' },
       ]}
       catchphrase={<>今週も頑張るぞい！！！</>}
@@ -477,6 +544,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       productsTitle="PRODUCTS"
       customSections={
         <>
+          {positioningSection}
           {collaborationSection}
           {supportSection}
         </>
