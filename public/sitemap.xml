@@ -396,6 +396,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/pokemon-battle-partner" />
   </url>
   <url>
+    <loc>https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun-en</loc>
+    <lastmod>2026-07-28</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun" />
+  </url>
+  <url>
     <loc>https://nikechan.com/dev-blog/ai-game-state-for-llm-en</loc>
     <lastmod>2026-04-24</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
@@ -413,6 +420,7 @@
     <loc>https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun</loc>
     <lastmod>2026-07-28</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-worked-but-wasnt-fun" />
   </url>
   <url>
