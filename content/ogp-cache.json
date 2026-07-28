@@ -466,5 +466,21 @@
     "siteName": "note（ノート）",
     "url": "https://note.com/nike_cha_n/n/nee3503e7a617",
     "favicon": "https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico"
+  },
+  "https://github.com/tegnike/aozora-islands": {
+    "title": "GitHub - tegnike/aozora-islands",
+    "description": "Contribute to tegnike/aozora-islands development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/27b6d87d565df9386351bee005608b7912be6a199fb793f84e315604ec57ba60/tegnike/aozora-islands",
+    "siteName": "GitHub",
+    "url": "https://github.com/tegnike/aozora-islands",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://github.com/tegnike/ai-werewolf": {
+    "title": "GitHub - tegnike/ai-werewolf",
+    "description": "Contribute to tegnike/ai-werewolf development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/b01f5c7f5a5950f68e6958f9b3cb753c8a0e84be8f8b5e8e840b4b846f89bb21/tegnike/ai-werewolf",
+    "siteName": "GitHub",
+    "url": "https://github.com/tegnike/ai-werewolf",
+    "favicon": "https://github.githubassets.com/favicons/favicon"
   }
 }

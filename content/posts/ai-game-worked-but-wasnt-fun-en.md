@@ -14,7 +14,7 @@ The two projects that came out of those experiments were **an original trading c
 Neither project stopped at the idea stage; I developed both far enough to work as games.
 However, I have now stopped working on both of them.
 
-This is a look back at how testing the completed social deduction game led me to end development on both projects.
+This is a look back at how I came to stop developing both games.
 
 ## I Wanted AI Characters to Play Games
 
@@ -22,21 +22,23 @@ I started building the original TCG because I wanted AI characters to be able to
 Kaggle is currently hosting the [PTCG AI Battle Challenge Simulation](https://www.kaggle.com/competitions/pokemon-tcg-ai-battle/overview/description), a competition for developing AI agents that can play Pokémon TCG matches.
 
 The competition provides source code that allows AI agents to play Pokémon TCG.
-However, that code may only be used for Kaggle-related purposes, not for other projects.
+I wondered whether I could use it for streams where AI characters play Pokémon TCG against each other, but the source code may only be used for Kaggle-related purposes, not for anything else.
+Of course, even if I recreated Pokémon TCG with my own implementation, using it this way would likely violate the relevant terms.
 
-So I decided to build an original TCG myself.
+So I decided to build an original TCG instead.
 
 ## First, Make a TCG That Humans Would Enjoy
 
-For the original TCG, I designed the game from the underlying rules up so that it would not resemble existing card games too closely.
+First, I looked for open-source projects modeled after existing card games.
+The search did not turn up much: all I found were reimplementations of existing TCGs—which were obviously out of the question—and projects that had not been updated for several years.
 
-My requirements included matches that ended in around five minutes, room for deck-building decisions, AI characters that remained on the field, and a small action space.
-I also wanted to avoid mechanics strongly associated with existing intellectual properties while making the game suitable for running large numbers of AI simulations.
+That led me to consider building an original TCG.
+I designed the rules from the ground up so that the game would not resemble existing card games too closely.
 
-During development, my first priority was to make a game that humans would genuinely enjoy playing.
+Because it was meant for AI characters, my requirements included matches lasting around five minutes, room for deck-building decisions, characters that would be visibly present on the board, and a small action space.
 
-I did not expect a game that humans found boring to become entertaining simply because AI characters were playing it.
-That meant continuing to refine the rules and balance until it worked as a card game in its own right.
+Although I was making the game for AI characters, I did not expect a game that humans found boring to become entertaining simply because AI was playing it.
+So my first goal was to make something that humans would genuinely enjoy playing.
 
 https://x.com/tegnike/status/2073874010782232885/photo/1
 
@@ -59,7 +61,7 @@ https://x.com/tegnike/status/2080273096775196947/video/1
 Watching the finished game, I found that the AI characters moved through their conversations so matter-of-factly that the whole match felt flat.
 
 Part of what makes social deduction games entertaining to watch is the way human performers—such as VTubers and YouTubers—turn their conversations and reactions into a show.
-Even with the same rules, AI characters calmly talking to one another did not create the kind of high points that made me want to see what happened next.
+Even with the same rules, AI characters calmly talking to one another produced almost no moments that made me want to keep watching.
 
 Turning it into compelling content would have required much stronger presentation, including sound effects and visual direction.
 At that point, however, the work would no longer have been limited to game development; it would have moved into entertainment production.
@@ -69,8 +71,8 @@ So I ended development of the social deduction game there.
 
 ## The Social Deduction Game Also Changed My Mind About the TCG
 
-I never tested an AI-versus-AI match in the original TCG.
-After seeing the completed social deduction game, however, I came to believe that the TCG would likely run into the same limitation.
+I had not yet reached the point of testing an AI-versus-AI match in the original TCG.
+After seeing the completed social deduction game, however, I believed that the TCG would likely run into the same limitation.
 
 The plan for the TCG was to first make it enjoyable for human players, and it still needed a great deal of development before reaching that point.
 If I put in all that work, would AI characters playing it actually become entertaining content?
@@ -91,6 +93,14 @@ For now, I am not planning to make another game.
 I still want to think more about what it means for an AI to play a game in the first place.
 
 At the very least, this experience taught me that making the game work is not enough; the way it is presented has to be designed as well.
+
+## What I Built
+
+For what it's worth, I've made both projects publicly available.
+
+https://github.com/tegnike/aozora-islands
+
+https://github.com/tegnike/ai-werewolf
 
 ## Follow Me
 
