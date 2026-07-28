@@ -418,5 +418,53 @@
     "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
     "type": "twitter-embed",
     "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"ja\" dir=\"ltr\">AIキャラ人狼バトルだああああああ（思ってたよりは面白かった） <a href=\"https://t.co/CJV4xhgqvI\">https://t.co/CJV4xhgqvI</a> <a href=\"https://t.co/4alim8w67x\">pic.twitter.com/4alim8w67x</a></p>&mdash; ニケちゃん (@tegnike) <a href=\"https://x.com/tegnike/status/2080273096775196947?ref_src=twsrc%5Etfw\">July 23, 2026</a></blockquote>\n\n"
+  },
+  "https://note.com/nike_cha_n/n/n9a467559f7c8": {
+    "title": "CursorにTODOアプリ作ってもらった｜ニケちゃん",
+    "description": "登場から2ヶ月、ようやくCursorというAIエディタを使い始めました。いつも使っているVSCodeからフォークされているプロジェクトということもあって操作性はかなり良いです。  \n\n\nCursor - The AI-first Code Editor\n\n\nCursor is the IDE of the future, built for pair-programming w\n\n\nwww.cursor.so\n\n\n\n \n この度業務で今まで使ったことのない新しい言語を使用することになったのですが、Cursorには『New AI Project』なる機能があるということなので試してみるこ",
+    "image": "https://assets.st-note.com/production/uploads/images/120049597/rectangle_large_type_2_d01bef15ad3128faa8fa64965c19a390.png?fit=bounds&quality=85&width=1280",
+    "siteName": "note（ノート）",
+    "url": "https://note.com/nike_cha_n/n/n9a467559f7c8",
+    "favicon": "https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico"
+  },
+  "https://note.com/nike_cha_n/n/nfcd5292b2359": {
+    "title": "Cursor歴1ヶ月の私がよく使う機能を紹介する｜ニケちゃん",
+    "description": "最新版の記事を下記に更新しました。 \n 以下は古い記事です。   こんにちは、ニケです。 皆さんCursor使っていますでしょうか？  私は10月の終わり頃から使い始め、VSCodeから切り替えて早くも1ヶ月が経ちました。  VSCodeのときは、ChatGPTと併用するか、拡張機能であるGenieをお供にペアプログラミングしてました。 Cursorもペアプログラミングするという意味ではやってること自体は同じなのですが、それでももうVSCodeには戻れないくらいには便利さを感じています。  今回は私が普段使っているCursorの機能について紹介します。  そもそも、Cursorってなん",
+    "image": "https://assets.st-note.com/production/uploads/images/123203238/rectangle_large_type_2_b77b417f82ae25a023deca8d31a5f133.jpeg?fit=bounds&quality=85&width=1280",
+    "siteName": "note（ノート）",
+    "url": "https://note.com/nike_cha_n/n/nfcd5292b2359",
+    "favicon": "https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico"
+  },
+  "https://note.com/nike_cha_n/n/n444e28ec0c73": {
+    "title": "CursorとClaudeを使った最近の私の開発環境｜ニケちゃん",
+    "description": "最新版の記事を下記に更新しました。 \n 以下は古い記事です。   こんにちは、ニケです。 皆さん、CursorとClaude使っておりますでしょうか？  ブラウザ版Claudeに課金してはや数週間、もうこれがないとコーディングもままならないくらいには依存しちゃっています。  それまではCursorのChat欄メイン、たまーにうまくいかないときにChatGPTを使っていましたが、もう完全に乗り換えてしまいました。 GPTsのようなChatGPT専用の機能も元々あまり使っていなかったので、今回のサムネ作成で2週間ぶりに使用…（もうサブスク辞めようかな  というわけで今回は私が普段どうやって",
+    "image": "https://assets.st-note.com/production/uploads/images/135434989/rectangle_large_type_2_1bdbd06d8a60358511c18ba69c2ac719.png?fit=bounds&quality=85&width=1280",
+    "siteName": "note（ノート）",
+    "url": "https://note.com/nike_cha_n/n/n444e28ec0c73",
+    "favicon": "https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico"
+  },
+  "https://note.com/nike_cha_n/n/nd0f7566019ae": {
+    "title": "私のシンプルCursor活用方法｜ニケちゃん",
+    "description": "こんにちは、ニケです。 皆さん、Cursor&amp;nbsp;使っていますでしょうか？  私はそろそろ使用歴1年半くらいになります。  5ヶ月前にこんな記事を書いたのですが、AI時代のコーディングアシスタントの進化は早く、今はもうこの時とは全く異なる使い方をしているので改めて紹介したいと思います（一部被っている内容もあります）。 \n なお、AIコーディングアシスタントにはその他にも、Github CopilotやCline、Windsurfなどがありますが、これらのコーディングツールはCursorほど使ったことがないため、今回の記事では紹介・比較はしません。  XのTLでもいろんな宗派を見か",
+    "image": "https://assets.st-note.com/production/uploads/images/174023781/rectangle_large_type_2_c14a52282fd616bb1d85618d94698621.png?fit=bounds&quality=85&width=1280",
+    "siteName": "note（ノート）",
+    "url": "https://note.com/nike_cha_n/n/nd0f7566019ae",
+    "favicon": "https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico"
+  },
+  "https://note.com/nike_cha_n/n/n6b2c5720832c": {
+    "title": "私が使ってるAIツールを紹介する｜ニケちゃん",
+    "description": "こんにちは、ニケです。 皆さんは日頃何のAIツールを使っていますでしょうか？  最近はXを眺めてるだけでもTLにどんどん新しいAIツールやサービスが流れてきて、どれがどれだけすごいのか、何を使えば良いかわからなくなってしまいますね。  というわけで今回は私が良く使っているAIツールについてまとめたいと思います。 また、併せてそれぞれの使い方とおおよその費用についても紹介します。  内容はほぼ私の主観なので、こういう意見もあるんだな〜、くらいに思っていただければ幸いです。  簡易版はこちらに書いたので時間がない方はこちらをどうぞ   私の課金状況✌  たぶん月$200~300くらい  C",
+    "image": "https://assets.st-note.com/production/uploads/images/189000354/rectangle_large_type_2_e3b9561bf39b337afa0447a69c422c05.png?fit=bounds&quality=85&width=1280",
+    "siteName": "note（ノート）",
+    "url": "https://note.com/nike_cha_n/n/n6b2c5720832c",
+    "favicon": "https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico"
+  },
+  "https://note.com/nike_cha_n/n/nee3503e7a617": {
+    "title": "私のシンプルなClaude Codeの使い方｜ニケちゃん",
+    "description": "こんにちは！ニケです！ 皆さん、Claude Code 使っていますでしょうか？  2025年5月22日にAnthropic社の開発者向けイベントでClaude4シリーズが発表されました。 Sonnet3.5 および 3.7の期間が長かったので、心待ちにしていたかとも多いと思います。    発表内容はこちらの記事にまとまっているので気になる方はチェックしてみましょう。  \n\n\nAnthropic の Code with Claude に関する発表まとめ\n\n\n\n\n\nzenn.dev\n\n\n\n \n そしてそれと同時に&amp;nbsp;Claude Code が正式リリースされました。 Claude",
+    "image": "https://assets.st-note.com/production/uploads/images/192562931/rectangle_large_type_2_8526339583b4ee2d5c2ab00a6720707e.png?fit=bounds&quality=85&width=1280",
+    "siteName": "note（ノート）",
+    "url": "https://note.com/nike_cha_n/n/nee3503e7a617",
+    "favicon": "https://assets.st-note.com/poc-image/manual/note-common-images/production/svg/production.ico"
   }
 }

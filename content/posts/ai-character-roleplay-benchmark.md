@@ -4,6 +4,7 @@ date: "2026-07-24"
 tags: ["AIキャラクター", "LLM", "ベンチマーク", "Japanese-RP-Bench"]
 description: "AIキャラクターが長い会話や人格置換の誘導でも設定を守れるかを測るため、Japanese-RP-Bench v2を作りました。設計の経緯、LLM Judgeの構成、11モデルの実験結果をまとめます。"
 thumbnail: "/static/images/posts/ai-character-roleplay-benchmark/thumbnail.png"
+draft: true
 ---
 
 こんにちは、ニケです。
