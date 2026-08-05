@@ -160,7 +160,7 @@ AITuberKit にはまだまだ紹介しきれていない機能があるので、
 ```markdown
 気になる方はぜひ Discord に見に来てください。
 
-[https://discord.com/invite/G4E5Sf3yj3](https://discord.com/invite/G4E5Sf3yj3)
+[https://discord.gg/nikechan](https://discord.gg/nikechan)
 ```
 
 絵文字は記事本文ではほぼ使わず、宣伝セクションだけで `🙇‍♀️` `🙌` `🔥` を控えめに使う。多用禁止。

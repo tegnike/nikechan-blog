@@ -187,4 +187,4 @@ AIニケちゃんの次の活動は、そこから始めます。
 
 - [開発者のX](https://x.com/tegnike)
 - [AIニケちゃんのX](https://x.com/ai_nikechan)
-- [AIニケちゃん公開Discord](https://discord.com/invite/G4E5Sf3yj3)
+- [AIニケちゃん公開Discord](https://discord.gg/nikechan)

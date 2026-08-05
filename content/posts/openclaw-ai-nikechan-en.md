@@ -193,4 +193,4 @@ I'm also grateful to all the server members who chatted so enthusiastically with
 
 By the way, the OpenClaw version is still running on the Discord server, so if you're curious, come check it out below.
 
-[https://discord.com/invite/G4E5Sf3yj3](https://discord.com/invite/G4E5Sf3yj3)
+[https://discord.gg/nikechan](https://discord.gg/nikechan)

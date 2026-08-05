@@ -206,4 +206,4 @@ https://x.com/ai_nikechan
 
 AI Nike-chan's public Discord:
 
-https://discord.com/invite/G4E5Sf3yj3
+https://discord.gg/nikechan

@@ -193,4 +193,4 @@ Discordでたくさん喋ってくれたメンバーの皆さんにも感謝し�
 
 ちなみにまだOpenClaw版はDiscordサーバーで動いているので、気になる方は以下から見に来てください。
 
-[https://discord.com/invite/G4E5Sf3yj3](https://discord.com/invite/G4E5Sf3yj3)
+[https://discord.gg/nikechan](https://discord.gg/nikechan)
