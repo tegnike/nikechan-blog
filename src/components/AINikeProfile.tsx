@@ -14,6 +14,12 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   const details = t('about:profile.details', { returnObjects: true }) as Record<string, { label: string; value: string; guidelinesLink?: string }>
   const overview = t('about:profile.overview', { returnObjects: true }) as { text: string[] }
+  const derivative = t('about:profile.derivative', { returnObjects: true }) as {
+    heading: string
+    text: string
+    conditions: string
+    button: string
+  }
   const history = t('about:profile.history', { returnObjects: true }) as { events: Array<{ date: string; label: string; description: string }> }
   const support = t('about:profile.support', { returnObjects: true }) as {
     description: string
@@ -133,6 +139,25 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       >
         <i className="fa-solid fa-id-card text-sm"></i>
         {locale === 'ja' ? 'AIニケちゃんについて' : 'About AI Nike-chan'}
+      </a>
+    </div>
+  )
+
+  const derivativeSection = (
+    <div className="glass-panel p-6 md:p-8">
+      <CharacterSectionHeading label="FAN WORK" title={derivative.heading} />
+      <p className="text-gray-600 mb-4 leading-relaxed">
+        {derivative.text}
+      </p>
+      <p className="text-gray-600 mb-6 leading-relaxed">
+        {derivative.conditions}
+      </p>
+      <a
+        href={`/guidelines${langQuery}`}
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+        style={{ backgroundColor: '#5A4C97' }}
+      >
+        {derivative.button}
       </a>
     </div>
   )
@@ -294,6 +319,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       customSections={
         <>
           {worldSection}
+          {derivativeSection}
           {collaborationSection}
           {lineStampSection}
           {supportSection}

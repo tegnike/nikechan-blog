@@ -53,7 +53,7 @@ const quickGuideContent: Record<Locale, {
     detailLabel: '詳細版',
     eyebrow: 'まずここだけ',
     title: 'とりあえずこれを読めばOK！',
-    lead: 'AIニケちゃんたちの二次創作は、非公式・非営利・権利尊重を守ればかなり自由に楽しめます。迷ったら、この早見版から確認してください。',
+    lead: 'AIニケちゃんたちの二次創作は、非公式・非営利・権利尊重を守れば、イラスト、漫画、小説、動画、配信、ゲーム、音楽など、ジャンルを問わず幅広く楽しめます。',
     petMessage: '細かい条件は詳細版が正本です。まずは「OK」「条件つきOK」「相談してね」「NG」を見ればだいたい判断できます。',
     cards: [
       {
@@ -131,7 +131,7 @@ const quickGuideContent: Record<Locale, {
     detailLabel: 'Detailed',
     eyebrow: 'Start here',
     title: 'Read this first!',
-    lead: 'AI Nike Chan derivative works are broadly welcome when they are unofficial, non-commercial, and respectful of rights. Use this quick guide when you need a fast answer.',
+    lead: 'Fan works featuring AI Nike-chan and the other characters are welcome across any genre—including illustrations, comics, novels, videos, streams, games, and music—provided they remain unofficial, non-commercial, and respectful of rights.',
     petMessage: 'The detailed guidelines are the official source. Start with OK, Conditional OK, Ask first, and NG to judge most cases.',
     cards: [
       {
