@@ -73,12 +73,13 @@ interface CharacterDetailProps {
 interface CharacterSectionHeadingProps {
   label: string
   title: ReactNode
+  headingId?: string
 }
 
-export const CharacterSectionHeading: FC<CharacterSectionHeadingProps> = ({ label, title }) => (
+export const CharacterSectionHeading: FC<CharacterSectionHeadingProps> = ({ label, title, headingId }) => (
   <div className="character-section-heading character-section-heading--additional">
     <span>{label}</span>
-    <h2>{title}</h2>
+    <h2 id={headingId}>{title}</h2>
   </div>
 )
 

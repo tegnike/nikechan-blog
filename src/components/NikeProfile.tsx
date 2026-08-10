@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { Heart } from 'lucide-react'
 import { CharacterDetail, CharacterSectionHeading } from './CharacterDetail'
+import { DeveloperActivities } from './DeveloperActivities'
 import { Locale } from '../i18n/config'
 
 interface NikeProfileProps {
@@ -545,6 +546,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       customSections={
         <>
           {positioningSection}
+          <DeveloperActivities locale={locale} />
           {collaborationSection}
           {supportSection}
         </>

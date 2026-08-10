@@ -3297,6 +3297,209 @@
   line-height: 1.85;
 }
 
+.developer-activities {
+  padding: 30px !important;
+}
+
+.developer-activities__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.86fr);
+  gap: 36px;
+  align-items: end;
+}
+
+.developer-activities__heading > p {
+  margin: 0 0 7px;
+  color: #4d455c;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.developer-activities__list {
+  display: grid;
+  gap: 18px;
+  margin: 28px 0 0 !important;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.developer-activity-card {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 0 !important;
+  overflow: hidden;
+  padding: 0 !important;
+  border: 3px solid var(--character-ink);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 6px 6px 0 rgba(23, 19, 39, 0.16);
+}
+
+.developer-activity-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 76px;
+  height: 8px;
+  background: var(--character-yellow);
+  border-bottom: 3px solid var(--character-ink);
+  border-left: 3px solid var(--character-ink);
+}
+
+.developer-activity-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 22px;
+  border-right: 3px solid var(--character-ink);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--char-color) 14%, white), #fff 76%);
+}
+
+.developer-activity-card__kind {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  padding: 0 11px;
+  border: 2px solid var(--character-ink);
+  border-radius: 999px;
+  background: var(--char-color);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.developer-activity-card__kind--exhibition {
+  background: #5a4c97;
+}
+
+.developer-activity-card__kind--participation {
+  background: #187d8c;
+}
+
+.developer-activity-card__meta time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--character-ink);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.developer-activity-card__meta time svg {
+  width: 17px;
+  height: 17px;
+  color: var(--char-color);
+  stroke-width: 2.5;
+}
+
+.developer-activity-card__body {
+  padding: 24px 28px 26px;
+}
+
+.developer-activity-card__body h3 {
+  margin: 0;
+  padding-right: 42px;
+  color: var(--character-ink) !important;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.developer-activity-card__body > p {
+  margin: 9px 0 0 !important;
+  color: #4d455c !important;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.8;
+}
+
+.character-page ul.developer-activity-card__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px !important;
+  margin: 17px 0 0 !important;
+  padding: 0 !important;
+  list-style: none;
+}
+
+.developer-activity-card__topics li {
+  padding: 5px 9px !important;
+  border: 1px solid color-mix(in srgb, var(--char-color) 32%, white);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--char-color) 8%, white);
+  color: #51495f !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+}
+
+.developer-activity-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.character-page .developer-activity-card__links a:not(.character-reference-download) {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 12px;
+  border-width: 2px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 0 var(--character-ink);
+  font-size: 12px;
+}
+
+.developer-activity-card__links svg {
+  width: 13px;
+  height: 13px;
+}
+
+@media (max-width: 720px) {
+  .developer-activities {
+    padding: 22px 18px !important;
+  }
+
+  .developer-activities__heading,
+  .developer-activity-card {
+    grid-template-columns: 1fr;
+  }
+
+  .developer-activities__heading {
+    gap: 5px;
+  }
+
+  .developer-activity-card__meta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 17px 18px;
+    border-right: 0;
+    border-bottom: 3px solid var(--character-ink);
+  }
+
+  .developer-activity-card__body {
+    padding: 20px 18px 22px;
+  }
+
+  .developer-activity-card__body h3 {
+    padding-right: 24px;
+    font-size: 18px;
+  }
+}
+
 .character-reference-panel img {
   border: 0;
   border-radius: 4px;
