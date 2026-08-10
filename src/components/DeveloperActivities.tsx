@@ -1,4 +1,4 @@
-import { CalendarDays, ExternalLink } from 'lucide-react'
+import { ArrowRight, CalendarDays, ExternalLink, Presentation } from 'lucide-react'
 import { type Locale } from '../i18n/config'
 import {
   developerActivities,
@@ -9,6 +9,8 @@ import { CharacterSectionHeading } from './CharacterDetail'
 
 type Props = {
   locale: Locale
+  limit?: number
+  showAllLink?: boolean
 }
 
 const kindLabels: Record<DeveloperActivityKind, LocalizedText> = {
@@ -24,8 +26,12 @@ const formatDate = (date: string, locale: Locale) => {
     : `${month}/${day}/${year}`
 }
 
-export function DeveloperActivities({ locale }: Props) {
+export function DeveloperActivities({ locale, limit, showAllLink = false }: Props) {
   const localize = (text: LocalizedText) => text[locale]
+  const visibleActivities = typeof limit === 'number'
+    ? developerActivities.slice(0, limit)
+    : developerActivities
+  const langQuery = locale === 'ja' ? '' : '?lang=en'
 
   return (
     <section id="activities" className="glass-panel developer-activities scroll-mt-28" aria-labelledby="activities-title">
@@ -43,7 +49,7 @@ export function DeveloperActivities({ locale }: Props) {
       </div>
 
       <ol className="developer-activities__list">
-        {developerActivities.map((activity) => (
+        {visibleActivities.map((activity) => (
           <li key={`${activity.date}-${activity.kind}`} className="developer-activity-card">
             <div className="developer-activity-card__meta">
               <span className={`developer-activity-card__kind developer-activity-card__kind--${activity.kind}`}>
@@ -64,6 +70,15 @@ export function DeveloperActivities({ locale }: Props) {
                 ))}
               </ul>
               <div className="developer-activity-card__links">
+                {activity.slides && (
+                  <a
+                    href={`/activities/${activity.slug}${langQuery}`}
+                    className="developer-activity-card__slides-link"
+                  >
+                    {locale === 'ja' ? 'スライドを見る' : 'View slides'}
+                    <Presentation aria-hidden="true" />
+                  </a>
+                )}
                 {activity.links.map((link) => {
                   const url = localize(link.url)
                   const isExternal = url.startsWith('http')
@@ -84,6 +99,15 @@ export function DeveloperActivities({ locale }: Props) {
           </li>
         ))}
       </ol>
+
+      {showAllLink && developerActivities.length > visibleActivities.length && (
+        <div className="developer-activities__all">
+          <a href={`/activities${langQuery}`}>
+            {locale === 'ja' ? 'すべての記録を見る' : 'View all records'}
+            <ArrowRight aria-hidden="true" />
+          </a>
+        </div>
+      )}
     </section>
   )
 }

@@ -158,6 +158,42 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/developer" />
   </url>
   <url>
+    <loc>https://nikechan.com/activities</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/activities" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/activities?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/activities" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/activities?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/activities" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/activities?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/activities" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/activities/alibaba-meetup-sapporo-2026</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/activities/alibaba-meetup-sapporo-2026" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/activities/alibaba-meetup-sapporo-2026?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/activities/alibaba-meetup-sapporo-2026" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/activities/alibaba-meetup-sapporo-2026?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/activities/alibaba-meetup-sapporo-2026" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/activities/alibaba-meetup-sapporo-2026?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/activities/alibaba-meetup-sapporo-2026" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/activities/ai-contents-boost-06</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/activities/ai-contents-boost-06" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/activities/ai-contents-boost-06?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/activities/ai-contents-boost-06" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/activities/ai-contents-boost-06?lang=en</loc>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/activities/ai-contents-boost-06" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/activities/ai-contents-boost-06?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/activities/ai-contents-boost-06" />
+  </url>
+  <url>
     <loc>https://nikechan.com/dev-blog</loc>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog?lang=en" />

@@ -86,6 +86,7 @@ export default defineConfig(({ mode }) => {
           /^\/node_modules\/.*/,
           /^\/images\/.+/,
           /^\/icons\/.+/,
+          /^\/slides\/.+/,
           /^\/manifest\.json$/,
           /^\/robots\.txt$/,
           /^\/sitemap\.xml$/,

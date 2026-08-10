@@ -10,6 +10,8 @@ import { Log } from './components/Log'
 import { BlogDetail } from './components/BlogDetail'
 import { MonthlySummary } from './components/MonthlySummary'
 import { Developer } from './components/Developer'
+import { Activities } from './components/Activities'
+import { ActivityDetail } from './components/ActivityDetail'
 import { TikTokIntegration } from './components/TikTokIntegration'
 import { License } from './components/License'
 import { LegalPage } from './components/LegalPage'
@@ -42,6 +44,7 @@ import {
   getPublishedArticles,
 } from './lib/activity-log'
 import type { AiCharacterNewsDateGroup, AiCharacterNewsItem } from './lib/ai-character-news'
+import { getDeveloperActivityBySlug } from './utils/developerActivities'
 
 const app = new Hono()
 const AI_NEWS_PAGE_SIZE = 10
@@ -515,6 +518,54 @@ app.get('/developer', (c) => {
         ? "AITuberKitとAIニケちゃんを開発・長期運用する、AIキャラクター開発者ニケの実績、専門領域、登壇・共同企画の案内。"
         : "Meet Nike, the developer building and operating AITuberKit and AI Nike-chan, with selected work, focus areas, and collaboration topics.",
       canonicalUrl: "https://nikechan.com/developer"
+    }
+  )
+})
+
+// Events, exhibitions, and talks
+app.get('/activities', (c) => {
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <Activities locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: locale === 'ja'
+        ? 'イベント参加・登壇記録 | AIニケちゃんオフィシャルサイト'
+        : 'Events & Talks | AI Nike Chan Official Website',
+      description: locale === 'ja'
+        ? '開発者ニケのイベント参加、展示、登壇の記録。AIキャラクター、AITuber、AIエージェントに関する発表内容と公開リンクを掲載しています。'
+        : 'A public record of Nike’s events, exhibitions, and talks on AI characters, AITubers, and AI agents.',
+      canonicalUrl: 'https://nikechan.com/activities',
+      ogType: 'website',
+      keywords: locale === 'ja'
+        ? 'ニケ, 登壇, イベント, 展示, AIキャラクター, AITuber, AIエージェント'
+        : 'Nike, talks, events, exhibitions, AI characters, AITuber, AI agents',
+    }
+  )
+})
+
+app.get('/activities/:slug', (c) => {
+  const activity = getDeveloperActivityBySlug(c.req.param('slug'))
+  if (!activity?.slides) return c.notFound()
+
+  const currentPath = c.req.path
+  const locale = c.get('locale') as Locale
+  const title = activity.slides.title[locale]
+
+  return c.render(
+    <Layout currentPath={currentPath} locale={locale}>
+      <ActivityDetail activity={activity} locale={locale} />
+    </Layout>,
+    {
+      locale,
+      title: `${title} | ${locale === 'ja' ? '登壇スライド' : 'Talk Slides'} | AI Nike Chan`,
+      description: activity.description[locale],
+      canonicalUrl: `https://nikechan.com/activities/${activity.slug}`,
+      ogType: 'article',
+      keywords: activity.topics.map((topic) => topic[locale]).join(', '),
     }
   )
 })

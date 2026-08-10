@@ -33,7 +33,13 @@
 - PRs must include: purpose, key changes, screenshots/GIFs for UI, steps to verify, and any config/env notes.
 - Checks before submit: build passes (`bun run build`), no runtime errors in `bun run dev`, assets under `public/` only, no `.env` committed.
 
+## Git & Deployment Safety
+- An implementation or editing request authorizes local changes and local validation only. Do not run `git push` unless the user explicitly asks for a push in the current conversation.
+- A push automatically triggers the deployment workflow in GitHub Actions. Treat every push as a production deployment action, even when no deploy command is run directly.
+- Do not run `bun run deploy`, `wrangler deploy`, or any other direct deployment command unless the user explicitly requests a deployment.
+- A local commit does not authorize a push. After committing, keep the commit local until the user explicitly approves pushing it.
+- When the user asks to review content before publication, stop after local implementation and validation. Do not push or deploy while review is pending.
+
 ## Security & Configuration
 - Env vars: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`. Use `.env` (see `.env.template`) and configure in Cloudflare Pages env settings.
 - Do not commit secrets or service keys. Prefer server-side access via Workers KV/R2/D1 when added.
-

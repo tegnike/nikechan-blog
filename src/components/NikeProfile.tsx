@@ -546,7 +546,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       customSections={
         <>
           {positioningSection}
-          <DeveloperActivities locale={locale} />
+          <DeveloperActivities locale={locale} limit={3} showAllLink />
           {collaborationSection}
           {supportSection}
         </>

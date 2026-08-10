@@ -34,7 +34,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
       : clean === path;
     return isActive ? 'site-nav-link--active' : '';
   };
-  const isOtherActive = ["/updates", "/ai-news", "/dev-blog", "/developer"].some((p) => {
+  const isOtherActive = ["/updates", "/ai-news", "/dev-blog", "/activities", "/developer"].some((p) => {
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     return clean === p || clean.startsWith(`${p}/`)
   })
@@ -118,6 +118,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
                 <a href={addLangParam("/updates")} role="menuitem" className={getLinkClass('/updates', true)}>{t('navigation:news')}</a>
                 <a href={addLangParam("/ai-news")} role="menuitem" className={getLinkClass('/ai-news', true)}>{t('navigation:aiCharacterNews')}</a>
                 <a href={addLangParam("/dev-blog")} role="menuitem" className={getLinkClass('/dev-blog', true)}>{t('navigation:devBlog')}</a>
+                <a href={addLangParam("/activities")} role="menuitem" className={getLinkClass('/activities', true)}>{t('navigation:activities')}</a>
                 <a href={addLangParam("/developer")} role="menuitem" className={getLinkClass('/developer', true)}>{t('navigation:developer')}</a>
               </div>
             </div>
@@ -168,6 +169,7 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               <a href={addLangParam("/updates")} className={`block px-4 py-3 ${getLinkClass('/updates', true)}`}>{t('navigation:news')}</a>
               <a href={addLangParam("/ai-news")} className={`block px-4 py-3 ${getLinkClass('/ai-news', true)}`}>{t('navigation:aiCharacterNews')}</a>
               <a href={addLangParam("/dev-blog")} className={`block px-4 py-3 ${getLinkClass('/dev-blog', true)}`}>{t('navigation:devBlog')}</a>
+              <a href={addLangParam("/activities")} className={`block px-4 py-3 ${getLinkClass('/activities', true)}`}>{t('navigation:activities')}</a>
               <a href={addLangParam("/developer")} className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
             </div>
           </div>
