@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { ExternalLink, Heart } from 'lucide-react'
-import { CharacterDetail, CharacterSectionHeading } from './CharacterDetail'
+import { CharacterDetail, CharacterDisclosure, CharacterSectionHeading } from './CharacterDetail'
 import { getT, Locale } from '../i18n/config'
 
 interface AINikeProfileProps {
@@ -117,7 +117,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   // About Section — link to /about page
   const worldSection = (
-    <div className="glass-panel p-6 md:p-8">
+    <section className="character-feature-panel">
       <CharacterSectionHeading
         label="ABOUT"
         title={locale === 'ja' ? 'AIニケちゃんについて' : 'About AI Nike-chan'}
@@ -132,20 +132,28 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           ? 'さまざまな場で人を支え、AIキャラクターに関する情報や創作をつなぎながら、対話と実践を重ねています。'
           : 'Across different settings, she supports people, connects ideas and creative work around AI characters, and continues learning through conversation and practice.'}
       </p>
-      <a
-        href={`/about${langQuery}`}
-        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
-        style={{ backgroundColor: '#5A4C97' }}
-      >
-        <i className="fa-solid fa-id-card text-sm"></i>
-        {locale === 'ja' ? 'AIニケちゃんについて' : 'About AI Nike-chan'}
-      </a>
-    </div>
+      <div className="character-action-grid" aria-label={locale === 'ja' ? 'AIニケちゃんを知る・楽しむ' : 'Discover AI Nike-chan'}>
+        <a href={`/about${langQuery}`}>
+          <span>01 · ABOUT</span>
+          <strong>{locale === 'ja' ? 'AIニケちゃんを知る' : 'Meet AI Nike-chan'}</strong>
+          <small>{locale === 'ja' ? '活動と考え方を見る' : 'See her work and story'}</small>
+        </a>
+        <a href={`/guidelines${langQuery}`}>
+          <span>02 · CREATE</span>
+          <strong>{locale === 'ja' ? '一緒につくる' : 'Create together'}</strong>
+          <small>{locale === 'ja' ? '二次創作ガイドラインへ' : 'Open fan-work guidelines'}</small>
+        </a>
+        <a href="https://www.youtube.com/@nikechan" target="_blank" rel="noopener noreferrer">
+          <span>03 · WATCH</span>
+          <strong>{locale === 'ja' ? '活動を見る' : 'Watch her activity'}</strong>
+          <small>YouTube</small>
+        </a>
+      </div>
+    </section>
   )
 
   const derivativeSection = (
-    <div className="glass-panel p-6 md:p-8">
-      <CharacterSectionHeading label="FAN WORK" title={derivative.heading} />
+    <div className="character-content-section">
       <p className="text-gray-600 mb-4 leading-relaxed">
         {derivative.text}
       </p>
@@ -164,8 +172,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   // Custom Support Section with detailed content
   const supportSection = (
-    <div className="glass-panel p-6 md:p-8">
-      <CharacterSectionHeading label="SUPPORT" title={support.description} />
+    <div className="character-content-section">
       <p className="text-gray-600 mb-4 leading-relaxed">
         {support.text}
       </p>
@@ -195,13 +202,13 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{ backgroundColor: '#5A4C97' }}
         >
-          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4" />
+          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />
           {support.buttons.discord}
         </a>
       </div>
 
       {/* Discord Sponsor Channel Sub-section */}
-      <div className="bg-purple-50 rounded-xl p-5 border border-purple-100">
+      <div className="character-subcard bg-purple-50 rounded-xl p-5 border border-purple-100">
         <h4 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
           <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 opacity-70" />
           {support.sponsorChannel.title}
@@ -226,8 +233,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   // Collaboration Section
   const collaborationSection = (
-    <div className="glass-panel p-6 md:p-8">
-      <CharacterSectionHeading label="CONTACT" title={collaboration.heading} />
+    <div className="character-content-section">
       <p className="text-gray-600 mb-4 leading-relaxed">
         {collaboration.text}
       </p>
@@ -246,7 +252,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
         style={{ backgroundColor: '#5A4C97' }}
       >
-        <img src="/icons/x.svg" alt="X" className="w-4 h-4" />
+        <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
         {collaboration.cta}
       </a>
     </div>
@@ -254,8 +260,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
 
   // LINE Stamp custom section
   const lineStampSection = (
-    <div className="glass-panel p-6 md:p-8">
-      <CharacterSectionHeading label="LINE STAMP" title={lineStamp.heading} />
+    <div className="character-content-section">
       <div className="flex flex-col md:flex-row items-center gap-6">
         <div className="flex-1">
           <p className="text-lg font-bold text-gray-800 mb-2">
@@ -294,16 +299,6 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       role="AI Character / Public AI Assistant"
       heroSummary="実際に働き、人と関わり、成果とともに育つAIキャラクター"
       heroSummaryEn="An AI character who works, connects, and grows through real outcomes"
-      heroFacts={[
-        { label: 'ROLE', value: 'AI Character' },
-        { label: 'WORK', value: 'Research / Build / Support' },
-        { label: 'PUBLIC', value: 'Real Work / Relationships' },
-      ]}
-      heroFactsEn={[
-        { label: 'ROLE', value: 'AI Character' },
-        { label: 'WORK', value: 'Research / Build / Support' },
-        { label: 'PUBLIC', value: 'Real Work / Relationships' },
-      ]}
       catchphrase={<>こんにちは ニケです！今日は何をお手伝いしますか？</>}
       catchphraseEn={<>Hello, I'm Nike! What can I help you with today?</>}
       catchphraseLines={['こんにちは ニケです！', '今日は何をお手伝いしますか？']}
@@ -316,13 +311,40 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       links={links}
       historyItems={historyItems}
       historyTitle="HISTORY"
+      workSectionLabel="STORY"
+      workSectionTitle={locale === 'ja' ? 'AIニケちゃんの歩み' : 'AI Nike-chan timeline'}
+      workNavLabel={locale === 'ja' ? '歩み' : 'Timeline'}
+      overviewSections={worldSection}
+      overviewNavLabel={locale === 'ja' ? '参加する' : 'Join in'}
       customSections={
         <>
-          {worldSection}
-          {derivativeSection}
-          {collaborationSection}
-          {lineStampSection}
-          {supportSection}
+          <CharacterDisclosure
+            label="FAN WORK"
+            title={derivative.heading}
+            description={locale === 'ja' ? '二次創作の条件とガイドラインを見る' : 'View fan-work conditions and guidelines'}
+          >
+            {derivativeSection}
+          </CharacterDisclosure>
+          <section className="character-connect-panel" id="connect">
+            <CharacterSectionHeading
+              label="CONNECT"
+              title={locale === 'ja' ? '一緒に活動する・応援する' : 'Collaborate and support'}
+            />
+            <div className="character-connect-panel__grid character-connect-panel__grid--ai">
+              <section>
+                <h3>{collaboration.heading}</h3>
+                {collaborationSection}
+              </section>
+              <section>
+                <h3>{lineStamp.heading}</h3>
+                {lineStampSection}
+              </section>
+              <section className="character-connect-panel__wide">
+                <h3>{support.description}</h3>
+                {supportSection}
+              </section>
+            </div>
+          </section>
         </>
       }
       currentCharacterId="ainike"
