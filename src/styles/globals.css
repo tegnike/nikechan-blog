@@ -3337,18 +3337,6 @@
   box-shadow: 6px 6px 0 rgba(23, 19, 39, 0.16);
 }
 
-.developer-activity-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 76px;
-  height: 8px;
-  background: var(--character-yellow);
-  border-bottom: 3px solid var(--character-ink);
-  border-left: 3px solid var(--character-ink);
-}
-
 .developer-activity-card__meta {
   display: flex;
   flex-direction: column;
