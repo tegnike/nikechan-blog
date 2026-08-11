@@ -572,7 +572,6 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       catchphraseEn={<>Development is so much fun~~~~</>}
       catchphraseLines={['今週も頑張るぞい！！！']}
       catchphraseLinesEn={['Development is so much fun~~~~']}
-      heroLeadStyle="plain"
       image="/images/characters/sprites/nikechan.png"
       icon="/images/characters/icons/nikechan.png"
       accentColor="#F9A3AB"

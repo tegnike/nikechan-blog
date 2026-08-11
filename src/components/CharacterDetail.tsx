@@ -37,7 +37,6 @@ interface CharacterDetailProps {
   catchphraseEn?: ReactNode
   catchphraseLines?: string[]
   catchphraseLinesEn?: string[]
-  heroLeadStyle?: 'speech' | 'plain'
   image: string
   icon: string
   accentColor: string
@@ -120,7 +119,6 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   catchphraseEn,
   catchphraseLines,
   catchphraseLinesEn,
-  heroLeadStyle = 'speech',
   image,
   accentColor,
   profileItems,
@@ -211,7 +209,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
             {displayHeroSummary && (
               <p className="character-detail-hero__summary">{displayHeroSummary}</p>
             )}
-            <p className={`character-detail-hero__lead character-detail-hero__lead--${heroLeadStyle}`}>
+            <p className="character-detail-hero__lead">
               {displayCatchphraseText}
             </p>
             {links && links.length > 0 && (

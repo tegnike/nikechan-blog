@@ -7560,24 +7560,6 @@ a.glass-panel:hover {
   --profile-section-gap: 32px;
 }
 
-.character-detail-hero__lead--plain {
-  max-width: 580px;
-  padding: 12px 0 12px 20px;
-  border: 0;
-  border-left: 5px solid var(--character-yellow);
-  border-radius: 0;
-  color: #fff;
-  background: transparent;
-  font-size: 22px;
-  box-shadow: none;
-}
-
-.character-detail-hero__lead--plain::before,
-.character-detail-hero__lead--plain::after {
-  content: none;
-  display: none;
-}
-
 #profile,
 #overview,
 #reference,
