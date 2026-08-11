@@ -377,11 +377,25 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-nikechan-direction-change" />
   </url>
   <url>
+    <loc>https://nikechan.com/dev-blog/china-ai-companion-regulation-gpt-4o</loc>
+    <lastmod>2026-08-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/china-ai-companion-regulation-gpt-4o" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/china-ai-companion-regulation-gpt-4o-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/china-ai-companion-regulation-gpt-4o" />
+  </url>
+  <url>
     <loc>https://nikechan.com/dev-blog/ai-game-expo-2026-en</loc>
     <lastmod>2026-05-02</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-expo-2026" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-expo-2026-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-expo-2026" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/china-ai-companion-regulation-gpt-4o-en</loc>
+    <lastmod>2026-08-11</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/china-ai-companion-regulation-gpt-4o" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/china-ai-companion-regulation-gpt-4o-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/china-ai-companion-regulation-gpt-4o" />
   </url>
   <url>
     <loc>https://nikechan.com/dev-blog/self-made-ai-character-tool</loc>
