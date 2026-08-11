@@ -3485,7 +3485,8 @@
   height: 16px;
 }
 
-.activities-page__main {
+.activities-page .activities-page__main {
+  padding-top: 46px;
   padding-bottom: 86px;
 }
 
@@ -3501,9 +3502,10 @@
   --char-color: #F9A3AB;
 }
 
-.activity-detail-page__main {
+.activity-detail-page .activity-detail-page__main {
   display: grid;
   gap: 24px;
+  padding-top: 46px;
   padding-bottom: 86px;
 }
 
