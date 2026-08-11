@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Heart } from 'lucide-react'
-import { CharacterDetail, CharacterSectionHeading } from './CharacterDetail'
+import { CharacterDetail, CharacterDisclosure, CharacterSectionHeading } from './CharacterDetail'
 import { DeveloperActivities } from './DeveloperActivities'
 import { Locale } from '../i18n/config'
 
@@ -17,7 +17,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         { label: '居住地', value: 'ポーランド' },
         { label: '言語', value: '日本語, 英語' },
         { label: '職業', value: 'AI開発者' },
-        { label: '専門', value: 'AIキャラクター, AIエージェント' },
+        { label: '専門', value: 'AIエージェント, AIキャラクター' },
         {
           label: 'イメージカラー',
           value: (
@@ -52,15 +52,15 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
 
   const description = isJa
     ? [
-        'AIキャラクターを作り、実際に運用し、その過程で得た知見を公開する開発者。AIニケちゃんの開発者で、このWebサイトの制作者。',
-        'ポーランド在住のWeb系フルスタック開発者として、数年間にわたりリモートワークを通して日本のプロジェクトに参画。',
-        '現在はPythonやTypeScriptを用いたLLM応用、会話システム、長期記憶、AIエージェントの設計・実装に取り組んでいる。',
+        'AIエージェントの実務開発を主軸に、AIキャラクターの個人開発・長期運用にも取り組む開発者。AIニケちゃんの開発者で、このWebサイトの制作者。',
+        'Webエンジニアとして8年以上、Javaによる業務システム開発や、Ruby on Railsを中心としたWebサービス開発に従事。ポーランドを拠点に、日本企業のプロジェクトへフルリモートで参画している。',
+        '要件整理、基本設計、技術選定、実装、インフラ構築、公開後の運用・保守まで一貫して担当。現在は会話設計、記憶、RAG、外部ツール連携を含むAIエージェント開発と、AIツールを活用した開発プロセスに取り組んでいる。',
         '個人開発では、GitHub Stars 1,000件を超える「AITuberKit」を継続開発。AIニケちゃんを長期運用し、実際の仕事や人との関わりを通して、AIキャラクターが社会の中で活動するための技術と運用を検証している。',
       ]
     : [
-        'A developer who builds AI characters, runs them in the real world, and shares what can be learned from long-term operation. Creator of AI Nike-chan and this website.',
-        'A full-stack web developer based in Poland, participating in Japanese projects through remote work for several years.',
-        'Currently working on LLM applications, conversation systems, long-term memory, and AI agent architecture using Python and TypeScript.',
+        'A developer focused professionally on AI agents while also building and operating AI characters as long-term independent projects. Creator of AI Nike-chan and this website.',
+        'A web engineer with more than eight years of experience across Java-based business systems and Ruby on Rails web services. Based in Poland and working fully remotely with Japanese companies.',
+        'Works end to end across requirements, basic design, technology selection, implementation, infrastructure, launch, and ongoing operation. Current work covers AI agents with conversation design, memory, RAG, and external tool integrations, along with AI-assisted development practices.',
         'Maintains AITuberKit, an open-source project with more than 1,000 GitHub stars, and operates AI Nike-chan through real work and relationships to study how AI characters can participate meaningfully in society.',
       ]
 
@@ -101,56 +101,118 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
   const careerItems = isJa
     ? [
         {
-          date: '〜2023',
-          label: 'Web Developer',
+          date: '',
+          label: '業務システム開発',
           description: (
             <>
-              フルリモートで日本のプロジェクトに参画。
-              <br />
-              Ruby on Rails、React、Vue.jsなどを用いたWebアプリケーションの開発に従事。
-              <br />
-              予約システム、ECサイト、オンラインくじサイトなど、様々なプロジェクトでリードエンジニアとして活躍。
+              <p>治験関連企業にて、検査薬管理システムの運用・機能開発を担当。Javaを用いた業務システムの保守・改善に従事。</p>
+              <ul>
+                <li>Javaによる検査薬管理システムの保守・運用</li>
+                <li>業務要件に応じた機能追加・改修を継続的に実施</li>
+              </ul>
             </>
           ),
         },
         {
-          date: '2024〜',
-          label: 'AI Developer',
+          date: '',
+          label: 'Webシステム開発・プロジェクトリード',
           description: (
             <>
-              日本および英語圏のプロジェクトにおいて、AIキャラクターやAIエージェントの開発に従事。
-              <br />
-              PythonやTypeScriptなどを用い、LLMを活用した自然な会話システムの実装や、独自の記憶機構の設計など、AI応用開発全般を担当する。
-              <br />
-              また、CursorやDevinなどのAIツールを駆使したAI駆動開発を積極的に取り入れている。
+              <p>フリーランスとして、日本企業の受託開発にフルリモートで参画。Ruby on Railsを中心に、複数のWebサービス開発を担当。</p>
+              <ul>
+                <li>予約、EC、業務管理など、複数分野のWebサービスを開発</li>
+                <li>基本設計から実装、コードレビューまでを担当</li>
+                <li>フロントエンド、バックエンド、インフラ・運用まで対応範囲を拡大</li>
+                <li>抽選・ガチャシステムの要件整理、設計、技術選定、実装を一貫して担当</li>
+                <li>インフラ構築から公開、継続的な運営・保守まで対応</li>
+              </ul>
+            </>
+          ),
+        },
+        {
+          date: '',
+          label: 'AIエージェント開発へ',
+          description: (
+            <>
+              <p>個人開発で培ったAI技術を実務に展開し、LLMを活用したAIエージェント開発を担当。</p>
+              <ul>
+                <li>会話設計、記憶、RAG、外部ツール連携を設計・実装</li>
+                <li>長期的な運用保守を通じてシステムを継続改善</li>
+                <li>特定の言語に固定せず、RailsやPythonを目的に応じて活用</li>
+              </ul>
+            </>
+          ),
+        },
+        {
+          date: '',
+          label: 'AIを使う開発から、AIと進める開発へ',
+          description: (
+            <>
+              <p>AIエージェント開発を主軸とし、AI開発ツールを組み込んだ開発プロセスを実践。</p>
+              <ul>
+                <li>要件整理から設計、実装、公開、運用までを一貫して担当</li>
+                <li>AIツールを活用し、調査・実装・検証の進め方そのものを改善</li>
+                <li>Web開発で培った総合力を、AIエージェントの実用開発に活かす</li>
+              </ul>
             </>
           ),
         },
       ]
     : [
         {
-          date: '〜2023',
-          label: 'Web Developer',
+          date: '',
+          label: 'Business system development',
           description: (
             <>
-              Participated in Japanese projects fully remotely.
-              <br />
-              Engaged in web application development using Ruby on Rails, React, Vue.js, etc.
-              <br />
-              Worked as a lead engineer on various projects including reservation systems, EC sites, and online lottery sites.
+              <p>Maintained and extended a Java-based diagnostic agent management system at a clinical research company.</p>
+              <ul>
+                <li>Maintained and operated a Java-based diagnostic agent management system</li>
+                <li>Implemented ongoing feature additions and modifications based on business requirements</li>
+              </ul>
             </>
           ),
         },
         {
-          date: '2024〜',
-          label: 'AI Developer',
+          date: '',
+          label: 'Web systems and project leadership',
           description: (
             <>
-              Working on AI character and AI agent development for projects in Japan and English-speaking countries.
-              <br />
-              Using Python and TypeScript to implement natural conversation systems leveraging LLMs, design unique memory mechanisms, and handle general AI application development.
-              <br />
-              Also actively adopting AI-driven development using tools like Cursor and Devin.
+              <p>Worked as a fully remote freelance engineer on contract projects for Japanese companies, primarily developing web services with Ruby on Rails.</p>
+              <ul>
+                <li>Built reservation, e-commerce, and business management services</li>
+                <li>Handled basic design, implementation, and code review</li>
+                <li>Expanded across frontend, backend, infrastructure, and operations</li>
+                <li>Owned requirements, architecture, technology selection, and implementation for an online lottery system</li>
+                <li>Handled infrastructure, launch, and ongoing operation and maintenance</li>
+              </ul>
+            </>
+          ),
+        },
+        {
+          date: '',
+          label: 'Transition into AI agent development',
+          description: (
+            <>
+              <p>Applied expertise gained through independent AI development to professional LLM-based AI agent projects.</p>
+              <ul>
+                <li>Designed and implemented conversation flows, memory, RAG, and external tool integrations</li>
+                <li>Continuously improved long-running systems through operation and maintenance</li>
+                <li>Uses Rails and Python as appropriate rather than being tied to a single language</li>
+              </ul>
+            </>
+          ),
+        },
+        {
+          date: '',
+          label: 'AI agents as the primary focus',
+          description: (
+            <>
+              <p>Focuses primarily on AI agent development, using AI development tools as part of the standard engineering process.</p>
+              <ul>
+                <li>Works end to end from requirements and design through implementation, launch, and operation</li>
+                <li>Uses AI tools to improve the research, implementation, and validation process itself</li>
+                <li>Applies broad web engineering experience to production AI agent systems</li>
+              </ul>
             </>
           ),
         },
@@ -159,6 +221,16 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
   // Products from docs/about-nike.md
   const products = isJa
     ? [
+        {
+          name: 'Japanese-RP-Bench',
+          year: '2026',
+          description:
+            '日本語LLMのロールプレイ性能を評価するベンチマーク。既存版を拡張し、キャラクター追従性、長期安定性、人格置換への耐性、失敗後の復帰を測定できるv2を開発。',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/tegnike/Japanese-RP-Bench' },
+            { label: 'ダッシュボード', url: 'https://japanese-rp-bench.tegnike.chatgpt.site' },
+          ],
+        },
         {
           name: '生成動画AITuber',
           year: '2025',
@@ -240,6 +312,16 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
       ]
     : [
+        {
+          name: 'Japanese-RP-Bench',
+          year: '2026',
+          description:
+            'A benchmark for evaluating Japanese LLM role-play performance. Version 2 extends the original benchmark to measure character adherence, long-term stability, resistance to persona replacement, and recovery after failure.',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/tegnike/Japanese-RP-Bench' },
+            { label: 'Dashboard', url: 'https://japanese-rp-bench.tegnike.chatgpt.site' },
+          ],
+        },
         {
           name: 'Generated Video AITuber',
           year: '2025',
@@ -323,42 +405,17 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       ]
 
   const positioningSection = (
-    <div className="glass-panel p-6 md:p-8">
+    <section className="character-feature-panel">
       <CharacterSectionHeading
         label="POSITIONING"
-        title={isJa ? 'AIキャラクターを、作って終わらせず運用する' : 'Building AI characters for long-term operation'}
+        title={isJa ? 'AIキャラクター開発の方針' : 'AI character development approach'}
       />
       <p className="text-gray-600 leading-relaxed max-w-4xl">
         {isJa
           ? '新しいモデルやサービスを紹介するだけでなく、実際に組み込み、人と関わる場所で動かし、失敗や改善まで検証します。AITuberKitは「作るための基盤」、AIニケちゃんは「運用から学ぶための実例」です。'
           : 'Rather than stopping at technology commentary, I integrate new models and services into working systems, operate them where people actually interact, and document both failures and improvements. AITuberKit is the platform for building; AI Nike-chan is the long-running case study.'}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-7">
-        {[
-          {
-            number: '01',
-            title: isJa ? '作る' : 'BUILD',
-            text: isJa ? '会話、音声、記憶、配信、外部連携を実装する。' : 'Implement conversation, voice, memory, streaming, and integrations.',
-          },
-          {
-            number: '02',
-            title: isJa ? '運用する' : 'OPERATE',
-            text: isJa ? '公開環境で使い、速度・安全性・関係の継続を確かめる。' : 'Run systems publicly and evaluate speed, safety, and continuity.',
-          },
-          {
-            number: '03',
-            title: isJa ? '共有する' : 'SHARE',
-            text: isJa ? '結果を記事、デモ、登壇、オープンソースへ還元する。' : 'Return findings through articles, demos, talks, and open source.',
-          },
-        ].map((item) => (
-          <div key={item.number} className="rounded-2xl border border-pink-100 bg-pink-50/70 p-5">
-            <span className="text-xs font-black tracking-[0.2em] text-pink-500">{item.number}</span>
-            <h3 className="mt-2 text-lg font-bold text-gray-800">{item.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-gray-600">{item.text}</p>
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
+      <div className="character-proof-grid mt-7">
         {[
           { value: '1,000+', label: isJa ? 'AITuberKit GitHub Stars' : 'AITuberKit GitHub stars' },
           { value: '2023–', label: isJa ? 'AIキャラクター継続開発' : 'AI character development' },
@@ -370,16 +427,12 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   )
 
   // Collaboration Section
   const collaborationSection = (
-    <div className="glass-panel p-6 md:p-8">
-      <CharacterSectionHeading
-        label="CONTACT"
-        title={isJa ? 'コラボレーションのご相談' : 'Collaboration Inquiries'}
-      />
+    <div className="character-content-section">
       <p className="text-gray-600 mb-4 leading-relaxed">
         {isJa
           ? 'AIキャラクターやAIエージェントについて、実装と長期運用の経験をもとにお話しします。企業・イベント主催者・開発者・クリエイターを問わずご相談ください。'
@@ -406,7 +459,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
         style={{ backgroundColor: '#F9A3AB' }}
       >
-        <img src="/icons/x.svg" alt="X" className="w-4 h-4" />
+        <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
         {isJa ? 'X DMで相談する' : 'Contact via X DM'}
       </a>
     </div>
@@ -414,11 +467,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
 
   // Custom Support Section with detailed content (same as AI Nikechan)
   const supportSection = (
-    <div className="glass-panel p-6 md:p-8">
-      <CharacterSectionHeading
-        label="SUPPORT"
-        title={isJa ? 'AIニケちゃんの活動を応援いただける方へ' : 'For those who want to support AI Nikechan'}
-      />
+    <div className="character-content-section">
       <p className="text-gray-600 mb-4 leading-relaxed">
         {isJa
           ? 'AIニケちゃんの開発を支えてくださるスポンサーを募集しています。FANBOX経由での支援はすべて同じ特典設計となっており、オープンな運営方針で還元していきます。'
@@ -460,7 +509,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
           style={{ backgroundColor: '#F9A3AB' }}
         >
-          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4" />
+          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />
           {isJa ? 'Discordコミュニティ' : 'Discord Community'}
         </a>
       </div>
@@ -516,23 +565,14 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       locale={locale}
       nameEn="NIKE"
       nameJa="ニケ"
-      role="AI Character Developer & Operator"
-      heroSummary="AIキャラクターを作り、長期運用から学ぶ開発者"
-      heroSummaryEn="Developer building and operating AI characters over time"
-      heroFacts={[
-        { label: 'FOCUS', value: 'AI Characters' },
-        { label: 'PROOF', value: 'AITuberKit / AIニケちゃん' },
-        { label: 'BASE', value: 'Poland' },
-      ]}
-      heroFactsEn={[
-        { label: 'FOCUS', value: 'AI Characters' },
-        { label: 'PROOF', value: 'AITuberKit / AI Nike-chan' },
-        { label: 'BASE', value: 'Poland' },
-      ]}
+      role="AI Agent Developer & AI Character Creator"
+      heroSummary="AIエージェントを実務で開発し、AIキャラクターを長期運用する開発者"
+      heroSummaryEn="Developer building AI agents professionally and operating AI characters over time"
       catchphrase={<>今週も頑張るぞい！！！</>}
       catchphraseEn={<>Development is so much fun~~~~</>}
       catchphraseLines={['今週も頑張るぞい！！！']}
       catchphraseLinesEn={['Development is so much fun~~~~']}
+      heroLeadStyle="plain"
       image="/images/characters/sprites/nikechan.png"
       icon="/images/characters/icons/nikechan.png"
       accentColor="#F9A3AB"
@@ -543,12 +583,38 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       historyTitle="CAREER"
       products={products}
       productsTitle="PRODUCTS"
+      workSectionLabel="SELECTED WORK"
+      workSectionTitle={isJa ? '開発実績' : 'Development work'}
+      workNavLabel={isJa ? '実績' : 'Work'}
+      workLayout="stacked"
+      productsFirst
+      overviewSections={positioningSection}
+      overviewNavLabel={isJa ? '方針' : 'Approach'}
       customSections={
         <>
-          {positioningSection}
-          <DeveloperActivities locale={locale} limit={3} showAllLink />
-          {collaborationSection}
-          {supportSection}
+          <CharacterDisclosure
+            label="EVENTS & TALKS"
+            title={isJa ? 'イベント参加・登壇記録' : 'Events, exhibitions, and talks'}
+            description={isJa ? '最近の3件と公開資料を見る' : 'View the latest three records and materials'}
+          >
+            <DeveloperActivities locale={locale} limit={3} showAllLink embedded />
+          </CharacterDisclosure>
+          <section className="character-connect-panel" id="connect">
+            <CharacterSectionHeading
+              label="CONNECT"
+              title={isJa ? '活動への関わり方' : 'Ways to get involved'}
+            />
+            <div className="character-connect-panel__grid">
+              <section>
+                <h3>{isJa ? '一緒につくる' : 'Collaborate'}</h3>
+                {collaborationSection}
+              </section>
+              <section>
+                <h3>{isJa ? '活動を応援する' : 'Support the project'}</h3>
+                {supportSection}
+              </section>
+            </div>
+          </section>
         </>
       }
       currentCharacterId="nike"

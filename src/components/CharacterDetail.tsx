@@ -1,6 +1,6 @@
 import { type CSSProperties, type FC, type ReactNode } from 'react'
 import { Locale } from '../i18n/config'
-import { ArrowLeft, ExternalLink, Download } from 'lucide-react'
+import { ArrowLeft, Download, ExternalLink } from 'lucide-react'
 
 interface ProfileItem {
   label: string
@@ -26,11 +26,6 @@ interface SupportLink {
   icon?: ReactNode
 }
 
-interface HeroFact {
-  label: string
-  value: string
-}
-
 interface CharacterDetailProps {
   locale: Locale
   nameEn: string
@@ -38,12 +33,11 @@ interface CharacterDetailProps {
   role: string
   heroSummary?: string
   heroSummaryEn?: string
-  heroFacts?: HeroFact[]
-  heroFactsEn?: HeroFact[]
   catchphrase: ReactNode
   catchphraseEn?: ReactNode
   catchphraseLines?: string[]
   catchphraseLinesEn?: string[]
+  heroLeadStyle?: 'speech' | 'plain'
   image: string
   icon: string
   accentColor: string
@@ -60,9 +54,16 @@ interface CharacterDetailProps {
   historyTitle?: string
   products?: ProductItem[]
   productsTitle?: string
+  workSectionLabel?: string
+  workSectionTitle?: string
+  workNavLabel?: string
+  workLayout?: 'split' | 'stacked'
+  productsFirst?: boolean
   supportLinks?: SupportLink[]
   supportTitle?: string
   supportDescription?: string
+  overviewSections?: ReactNode
+  overviewNavLabel?: string
   customSections?: ReactNode
   currentCharacterId: string
   headerTitle?: string
@@ -76,11 +77,36 @@ interface CharacterSectionHeadingProps {
   headingId?: string
 }
 
+interface CharacterDisclosureProps {
+  label: string
+  title: ReactNode
+  description?: ReactNode
+  children: ReactNode
+  id?: string
+}
+
 export const CharacterSectionHeading: FC<CharacterSectionHeadingProps> = ({ label, title, headingId }) => (
   <div className="character-section-heading character-section-heading--additional">
     <span>{label}</span>
     <h2 id={headingId}>{title}</h2>
   </div>
+)
+
+export const CharacterDisclosure: FC<CharacterDisclosureProps> = ({
+  label,
+  title,
+  description,
+  children,
+  id,
+}) => (
+  <section className="character-chapter" id={id}>
+    <header className="character-chapter__heading">
+      <span>{label}</span>
+      <h2>{title}</h2>
+      {description && <p>{description}</p>}
+    </header>
+    <div className="character-chapter__body">{children}</div>
+  </section>
 )
 
 export const CharacterDetail: FC<CharacterDetailProps> = ({
@@ -94,6 +120,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   catchphraseEn,
   catchphraseLines,
   catchphraseLinesEn,
+  heroLeadStyle = 'speech',
   image,
   accentColor,
   profileItems,
@@ -104,9 +131,16 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   historyTitle,
   products,
   productsTitle,
+  workSectionLabel,
+  workSectionTitle,
+  workNavLabel,
+  workLayout = 'split',
+  productsFirst = false,
   supportLinks,
   supportTitle,
   supportDescription,
+  overviewSections,
+  overviewNavLabel,
   customSections,
   currentCharacterId,
   headerTitle = 'CHARACTER',
@@ -172,11 +206,24 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
         </div>
         <div className="character-detail-hero__inner">
           <div className="character-detail-hero__copy">
+            <span className="character-detail-hero__eyebrow">{headerTitle}</span>
             <h1 id="character-detail-title">{nameJa}</h1>
             {displayHeroSummary && (
               <p className="character-detail-hero__summary">{displayHeroSummary}</p>
             )}
-            <p className="character-detail-hero__lead">{displayCatchphraseText}</p>
+            <p className={`character-detail-hero__lead character-detail-hero__lead--${heroLeadStyle}`}>
+              {displayCatchphraseText}
+            </p>
+            {links && links.length > 0 && (
+              <div className="character-detail-hero__links" aria-label={locale === 'ja' ? '関連リンク' : 'Related links'}>
+                {links.map((link) => (
+                  <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
+                    {link.icon}
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="character-detail-hero__visual">
@@ -192,7 +239,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
       </section>
 
       <main className="character-detail-main">
-        <div className="character-back-section">
+        <nav className="character-section-nav" aria-label={locale === 'ja' ? 'ページ内メニュー' : 'On this page'}>
           <a
             href={`/characters${langQuery}`}
             className="character-back-link"
@@ -200,9 +247,21 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
             <ArrowLeft className="w-4 h-4" />
             <span>{locale === 'ja' ? '一覧に戻る' : 'Back to List'}</span>
           </a>
-        </div>
+          <div className="character-section-nav__links">
+            <a href="#profile">{locale === 'ja' ? 'プロフィール' : 'Profile'}</a>
+            {overviewSections && (
+              <a href="#overview">{overviewNavLabel || (locale === 'ja' ? '概要' : 'Overview')}</a>
+            )}
+            {trihedralFigure && <a href="#reference">{locale === 'ja' ? '三面図' : 'Reference'}</a>}
+            {(historyItems || products || customSections) && (
+              <a href="#explore">{workNavLabel || (locale === 'ja' ? '活動・作品' : 'Work & Activity')}</a>
+            )}
+            {customSections && <a href="#connect">{locale === 'ja' ? '連絡・支援' : 'Connect'}</a>}
+            <a href="#characters">{locale === 'ja' ? 'キャラクター' : 'Characters'}</a>
+          </div>
+        </nav>
 
-        <section className="character-profile-layout">
+        <section className="character-profile-layout" id="profile" aria-label={locale === 'ja' ? 'プロフィール' : 'Profile'}>
           <div className="character-profile-card">
             <div className="character-section-heading">
               <span>PROFILE</span>
@@ -229,17 +288,6 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
               ))}
             </div>
 
-            {links && links.length > 0 && (
-              <div className="character-link-list">
-                {links.map((link, index) => (
-                  <a key={index} href={link.url} target="_blank" rel="noopener noreferrer">
-                    {link.icon}
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )}
-
             {youtubeVideoId && (
               <div className="character-video-frame">
                 <iframe
@@ -254,18 +302,38 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
           </div>
         </section>
 
+        {overviewSections && (
+          <div className="character-overview-sections" id="overview">
+            {overviewSections}
+          </div>
+        )}
+
       {/* Additional Sections */}
       {(historyItems || products || supportLinks || customSections || trihedralFigure) && (
         <div className="character-additional-sections">
             {/* Trihedral Figure Section (三面図) */}
             {trihedralFigure && (
-              <div className="glass-panel character-reference-panel">
-                <CharacterSectionHeading
-                  label="REFERENCE"
-                  title={locale === 'ja' ? '三面図（二次創作用）' : 'Reference Sheet (Fan Art)'}
-                />
-                {/* Image with Download Button Overlay */}
-                <div className="relative flex justify-center">
+              <div className="glass-panel character-reference-panel" id="reference">
+                <div className="character-reference-panel__copy">
+                  <CharacterSectionHeading
+                    label="REFERENCE"
+                    title={locale === 'ja' ? '三面図（二次創作用）' : 'Reference Sheet (Fan Art)'}
+                  />
+                  <p>
+                    {locale === 'ja'
+                      ? '立ち絵や二次創作の資料として使える、正面・側面・背面の設定画です。'
+                      : 'Front, side, and back views for illustration and fan-work reference.'}
+                  </p>
+                  <a
+                    href={trihedralFigure}
+                    download
+                    className="character-reference-download"
+                  >
+                    <Download className="w-5 h-5" />
+                    {locale === 'ja' ? '高解像度でダウンロード' : 'Download high resolution'}
+                  </a>
+                </div>
+                <div className="character-reference-panel__visual">
                   <img
                     src={trihedralFigure}
                     alt={`${nameJa} ${locale === 'ja' ? '三面図' : 'Reference Sheet'}`}
@@ -275,90 +343,67 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                     decoding="async"
                     className="max-w-full h-auto"
                   />
-                  {/* Download Button - Top Right Overlay */}
-                  <a
-                    href={trihedralFigure}
-                    download
-                    className="character-reference-download absolute top-3 right-3 p-3 rounded-full text-white transition-all duration-300 hover:scale-110"
-                    style={{ backgroundColor: accentColor }}
-                    title={locale === 'ja' ? 'ダウンロード' : 'Download'}
-                  >
-                    <Download className="w-5 h-5" />
-                  </a>
                 </div>
               </div>
             )}
 
-            {/* History / Career Section */}
-            {historyItems && historyItems.length > 0 && (
-              <div className="glass-panel character-history-panel">
-                <CharacterSectionHeading label="TIMELINE" title={historyTitle || 'HISTORY'} />
-                <div className="character-history-list">
-                  {historyItems.map((item, index) => (
-                    <div key={index} className="character-history-item">
-                      <div
-                        className="character-history-dot"
-                        style={{ borderColor: accentColor }}
-                      />
-                      <div className="character-history-date">
-                        {item.date}
+            {(historyItems || products) && (
+              <section className="character-work-section" id="explore">
+                <CharacterSectionHeading
+                  label={workSectionLabel || 'EXPLORE'}
+                  title={workSectionTitle || (locale === 'ja' ? '活動と制作' : 'Work and activity')}
+                />
+                <div className={`character-work-grid ${historyItems && products ? `character-work-grid--${workLayout}` : ''} ${productsFirst ? 'character-work-grid--products-first' : ''}`}>
+                  {historyItems && historyItems.length > 0 && (
+                    <section className="character-work-column character-work-column--history" id="timeline">
+                      <header className="character-work-column__heading">
+                        <h3>{historyTitle || 'HISTORY'}</h3>
+                      </header>
+                      <div className="character-history-list">
+                        {historyItems.map((item, index) => (
+                          <div
+                            key={index}
+                            className={`character-history-item${item.date ? '' : ' character-history-item--no-date'}`}
+                          >
+                            {item.date && <div className="character-history-date">{item.date}</div>}
+                            <div className="character-history-label">{item.label}</div>
+                            <div className="character-history-description">{item.description}</div>
+                          </div>
+                        ))}
                       </div>
-                      <div className="character-history-label">
-                        {item.label}
-                      </div>
-                      <p className="character-history-description">
-                        {item.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+                    </section>
+                  )}
 
-            {/* Products Section */}
-            {products && products.length > 0 && (
-              <div className="glass-panel character-products-panel">
-                <CharacterSectionHeading label="WORKS" title={productsTitle || 'PRODUCTS'} />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {products.map((product, index) => (
-                    <div
-                      key={index}
-                      className="character-product-card"
-                    >
-                      <div className="flex items-center gap-3 mb-3">
-                        <h4 className="font-bold text-gray-800">
-                          {product.name}
-                        </h4>
-                        <span
-                          className="text-xs px-2 py-1 rounded-full text-white"
-                          style={{ backgroundColor: accentColor }}
-                        >
-                          {product.year}
-                        </span>
+                  {products && products.length > 0 && (
+                    <section className="character-work-column character-work-column--products" id="works">
+                      <header className="character-work-column__heading">
+                        <h3>{productsTitle || 'PRODUCTS'}</h3>
+                      </header>
+                      <div className="character-product-grid">
+                        {products.map((product, index) => (
+                          <article key={index} className="character-product-card">
+                            <div className="character-product-card__heading">
+                              <h3>{product.name}</h3>
+                              <span>{product.year}</span>
+                            </div>
+                            <p>{product.description}</p>
+                            {product.links && product.links.length > 0 && (
+                              <div className="character-product-card__links">
+                                {product.links.map((link) => (
+                                  <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
+                                    <ExternalLink className="w-3 h-3" />
+                                    {link.label}
+                                  </a>
+                                ))}
+                              </div>
+                            )}
+                          </article>
+                        ))}
                       </div>
-                      <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                        {product.description}
-                      </p>
-                      {product.links && product.links.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {product.links.map((link, linkIndex) => (
-                            <a
-                              key={linkIndex}
-                              href={link.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs px-3 py-1.5 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
-                            >
-                              <ExternalLink className="w-3 h-3" />
-                              {link.label}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                    </section>
+                  )}
                 </div>
-              </div>
+              </section>
             )}
 
             {/* Custom Sections (e.g., LINE Stamp) */}
@@ -394,7 +439,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
       )}
 
       {/* Character Navigation */}
-        <nav className="character-nav-section" aria-label={locale === 'ja' ? 'キャラクター一覧' : 'Characters'}>
+        <nav id="characters" className="character-nav-section" aria-label={locale === 'ja' ? 'キャラクター一覧' : 'Characters'}>
           {characters.map((char) => (
             <a
               key={char.id}

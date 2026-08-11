@@ -11,6 +11,7 @@ type Props = {
   locale: Locale
   limit?: number
   showAllLink?: boolean
+  embedded?: boolean
 }
 
 const kindLabels: Record<DeveloperActivityKind, LocalizedText> = {
@@ -26,7 +27,7 @@ const formatDate = (date: string, locale: Locale) => {
     : `${month}/${day}/${year}`
 }
 
-export function DeveloperActivities({ locale, limit, showAllLink = false }: Props) {
+export function DeveloperActivities({ locale, limit, showAllLink = false, embedded = false }: Props) {
   const localize = (text: LocalizedText) => text[locale]
   const visibleActivities = typeof limit === 'number'
     ? developerActivities.slice(0, limit)
@@ -34,19 +35,27 @@ export function DeveloperActivities({ locale, limit, showAllLink = false }: Prop
   const langQuery = locale === 'ja' ? '' : '?lang=en'
 
   return (
-    <section id="activities" className="glass-panel developer-activities scroll-mt-28" aria-labelledby="activities-title">
-      <div className="developer-activities__heading">
-        <CharacterSectionHeading
-          label="EVENTS & TALKS"
-          title={locale === 'ja' ? 'イベント参加・登壇記録' : 'Events, exhibitions, and talks'}
-          headingId="activities-title"
-        />
-        <p>
-          {locale === 'ja'
-            ? 'ニケが参加したイベント、展示、登壇の公開記録です。制作物をどこで、どのように共有したかを残していきます。'
-            : 'A public record of events, exhibitions, and talks by Nike—documenting where the work was shared and what was presented.'}
-        </p>
-      </div>
+    <section
+      id="activities"
+      className={`${embedded ? 'developer-activities--embedded' : 'glass-panel'} developer-activities scroll-mt-28`}
+      {...(embedded
+        ? { 'aria-label': locale === 'ja' ? 'イベント参加・登壇記録' : 'Events, exhibitions, and talks' }
+        : { 'aria-labelledby': 'activities-title' })}
+    >
+      {!embedded && (
+        <div className="developer-activities__heading">
+          <CharacterSectionHeading
+            label="EVENTS & TALKS"
+            title={locale === 'ja' ? 'イベント参加・登壇記録' : 'Events, exhibitions, and talks'}
+            headingId="activities-title"
+          />
+          <p>
+            {locale === 'ja'
+              ? 'ニケが参加したイベント、展示、登壇の公開記録です。制作物をどこで、どのように共有したかを残していきます。'
+              : 'A public record of events, exhibitions, and talks by Nike—documenting where the work was shared and what was presented.'}
+          </p>
+        </div>
+      )}
 
       <ol className="developer-activities__list">
         {visibleActivities.map((activity) => (

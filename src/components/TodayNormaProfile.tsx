@@ -92,16 +92,6 @@ export const TodayNormaProfile: FC<TodayNormaProfileProps> = ({ locale }) => {
       role="Bot"
       heroSummary="今日が何の日かを知らせる、少し危うい記念日bot"
       heroSummaryEn="A slightly unreliable bot that tells you what day it is"
-      heroFacts={[
-        { label: 'ROLE', value: 'Anniversary Bot' },
-        { label: 'NOTE', value: '要確認' },
-        { label: 'NICKNAME', value: 'ノルカス' },
-      ]}
-      heroFactsEn={[
-        { label: 'ROLE', value: 'Anniversary Bot' },
-        { label: 'NOTE', value: 'Check sources' },
-        { label: 'NICKNAME', value: 'Norukasu' },
-      ]}
       catchphrase="私は回答に責任を持てないので必ずご自身で確認してください"
       catchphraseEn="I cannot take responsibility for the answers, so please be sure to check for yourself."
       catchphraseLines={['私は回答に責任を持てないので', '必ずご自身で確認してください']}

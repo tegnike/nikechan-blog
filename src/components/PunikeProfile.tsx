@@ -71,16 +71,6 @@ export const PunikeProfile: FC<PunikeProfileProps> = ({ locale }) => {
       role="Creative Character"
       heroSummary="二次創作から生まれた、ちょっと調子のいいマスコット"
       heroSummaryEn="A cheeky mascot born from fan creations"
-      heroFacts={[
-        { label: 'ROLE', value: 'Mascot' },
-        { label: 'VOICE', value: 'VOICEVOX 春歌ナナ' },
-        { label: 'SIZE', value: '2〜3頭身' },
-      ]}
-      heroFactsEn={[
-        { label: 'ROLE', value: 'Mascot' },
-        { label: 'VOICE', value: 'VOICEVOX Haruka Nana' },
-        { label: 'SIZE', value: '2-3 heads tall' },
-      ]}
       catchphrase="どしたん？話聞こか？"
       catchphraseEn="What\'s up? Do you want to talk?"
       catchphraseLines={['どしたん？ 話聞こか？']}

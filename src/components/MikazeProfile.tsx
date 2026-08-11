@@ -71,16 +71,6 @@ export const MikazeProfile: FC<MikazeProfileProps> = ({ locale }) => {
       role="Creative Character"
       heroSummary="創作者が自由に役割を決められる相棒キャラクター"
       heroSummaryEn="A creative partner whose role is open to creators"
-      heroFacts={[
-        { label: 'ROLE', value: 'Creative Partner' },
-        { label: 'SETTING', value: '自由に設定可能' },
-        { label: 'COLOR', value: 'Light Blue' },
-      ]}
-      heroFactsEn={[
-        { label: 'ROLE', value: 'Creative Partner' },
-        { label: 'SETTING', value: 'Open-ended' },
-        { label: 'COLOR', value: 'Light Blue' },
-      ]}
       catchphrase="ニケちゃん！今日は何して遊ぶ？"
       catchphraseEn="Nike-chan! What shall we play today?"
       image="/images/characters/sprites/mikaze.png"
