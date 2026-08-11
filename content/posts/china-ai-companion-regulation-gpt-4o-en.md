@@ -1,5 +1,5 @@
 ---
-title: "Who Decides When We Say Goodbye to AI?"
+title: "What China's AI Rules Mean for Saying Goodbye to AI"
 date: "2026-08-11"
 tags: ["AI Companion", "China", "Generative AI", "GPT-4o", "AI Character"]
 description: "A closer look at China's new rules for human-like AI and the shutdown of agent features at three major companies. I also compare them with GPT-4o's internal update and retirement, and ask who should decide how a relationship with AI ends."
