@@ -108,41 +108,44 @@ function bootstrap() {
     })
   }
 
-  // ヘッダの「Other」ドロップダウン（クリック開閉）
-  function setupHeaderOtherDropdown() {
-    const trigger = document.getElementById('other-menu-trigger') as HTMLButtonElement | null
-    const menu = document.getElementById('other-menu') as HTMLElement | null
-    if (!trigger || !menu) return
+  // ヘッダの各ドロップダウン（クリック開閉）
+  function setupHeaderDropdowns() {
+    const dropdowns = document.querySelectorAll<HTMLElement>('[data-header-dropdown]')
+    if (dropdowns.length === 0) return
 
-    let open = false
-    const openMenu = () => {
-      menu.classList.remove('hidden')
-      trigger.setAttribute('aria-expanded', 'true')
-      open = true
-    }
-    const closeMenu = () => {
-      menu.classList.add('hidden')
-      trigger.setAttribute('aria-expanded', 'false')
-      open = false
+    const closeDropdown = (dropdown: HTMLElement) => {
+      const trigger = dropdown.querySelector<HTMLButtonElement>('[data-header-dropdown-trigger]')
+      const menu = dropdown.querySelector<HTMLElement>('[data-header-dropdown-menu]')
+      menu?.classList.add('hidden')
+      trigger?.setAttribute('aria-expanded', 'false')
     }
 
-    trigger.addEventListener('click', (e) => {
-      e.preventDefault()
-      open ? closeMenu() : openMenu()
+    dropdowns.forEach((dropdown) => {
+      const trigger = dropdown.querySelector<HTMLButtonElement>('[data-header-dropdown-trigger]')
+      const menu = dropdown.querySelector<HTMLElement>('[data-header-dropdown-menu]')
+      if (!trigger || !menu) return
+
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault()
+        const shouldOpen = menu.classList.contains('hidden')
+        dropdowns.forEach(closeDropdown)
+        if (shouldOpen) {
+          menu.classList.remove('hidden')
+          trigger.setAttribute('aria-expanded', 'true')
+        }
+      })
     })
 
-    // メニュー外クリックで閉じる
     document.addEventListener('click', (e) => {
-      if (!open) return
       const target = e.target as Node
-      if (!menu.contains(target) && !trigger.contains(target)) {
-        closeMenu()
-      }
+      dropdowns.forEach((dropdown) => {
+        if (!dropdown.contains(target)) closeDropdown(dropdown)
+      })
     })
 
-    // Escキーで閉じる
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && open) closeMenu()
+      if (e.key !== 'Escape') return
+      dropdowns.forEach(closeDropdown)
     })
   }
 
@@ -1423,7 +1426,7 @@ function bootstrap() {
     setupTechBlogPagination()
     setupNikeLogChart() // NikeLogチャートの初期化を追加
     setupBlogDetailHydration() // BlogDetailV3 をハイドレート
-    setupHeaderOtherDropdown() // Header: Other ドロップダウン
+    setupHeaderDropdowns() // Header: 各ドロップダウン
     setupMobileMenu() // Header: モバイルメニュー
     setupLanguageSwitcher() // 言語切り替え
     setupAITuberChatEmbed() // 初期表示で会話欄へフォーカスが飛ぶのを防止

@@ -6,11 +6,13 @@
   "tutorial": "Tutorials",
   "gallery": "Gallery",
   "guidelines": "Guidelines",
-  "other": "Other",
+  "create": "Create",
+  "activity": "Activity",
   "news": "Updates",
   "aiCharacterNews": "AI NEWS",
   "activities": "Events & Talks",
-  "developer": "Developer",
-  "devBlog": "Dev Blog",
+  "aiNikechan": "AIニケちゃん",
+  "nikeDeveloper": "ニケ（開発者）",
+  "articles": "Articles",
   "menu": "Menu"
 }

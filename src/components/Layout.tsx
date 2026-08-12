@@ -34,10 +34,13 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
       : clean === path;
     return isActive ? 'site-nav-link--active' : '';
   };
-  const isOtherActive = ["/updates", "/ai-news", "/dev-blog", "/activities", "/developer"].some((p) => {
+  const isPathIn = (paths: string[]) => paths.some((p) => {
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     return clean === p || clean.startsWith(`${p}/`)
   })
+  const isAboutActive = isPathIn(['/about', '/developer'])
+  const isCreateActive = isPathIn(['/tutorials', '/guidelines'])
+  const isActivityActive = isPathIn(['/updates', '/ai-news', '/dev-blog', '/activities'])
 
   return (
     <GalleryModalProvider>
@@ -58,13 +61,30 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           </div>
 
           <nav className="site-nav">
-            {/* About */}
-            <a
-              href={addLangParam("/about")}
-              className={`site-nav-link ${getLinkClass("/about")}`}
-            >
-              {t('navigation:about')}
-            </a>
+            {/* About: AI Nike-chan / developer */}
+            <div className="relative" data-header-dropdown>
+              <button
+                id="about-menu-trigger"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-controls="about-menu"
+                className={`site-nav-link site-nav-link--button ${isAboutActive ? 'site-nav-link--active' : ''}`}
+                type="button"
+                data-header-dropdown-trigger
+              >
+                {t('navigation:about')}
+              </button>
+              <div
+                id="about-menu"
+                role="menu"
+                aria-labelledby="about-menu-trigger"
+                className="site-nav-menu hidden"
+                data-header-dropdown-menu
+              >
+                <a href={addLangParam('/about')} role="menuitem" className={getLinkClass('/about')}>{t('navigation:aiNikechan')}</a>
+                <a href={addLangParam('/developer')} role="menuitem" className={getLinkClass('/developer', true)}>{t('navigation:nikeDeveloper')}</a>
+              </div>
+            </div>
 
             {/* Character */}
             <a
@@ -72,14 +92,6 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               className={`site-nav-link ${getLinkClass("/characters", true)}`}
             >
               {t('navigation:character')}
-            </a>
-
-            {/* Tutorial */}
-            <a
-              href={addLangParam("/tutorials")}
-              className={`site-nav-link ${getLinkClass("/tutorials", true)}`}
-            >
-              {t('navigation:tutorial')}
             </a>
 
             {/* Gallery (covers /gallery/*) */}
@@ -90,36 +102,55 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               {t('navigation:gallery')}
             </a>
 
-            {/* Guidelines (covers /guidelines/*) */}
-            <a
-              href={addLangParam("/guidelines")}
-              className={`site-nav-link ${getLinkClass("/guidelines", true)}`}
-            >
-              {t('navigation:guidelines')}
-            </a>
-
-            {/* Other dropdown: Developer / Blog (click toggle) */}
-            <div className="relative">
+            {/* Creation guides */}
+            <div className="relative" data-header-dropdown>
               <button
-                id="other-menu-trigger"
+                id="create-menu-trigger"
                 aria-haspopup="menu"
-                aria-expanded={isOtherActive ? 'true' : 'false'}
-                className={`site-nav-link site-nav-link--button ${isOtherActive ? 'site-nav-link--active' : ''}`}
+                aria-expanded="false"
+                aria-controls="create-menu"
+                className={`site-nav-link site-nav-link--button ${isCreateActive ? 'site-nav-link--active' : ''}`}
                 type="button"
+                data-header-dropdown-trigger
               >
-                {t('navigation:other')}
+                {t('navigation:create')}
               </button>
               <div
-                id="other-menu"
+                id="create-menu"
                 role="menu"
-                aria-labelledby="other-menu-trigger"
+                aria-labelledby="create-menu-trigger"
                 className="site-nav-menu hidden"
+                data-header-dropdown-menu
+              >
+                <a href={addLangParam('/tutorials')} role="menuitem" className={getLinkClass('/tutorials', true)}>{t('navigation:tutorial')}</a>
+                <a href={addLangParam('/guidelines')} role="menuitem" className={getLinkClass('/guidelines', true)}>{t('navigation:guidelines')}</a>
+              </div>
+            </div>
+
+            {/* Public activity */}
+            <div className="relative" data-header-dropdown>
+              <button
+                id="activity-menu-trigger"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-controls="activity-menu"
+                className={`site-nav-link site-nav-link--button ${isActivityActive ? 'site-nav-link--active' : ''}`}
+                type="button"
+                data-header-dropdown-trigger
+              >
+                {t('navigation:activity')}
+              </button>
+              <div
+                id="activity-menu"
+                role="menu"
+                aria-labelledby="activity-menu-trigger"
+                className="site-nav-menu hidden"
+                data-header-dropdown-menu
               >
                 <a href={addLangParam("/updates")} role="menuitem" className={getLinkClass('/updates', true)}>{t('navigation:news')}</a>
                 <a href={addLangParam("/ai-news")} role="menuitem" className={getLinkClass('/ai-news', true)}>{t('navigation:aiCharacterNews')}</a>
-                <a href={addLangParam("/dev-blog")} role="menuitem" className={getLinkClass('/dev-blog', true)}>{t('navigation:devBlog')}</a>
+                <a href={addLangParam("/dev-blog")} role="menuitem" className={getLinkClass('/dev-blog', true)}>{t('navigation:articles')}</a>
                 <a href={addLangParam("/activities")} role="menuitem" className={getLinkClass('/activities', true)}>{t('navigation:activities')}</a>
-                <a href={addLangParam("/developer")} role="menuitem" className={getLinkClass('/developer', true)}>{t('navigation:developer')}</a>
               </div>
             </div>
 
@@ -161,16 +192,19 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
           >
             <div className="site-mobile-menu__panel">
               <a href={addLangParam("/")} className={`block px-4 py-3 ${getLinkClass('/')}`}>{t('navigation:home')}</a>
-              <a href={addLangParam("/about")} className={`block px-4 py-3 ${getLinkClass('/about')}`}>{t('navigation:about')}</a>
+              <span className="site-mobile-menu__label">{t('navigation:about')}</span>
+              <a href={addLangParam("/about")} className={`block px-4 py-3 ${getLinkClass('/about')}`}>{t('navigation:aiNikechan')}</a>
+              <a href={addLangParam("/developer")} className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:nikeDeveloper')}</a>
               <a href={addLangParam("/characters")} className={`block px-4 py-3 ${getLinkClass('/characters', true)}`}>{t('navigation:character')}</a>
               <a href={addLangParam("/gallery")} className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
-              <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
+              <span className="site-mobile-menu__label">{t('navigation:create')}</span>
               <a href={addLangParam("/tutorials")} className={`block px-4 py-3 ${getLinkClass('/tutorials', true)}`}>{t('navigation:tutorial')}</a>
+              <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
+              <span className="site-mobile-menu__label">{t('navigation:activity')}</span>
               <a href={addLangParam("/updates")} className={`block px-4 py-3 ${getLinkClass('/updates', true)}`}>{t('navigation:news')}</a>
               <a href={addLangParam("/ai-news")} className={`block px-4 py-3 ${getLinkClass('/ai-news', true)}`}>{t('navigation:aiCharacterNews')}</a>
-              <a href={addLangParam("/dev-blog")} className={`block px-4 py-3 ${getLinkClass('/dev-blog', true)}`}>{t('navigation:devBlog')}</a>
+              <a href={addLangParam("/dev-blog")} className={`block px-4 py-3 ${getLinkClass('/dev-blog', true)}`}>{t('navigation:articles')}</a>
               <a href={addLangParam("/activities")} className={`block px-4 py-3 ${getLinkClass('/activities', true)}`}>{t('navigation:activities')}</a>
-              <a href={addLangParam("/developer")} className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:developer')}</a>
             </div>
           </div>
         </div>

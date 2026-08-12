@@ -868,6 +868,18 @@
   text-decoration: none;
 }
 
+.site-mobile-menu__label {
+  display: block;
+  padding: 9px 16px;
+  border-bottom: 2px solid var(--site-ink);
+  color: var(--site-ink);
+  background: var(--site-yellow);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .site-mobile-menu__panel a:last-child {
   border-bottom: 0;
 }
