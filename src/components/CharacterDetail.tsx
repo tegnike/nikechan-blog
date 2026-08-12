@@ -150,6 +150,16 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   const displayCatchphraseText = displayCatchphraseLines?.join(' ') || displayCatchphrase
   const displayHeroSummary = locale === 'ja' ? heroSummary : (heroSummaryEn || heroSummary)
   const watermarkLines = nameEn.split(' ')
+  const renderHeroLinks = (placementClass: string) => links && links.length > 0 && (
+    <div className={`character-detail-hero__links ${placementClass}`} aria-label={locale === 'ja' ? '関連リンク' : 'Related links'}>
+      {links.map((link) => (
+        <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
+          {link.icon}
+          {link.label}
+        </a>
+      ))}
+    </div>
+  )
 
   // 全キャラクターリスト（固定順序: AIニケ, ニケ, ミカゼ, ぷにけ, 今日は何の日bot）
   const allCharacters = [
@@ -212,16 +222,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
             <p className="character-detail-hero__lead">
               {displayCatchphraseText}
             </p>
-            {links && links.length > 0 && (
-              <div className="character-detail-hero__links" aria-label={locale === 'ja' ? '関連リンク' : 'Related links'}>
-                {links.map((link) => (
-                  <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
-                    {link.icon}
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )}
+            {renderHeroLinks('character-detail-hero__links--desktop')}
           </div>
 
           <div className="character-detail-hero__visual">
@@ -233,6 +234,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
               className="character-detail-hero__image"
             />
           </div>
+          {renderHeroLinks('character-detail-hero__links--mobile')}
         </div>
       </section>
 

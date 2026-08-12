@@ -848,15 +848,20 @@
   left: 0;
   right: 0;
   top: calc(100% + 8px);
-  padding: 0 16px;
+  max-height: calc(100dvh - 84px);
+  padding: 0 16px 12px;
 }
 
 .site-mobile-menu__panel {
-  overflow: hidden;
+  max-height: calc(100dvh - 96px);
+  overflow-x: hidden;
+  overflow-y: auto;
   border: 3px solid var(--site-ink);
   border-radius: 8px;
   background: #fff;
   box-shadow: 7px 7px 0 var(--site-ink);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .site-mobile-menu__panel a {
@@ -868,16 +873,28 @@
   text-decoration: none;
 }
 
-.site-mobile-menu__label {
-  display: block;
-  padding: 9px 16px;
+.site-mobile-menu__primary-link {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
   border-bottom: 2px solid var(--site-ink);
   color: var(--site-ink);
-  background: var(--site-yellow);
-  font-size: 12px;
+  background: #fff;
+  font-size: 16px;
   font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-align: left;
+}
+
+html.site-mobile-menu-open,
+body.site-mobile-menu-open {
+  overflow: hidden;
+}
+
+body.site-mobile-menu-open {
+  position: fixed;
+  right: 0;
+  left: 0;
+  width: 100%;
 }
 
 .site-mobile-menu__panel a:last-child {
@@ -885,8 +902,10 @@
 }
 
 .site-mobile-menu__panel a.site-nav-link--active {
-  color: #fff;
-  background: var(--site-ink);
+  position: relative;
+  color: var(--site-purple);
+  background: #fff;
+  box-shadow: inset 6px 0 0 var(--site-purple);
 }
 
 @media (max-width: 1120px) {
@@ -6969,6 +6988,10 @@ a.glass-panel:hover {
   margin-top: 18px;
 }
 
+.character-detail-hero__links--mobile {
+  display: none;
+}
+
 .character-detail-hero__links a {
   display: inline-flex;
   min-height: 32px;
@@ -7472,6 +7495,13 @@ a.glass-panel:hover {
 }
 
 @media (max-width: 640px) {
+  .character-detail-hero__inner {
+    grid-template-areas:
+      "copy"
+      "visual"
+      "links";
+  }
+
   .character-detail-hero__eyebrow {
     margin-bottom: 10px;
   }
@@ -7967,6 +7997,19 @@ a.glass-panel:hover {
   .character-detail-hero__links {
     flex-wrap: wrap;
     overflow: visible;
+  }
+
+  .character-detail-hero__links--desktop {
+    display: none;
+  }
+
+  .character-detail-hero__links--mobile {
+    grid-area: links;
+    display: flex;
+    justify-content: center;
+    max-width: none;
+    margin: 0 0 28px;
+    padding: 0 4px 4px;
   }
 }
 

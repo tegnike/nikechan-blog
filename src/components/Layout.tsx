@@ -191,20 +191,17 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
             className="site-mobile-menu hidden"
           >
             <div className="site-mobile-menu__panel">
-              <a href={addLangParam("/")} className={`block px-4 py-3 ${getLinkClass('/')}`}>{t('navigation:home')}</a>
-              <span className="site-mobile-menu__label">{t('navigation:about')}</span>
-              <a href={addLangParam("/about")} className={`block px-4 py-3 ${getLinkClass('/about')}`}>{t('navigation:aiNikechan')}</a>
-              <a href={addLangParam("/developer")} className={`block px-4 py-3 ${getLinkClass('/developer', true)}`}>{t('navigation:nikeDeveloper')}</a>
-              <a href={addLangParam("/characters")} className={`block px-4 py-3 ${getLinkClass('/characters', true)}`}>{t('navigation:character')}</a>
-              <a href={addLangParam("/gallery")} className={`block px-4 py-3 ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
-              <span className="site-mobile-menu__label">{t('navigation:create')}</span>
-              <a href={addLangParam("/tutorials")} className={`block px-4 py-3 ${getLinkClass('/tutorials', true)}`}>{t('navigation:tutorial')}</a>
-              <a href={addLangParam("/guidelines")} className={`block px-4 py-3 ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
-              <span className="site-mobile-menu__label">{t('navigation:activity')}</span>
-              <a href={addLangParam("/updates")} className={`block px-4 py-3 ${getLinkClass('/updates', true)}`}>{t('navigation:news')}</a>
-              <a href={addLangParam("/ai-news")} className={`block px-4 py-3 ${getLinkClass('/ai-news', true)}`}>{t('navigation:aiCharacterNews')}</a>
-              <a href={addLangParam("/dev-blog")} className={`block px-4 py-3 ${getLinkClass('/dev-blog', true)}`}>{t('navigation:articles')}</a>
-              <a href={addLangParam("/activities")} className={`block px-4 py-3 ${getLinkClass('/activities', true)}`}>{t('navigation:activities')}</a>
+              <a href={addLangParam("/")} className={`site-mobile-menu__primary-link ${getLinkClass('/')}`}>{t('navigation:home')}</a>
+              <a href={addLangParam("/about")} className={`site-mobile-menu__primary-link ${getLinkClass('/about')}`}>{t('navigation:mobileAbout')}</a>
+              <a href={addLangParam("/developer")} className={`site-mobile-menu__primary-link ${getLinkClass('/developer', true)}`}>{t('navigation:mobileDeveloper')}</a>
+              <a href={addLangParam("/characters")} className={`site-mobile-menu__primary-link ${getLinkClass('/characters', true)}`}>{t('navigation:character')}</a>
+              <a href={addLangParam("/gallery")} className={`site-mobile-menu__primary-link ${getLinkClass('/gallery', true)}`}>{t('navigation:gallery')}</a>
+              <a href={addLangParam("/tutorials")} className={`site-mobile-menu__primary-link ${getLinkClass('/tutorials', true)}`}>{t('navigation:tutorial')}</a>
+              <a href={addLangParam("/guidelines")} className={`site-mobile-menu__primary-link ${getLinkClass('/guidelines', true)}`}>{t('navigation:guidelines')}</a>
+              <a href={addLangParam("/updates")} className={`site-mobile-menu__primary-link ${getLinkClass('/updates', true)}`}>{t('navigation:news')}</a>
+              <a href={addLangParam("/ai-news")} className={`site-mobile-menu__primary-link ${getLinkClass('/ai-news', true)}`}>{t('navigation:aiCharacterNews')}</a>
+              <a href={addLangParam("/dev-blog")} className={`site-mobile-menu__primary-link ${getLinkClass('/dev-blog', true)}`}>{t('navigation:articles')}</a>
+              <a href={addLangParam("/activities")} className={`site-mobile-menu__primary-link ${getLinkClass('/activities', true)}`}>{t('navigation:activities')}</a>
             </div>
           </div>
         </div>
