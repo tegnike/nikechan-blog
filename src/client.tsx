@@ -357,20 +357,15 @@ function bootstrap() {
     if (!btn || !panel) return
 
     let open = false
-    let lockedScrollY = 0
 
     const lockPageScroll = () => {
-      lockedScrollY = window.scrollY
       document.documentElement.classList.add('site-mobile-menu-open')
       document.body.classList.add('site-mobile-menu-open')
-      document.body.style.top = `-${lockedScrollY}px`
     }
 
     const unlockPageScroll = () => {
       document.documentElement.classList.remove('site-mobile-menu-open')
       document.body.classList.remove('site-mobile-menu-open')
-      document.body.style.removeProperty('top')
-      window.scrollTo(0, lockedScrollY)
     }
 
     const openMenu = () => {

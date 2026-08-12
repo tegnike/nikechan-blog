@@ -888,10 +888,12 @@
 html.site-mobile-menu-open,
 body.site-mobile-menu-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
-body.site-mobile-menu-open {
+body.site-mobile-menu-open .site-header {
   position: fixed;
+  top: 0;
   right: 0;
   left: 0;
   width: 100%;
