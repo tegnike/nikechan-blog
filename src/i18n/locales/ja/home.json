@@ -36,6 +36,16 @@
     "heading": "最近のアップデート",
     "items": [
       {
+        "id": "ai-nike-fest-2026",
+        "tag": "NEW",
+        "date": "2026・9",
+        "title": "AIニケちゃんDiscordサーバー1周年記念「AIニケフェス」を開催します",
+        "description": "2026年9月5日（土）22:00から、AIニケちゃんDiscordサーバー1周年を記念した「AIニケフェス」を開催します。会場はAIニケちゃんDiscordサーバーです。1年の振り返り、AIキャラクターLT、作品コンテストを行い、ゲーム・映像・音楽・ツールなどコミュニティから届いた17作品を特設サイトで紹介しています。",
+        "thumbnail": "/static/images/news/ai-nike-fest-2026/thumbnail.png",
+        "cta": "AIニケフェス特設サイトを見る",
+        "externalLink": "https://fes2026.nikechan.com"
+      },
+      {
         "id": "ai-character-news",
         "tag": "NEW",
         "date": "2026・5",

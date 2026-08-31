@@ -36,6 +36,16 @@
     "heading": "Recent Updates",
     "items": [
       {
+        "id": "ai-nike-fest-2026",
+        "tag": "NEW",
+        "date": "2026・9",
+        "title": "AI Nike Fest Celebrates Our Discord Server's First Anniversary",
+        "description": "AI Nike Fest will be held on September 5, 2026 at 10:00 PM JST to celebrate the first anniversary of the AI Nike Chan Discord server. The Discord server is the event venue. The program includes a one-year retrospective, AI character lightning talks, and a community works contest, while the special site showcases 17 games, videos, music projects, tools, and more.",
+        "thumbnail": "/static/images/news/ai-nike-fest-2026/thumbnail.png",
+        "cta": "View the AI Nike Fest Site",
+        "externalLink": "https://fes2026.nikechan.com"
+      },
+      {
         "id": "ai-character-news",
         "tag": "NEW",
         "date": "2026・5",
