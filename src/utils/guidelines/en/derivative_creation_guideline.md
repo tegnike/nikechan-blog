@@ -4,6 +4,8 @@ These guidelines outline the rules for creating derivative works of the characte
 
 Please note that these guidelines may be revised without prior notice. Always check the latest version.
 
+The detailed guidelines published on this website are the authoritative source for general usage conditions. Guidelines and README files in the official asset repository are copies or asset-specific supplements provided for convenience. Individually provided assets are also governed by the provision notice issued at delivery.
+
 ---
 
 ### 1. Scope and Definitions
@@ -21,6 +23,7 @@ Please note that these guidelines may be revised without prior notice. Always ch
 - Derivative works are generally permitted for non-commercial purposes only. Please see Chapter 3 for details.
 - Credit (author/original work attribution) is not required. However, please follow if required by third-party rights or distribution platform terms.
 - Corporate use is not allowed, doujin circle names are allowed.
+- License and usage-condition metadata embedded in the official AI Nike-Chan VRM files is a legacy setting and does not apply. These guidelines and the current instructions at the distribution source take priority.
 - Political/religious content, defamation, impersonation, expressions that may be mistaken for official content, expressions contrary to public order and morals, and violations of third-party rights are prohibited.
 - Adult content (R-18/R-18G) expressions are permitted as long as they comply with the conditions described in each chapter below.
 
@@ -59,21 +62,26 @@ Please note that these guidelines may be revised without prior notice. Always ch
 
 #### 3.4 Distribution of Reusable Digital Materials (Data Distribution, Modification, Redistribution)
 - This section covers data assets that can be reused by others (e.g., PSD, brushes, 3D models, sound sources, templates, etc.). For finished product distribution, see Section 3.3.
-- Distribution of materials created as derivative works is allowed.
+- This section permits distribution only of new derivative materials created by users.
+- Official assets distributed by the Author—including VRM, logo, voice, video, script, and reference-sheet data—may not be redistributed in either original or modified form. Bundling the official asset data itself with a game, app, or asset pack also counts as redistribution.
+- Distribution of new derivative materials created by users is allowed.
 - Price must be free only (optional payments, tips, etc. are also not allowed. Follows Section 3.3).
-- Modification and redistribution are allowed, provided that "the same conditions as these guidelines (non-commercial, attribution required, compliance with prohibited items)" are attached.
+- User-created derivative materials may be modified and redistributed, provided that "the same conditions as these guidelines (non-commercial, attribution required, compliance with prohibited items)" are attached.
 - If third-party rights materials (fonts, BGM, images, code, etc.) are included, be sure to follow each rights holder's license.
 
 #### 3.5 Generative AI
 For conditions regarding generation, training, and distribution using AI, please refer to the [Generative AI Guidelines](/guidelines/ai).
 
 - Scope of distribution: In addition to AI-generated content (images, videos, audio, text, etc.), distribution and publication of trained models/LoRA/Embedding, workflows, datasets, etc. must also follow the "non-commercial, attribution, distribution" rules of these guidelines.
-- Additional requirements (AI-specific): Handling of permitted materials and permissions must follow the provisions of the Generative AI Guidelines (e.g., not using materials other than the 3 VRM models/logos, prior permission for others' derivative works, etc.).
+- Additional requirements (AI-specific): Handling of permitted materials and permissions must follow the Generative AI Guidelines (e.g., not using official materials other than official VRM models, logos, official character reference sheets, or individually provided voice assets, and obtaining prior permission for others' derivative works).
 
-#### 3.6 Use of Voice Synthesis Models {#voice-model}
-- AI Nike-Chan's voice synthesis model can be used only for non-commercial derivative works featuring AI Nike-Chan (streams, videos, voice works, demos, etc.).
-- Distribution of model data is subject to application. Please contact us via [X DM](https://x.com/tegnike) or [Discord Community](https://discord.gg/nikechan) with details of your intended use (publication location, expected genre, presence of monetization features, etc.).
-- Redistribution, transfer to third parties, or sale of distributed data is prohibited. When publishing works using the voice model, follow the attribution rules and prohibited items of these guidelines.
+#### 3.6 Individually Provided Voice Assets {#voice-model}
+- AI Nike-Chan voice assets, including voice synthesis models, are provided individually upon application. Describe your intended use—including publication destination, genre, monetization, and integration target—and contact the Author by [X DM](https://x.com/tegnike) or direct message through the [official Discord](https://discord.gg/nikechan).
+- The provision notice defines the authorized recipient, project, purpose, period, and other conditions. Uses not stated in that notice and reuse in a different project are not permitted.
+- You may not redistribute, sell, transfer, lend, or share original, copied, or modified voice assets, or make them downloadable or extractable by users.
+- You may not use voice assets or generated voice to create or train another voice model, voice clone, training material, or dataset, including through additional training or fine-tuning.
+- Within the scope authorized by the provision notice, generated voice may be incorporated into completed derivative works such as videos, streams, games, apps, and voice works and published under these guidelines. It may not be distributed or provided as a reusable voice pack, voice API, dataset, or similar resource.
+- Commercial use, adult use, end-user generation features, and other project-specific conditions are governed by the provision notice.
 
 ---
 
@@ -119,7 +127,7 @@ Creation, publication, and sharing of derivative works are permitted as long as 
 1. Non-commercial (following the "non-commercial" definition of these guidelines).
 2. Clearly state that it is an "unofficial fan-made work of [Character Name]" in distributed works (digital/printed) and their distribution pages (attribution in casual SNS posts is optional).
 3. Does not fall under the prohibited items of these guidelines.
-4. When redistributing or redistributing modified materials, share them with the same conditions as these guidelines.
+4. When redistributing new derivative materials created by a user, share them under the same conditions as these guidelines. Do not redistribute original or modified official assets distributed by the Author.
 
 Credit is not required (optional attribution is welcome).
 
@@ -173,7 +181,13 @@ In principle, we will respond within 1-2 weeks (may vary depending on the timing
   - A: Not mandatory (optional attribution is welcome). However, please follow if required by third-party rights or distribution destination terms. For examples of wording when attributing, see Chapter 6.
 
 - Q: Can I distribute/modify/redistribute materials I created?
-  - A: Yes. Attach "the same conditions as these guidelines (non-commercial, attribution required, compliance with prohibited items)" and follow the licenses of third-party materials (Section 3.4).
+  - A: Yes, if they are new derivative materials you created. Attach "the same conditions as these guidelines (non-commercial, attribution required, compliance with prohibited items)" and follow the licenses of third-party materials (Section 3.4). Original or modified official assets distributed by the Author may not be redistributed.
+
+- Q: Can I redistribute an official VRM, logo, voice, video, script, or reference sheet in original or modified form?
+  - A: No. You may not redistribute either the original or a modified version, nor bundle the official asset data itself with a game or app. Rendered images or videos and new derivative works created by users may be published and distributed under the applicable conditions.
+
+- Q: Can I use voice generated with an individually provided voice asset in my work?
+  - A: Within the scope authorized by the provision notice, it may be incorporated into and published as part of a completed derivative work such as a video, stream, game, app, or voice work. It may not be distributed or used as a voice pack, voice API, training dataset, or another voice model.
 
 - Q: Can I use monetization features (tips/optional payments/ad revenue, etc.) if the platform side cannot turn them off?
   - A: For SNS and video streaming, they can be used as long as the conditions of Section 3.1 are met. For digital distribution platforms, downloads must be free (price 0), and optional payments are not allowed. If difficult, please consult in advance.

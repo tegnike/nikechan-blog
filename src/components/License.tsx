@@ -92,6 +92,7 @@ const quickGuideContent: Record<Locale, {
         label: '公開・配布できません',
         items: [
           '公式・公認・監修と誤解される表現、なりすまし',
+          '公式VRM、ロゴ、音声、設定画などの原本・改変版の再配布やアプリへのデータ同梱',
           'デジタル配布の任意支払い、寄付、支援プラン、有料販売',
           'アクキー、衣類、立体物など印刷物以外の販売・頒布',
           '政治・宗教、誹謗中傷、権利侵害、公序良俗に反する内容',
@@ -100,7 +101,7 @@ const quickGuideContent: Record<Locale, {
     ],
     aiTitle: 'AI利用はここが大事',
     aiItems: [
-      '使える素材はVRMモデル、ロゴ画像、このWebサイトで許可している素材です。',
+      '使える公式素材は、配布中のVRMモデルとロゴ、各キャラクターページの三面図・設定画、個別提供時に許可されたボイスアセットです。',
       '既存イラスト、配信素材、サムネイル、スクリーンショット等はAI入力・参照・学習に使えません。',
       '他の人の二次創作をAI利用する場合は、その作者の明示的な許可が必要です。',
     ],
@@ -113,7 +114,7 @@ const quickGuideContent: Record<Locale, {
       },
       {
         question: '無料ゲームや無料素材は配布できる？',
-        answer: 'できます。価格0円のみで、任意支払い・投げ銭・広告などの収益化機能は無効にしてください。',
+        answer: '利用者が新規に作った二次創作であれば配布できます。価格0円のみで、任意支払い・投げ銭・広告などは無効にしてください。公式アセットの原本・改変版を再配布したり、データとして同梱したりすることはできません。',
       },
       {
         question: '判断に迷ったら？',
@@ -170,6 +171,7 @@ const quickGuideContent: Record<Locale, {
         label: 'Do not publish or distribute',
         items: [
           'Misleading official, endorsed, supervised, or impersonation-style presentation',
+          'Redistribution of original or modified official VRM, logo, voice, or reference-sheet data, including bundling it with an app',
           'Optional payments, donations, support plans, paid digital distribution',
           'Sales or distribution of acrylic goods, apparel, 3D goods, or non-printed goods',
           'Political or religious claims, defamation, rights infringement, or offensive content',
@@ -178,7 +180,7 @@ const quickGuideContent: Record<Locale, {
     ],
     aiTitle: 'Important for AI use',
     aiItems: [
-      'Allowed materials are VRM models, logo images, and materials explicitly permitted on this website.',
+      'Permitted official materials are the distributed VRM models and logos, character reference sheets published on each profile page, and voice assets individually authorized at provision.',
       'Existing illustrations, stream assets, thumbnails, screenshots, and similar materials cannot be used as AI input, references, or training data.',
       'To use another creator\'s derivative work with AI, you need that creator\'s explicit permission first.',
     ],
@@ -191,7 +193,7 @@ const quickGuideContent: Record<Locale, {
       },
       {
         question: 'Can I distribute free games or free assets?',
-        answer: 'Yes. They must be price 0, and optional payment, tipping, ads, and other monetization features must be disabled.',
+        answer: 'You may distribute derivative works you created yourself. They must be price 0 with optional payments, tips, and ads disabled. You may not redistribute original or modified official assets or bundle the asset data itself.',
       },
       {
         question: 'What if I am unsure?',
