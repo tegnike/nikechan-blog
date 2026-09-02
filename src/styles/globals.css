@@ -5749,7 +5749,9 @@ body.site-mobile-menu-open .site-header {
 }
 
 .character-page .home-news-section .news-card-title {
-  margin: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
   padding-bottom: 0;
   border-bottom: 0 !important;
   color: var(--character-ink) !important;
