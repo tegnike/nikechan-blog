@@ -46,3 +46,9 @@ tmp/
 
 public/expo-video
 expo-video
+
+# Gallery artwork is stored in the dedicated nikechan-blog-images R2 bucket.
+/public/images/fan_arts/
+/public/images/illustrations/
+/public/images/optimized/fan_arts/
+/public/images/optimized/illustrations/

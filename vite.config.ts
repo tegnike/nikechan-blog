@@ -84,7 +84,7 @@ export default defineConfig(({ mode }) => {
           /^\/favicon\.ico$/,
           /^\/static\/.+/,
           /^\/node_modules\/.*/,
-          /^\/images\/.+/,
+          /^\/images\/(?!(?:fan_arts|illustrations|optimized\/(?:fan_arts|illustrations))\/).+/,
           /^\/icons\/.+/,
           /^\/slides\/.+/,
           /^\/manifest\.json$/,

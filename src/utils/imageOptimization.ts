@@ -1,3 +1,5 @@
+import { GALLERY_IMAGE_ORIGIN, galleryImageUrl } from './galleryImages'
+
 export type OptimizedImageSources = {
   src: string
   srcSet: string
@@ -24,11 +26,15 @@ const imageRules: ImageRule[] = [
 const stripExtension = (path: string) => path.replace(/\.[^/.?#]+(?=$|[?#])/, '')
 
 export const getOptimizedImageSources = (src: string): OptimizedImageSources | undefined => {
-  const rule = imageRules.find(({ sourcePrefix }) => src.startsWith(sourcePrefix))
+  const sourcePath = src.startsWith(`${GALLERY_IMAGE_ORIGIN}/`)
+    ? src.slice(GALLERY_IMAGE_ORIGIN.length)
+    : src
+  const rule = imageRules.find(({ sourcePrefix }) => sourcePath.startsWith(sourcePrefix))
   if (!rule) return undefined
 
-  const relativePath = src.slice(rule.sourcePrefix.length)
-  const optimizedBase = `${rule.optimizedPrefix}${stripExtension(relativePath)}`
+  const relativePath = sourcePath.slice(rule.sourcePrefix.length)
+  // Encode spaces in file names so srcset remains a valid list of URL candidates.
+  const optimizedBase = encodeURI(galleryImageUrl(`${rule.optimizedPrefix}${stripExtension(relativePath)}`))
   const [smallWidth, largeWidth] = rule.widths
 
   return {

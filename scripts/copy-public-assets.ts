@@ -6,6 +6,10 @@ const publicDir = 'public'
 const assetsDir = 'dist/assets'
 const excludedDirs = new Set([
   'expo-video',
+  'images/fan_arts',
+  'images/illustrations',
+  'images/optimized/fan_arts',
+  'images/optimized/illustrations',
 ])
 
 function isExcluded(path: string): boolean {

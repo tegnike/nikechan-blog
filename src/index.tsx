@@ -45,11 +45,17 @@ import {
 } from './lib/activity-log'
 import type { AiCharacterNewsDateGroup, AiCharacterNewsItem } from './lib/ai-character-news'
 import { getDeveloperActivityBySlug } from './utils/developerActivities'
+import { GALLERY_IMAGE_PREFIXES, galleryImageUrl } from './utils/galleryImages'
 
 const app = new Hono()
 const AI_NEWS_PAGE_SIZE = 10
 const AI_NEWS_RECENT_LIMIT = 5
 const AI_NEWS_RECENT_HOURS = 48
+
+// Keep previously shared image URLs working after removing bundled gallery files.
+for (const prefix of GALLERY_IMAGE_PREFIXES) {
+  app.get(`${prefix}*`, c => c.redirect(galleryImageUrl(new URL(c.req.url).pathname), 302))
+}
 
 // Middleware to detect and set locale
 app.use('*', async (c, next) => {

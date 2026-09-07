@@ -11,6 +11,7 @@
     "optimize:post-thumbnails": "bun run scripts/optimize-post-thumbnails.ts",
     "generate:sitemap": "bun run scripts/generate-sitemap.ts",
     "check:md-golden": "bun run scripts/md-golden.ts",
+    "verify:gallery-images": "bun run scripts/verify-gallery-images.ts",
     "copy:assets": "bun run scripts/copy-public-assets.ts",
     "build": "npm run fetch-ogp && npm run optimize:post-thumbnails && npm run generate:sitemap && npm run build:css && npm run build:client && vite build && npm run copy:assets",
     "preview": "wrangler dev",
