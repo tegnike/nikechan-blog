@@ -1,0 +1,96 @@
+<p>こんにちは、ニケです。</p>
+<p>リアルタイム動画生成を使って、YouTubeのコメントに応じて話し、動くAITuberを作りました。<br />コメントから返答の文章と動作を考え、合成音声と一緒に動画生成APIへ送ることで、AIニケちゃんが映像の中で応答できるようにしています。</p>
+<p>キャラクターの開始画像を用意し、その続きの映像を生成していく構成です。<br />例えば「手を振って」といったコメントを、セリフだけでなく、映像の動きにも反映するように指示できます。</p>
+<p>実際の配信はこちらです。</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/sXW9ir7DA3E?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="コメントの通りに動き続けるAITuber"></iframe></div>
+<p>まず、映像生成に使っているH3 Max Directorの仕組みを説明し、その後にAITuberとしてどう組み合わせているかを紹介します。</p>
+<h2 id="h3-max-directorは、映像を生成しながら指示を追加できる">H3 Max Directorは、映像を生成しながら指示を追加できる</h2>
+<p>使用しているのは、falで提供されている <strong>H3 Max Director</strong> です。</p>
+<a href="https://fal.ai/h3-max-director" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://ir7z8qsacw4tk54b.public.blob.vercel-storage.com/h3-max-director/og.jpg" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">H3 Max Director: Realtime Video You Direct as It Generates | fal</div><div class="ogp-card-description">The first natively continuous realtime frontier video model, now on the fal API. One unbroken stream, directed live, with characters and story held across every prompt. 75% off for two weeks.</div><div class="ogp-card-meta"><img src="https://fal.ai/favicon.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>fal.ai</span></div></div></a>
+<p>接続を維持したまま映像を受け取り、途中で新しい演出指示を送れる点に特徴があります。<br />開始時に場面を設定し、その後は「歩いて」「手を振って」のような指示で、これから生成する内容を変えていきます。</p>
+<p>映像と音声の受信に使うのは、ブラウザで音声や映像をリアルタイムにやり取りする技術、WebRTCです。<br />演出指示は、同じ接続のデータチャネルを通して送ります。</p>
+<h3 id="続きの映像はfal側で生成される">続きの映像はfal側で生成される</h3>
+<p>開始時には、最初の画像のURLや、場面・動作を指定するプロンプトを渡します。<br />公式説明によると、直前の区間の映像や過去のプロンプトを引き継ぎながら、続きの区間を生成する仕組みです。<br />区間の重なりを処理することで、連続したストリームとして配信できます。</p>
+<p><strong>追加の指示を送らなくても、セッションが動いている間は映像の生成が続きます。</strong><br />そのときに続きを作る手がかりとなるのが、すでに渡した指示と、それまでの映像・プロンプトの文脈です。</p>
+<p>具体的にどう動き続けるかは生成結果次第で、同じ動作や外見がずっと保たれる保証はありません。<br />なお、課金の対象は生成された動画の長さなので、指示を送らずに見ている間も費用はかかります。</p>
+<p>新しい指示を追加した場合、反映先は後続の生成区間です。<br />そのため、リアルタイムといっても、指示した瞬間に画面の動きが変わるわけではありません。</p>
+<p><img src="/static/images/optimized/posts/realtime-video-aituber/01-continuous-generation-v2-420.webp" srcset="/static/images/optimized/posts/realtime-video-aituber/01-continuous-generation-v2-420.webp 420w, /static/images/optimized/posts/realtime-video-aituber/01-continuous-generation-v2-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="開始画像と最初の指示からfal側で映像を継続生成し、追加指示がなくても文脈から続きを作る。新しい指示や音声は後続の生成区間へ反映される流れ。" loading="lazy" decoding="async" /></p>
+<p>途中の更新では、動作の指示に加えて音声ファイルのURLも送信可能です。<br />外部で合成した声を実際に再生する音声として渡すと、その音声を条件に映像が生成されます。</p>
+<p>詳細は上記のDirector紹介ページと、<a href="https://fal.ai/models/minimax/h3-max/director/api" target="_blank" rel="noopener noreferrer">公式API仕様</a>で確認できます。</p>
+<h2 id="このapiを使って、コメントに反応するaituberを動かす">このAPIを使って、コメントに反応するAITuberを動かす</h2>
+<p>今回作ったのは、ローカルのブラウザで動くアプリです。<br />Directorには映像生成を担当させ、コメントの取得、返答の判断、音声合成は、それぞれ別の処理としてつないでいます。</p>
+<div class="table-wrapper"><table><thead><tr><th>担当</th><th>使用しているもの</th></tr></thead><tbody><tr><td>YouTubeコメントの取得</td><td>わんコメ＋連携プラグイン</td></tr><tr><td>コメント選択・返答・動作の作成</td><td>OpenAI</td></tr><tr><td>返答文の音声合成</td><td>Aivis Cloud</td></tr><tr><td>音声と動作指示からの映像生成</td><td>falのH3 Max Director</td></tr><tr><td>再生・コメント表示・録画</td><td>ローカルのブラウザアプリ</td></tr></tbody></table></div>
+<h3 id="コメントを受け取り、返答と動作を一緒に考える">コメントを受け取り、返答と動作を一緒に考える</h3>
+<p>YouTubeへの接続とコメント取得はわんコメが担当し、専用の連携プラグインからアプリへコメントを渡します。<br />受け取ったコメントはすべて順番に読み上げるのではなく、最新の数件を応答候補としてAIに渡し、そこから選ばれた1件に対する返信を生成する設計です。</p>
+<p>返答AIモデルには <code>gpt-5.6-luna</code> を使用していました。<br />返答内容の正確さよりも、応答の速度と安定性を優先した結果です。</p>
+<p>1回のリクエストで、返答文（日本語）と動作指示（英語）を同時に、決められたJSON形式で受け取ります。<br />例えば「笑顔で手を振って」という入力なら、短い挨拶の文章と、笑顔で手を振る動作の指示を同じ処理で考える、という形です。</p>
+<h3 id="合成音声と動作指示をdirectorへ送る">合成音声と動作指示をDirectorへ送る</h3>
+<p>返答文ができたら、Aivis Cloudで音声を合成し、MP3を全量受け取ってからfalのストレージへアップロードします。<br />Directorへ渡すのは、その音声のURLと動作指示です。</p>
+<p>何を話すかはOpenAI LLM、どの声で読むかはAivis Cloud、どんな映像にするかはfalのDirectorが担当します。</p>
+<p>AIニケちゃんの外見は、開始時に渡す画像や場面の指示だけに任せるわけではありません。<br />応答時の動画プロンプトにも外見の指示を含めることで、キャラクターを維持しながら今回の動作を行うようにしています。</p>
+<p>返ってきたWebRTCの映像と音声は、そのままブラウザで再生します。</p>
+<p><img src="/static/images/optimized/posts/realtime-video-aituber/02-comment-to-video-styled-420.webp" srcset="/static/images/optimized/posts/realtime-video-aituber/02-comment-to-video-styled-420.webp 420w, /static/images/optimized/posts/realtime-video-aituber/02-comment-to-video-styled-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="YouTubeコメントをわんコメ経由で受け取り、OpenAIが返答文と動作指示を生成する。返答文はAivis Cloudで音声合成してfalストレージへアップロードし、音声URLと動作指示をDirectorへ送り、映像と音声をブラウザで再生する流れ。" loading="lazy" decoding="async" /></p>
+<h3 id="会話と場面の状態を、次の指示にも渡す">会話と場面の状態を、次の指示にも渡す</h3>
+<p>次のコメントに応答するときは、過去の会話に加え、会話上の事実と現在の場面をまとめた短い記憶を返答AIへ渡します。<br />保持する内容は、例えば「誰から何をもらったか」と「今どこにいて、何をしているか」。<br />こうした情報を、会話ログとは別にまとめています。</p>
+<p>場面の記憶として残すのは、過去の動作命令ではなく、動作後の状態です。<br />例えば、「箱を開けて」という命令を残すのではなく、「箱は開いていて、中身が机にある」という状態を次の応答へ渡します。<br />動画側の指示にも動作前後の状態を含めるのは、前の行動を踏まえて続きを生成してもらうためです。</p>
+<p>なお、アプリが保持しているのは文章上の状態で、映像を見て成功を判定しているわけではありません。<br />そのため、計画した内容と実際の映像にずれが出る可能性はあります。</p>
+<h3 id="返答の準備と、映像の継続を重ねる">返答の準備と、映像の継続を重ねる</h3>
+<p>現在の応答をDirectorへ送った後、新しい候補があれば次の1件の返答・音声合成・アップロードを先に進めます。<br />Directorから現在の応答の音声終了通知を受け取った後、準備済みの次の応答を送ります。<br />これは生成側での終了通知で、ブラウザでの再生完了を確認するものではありません。</p>
+<p>次の返答がまだ用意できていない場合は、現在の場所や活動に合った待機指示を送ります。<br />コメントへの返答を準備している間も、映像側では活動を続ける方針です。</p>
+<p>このように、Directorの連続映像生成へ、コメント選択・返答・音声合成・状態管理を組み合わせて、視聴者のコメントに反応するAITuberを構成しています。</p>
+<p><img src="/static/images/optimized/posts/realtime-video-aituber/03-memory-and-prefetch-420.webp" srcset="/static/images/optimized/posts/realtime-video-aituber/03-memory-and-prefetch-420.webp 420w, /static/images/optimized/posts/realtime-video-aituber/03-memory-and-prefetch-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="会話履歴と事実・場面の記憶を次の返答AIへ渡す仕組みと、現在の映像生成中に次の返答・音声合成・アップロードを進め、生成側の音声終了後に次の応答を送る流れ。" loading="lazy" decoding="async" /></p>
+<aside class="markdown-message" role="note"><span class="markdown-message__icon" aria-hidden="true">!</span><div class="markdown-message__body"><p>APIの説明は2026年9月10日時点です。公式案内では公開セッションの上限は15分で、前払いアカウントは残高による制限もあります。最新の条件は、上記のfal公式紹介ページで確認できます。</p></div></aside>
+<h2 id="実際の配信で見えた課題">実際の配信で見えた課題</h2>
+<p>この構成で4回配信してみると、コメントに応じて映像が変わる面白さがある一方、大きな場面変更に映像が追従せず、発話と食い違うことがありました。<br />外見をプロンプトで指定していても、フレームアウト後の顔立ちや、長時間生成したときの画風の変化までは防ぎきれません。</p>
+<p>私の配信では、長時間続けると画面が暗く、よどんでいく印象もあり、気になった時点で新しいセッションからやり直していました。<br />これらは今回の運用での観測で、モデルとプロンプトそれぞれの影響を切り分けられたわけではありません。<br />配信の具体例やYouTubeでの反応、今後については、<a href="/dev-blog/realtime-video-aituber-retrospective">4回配信した振り返り</a>にまとめています。</p>
+<h2 id="関連リンク">関連リンク</h2>
+<p>AIツールやAIキャラクターの開発について、Xでも発信しています。</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "H3 Max Directorは、映像を生成しながら指示を追加できる",
+    "id": "h3-max-directorは、映像を生成しながら指示を追加できる"
+  },
+  {
+    "level": 3,
+    "text": "続きの映像はfal側で生成される",
+    "id": "続きの映像はfal側で生成される"
+  },
+  {
+    "level": 2,
+    "text": "このAPIを使って、コメントに反応するAITuberを動かす",
+    "id": "このapiを使って、コメントに反応するaituberを動かす"
+  },
+  {
+    "level": 3,
+    "text": "コメントを受け取り、返答と動作を一緒に考える",
+    "id": "コメントを受け取り、返答と動作を一緒に考える"
+  },
+  {
+    "level": 3,
+    "text": "合成音声と動作指示をDirectorへ送る",
+    "id": "合成音声と動作指示をdirectorへ送る"
+  },
+  {
+    "level": 3,
+    "text": "会話と場面の状態を、次の指示にも渡す",
+    "id": "会話と場面の状態を、次の指示にも渡す"
+  },
+  {
+    "level": 3,
+    "text": "返答の準備と、映像の継続を重ねる",
+    "id": "返答の準備と、映像の継続を重ねる"
+  },
+  {
+    "level": 2,
+    "text": "実際の配信で見えた課題",
+    "id": "実際の配信で見えた課題"
+  },
+  {
+    "level": 2,
+    "text": "関連リンク",
+    "id": "関連リンク"
+  }
+]

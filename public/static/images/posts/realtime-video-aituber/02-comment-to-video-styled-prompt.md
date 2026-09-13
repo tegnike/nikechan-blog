@@ -1,0 +1,8 @@
+# 図1と意匠を揃えた左から右のフロー
+
+生成方法: built-in imagegen（大文字版を編集、図1をスタイル参照）
+出力: 02-comment-to-video-styled.png
+
+## 使用プロンプト
+
+Edit image 1 (the plain left-to-right flowchart) to visually match image 2 (the polished blue/orange Japanese infographic). Image 1 is the EDIT TARGET; image 2 is STYLE REFERENCE ONLY. Preserve EXACTLY image 1's left-to-right data flow, node placement, branching and merging, and LARGE Japanese type. Landscape 3:2. Add polished editorial infographic styling: rounded pale blue shaded cards, subtle light blue borders, navy bold typography, warm pale orange card and band for the action path, saturated blue and orange directional arrows. Add compact meaningful flat illustrated icons ABOVE text where there is room: YouTube play icon, comment bubble for わんコメ, small brain/circuit for OpenAI, document for reply, speaker with soundwaves for Aivis Cloud, upload cloud for fal保存, filmstrip for Director, small browser screen showing generic waving silhouette in a park for ブラウザ再生. Icons should enrich but NOT shrink text. Use existing whitespace above/below rows, tighter outer margins, and generous visual grouping of the blue reply lane and orange action lane. Add a compact header 「コメントが、声と動きになるまで」 only if it does not reduce node text size. No extra subtitles, no legends, no model version, no fine print. Exact existing node labels must remain. Do not add processing steps or change the logic. Keep labels at least as large as image1. Layout must stay left-to-right: YouTube→わんコメ→OpenAI→split upper reply→TTS→upload and lower action bypass→Director→browser. The finished image should feel like the same designed series as image2, neither a bare wireframe nor an overdecorated illustration.

@@ -9,6 +9,20 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#39;')
 }
 
+// Captions are plain text. Only escaped quotes and backslashes are decoded.
+const captionedImagePattern = /^!\[([^\]]*)\]\(([^)]+?)\s+"((?:\\.|[^"\\])*)"\)\s*$/
+const videoPattern = /^((?:\/|https?:\/\/)\S+\.(?:mp4|webm|mov))(?:\s+"((?:\\.|[^"\\])*)")?\s*$/i
+
+function decodeCaption(caption: string): string {
+  return caption.replace(/\\(["\\])/g, '$1')
+}
+
+function renderFigure(media: string, caption: string): string {
+  return caption.trim()
+    ? `<figure class="media-figure">${media}<figcaption>${escapeHtml(caption)}</figcaption></figure>`
+    : media
+}
+
 function applyInlineTransforms(str: string): string {
   // inline code `code` — 最初に抽出してプレースホルダーへ退避し、
   // コードスパン内がリンク・強調などの変換対象にならないよう保護する
@@ -66,7 +80,8 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
     | { type: 'list'; ordered: boolean; items: Array<{ text: string; children: Node[] }> }
     | { type: 'message'; children: Node[] }
     | { type: 'ogp-card'; url: string; data: OgpData }
-    | { type: 'video'; src: string }
+    | { type: 'video'; src: string; caption?: string }
+    | { type: 'captioned-image'; src: string; alt: string; caption: string }
     | { type: 'table'; html: string }
 
   function parseBlocks(startIndex: number, indent: number): { nodes: Node[]; nextIndex: number } {
@@ -237,9 +252,16 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
         }
       }
 
-      const videoMatch = content.match(/^((?:\/|https?:\/\/)\S+\.(?:mp4|webm|mov))(?:\s+"([^"]+)")?$/i)
+      const imageMatch = content.match(captionedImagePattern)
+      if (imageMatch) {
+        nodes.push({ type: 'captioned-image', alt: imageMatch[1], src: imageMatch[2], caption: decodeCaption(imageMatch[3]) })
+        i++
+        continue
+      }
+
+      const videoMatch = content.match(videoPattern)
       if (videoMatch) {
-        nodes.push({ type: 'video', src: videoMatch[1] })
+        nodes.push({ type: 'video', src: videoMatch[1], caption: decodeCaption(videoMatch[2] ?? '') })
         i++
         continue
       }
@@ -268,6 +290,8 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
         const nextContent = nextLine.slice(Math.min(indent, nextLeading))
         if (
           nextLeading < indent ||
+          captionedImagePattern.test(nextContent) ||
+          videoPattern.test(nextContent) ||
           /^\s*$/.test(nextContent) ||
           /^```/.test(nextContent) ||
           /^[-*+]\s+/.test(nextContent) ||
@@ -357,8 +381,16 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
               : ''
             return `<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener noreferrer" class="ogp-card">${imageHtml}<div class="ogp-card-content"><div class="ogp-card-title">${escapeHtml(data.title)}</div>${data.description ? `<div class="ogp-card-description">${escapeHtml(data.description)}</div>` : ''}<div class="ogp-card-meta">${data.favicon ? `<img src="${escapeHtml(data.favicon)}" alt="" class="ogp-card-favicon" width="14" height="14" />` : ''}<span>${escapeHtml(domain)}</span></div></div></a>`
           }
-          case 'video':
-            return `<div class="video-embed"><video src="${escapeHtml(node.src)}" controls playsinline preload="metadata"></video></div>`
+          case 'captioned-image': {
+            const optimizedImage = getOptimizedImageSources(node.src)
+            const srcSet = optimizedImage?.srcSet ? ` srcset="${escapeHtml(optimizedImage.srcSet)}" sizes="(max-width: 768px) 100vw, 768px"` : ''
+            const image = `<img src="${escapeHtml(optimizedImage?.src ?? node.src)}"${srcSet} alt="${escapeHtml(node.alt)}" loading="lazy" decoding="async" />`
+            return node.caption.trim() ? renderFigure(image, node.caption) : `<p>${image}</p>`
+          }
+          case 'video': {
+            const video = `<div class="video-embed"><video src="${escapeHtml(node.src)}" controls playsinline preload="metadata"></video></div>`
+            return renderFigure(video, node.caption ?? '')
+          }
         }
       })
       .join('\n')

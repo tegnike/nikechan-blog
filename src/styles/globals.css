@@ -2161,6 +2161,34 @@ body.site-mobile-menu-open .site-header {
   background: #18181b;
 }
 
+/* Shared image/video captions; override typography's default media margins. */
+.media-figure {
+  margin: 1.5rem 0;
+  min-width: 0;
+}
+
+.media-figure > img,
+.media-figure > .video-embed {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.media-figure .video-embed video {
+  margin: 0;
+}
+
+.media-figure > figcaption {
+  margin: 0.5rem 0 0;
+  padding: 0 0.5rem;
+  color: #52525b;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
 .markdown-message {
   display: flex;
   gap: 12px;

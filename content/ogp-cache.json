@@ -482,5 +482,40 @@
     "siteName": "GitHub",
     "url": "https://github.com/tegnike/ai-werewolf",
     "favicon": "https://github.githubassets.com/favicons/favicon"
+  },
+  "https://www.youtube.com/watch?v=sXW9ir7DA3E": {
+    "title": "コメントの通りに動き続けるAITuber",
+    "description": "ニケちゃん",
+    "image": "https://i.ytimg.com/vi/sXW9ir7DA3E/hqdefault.jpg",
+    "siteName": "YouTube",
+    "url": "https://www.youtube.com/watch?v=sXW9ir7DA3E",
+    "favicon": "https://www.youtube.com/favicon.ico",
+    "type": "youtube-embed",
+    "embedHtml": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/sXW9ir7DA3E?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"コメントの通りに動き続けるAITuber\"></iframe>"
+  },
+  "https://fal.ai/h3-max-director": {
+    "title": "H3 Max Director: Realtime Video You Direct as It Generates | fal",
+    "description": "The first natively continuous realtime frontier video model, now on the fal API. One unbroken stream, directed live, with characters and story held across every prompt. 75% off for two weeks.",
+    "image": "https://ir7z8qsacw4tk54b.public.blob.vercel-storage.com/h3-max-director/og.jpg",
+    "siteName": "",
+    "url": "https://fal.ai/h3-max-director",
+    "favicon": "https://fal.ai/favicon.png"
+  },
+  "https://fal.ai/models/minimax/h3-max/director/api": {
+    "title": "H3 Max Director Text to Video API Docs | fal",
+    "description": "H3 Max Director generates continuous real-time video that can be directed while it streams. Send new prompts during a session to evolve the action while maintaining visual, character, and scene continuity.",
+    "image": "https://fal.ai/api/models/thumbnail/minimax/h3-max/director",
+    "siteName": "",
+    "url": "https://fal.ai/models/minimax/h3-max/director/api",
+    "favicon": "https://fal.ai/favicon.png"
+  },
+  "https://nikechan.com/dev-blog/realtime-video-aituber": {
+    "title": "コメントに応じて動くAITuberを作りました",
+    "description": "H3 Max Directorを使い、コメントに応じて話し、動くAITuberを作りました。映像を生成しながら指示を追加できるAPIの仕組みと、コメント・返答AI・音声合成をつなぐシステム構成を紹介します。",
+    "image": "/static/images/posts/realtime-video-aituber/thumbnail.png",
+    "siteName": "AIニケちゃんオフィシャルサイト",
+    "url": "https://nikechan.com/dev-blog/realtime-video-aituber",
+    "favicon": "",
+    "type": "ogp"
   }
 }
