@@ -3167,7 +3167,8 @@ body.site-mobile-menu-open .site-header {
 }
 
 .character-detail-page--ainike .character-detail-hero__image {
-  width: min(440px, 36vw);
+  /* Fit the portrait sprite and its shadow inside the shared hero height. */
+  width: min(400px, 36vw);
 }
 
 .character-back-section {
@@ -4122,7 +4123,7 @@ body.site-mobile-menu-open .site-header {
   }
 
   .character-detail-page--ainike .character-detail-hero__image {
-    width: min(414px, 36vw);
+    width: min(370px, 36vw);
   }
 }
 
@@ -4215,7 +4216,7 @@ body.site-mobile-menu-open .site-header {
   }
 
   .character-detail-page--ainike .character-detail-hero__image {
-    width: min(468px, 88vw);
+    width: min(450px, 88vw);
   }
 
   .character-profile-layout {
@@ -4374,7 +4375,7 @@ body.site-mobile-menu-open .site-header {
   }
 
   .character-detail-page--ainike .character-detail-hero__image {
-    width: min(372px, 88vw);
+    width: min(332px, 82vw);
   }
 
   .character-profile-card,
