@@ -223,6 +223,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
     ? [
         {
           name: 'リアルタイム動画生成AITuber',
+          thumbnail: { src: '/images/products/realtime-video-aituber.png', fit: 'cover' as const },
           year: '2026',
           description:
             'YouTubeの視聴者コメントに応じて、話しながら映像が変化するAITuberシステム。falのH3 Max Directorによる連続映像生成に、コメント選択・返答生成・音声合成・会話と場面の状態管理を組み合わせて開発。',
@@ -233,6 +234,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'Japanese-RP-Bench',
+          thumbnail: { src: '/images/products/japanese-rp-bench.png', fit: 'cover' as const },
           year: '2026',
           description:
             '日本語LLMのロールプレイ性能を評価するベンチマーク。既存版を拡張し、キャラクター追従性、長期安定性、人格置換への耐性、失敗後の復帰を測定できるv2を開発。',
@@ -243,6 +245,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: '生成動画AITuber',
+          thumbnail: { src: '/images/products/generated-video-aituber.jpg', fit: 'cover' as const },
           year: '2025',
           description:
             '生成動画を用いて作成されたAITuberシステム。あらかじめ用意しておいた動画を組み合わせることで実際に喋っているように見せている。',
@@ -259,6 +262,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'AITuberKit',
+          thumbnail: { src: '/images/products/aituberkit.png', fit: 'cover' as const },
           year: '2024–',
           description:
             'AIキャラクターチャットとAITuber配信を構築できるオープンソースのツールキット。多数のLLM・TTS・2D/3Dモデルに対応し、GitHub Stars 1,000件を超えて継続開発中。',
@@ -270,6 +274,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'AIニケちゃん',
+          thumbnail: { src: '/images/characters/icons/ainikechan.png', fit: 'cover' as const, position: '50% 40%' },
           year: '2023–',
           description:
             '仕事を支援し、実際の活動と人との関わりを通して成長するAIキャラクター。記憶・関係・公開安全性を含む長期運用の実例として継続開発している。',
@@ -281,6 +286,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'AITuberList',
+          thumbnail: { src: '/images/products/aituberlist.png', fit: 'cover' as const },
           year: '2024',
           description: 'YouTubeに投稿しているAITuberをまとめたサイト。',
           links: [
@@ -290,6 +296,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: '美少女OPInterpreter',
+          thumbnail: { src: '/images/products/op-interpreter.jpg', fit: 'cover' as const },
           year: '2023',
           description:
             'Live2Dキャラクターとプログラミング実行環境を融合した対話型開発支援ツール。美少女キャラクターとの会話を通じて、直感的にプログラムの実行が可能。',
@@ -306,6 +313,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: '完全自動AIゲームプレイ&実況',
+          thumbnail: { src: '/images/products/ai-gameplay.jpg', fit: 'cover' as const },
           year: '2023',
           description:
             'AIが完全自動でゲームプレイと実況を実現するプロジェクト。ターン制ゲームの戦略策定から実況の生成まで、全工程を自動化。',
@@ -324,6 +332,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
     : [
         {
           name: 'Realtime Video Generation AITuber',
+          thumbnail: { src: '/images/products/realtime-video-aituber.png', fit: 'cover' as const },
           year: '2026',
           description:
             'An AITuber system that speaks and changes its visuals in response to YouTube viewer comments. It combines continuous video generation using H3 Max Director on fal with comment selection, response generation, speech synthesis, and conversation and scene state management.',
@@ -334,6 +343,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'Japanese-RP-Bench',
+          thumbnail: { src: '/images/products/japanese-rp-bench.png', fit: 'cover' as const },
           year: '2026',
           description:
             'A benchmark for evaluating Japanese LLM role-play performance. Version 2 extends the original benchmark to measure character adherence, long-term stability, resistance to persona replacement, and recovery after failure.',
@@ -344,6 +354,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'Generated Video AITuber',
+          thumbnail: { src: '/images/products/generated-video-aituber.jpg', fit: 'cover' as const },
           year: '2025',
           description:
             'An AITuber system created using generated videos. By combining pre-prepared videos, it appears as if the character is actually speaking.',
@@ -360,6 +371,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'AITuberKit',
+          thumbnail: { src: '/images/products/aituberkit.png', fit: 'cover' as const },
           year: '2024–',
           description:
             'An open-source toolkit for building AI character chat and AITuber streaming experiences. It supports a wide range of LLMs, TTS services, and 2D/3D character models, and has grown beyond 1,000 GitHub stars.',
@@ -371,6 +383,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'AI Nike-chan',
+          thumbnail: { src: '/images/characters/icons/ainikechan.png', fit: 'cover' as const, position: '50% 40%' },
           year: '2023–',
           description:
             'A practical AI assistant and public character who grows through real activity and relationships. She is an ongoing case study in memory, relationships, and safe long-term operation.',
@@ -382,6 +395,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'AITuberList',
+          thumbnail: { src: '/images/products/aituberlist.png', fit: 'cover' as const },
           year: '2024',
           description:
             'A website that aggregates AITubers posting on YouTube.',
@@ -392,6 +406,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'Bishojo OP Interpreter',
+          thumbnail: { src: '/images/products/op-interpreter.jpg', fit: 'cover' as const },
           year: '2023',
           description:
             'An interactive development support tool that combines Live2D characters with a programming execution environment. Enables intuitive program execution through conversation with anime-style characters.',
@@ -408,6 +423,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
         {
           name: 'Fully Automated AI Gameplay & Commentary',
+          thumbnail: { src: '/images/products/ai-gameplay.jpg', fit: 'cover' as const },
           year: '2023',
           description:
             'A project where AI fully automates gameplay and commentary. Automates the entire process from turn-based game strategy to commentary generation.',

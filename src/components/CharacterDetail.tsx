@@ -14,6 +14,7 @@ interface HistoryItem {
 }
 
 interface ProductItem {
+  thumbnail?: { src: string; fit?: 'cover' | 'contain'; position?: string }
   name: string
   year: string
   description: string
@@ -382,21 +383,36 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                       <div className="character-product-grid">
                         {products.map((product, index) => (
                           <article key={index} className="character-product-card">
-                            <div className="character-product-card__heading">
-                              <h3>{product.name}</h3>
-                              <span>{product.year}</span>
-                            </div>
-                            <p>{product.description}</p>
-                            {product.links && product.links.length > 0 && (
-                              <div className="character-product-card__links">
-                                {product.links.map((link) => (
-                                  <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
-                                    <ExternalLink className="w-3 h-3" />
-                                    {link.label}
-                                  </a>
-                                ))}
+                            {product.thumbnail && (
+                              <div className={`character-product-card__thumbnail character-product-card__thumbnail--${product.thumbnail.fit || 'cover'}`}>
+                                <img
+                                  src={product.thumbnail.src}
+                                  style={{ objectPosition: product.thumbnail.position }}
+                                  alt=""
+                                  width={800}
+                                  height={450}
+                                  loading="lazy"
+                                  decoding="async"
+                                />
                               </div>
                             )}
+                            <div className="character-product-card__body">
+                              <div className="character-product-card__heading">
+                                <h3>{product.name}</h3>
+                                <span>{product.year}</span>
+                              </div>
+                              <p>{product.description}</p>
+                              {product.links && product.links.length > 0 && (
+                                <div className="character-product-card__links">
+                                  {product.links.map((link) => (
+                                    <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
+                                      <ExternalLink className="w-3 h-3" />
+                                      {link.label}
+                                    </a>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                           </article>
                         ))}
                       </div>
