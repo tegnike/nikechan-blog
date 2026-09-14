@@ -222,6 +222,16 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
   const products = isJa
     ? [
         {
+          name: 'リアルタイム動画生成AITuber',
+          year: '2026',
+          description:
+            'YouTubeの視聴者コメントに応じて、話しながら映像が変化するAITuberシステム。falのH3 Max Directorによる連続映像生成に、コメント選択・返答生成・音声合成・会話と場面の状態管理を組み合わせて開発。',
+          links: [
+            { label: '紹介記事', url: '/dev-blog/realtime-video-aituber' },
+            { label: '配信アーカイブ', url: 'https://www.youtube.com/watch?v=sXW9ir7DA3E' },
+          ],
+        },
+        {
           name: 'Japanese-RP-Bench',
           year: '2026',
           description:
@@ -312,6 +322,16 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         },
       ]
     : [
+        {
+          name: 'Realtime Video Generation AITuber',
+          year: '2026',
+          description:
+            'An AITuber system that speaks and changes its visuals in response to YouTube viewer comments. It combines continuous video generation using H3 Max Director on fal with comment selection, response generation, speech synthesis, and conversation and scene state management.',
+          links: [
+            { label: 'Article (Japanese)', url: '/dev-blog/realtime-video-aituber' },
+            { label: 'Livestream Archive', url: 'https://www.youtube.com/watch?v=sXW9ir7DA3E' },
+          ],
+        },
         {
           name: 'Japanese-RP-Bench',
           year: '2026',
