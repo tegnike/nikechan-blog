@@ -1,5 +1,6 @@
 import { type CSSProperties, type FC } from 'react'
 import { Locale, getT } from '../i18n/config'
+import { getCharacterImage } from '../lib/characterImages'
 
 interface CharacterListProps {
   locale: Locale
@@ -11,8 +12,7 @@ const characters = [
     id: 'mikaze',
     nameEn: 'MIKAZE',
     nameJa: 'ミカゼ',
-    listImage: '/images/characters/list/sprites/mikaze-320.webp',
-    listImageSrcSet: '/images/characters/list/sprites/mikaze-320.webp 320w, /images/characters/list/sprites/mikaze-640.webp 640w, /images/characters/list/sprites/mikaze-960.webp 960w',
+    sprite: getCharacterImage('/images/characters/sprites/mikaze.png')!,
     listIcon: '/images/characters/list/icons/mikaze-160.webp',
     listIconSrcSet: '/images/characters/list/icons/mikaze-160.webp 160w, /images/characters/list/icons/mikaze-320.webp 320w, /images/characters/list/icons/mikaze-500.webp 500w',
     color: '#61A0DF',
@@ -25,8 +25,7 @@ const characters = [
     id: 'punike',
     nameEn: 'PUNIKE',
     nameJa: 'ぷにけ',
-    listImage: '/images/characters/list/sprites/punike-320.webp',
-    listImageSrcSet: '/images/characters/list/sprites/punike-320.webp 320w, /images/characters/list/sprites/punike-640.webp 640w, /images/characters/list/sprites/punike-960.webp 960w',
+    sprite: getCharacterImage('/images/characters/sprites/punike.png')!,
     listIcon: '/images/characters/list/icons/punike-160.webp',
     listIconSrcSet: '/images/characters/list/icons/punike-160.webp 160w, /images/characters/list/icons/punike-320.webp 320w, /images/characters/list/icons/punike-500.webp 500w',
     color: '#F48E84',
@@ -39,8 +38,7 @@ const characters = [
     id: 'ainike',
     nameEn: 'AI NIKECHAN',
     nameJa: 'AIニケちゃん',
-    listImage: '/images/characters/list/sprites/ainikechan-320.webp',
-    listImageSrcSet: '/images/characters/list/sprites/ainikechan-320.webp 320w, /images/characters/list/sprites/ainikechan-640.webp 640w, /images/characters/list/sprites/ainikechan-960.webp 960w',
+    sprite: getCharacterImage('/images/characters/sprites/ainikechan.png')!,
     listIcon: '/images/characters/list/icons/ainikechan-160.webp',
     listIconSrcSet: '/images/characters/list/icons/ainikechan-160.webp 160w, /images/characters/list/icons/ainikechan-320.webp 320w, /images/characters/list/icons/ainikechan-500.webp 500w',
     color: '#5A4C97',
@@ -52,8 +50,7 @@ const characters = [
     id: 'today_norma',
     nameEn: 'TODAY NORMA',
     nameJa: '今日は何の日bot',
-    listImage: '/images/characters/list/sprites/today_norma-320.webp',
-    listImageSrcSet: '/images/characters/list/sprites/today_norma-320.webp 320w, /images/characters/list/sprites/today_norma-640.webp 640w, /images/characters/list/sprites/today_norma-960.webp 960w',
+    sprite: getCharacterImage('/images/characters/sprites/today_norma.png')!,
     listIcon: '/images/characters/list/icons/today_norma-160.webp',
     listIconSrcSet: '/images/characters/list/icons/today_norma-160.webp 160w, /images/characters/list/icons/today_norma-320.webp 320w, /images/characters/list/icons/today_norma-500.webp 500w',
     color: '#199286',
@@ -65,8 +62,7 @@ const characters = [
     id: 'nike',
     nameEn: 'NIKE',
     nameJa: 'ニケ',
-    listImage: '/images/characters/list/sprites/nikechan-320.webp',
-    listImageSrcSet: '/images/characters/list/sprites/nikechan-320.webp 320w, /images/characters/list/sprites/nikechan-640.webp 640w, /images/characters/list/sprites/nikechan-960.webp 960w',
+    sprite: getCharacterImage('/images/characters/sprites/nikechan.png')!,
     listIcon: '/images/characters/list/icons/nikechan-160.webp',
     listIconSrcSet: '/images/characters/list/icons/nikechan-160.webp 160w, /images/characters/list/icons/nikechan-320.webp 320w, /images/characters/list/icons/nikechan-500.webp 500w',
     color: '#F9B1BC',
@@ -113,12 +109,12 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
                 aria-label={locale === 'ja' ? `${char.nameJa}の詳細を見る` : `View ${char.nameEn} profile`}
               >
                 <img
-                  src={char.listImage}
-                  srcSet={char.listImageSrcSet}
-                  sizes="(max-width: 640px) 112px, (max-width: 1023px) 260px, 320px"
+                  src={char.sprite.src}
+                  srcSet={char.sprite.srcSet}
+                  sizes={`(max-width: 640px) ${(char.id === 'ainike' ? 112 : 86) * char.scale}px, (max-width: 1023px) ${Math.ceil((char.id === 'ainike' ? 260 : 202) * char.scale * 1.06)}px, ${Math.ceil((char.id === 'ainike' ? 320 : 250) * char.scale * 1.06)}px`}
                   alt={char.nameJa}
-                  width={320}
-                  height={429}
+                  width={char.sprite.width}
+                  height={char.sprite.height}
                   className="character-index-hero__sprite"
                   decoding="async"
                 />

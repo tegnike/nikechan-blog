@@ -1,5 +1,6 @@
 import { type CSSProperties, type FC, type ReactNode } from 'react'
 import { Locale } from '../i18n/config'
+import { getCharacterImage } from '../lib/characterImages'
 import { ArrowLeft, Download, ExternalLink } from 'lucide-react'
 
 interface ProfileItem {
@@ -145,6 +146,10 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   headerTitle = 'CHARACTER',
   trihedralFigure,
 }) => {
+  const heroImage = getCharacterImage(image)
+  const heroSizes = currentCharacterId === 'ainike'
+    ? '(max-width: 640px) min(332px, 82vw), (max-width: 1023px) min(450px, 88vw), (max-width: 1350px) min(370px, 36vw), min(400px, 36vw)'
+    : '(max-width: 640px) min(420px, 96vw), (max-width: 1023px) min(548px, 94vw), (max-width: 1350px) min(430px, 38vw), min(452px, 38vw)'
   const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
   const displayCatchphrase = locale === 'ja' ? catchphrase : (catchphraseEn || catchphrase)
   const displayCatchphraseLines = locale === 'ja' ? catchphraseLines : (catchphraseLinesEn || catchphraseLines)
@@ -228,10 +233,14 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
 
           <div className="character-detail-hero__visual">
             <img
-              src={image}
+              src={heroImage?.src || image}
+              srcSet={heroImage?.srcSet}
+              sizes={heroSizes}
               alt={nameJa}
-              width={1792}
-              height={2400}
+              width={heroImage?.width || 1792}
+              height={heroImage?.height || 2400}
+              decoding="async"
+              fetchPriority="high"
               className="character-detail-hero__image"
             />
           </div>
@@ -464,7 +473,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
               style={{ '--char-color': char.color } as CSSProperties}
             >
               <img
-                src={char.icon}
+                src={getCharacterImage(char.icon)?.src || char.icon}
                 alt={char.nameJa}
                 width={500}
                 height={500}

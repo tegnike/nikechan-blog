@@ -4,7 +4,7 @@
   "scripts": {
     "build:css": "tailwindcss -i ./src/styles/globals.css -o ./public/static/styles/globals.css",
     "watch:css": "tailwindcss -i ./src/styles/globals.css -o ./public/static/styles/globals.css --watch",
-    "dev": "bun run optimize:post-thumbnails && concurrently \"npm run watch:css\" \"vite\"",
+    "dev": "bun run optimize:characters && bun run optimize:post-thumbnails && concurrently \"npm run watch:css\" \"vite\"",
     "build:server": "npm run build:css && vite build",
     "build:client": "vite build --mode client",
     "fetch-ogp": "bun run scripts/fetch-ogp.ts",
@@ -13,11 +13,12 @@
     "check:md-golden": "bun run scripts/md-golden.ts",
     "verify:gallery-images": "bun run scripts/verify-gallery-images.ts",
     "copy:assets": "bun run scripts/copy-public-assets.ts",
-    "build": "npm run fetch-ogp && npm run optimize:post-thumbnails && npm run generate:sitemap && npm run build:css && npm run build:client && vite build && npm run copy:assets",
+    "build": "bun run optimize:characters && npm run fetch-ogp && npm run optimize:post-thumbnails && npm run generate:sitemap && npm run build:css && npm run build:client && vite build && npm run copy:assets",
     "preview": "wrangler dev",
     "deploy": "npm run build && wrangler deploy",
     "video:studio": "remotion studio expo-video/src/index.ts",
-    "video:render": "remotion render expo-video/src/index.ts AiGameExpoLoop expo-video/out/ai-game-expo-loop.mp4"
+    "video:render": "remotion render expo-video/src/index.ts AiGameExpoLoop expo-video/out/ai-game-expo-loop.mp4",
+    "optimize:characters": "bun run scripts/optimize-character-images.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",

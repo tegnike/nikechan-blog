@@ -1,0 +1,72 @@
+{
+  "/images/characters/sprites/ainikechan.png": {
+    "hash": "a0e48543a03f31b115beb56535b10ca4ed6c17c7152569e4f1ab50d0195f9ece",
+    "width": 1024,
+    "height": 1536,
+    "src": "/images/characters/list/sprites/ainikechan-320.webp",
+    "srcSet": "/images/characters/list/sprites/ainikechan-320.webp 320w, /images/characters/list/sprites/ainikechan-640.webp 640w, /images/characters/list/sprites/ainikechan-960.webp 960w, /images/characters/list/sprites/ainikechan-1024.webp 1024w"
+  },
+  "/images/characters/sprites/nikechan.png": {
+    "hash": "617b252881f652bc24d0d3a00967fbbd2c0ff825b83c1310a29947497d489fd5",
+    "width": 1085,
+    "height": 1450,
+    "src": "/images/characters/list/sprites/nikechan-320.webp",
+    "srcSet": "/images/characters/list/sprites/nikechan-320.webp 320w, /images/characters/list/sprites/nikechan-640.webp 640w, /images/characters/list/sprites/nikechan-960.webp 960w, /images/characters/list/sprites/nikechan-1085.webp 1085w"
+  },
+  "/images/characters/sprites/mikaze.png": {
+    "hash": "d17a3d05b21b95805c0c0ad5ccb3004402e0aa7c1ae5c223faacab53033595e8",
+    "width": 1792,
+    "height": 2400,
+    "src": "/images/characters/list/sprites/mikaze-320.webp",
+    "srcSet": "/images/characters/list/sprites/mikaze-320.webp 320w, /images/characters/list/sprites/mikaze-640.webp 640w, /images/characters/list/sprites/mikaze-960.webp 960w, /images/characters/list/sprites/mikaze-1280.webp 1280w"
+  },
+  "/images/characters/sprites/punike.png": {
+    "hash": "928c7858073b32b12443a996e7bf2c69eca5f25833e24e758e5f07d16c82a7f8",
+    "width": 1792,
+    "height": 2400,
+    "src": "/images/characters/list/sprites/punike-320.webp",
+    "srcSet": "/images/characters/list/sprites/punike-320.webp 320w, /images/characters/list/sprites/punike-640.webp 640w, /images/characters/list/sprites/punike-960.webp 960w, /images/characters/list/sprites/punike-1280.webp 1280w"
+  },
+  "/images/characters/sprites/today_norma.png": {
+    "hash": "5d9702383136951734bd25bd28f239c77d62e392b7853afadbb141225a500dee",
+    "width": 1792,
+    "height": 2400,
+    "src": "/images/characters/list/sprites/today_norma-320.webp",
+    "srcSet": "/images/characters/list/sprites/today_norma-320.webp 320w, /images/characters/list/sprites/today_norma-640.webp 640w, /images/characters/list/sprites/today_norma-960.webp 960w, /images/characters/list/sprites/today_norma-1280.webp 1280w"
+  },
+  "/images/characters/icons/ainikechan.png": {
+    "hash": "fe68aedf981849119d7a98844bdddb1a789af3a5423911d3bd7c3dc6ba5a6d2f",
+    "width": 500,
+    "height": 500,
+    "src": "/images/characters/list/icons/ainikechan-160.webp",
+    "srcSet": "/images/characters/list/icons/ainikechan-160.webp 160w, /images/characters/list/icons/ainikechan-320.webp 320w, /images/characters/list/icons/ainikechan-500.webp 500w"
+  },
+  "/images/characters/icons/nikechan.png": {
+    "hash": "040c6ae06ab7ccb4ec1fa6a8d1d51442bc5db51705c2ddf1ca944f31bf45bf6c",
+    "width": 500,
+    "height": 500,
+    "src": "/images/characters/list/icons/nikechan-160.webp",
+    "srcSet": "/images/characters/list/icons/nikechan-160.webp 160w, /images/characters/list/icons/nikechan-320.webp 320w, /images/characters/list/icons/nikechan-500.webp 500w"
+  },
+  "/images/characters/icons/mikaze.png": {
+    "hash": "0aaddd025e721b9ae3e5e6839064c25d3150b56507ab90a6e9cbfb3c3c570ba7",
+    "width": 500,
+    "height": 500,
+    "src": "/images/characters/list/icons/mikaze-160.webp",
+    "srcSet": "/images/characters/list/icons/mikaze-160.webp 160w, /images/characters/list/icons/mikaze-320.webp 320w, /images/characters/list/icons/mikaze-500.webp 500w"
+  },
+  "/images/characters/icons/punike.png": {
+    "hash": "8e438c44e4e5f3d00a4dcda8505821d7986e63e8c9dd86bdc350b94225fcc325",
+    "width": 500,
+    "height": 500,
+    "src": "/images/characters/list/icons/punike-160.webp",
+    "srcSet": "/images/characters/list/icons/punike-160.webp 160w, /images/characters/list/icons/punike-320.webp 320w, /images/characters/list/icons/punike-500.webp 500w"
+  },
+  "/images/characters/icons/today_norma.png": {
+    "hash": "a2e9ebb033f705d942eaef3c9cb84a22c2cd299f94451102e35002d513a796f0",
+    "width": 500,
+    "height": 500,
+    "src": "/images/characters/list/icons/today_norma-160.webp",
+    "srcSet": "/images/characters/list/icons/today_norma-160.webp 160w, /images/characters/list/icons/today_norma-320.webp 320w, /images/characters/list/icons/today_norma-500.webp 500w"
+  }
+}
