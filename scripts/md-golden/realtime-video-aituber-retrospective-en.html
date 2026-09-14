@@ -1,0 +1,98 @@
+<p>Hi, I&#39;m Nike.</p>
+<p>This week, I ran four AI Nike-chan livestreams on YouTube using real-time video generation.<br />The system comes up with replies and actions based on viewer comments, then sends them to a video generation API together with speech audio, making Nike-chan talk and move on screen.<br />I&#39;ve written about how the system works here:</p>
+<a href="https://nikechan.com/dev-blog/realtime-video-aituber" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="/static/images/posts/realtime-video-aituber/thumbnail.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">コメントに応じて動くAITuberを作りました</div><div class="ogp-card-description">H3 Max Directorを使い、コメントに応じて話し、動くAITuberを作りました。映像を生成しながら指示を追加できるAPIの仕組みと、コメント・返答AI・音声合成をつなぐシステム構成を紹介します。</div><div class="ogp-card-meta"><span>nikechan.com</span></div></div></a>
+<p>There&#39;s something futuristic about watching the video change in response to comments.<br />But after four streams, two challenges stood out: keeping the visuals consistent and continuing to stream the same kind of content.</p>
+<p>In this post, I&#39;ll look back at the experience and the practical challenges of running it, then share the YouTube results and what I plan to do next.</p>
+<h2 id="a-new-experience-viewer-comments-become-part-of-the-video">A New Experience: Viewer Comments Become Part of the Video</h2>
+<p>I used H3 Max Director, available through fal.<br />Its API lets you send new instructions while video generation is already running, and I combined that with responses to viewer comments.</p>
+<p>The most fun part was simply seeing something from a comment appear in the video.<br />For example, when a viewer commented, &quot;Here&#39;s a Santa hat for you,&quot; Nike-chan actually put on a Santa hat.<br />Something a viewer had given her through a comment became part of her appearance.</p>
+<figure class="media-figure"><div class="video-embed"><video src="/static/images/posts/realtime-video-aituber-retrospective/02-santa-hat.mp4" controls playsinline preload="metadata"></video></div><figcaption>This feels like a whole new kind of Super Chat</figcaption></figure>
+<p>Neither the viewers nor I, the person who built it, knew what would happen next.<br />Comments from different people sent the scene in unexpected directions, sometimes into outright chaos. I think that was what made these streams fun.</p>
+<h2 id="big-scene-changes-sometimes-put-the-speech-and-video-out-of-sync">Big Scene Changes Sometimes Put the Speech and Video Out of Sync</h2>
+<p>On the other hand, the video sometimes struggled to follow instructions that called for a major scene change.<br />The comments and replies would assume a new setting, but the video hadn&#39;t changed.<br />That led to moments where what Nike-chan was saying didn&#39;t match what was happening on screen.</p>
+<p>This might be a characteristic of the model, or my prompting might have contributed to it.<br />I couldn&#39;t separate those possibilities based on these streams alone, but it was a concern when trying to let comments freely change the scene.</p>
+<h2 id="the-longer-it-runs-the-less-she-looks-like-the-original-nike-chan">The Longer It Runs, the Less She Looks Like the Original Nike-chan</h2>
+<p>Another challenge was keeping the character&#39;s appearance consistent.<br />Her appearance sometimes changed, especially when she left the frame and came back, or when video generation was interrupted.</p>
+<p>Even during continuous generation, her facial features and the art style gradually drifted away from the illustration I had supplied at the start.<br />At one point she looked like a character from an older anime; at another, like someone from a certain Chinese game. By the end, Nike-chan looked quite different from the original image.</p>
+<figure class="media-figure"><img src="/static/images/optimized/posts/realtime-video-aituber-retrospective/01-character-appearance-drift-420.webp" srcset="/static/images/optimized/posts/realtime-video-aituber-retrospective/01-character-appearance-drift-420.webp 420w, /static/images/optimized/posts/realtime-video-aituber-retrospective/01-character-appearance-drift-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="A livestream screenshot of Nike-chan standing in a school hallway, with her hairstyle and facial features altered by continued generation." loading="lazy" decoding="async" /><figcaption>Who even are you?</figcaption></figure>
+<p>My prompts include detailed descriptions of her hair, face, outfit, and other visual features. But they also contain a lot of instructions about actions and scenes, and describing her appearance wasn&#39;t enough to preserve it.<br />It felt as though adding more instructions made them harder to follow, though I haven&#39;t tested whether the amount of prompt text actually caused this.</p>
+<p>There&#39;s also an end-frame feature that lets you specify an image for the end of a sequence, but I didn&#39;t use it this time.<br />With open-ended comments constantly changing the scene, it was difficult to prepare an image in advance that would fit whatever came next.</p>
+<p>I also had the impression that, in every session, the whole image became darker and murkier the longer generation continued.<br />I don&#39;t know what caused that either.</p>
+<p>So whenever the character&#39;s appearance or the overall image started to bother me, I restarted from a completely new session.<br />Breaking up the generation this way helped a lot.</p>
+<h2 id="an-rpg-brought-a-different-set-of-challenges">An RPG Brought a Different Set of Challenges</h2>
+<p>Alongside testing the visual quality, I tried to find out what kinds of activities suited this setup.<br />Streams 1, 2, and 4 were essentially free-form chats where comments shaped what happened, with little more than a different starting image each time. For stream 3, I tried an RPG theme with a sequence of goals: earn money, get equipment, and defeat monsters.</p>
+<p>The money-making section went relatively well, thanks to viewers contributing all kinds of ideas.<br />Looking back at the stream as a whole, though, I don&#39;t think the pacing worked very well.</p>
+<p>One reason was that I hadn&#39;t built enough underlying logic to support progress toward the goals, leaving that progress dependent on comments.<br />Comments don&#39;t necessarily move things toward the objective, so we often stalled or went in a different direction from what I&#39;d expected.</p>
+<figure class="media-figure"><img src="/static/images/optimized/posts/realtime-video-aituber-retrospective/03-rpg-standoff-420.webp" srcset="/static/images/optimized/posts/realtime-video-aituber-retrospective/03-rpg-standoff-420.webp 420w, /static/images/optimized/posts/realtime-video-aituber-retrospective/03-rpg-standoff-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="An RPG livestream screenshot showing AI Nike-chan in armor facing a giant sea urchin monster." loading="lazy" decoding="async" /><figcaption>AI Nike-chan and the giant sea urchin monster, locked in an endless staring contest</figcaption></figure>
+<p>I also felt that setting specific goals weakened some of what made this video generation experience fun.<br />What I enjoyed was seeing comments take the video somewhere nobody had expected.<br />When I defined the objectives too tightly, as in the RPG, and made the destination too obvious, some of that appeal faded.</p>
+<p>A simple objective might still work.<br />But based on this attempt, I think I need to balance having a concept for the stream with leaving enough room for things to unfold unexpectedly.</p>
+<h2 id="continuing-the-same-streams-will-be-difficult">Continuing the Same Streams Will Be Difficult</h2>
+<p>The video generation API costs for these streams were covered almost entirely by support from sponsors.<br />Their support is what let me repeatedly try this expensive real-time video generation technology in actual livestreams.<br />Thank you again for making that possible.</p>
+<p>I still have credits left, but once the promotion ends, continuing at the same pace will be difficult.</p>
+<p>According to <a href="https://fal.ai/h3-max-director" target="_blank" rel="noopener noreferrer">fal&#39;s official announcement</a>, on September 14, 2026, the per-second video generation price returns from the promotional rate of $0.02 to the regular rate of $0.08.<br />That&#39;s a fourfold increase.</p>
+<div class="table-wrapper"><table><thead><tr><th>Cost basis</th><th>Promotional rate</th><th>Regular rate</th></tr></thead><tbody><tr><td>Per second of API video generation</td><td>$0.02</td><td>$0.08</td></tr><tr><td>Equivalent cost per minute of video generation</td><td>$1.20</td><td>$4.80</td></tr></tbody></table></div>
+<p>Generation was paused for parts of each stream, so the actual cost during the promotion was roughly $50 per stream.<br />Generating the same amount at the regular rate would cost about four times as much, making it difficult to keep running similar streams as they are.</p>
+<h2 id="the-streams-reached-more-people-on-youtube-than-my-previous-ones">The Streams Reached More People on YouTube Than My Previous Ones</h2>
+<p>So far, I&#39;ve focused on what it was like to use real-time video generation.<br />To wrap up, I&#39;d also like to look at the results for my YouTube channel.</p>
+<p>I only recently started putting serious effort into YouTube. Before this, I&#39;d spent two or three weeks covering AI character news two or three times a week.<br />Those news streams ran for about 30–40 minutes, with around 10 concurrent viewers and 200–300 views each.<br />It felt like most viewers were people who already followed me, and the subscriber count was barely growing.</p>
+<p>Each of these video generation AITuber streams lasted around 50 minutes to an hour. Here are the results:</p>
+<div class="table-wrapper"><table><thead><tr><th>Stream</th><th>Format</th><th>Views</th><th>Approximate concurrent viewers</th><th>New subscribers</th></tr></thead><tbody><tr><td>1</td><td>Free-form chat</td><td>Around 4,700</td><td>Around 30</td><td>Around 140</td></tr><tr><td>2</td><td>Free-form chat</td><td>Around 3,500</td><td>Over 100</td><td>Around 110</td></tr><tr><td>3</td><td>RPG-themed stream</td><td>Around 1,400</td><td>Around 60–70</td><td>Around 30</td></tr><tr><td>4</td><td>Free-form chat</td><td>Still accumulating; expected to exceed 1,000</td><td>Around 60–70</td><td>Around 10</td></tr></tbody></table></div>
+<p>These are approximate figures available when I looked back on September 13, 2026.<br />The concurrent viewer counts are also rough recollections from the streams, rather than consistently measured figures such as peak concurrent viewers.<br />The streams had been public for different lengths of time, so stream 4&#39;s view count in particular is an estimate while views are still coming in.</p>
+<p>Together, the four streams brought in around 290 subscribers.<br />For my channel, that counts as quite a breakout.</p>
+<p>Total watch time had previously been around 5–20 hours per stream; this time, it averaged about 80 hours per stream.<br />These streams were also longer, so I can&#39;t say it was a fourfold-or-greater increase under identical conditions, but I do feel that they reached a lot more people.</p>
+<p>On the other hand, views and new subscriber gains declined with each stream.<br />Even with the novelty, repeating similar content only goes so far in attracting new subscribers.</p>
+<p>Still, total watch time stayed at a similar level for the later videos despite the lower view counts. My impression is that the novelty initially drew people in, and by streams 3 and 4, those willing to watch for longer had stayed.<br />I haven&#39;t confirmed that through an analysis of returning viewers, but concurrent viewership in the later streams was around 60–70, still higher than in my previous streams.</p>
+<h2 id="next-i-ll-keep-trying-new-things-as-an-ai-character-developer">Next, I&#39;ll Keep Trying New Things as an AI Character Developer</h2>
+<p>Looking at these results, I think continuing the same content indefinitely would have been difficult even without the cost issue.<br />New subscriber growth was slowing down, and I felt that, if I kept going unchanged, the number of viewers might eventually fall too.<br />Of course, four streams aren&#39;t enough to predict future trends, but my takeaway is that simply repeating the same thing would be tough.</p>
+<p>This time, the novelty of real-time video generation was what brought people in.<br />It&#39;s impressive technology, but much of the appeal came from the service itself. I don&#39;t think I&#39;d yet given people enough reason to watch through a concept that was distinctly mine.<br />If another stream appeared using the same technology, their interest might shift to that instead.</p>
+<p><strong>I need to think about what goes into each stream so people want to come back for the next one.</strong><br />In that respect, the work is the same as it is for other YouTube creators and VTubers.</p>
+<p>I plan to continue my streams about AI characters.<br />As I did here, I&#39;d like to combine newly released features, tools, and services with AI characters, introduce them, and try them out in practice.<br />The idea is to show what they can do and what actually happens when you use them, from an AI character developer&#39;s perspective.</p>
+<p>Some of the people who discovered my channel through these streams will be hoping for more real-time video generation.<br />I&#39;ll keep thinking about what to do next so that they&#39;ll want to see my other experiments too.</p>
+<p>Thank you to everyone who watched, everyone whose comments took the streams in unexpected directions, and the sponsors who made these experiments possible.</p>
+<h2 id="related-links">Related Links</h2>
+<p>I explain how the system works in <a href="/dev-blog/realtime-video-aituber">I Built an AITuber That Talks and Moves in Response to Comments</a>.</p>
+<p>I also post about AI tools and AI characters on X.</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "A New Experience: Viewer Comments Become Part of the Video",
+    "id": "a-new-experience-viewer-comments-become-part-of-the-video"
+  },
+  {
+    "level": 2,
+    "text": "Big Scene Changes Sometimes Put the Speech and Video Out of Sync",
+    "id": "big-scene-changes-sometimes-put-the-speech-and-video-out-of-sync"
+  },
+  {
+    "level": 2,
+    "text": "The Longer It Runs, the Less She Looks Like the Original Nike-chan",
+    "id": "the-longer-it-runs-the-less-she-looks-like-the-original-nike-chan"
+  },
+  {
+    "level": 2,
+    "text": "An RPG Brought a Different Set of Challenges",
+    "id": "an-rpg-brought-a-different-set-of-challenges"
+  },
+  {
+    "level": 2,
+    "text": "Continuing the Same Streams Will Be Difficult",
+    "id": "continuing-the-same-streams-will-be-difficult"
+  },
+  {
+    "level": 2,
+    "text": "The Streams Reached More People on YouTube Than My Previous Ones",
+    "id": "the-streams-reached-more-people-on-youtube-than-my-previous-ones"
+  },
+  {
+    "level": 2,
+    "text": "Next, I'll Keep Trying New Things as an AI Character Developer",
+    "id": "next-i-ll-keep-trying-new-things-as-an-ai-character-developer"
+  },
+  {
+    "level": 2,
+    "text": "Related Links",
+    "id": "related-links"
+  }
+]

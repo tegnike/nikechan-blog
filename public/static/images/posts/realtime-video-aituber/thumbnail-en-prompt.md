@@ -1,0 +1,3 @@
+Generated with the built-in ImageGen tool.
+
+Use case: text-localization. Edit target: supplied Japanese blog thumbnail. Create English localized version at same wide 1200x630 aspect ratio. Preserve anime character identity, face, hair, outfit, sword, room, props, lighting, layout and neon panel style. Replace Japanese headline on right with exact English text in large bold readable type, fitted comfortably inside frame: "REAL-TIME" / "VIDEO GENERATION" / "AITuber" / "I BUILT ONE". Keep AITuber as dominant line with yellow AI and white Tuber, preserve blue/cyan/purple graphic panels. All headline Japanese must be removed. Preserve small existing English book spine text. No new elements or watermarks.

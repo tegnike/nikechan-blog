@@ -314,6 +314,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/tutorials/video" />
   </url>
   <url>
+    <loc>https://nikechan.com/dev-blog/realtime-video-aituber-retrospective</loc>
+    <lastmod>2026-09-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/realtime-video-aituber-retrospective" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/realtime-video-aituber-retrospective-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/realtime-video-aituber-retrospective" />
+  </url>
+  <url>
     <loc>https://nikechan.com/dev-blog/neuro-sama-game-api-design-en</loc>
     <lastmod>2026-05-27</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/neuro-sama-game-api-design" />
@@ -333,6 +340,13 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/stackface-maker" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/stackface-maker-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/stackface-maker" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/realtime-video-aituber-en</loc>
+    <lastmod>2026-09-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/realtime-video-aituber" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/realtime-video-aituber-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/realtime-video-aituber" />
   </url>
   <url>
     <loc>https://nikechan.com/dev-blog/pokemon-battle-partner-en</loc>
@@ -412,6 +426,13 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-play-methods" />
   </url>
   <url>
+    <loc>https://nikechan.com/dev-blog/realtime-video-aituber</loc>
+    <lastmod>2026-09-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/realtime-video-aituber" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/realtime-video-aituber-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/realtime-video-aituber" />
+  </url>
+  <url>
     <loc>https://nikechan.com/dev-blog/ai-game-expo-2026</loc>
     <lastmod>2026-05-02</lastmod>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-expo-2026" />
@@ -452,6 +473,13 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/ai-game-state-for-llm-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/ai-game-state-for-llm" />
+  </url>
+  <url>
+    <loc>https://nikechan.com/dev-blog/realtime-video-aituber-retrospective-en</loc>
+    <lastmod>2026-09-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/dev-blog/realtime-video-aituber-retrospective" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/dev-blog/realtime-video-aituber-retrospective-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/dev-blog/realtime-video-aituber-retrospective" />
   </url>
   <url>
     <loc>https://nikechan.com/dev-blog/ai-game-state-for-llm</loc>

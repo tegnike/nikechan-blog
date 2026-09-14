@@ -1,0 +1,3 @@
+Generated with the built-in ImageGen tool.
+
+Use case: text-localization. Edit target: supplied Japanese retrospective blog thumbnail. Create English localized version at same wide 1200x630 aspect ratio. Preserve anime character identity, face, purple ponytail, golden eyes, AI hairclip, headphones, clothes, futuristic sunny city, composition and vibrant neon typography panels on left. Replace Japanese headline with exact English text: "REAL-TIME" / "VIDEO AITuber" / "WHAT I LEARNED". First two lines bold white/cyan on dark blue panels; third line white bold italic on magenta brushstroke. Fit all lettering inside image with clear margins, retain character unobscured. Remove all Japanese headline lettering. No new elements or watermarks.

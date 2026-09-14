@@ -1,0 +1,96 @@
+<p>Hi, I&#39;m Nike.</p>
+<p>Using real-time video generation, I built an AITuber that talks and moves in response to YouTube comments.<br />The system comes up with a reply and an action based on a comment, then sends them to a video generation API along with synthesized speech, allowing AI Nike-chan to respond on screen.</p>
+<p>It starts with an image of the character and generates the video that follows.<br />For example, a comment like “Wave your hand” can inform both what she says and how she moves in the video.</p>
+<p>Here&#39;s an actual livestream.</p>
+<div class="youtube-embed"><iframe width="200" height="113" src="https://www.youtube.com/embed/sXW9ir7DA3E?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="コメントの通りに動き続けるAITuber"></iframe></div>
+<p>First, I&#39;ll explain how H3 Max Director, the tool generating the video, works. Then I&#39;ll walk through how I put everything together as an AITuber.</p>
+<h2 id="h3-max-director-accepts-new-instructions-while-generating-video">H3 Max Director Accepts New Instructions While Generating Video</h2>
+<p>I&#39;m using <strong>H3 Max Director</strong>, available on fal.</p>
+<a href="https://fal.ai/h3-max-director" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://ir7z8qsacw4tk54b.public.blob.vercel-storage.com/h3-max-director/og.jpg" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">H3 Max Director: Realtime Video You Direct as It Generates | fal</div><div class="ogp-card-description">The first natively continuous realtime frontier video model, now on the fal API. One unbroken stream, directed live, with characters and story held across every prompt. 75% off for two weeks.</div><div class="ogp-card-meta"><img src="https://fal.ai/favicon.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>fal.ai</span></div></div></a>
+<p>Its key feature is that you can receive video over a persistent connection while sending new scene and action instructions along the way.<br />You set up the scene at the start, then use instructions like “Walk” or “Wave your hand” to change what it generates next.</p>
+<p>Video and audio arrive via WebRTC, a technology for exchanging audio and video in real time in the browser.<br />Scene and action instructions travel over a data channel on the same connection.</p>
+<h3 id="fal-generates-the-next-part-of-the-video">fal Generates the Next Part of the Video</h3>
+<p>At the start, you provide a URL for the initial image and a prompt describing the scene and actions.<br />According to the official explanation, each new segment is generated using video from the preceding segment and the context of earlier prompts.<br />Handling the overlap between segments allows them to be delivered as a continuous stream.</p>
+<p><strong>Video generation continues for as long as the session is running, even if you don&#39;t send any additional instructions.</strong><br />The instructions already provided, along with the context of the preceding video and prompts, guide what happens next.</p>
+<p>Exactly how the character keeps moving depends on the generated output. There&#39;s no guarantee that the same action or appearance will be maintained indefinitely.<br />Billing is based on the duration of the generated video, so it still costs money while you&#39;re watching without sending instructions.</p>
+<p>When you add a new instruction, it applies to a subsequent segment.<br />So “real-time” doesn&#39;t mean the action on screen changes the instant you send a command.</p>
+<p><img src="/static/images/optimized/posts/realtime-video-aituber/01-continuous-generation-v2-420.webp" srcset="/static/images/optimized/posts/realtime-video-aituber/01-continuous-generation-v2-420.webp 420w, /static/images/optimized/posts/realtime-video-aituber/01-continuous-generation-v2-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="fal continuously generates video from the starting image and initial instructions, using the existing context to continue even without new instructions. New instructions and audio apply to subsequent segments." loading="lazy" decoding="async" /></p>
+<p>Updates during a session can include an audio file URL as well as action instructions.<br />When you supply externally synthesized speech as the audio to be played, the video is generated conditioned on that audio.</p>
+<p>For details, see the Director introduction page above and the <a href="https://fal.ai/models/minimax/h3-max/director/api" target="_blank" rel="noopener noreferrer">official API documentation</a>.</p>
+<h2 id="using-this-api-to-run-an-aituber-that-responds-to-comments">Using This API to Run an AITuber That Responds to Comments</h2>
+<p>What I built is an app that runs locally in a browser.<br />Director handles video generation, while comment intake, response decisions, and speech synthesis are connected as separate processes.</p>
+<div class="table-wrapper"><table><thead><tr><th>Role</th><th>Tool</th></tr></thead><tbody><tr><td>Fetching YouTube comments</td><td>OneComme + integration plugin</td></tr><tr><td>Selecting comments and creating replies and actions</td><td>OpenAI</td></tr><tr><td>Synthesizing speech from replies</td><td>Aivis Cloud</td></tr><tr><td>Generating video from audio and action instructions</td><td>H3 Max Director on fal</td></tr><tr><td>Playback, comment display, and recording</td><td>Local browser app</td></tr></tbody></table></div>
+<h3 id="receiving-comments-and-planning-replies-and-actions-together">Receiving Comments and Planning Replies and Actions Together</h3>
+<p>OneComme connects to YouTube and fetches comments, then passes them to the app through a dedicated integration plugin.<br />Instead of reading every comment in order, the app gives the AI a few recent comments as candidates and generates a reply to one selected comment.</p>
+<p>I was using <code>gpt-5.6-luna</code> as the response model.<br />That choice prioritized response speed and stability over the accuracy of the replies.</p>
+<p>A single request returns both a reply in Japanese and action instructions in English, in a predefined JSON format.<br />For an input like “Smile and wave,” for example, the same request produces a short greeting and instructions for smiling and waving.</p>
+<h3 id="sending-synthesized-speech-and-action-instructions-to-director">Sending Synthesized Speech and Action Instructions to Director</h3>
+<p>Once the reply is ready, the app synthesizes speech with Aivis Cloud, receives the entire MP3, and uploads it to fal&#39;s storage.<br />It then sends Director the audio URL and action instructions.</p>
+<p>The OpenAI LLM decides what to say, Aivis Cloud provides the speaking voice, and fal&#39;s Director determines the resulting video.</p>
+<p>AI Nike-chan&#39;s appearance isn&#39;t left entirely to the starting image and initial scene instructions.<br />The video prompt for each response also includes appearance instructions, so the character can perform the new action while retaining her look.</p>
+<p>The incoming WebRTC video and audio play directly in the browser.</p>
+<p><img src="/static/images/optimized/posts/realtime-video-aituber/02-comment-to-video-styled-420.webp" srcset="/static/images/optimized/posts/realtime-video-aituber/02-comment-to-video-styled-420.webp 420w, /static/images/optimized/posts/realtime-video-aituber/02-comment-to-video-styled-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="YouTube comments arrive through OneComme, and OpenAI generates a reply and action instructions. Aivis Cloud synthesizes the reply as speech, which is uploaded to fal storage. The audio URL and action instructions go to Director, and the resulting video and audio play in the browser." loading="lazy" decoding="async" /></p>
+<h3 id="passing-conversation-and-scene-state-to-the-next-response">Passing Conversation and Scene State to the Next Response</h3>
+<p>When responding to the next comment, the app gives the response AI the previous conversation along with a short memory summarizing conversational facts and the current scene.<br />This includes things like “who gave her what” and “where she is and what she&#39;s doing now.”<br />The app maintains these summaries separately from the conversation log.</p>
+<p>Scene memory stores the state after an action, rather than the past action command itself.<br />For example, instead of keeping the instruction “Open the box,” it passes on the state “The box is open, and its contents are on the desk.”<br />The video instructions also include the states before and after an action, so the next segment can build on what came before.</p>
+<p>However, the app only maintains a textual description of the state. It doesn&#39;t inspect the video to determine whether an action succeeded.<br />That means the intended state and the actual video can diverge.</p>
+<h3 id="preparing-the-next-reply-while-the-video-continues">Preparing the Next Reply While the Video Continues</h3>
+<p>After sending the current response to Director, the app starts preparing the next reply, synthesizing its speech, and uploading it if a new candidate comment is available.<br />Once Director sends a notification that the current response&#39;s audio has ended, the app sends the prepared response.<br />This is a notification from the generation side, not confirmation that playback in the browser has finished.</p>
+<p>If the next reply isn&#39;t ready yet, the app sends an idle instruction suited to the current location and activity.<br />The idea is to keep the character active in the video while the app prepares a reply to a comment.</p>
+<p>By combining Director&#39;s continuous video generation with comment selection, reply generation, speech synthesis, and state management, this setup creates an AITuber that responds to viewer comments.</p>
+<p><img src="/static/images/optimized/posts/realtime-video-aituber/03-memory-and-prefetch-420.webp" srcset="/static/images/optimized/posts/realtime-video-aituber/03-memory-and-prefetch-420.webp 420w, /static/images/optimized/posts/realtime-video-aituber/03-memory-and-prefetch-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="Conversation history and memories of facts and the scene are passed to the next response AI request. While the current video is being generated, the app prepares the next reply, synthesizes speech, and uploads it, then sends the next response after the generation-side audio completion notification." loading="lazy" decoding="async" /></p>
+<aside class="markdown-message" role="note"><span class="markdown-message__icon" aria-hidden="true">!</span><div class="markdown-message__body"><p>This API description is current as of September 10, 2026. The official information states that public sessions are limited to 15 minutes, and prepaid accounts are also subject to balance-based limits. Check the official fal introduction page above for the latest terms.</p></div></aside>
+<h2 id="issues-that-emerged-during-actual-livestreams">Issues That Emerged During Actual Livestreams</h2>
+<p>After four streams with this setup, I found it fun to see the video change in response to comments. At the same time, the video sometimes failed to keep up with major scene changes and contradicted what the character was saying.<br />Even with appearance instructions in the prompt, I couldn&#39;t fully prevent changes to her facial features after she left the frame, or shifts in art style during longer generation sessions.</p>
+<p>In my streams, I also had the impression that the image became darker and murkier over time, so I would start a new session when it began to bother me.<br />These are observations from this particular setup; I haven&#39;t isolated how much came from the model versus the prompts.<br />I&#39;ve written about specific moments from the streams, the response on YouTube, and where I might take this next in my <a href="/dev-blog/realtime-video-aituber-retrospective">retrospective on four livestreams</a>.</p>
+<h2 id="related-links">Related Links</h2>
+<p>I also share my work on AI tools and AI character development on X.</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "H3 Max Director Accepts New Instructions While Generating Video",
+    "id": "h3-max-director-accepts-new-instructions-while-generating-video"
+  },
+  {
+    "level": 3,
+    "text": "fal Generates the Next Part of the Video",
+    "id": "fal-generates-the-next-part-of-the-video"
+  },
+  {
+    "level": 2,
+    "text": "Using This API to Run an AITuber That Responds to Comments",
+    "id": "using-this-api-to-run-an-aituber-that-responds-to-comments"
+  },
+  {
+    "level": 3,
+    "text": "Receiving Comments and Planning Replies and Actions Together",
+    "id": "receiving-comments-and-planning-replies-and-actions-together"
+  },
+  {
+    "level": 3,
+    "text": "Sending Synthesized Speech and Action Instructions to Director",
+    "id": "sending-synthesized-speech-and-action-instructions-to-director"
+  },
+  {
+    "level": 3,
+    "text": "Passing Conversation and Scene State to the Next Response",
+    "id": "passing-conversation-and-scene-state-to-the-next-response"
+  },
+  {
+    "level": 3,
+    "text": "Preparing the Next Reply While the Video Continues",
+    "id": "preparing-the-next-reply-while-the-video-continues"
+  },
+  {
+    "level": 2,
+    "text": "Issues That Emerged During Actual Livestreams",
+    "id": "issues-that-emerged-during-actual-livestreams"
+  },
+  {
+    "level": 2,
+    "text": "Related Links",
+    "id": "related-links"
+  }
+]
