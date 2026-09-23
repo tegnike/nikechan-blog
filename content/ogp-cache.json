@@ -517,5 +517,13 @@
     "url": "https://nikechan.com/dev-blog/realtime-video-aituber",
     "favicon": "",
     "type": "ogp"
+  },
+  "https://www.amazon.co.jp/dp/4297159392": {
+    "title": "［みのるん式］ビジネスパーソンのためのClaude Code仕事術 | 御田 稔 | Amazon",
+    "description": "御田稔 著。Claude Codeを仕事に活用するための実践書。",
+    "image": "https://gihyo.jp/assets/images/ogp/2026/9784297159399.jpg",
+    "siteName": "Amazon.co.jp",
+    "url": "https://www.amazon.co.jp/dp/4297159392",
+    "favicon": "https://www.amazon.co.jp/favicon.ico"
   }
 }
