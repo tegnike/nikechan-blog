@@ -128,7 +128,7 @@ export const renderer = reactRenderer(({
 
         <link href="/static/styles/globals.css" rel="stylesheet" />
         <link rel="icon" href="/static/favicon.ico" />
-        <link rel="apple-touch-icon" href="/images/logos/logo_with_frame_and_shadow.png" />
+        <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 
         {/* Alternate languages for SEO */}
