@@ -6,6 +6,8 @@ export type Post = {
   description: string
   thumbnail: string
   content: string
+  author?: string
+  authorUrl?: string
   draft?: boolean
   draftToken?: string
 }
@@ -57,6 +59,8 @@ function parsePost(filePath: string, raw: string): Post {
     description: (metadata.description as string) || '',
     thumbnail: (metadata.thumbnail as string) || '',
     content,
+    author: (metadata.author as string) || undefined,
+    authorUrl: (metadata.authorUrl as string) || undefined,
     draft: metadata.draft === 'true',
     draftToken: (metadata.draftToken as string) || undefined,
   }

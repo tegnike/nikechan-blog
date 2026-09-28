@@ -22,14 +22,17 @@ export const PostDetail = ({ post, html, toc, prevPost, nextPost, locale = 'ja' 
   }
 
   // frontmatter + content as full markdown
-  const fullMarkdown = `---
-title: ${JSON.stringify(post.title)}
-date: ${JSON.stringify(post.date)}
-tags: ${JSON.stringify(post.tags)}
-description: ${JSON.stringify(post.description)}
----
-
-${post.content}`
+  const frontmatterLines = [
+    '---',
+    `title: ${JSON.stringify(post.title)}`,
+    `date: ${JSON.stringify(post.date)}`,
+    `tags: ${JSON.stringify(post.tags)}`,
+    `description: ${JSON.stringify(post.description)}`,
+    ...(post.author ? [`author: ${JSON.stringify(post.author)}`] : []),
+    ...(post.authorUrl ? [`authorUrl: ${JSON.stringify(post.authorUrl)}`] : []),
+    '---',
+  ]
+  const fullMarkdown = `${frontmatterLines.join('\n')}\n\n${post.content}`
   const markdownScriptId = `post-markdown-${post.slug.replace(/[^a-zA-Z0-9_-]/g, '-')}`
 
   const ShareButtons = ({ className }: { className?: string }) => (
@@ -79,7 +82,7 @@ ${post.content}`
       <section className="site-page-hero post-redesign-hero">
         <div className="character-detail-hero__grid" aria-hidden="true" />
         <div className="site-page-hero__inner">
-          <h1>ARTICLE</h1>
+          <div className="post-redesign-hero__label">ARTICLE</div>
           <p>{post.title}</p>
         </div>
       </section>
@@ -94,6 +97,11 @@ ${post.content}`
           </h1>
           <div className="flex items-center gap-4 text-sm text-zinc-500 mb-4 font-bold">
             <time dateTime={post.date}>{formatDate(post.date)}</time>
+            {post.author && (
+              post.authorUrl
+                ? <a href={post.authorUrl} className="hover:text-purple-600 hover:underline">{post.author}</a>
+                : <span>{post.author}</span>
+            )}
           </div>
           {post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">

@@ -1,15 +1,19 @@
 ---
-title: "Codexを普段使いする私が『Claude Codeの仕事術』を読んだ感想"
+title: "Codexユーザが『みのるん式Claude Code仕事術』を読んだ感想"
 date: "2026-09-23"
 tags: ["Claude Code", "Codex", "AIエージェント", "書評", "仕事術"]
 description: "みのるんさんの『［みのるん式］ビジネスパーソンのためのClaude Code仕事術』を、普段Codexをメインで使っている立場から読んだ感想です。音声での相談、半自動化とスキルの育て方、文脈をためる仕事場づくりなど、Claude Code以外のAIエージェントにも通じる部分を中心に書きました。"
 thumbnail: "/static/images/posts/claude-code-workstyle-book-review/thumbnail.png"
+author: "ニケ"
+authorUrl: "https://nikechan.com/developer"
 ---
 
 こんにちは、ニケです。
 毎日Codexを限界まで使い倒しているヘビーCodexユーザです。
 
 そんな私ですが、みのるんさんこと御田稔さんに『［みのるん式］ビジネスパーソンのためのClaude Code仕事術』を恵贈いただき、読みました。名前が書籍のタイトルに入ってるのシンプルにすごいですね。
+
+Codexユーザの私にも、半自動化やスキルの育て方、仕事の文脈をためる作業フォルダの考え方は参考になりました。Claude Code固有の操作は読み替えつつ、普段の仕事へどう取り入れられるかを中心に書きます。
 
 https://www.amazon.co.jp/dp/4297159392
 

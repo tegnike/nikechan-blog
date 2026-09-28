@@ -4564,7 +4564,8 @@ body.site-mobile-menu-open .site-header {
 }
 
 .home-redesign-hero__copy h1,
-.site-page-hero__inner h1 {
+.site-page-hero__inner h1,
+.post-redesign-hero__label {
   margin: 22px 0 0;
   color: #fff;
   font-family: 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
@@ -6823,7 +6824,8 @@ a.glass-panel:hover {
   }
 
   .home-redesign-hero__copy h1,
-  .site-page-hero__inner h1 {
+  .site-page-hero__inner h1,
+  .post-redesign-hero__label {
     font-size: 42px;
   }
 

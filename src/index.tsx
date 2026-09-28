@@ -721,7 +721,23 @@ app.get('/dev-blog/:slug', (c) => {
       },
       ogType: "article",
       ogImage: post.thumbnail ? `https://nikechan.com${post.thumbnail}` : undefined,
-      keywords: post.tags.join(', ')
+      keywords: post.tags.join(', '),
+      author: post.author,
+      structuredData: post.author ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.description,
+        "datePublished": post.date,
+        "image": post.thumbnail ? `https://nikechan.com${post.thumbnail}` : undefined,
+        "inLanguage": postLocale,
+        "mainEntityOfPage": `https://nikechan.com/dev-blog/${slug}`,
+        "author": {
+          "@type": "Person",
+          "name": post.author,
+          "url": post.authorUrl,
+        },
+      } : undefined
     }
   )
 })

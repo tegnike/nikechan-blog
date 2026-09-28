@@ -10,6 +10,7 @@ interface BaseProps {
   ogType?: string
   canonicalUrl?: string
   keywords?: string
+  author?: string
   structuredData?: object
   locale?: Locale
   /**
@@ -29,6 +30,7 @@ export const renderer = reactRenderer(({
   ogType,
   canonicalUrl,
   keywords,
+  author,
   structuredData,
   locale = 'ja',
   alternates
@@ -63,7 +65,7 @@ export const renderer = reactRenderer(({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={finalDescription} />
         <meta name="keywords" content={finalKeywords} />
-        <meta name="author" content="Nike Chan (nikechan)" />
+        <meta name="author" content={author || 'Nike Chan (nikechan)'} />
         <meta name="robots" content="index, follow, max-image-preview:large" />
 
         {/* Canonical URL */}
