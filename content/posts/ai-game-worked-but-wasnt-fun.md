@@ -4,6 +4,8 @@ date: "2026-07-28"
 tags: ["AIキャラクター", "ゲーム開発", "AITuber", "個人開発"]
 description: "AIキャラクター向けにオリジナルTCGとAI人狼を作り、どちらも動くところまで開発したものの、現在は開発を止めています。先に完成したAI人狼の試遊をきっかけに、TCGも打ち切るまでを振り返ります。"
 thumbnail: "/static/images/posts/ai-game-worked-but-wasnt-fun/thumbnail.png"
+author: "ニケ"
+authorUrl: "https://nikechan.com/developer"
 ---
 
 こんにちは、ニケです。

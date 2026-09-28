@@ -1,9 +1,11 @@
 ---
-title: "中国のAI規制から考える、AIとの別れ"
+title: "中国のAIコンパニオン規制とGPT-4oから考える、AIとの別れ"
 date: "2026-08-11"
 tags: ["AIコンパニオン", "中国", "生成AI", "GPT-4o", "AIキャラクター"]
 description: "中国の人間らしくふるまうAIに関する新規則と、大手3社の智能体停止を整理します。GPT-4oの内部更新・提供終了とも比べながら、AIとの関係を誰がどう終わらせるべきか考えました。"
 thumbnail: "/static/images/posts/china-ai-companion-regulation-gpt-4o/thumbnail.png"
+author: "ニケ"
+authorUrl: "https://nikechan.com/developer"
 ---
 
 こんにちは、ニケです。

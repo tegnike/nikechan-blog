@@ -4,6 +4,8 @@ date: "2026-09-13"
 tags: ["AITuber", "動画生成", "AIキャラクター", "YouTube", "振り返り"]
 description: "コメントで映像が変わるAITuberを4回配信し、約290人の登録につながりました。サンタ帽が現れた体験、長時間生成の難しさ、RPG企画の反省から、技術の新しさを継続して見てもらえるコンテンツにつなげる課題を振り返ります。"
 thumbnail: "/static/images/posts/realtime-video-aituber-retrospective/thumbnail.png"
+author: "ニケ"
+authorUrl: "https://nikechan.com/developer"
 draft: false
 draftToken: "4382d324a676375be8930d6ae533dae3"
 ---

@@ -1,9 +1,11 @@
 ---
-title: "コメントに応じて動くAITuberを作りました"
+title: "H3 Max Directorで作った、コメントに応じて動くAITuberの仕組み"
 date: "2026-09-10"
 tags: ["AITuber", "動画生成", "fal", "AIキャラクター"]
 description: "H3 Max Directorを使い、コメントに応じて話し、動くAITuberを作りました。映像を生成しながら指示を追加できるAPIの仕組みと、コメント・返答AI・音声合成をつなぐシステム構成を紹介します。"
 thumbnail: "/static/images/posts/realtime-video-aituber/thumbnail.png"
+author: "ニケ"
+authorUrl: "https://nikechan.com/developer"
 draft: false
 draftToken: "387bcc1317b6b328946022fd7d25fd42"
 ---
