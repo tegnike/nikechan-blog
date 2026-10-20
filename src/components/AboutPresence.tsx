@@ -1,5 +1,6 @@
 import { type FC } from 'react'
 import { type Locale } from '../i18n/config'
+import { ContactEmailLink } from './ContactEmailLink'
 
 type Props = {
   locale?: Locale
@@ -333,6 +334,20 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
                 </span>
               </a>
             ))}
+          </div>
+        </section>
+
+        <section id="contact" className="ai-about-touchpoints" aria-labelledby="contact-title">
+          <div className="ai-about-section-head ai-about-section-head--compact">
+            <p className="ai-about-section-label">CONTACT</p>
+            <h2 id="contact-title">{t('お問い合わせ', 'Contact')}</h2>
+            <p>{t('コラボレーションやサイト・キャラクターに関するお問い合わせは、メールでご連絡ください。', 'For collaboration inquiries or questions about the website and characters, please contact us by email.')}</p>
+            <p><ContactEmailLink /></p>
+            <p>
+              <a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer">X DM</a>
+              {' / '}
+              <a href="https://discord.gg/nikechan" target="_blank" rel="noopener noreferrer">Discord</a>
+            </p>
           </div>
         </section>
 

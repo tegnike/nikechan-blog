@@ -5,6 +5,7 @@ import derivativeMdEn from '../utils/guidelines/en/derivative_creation_guideline
 import aiMdEn from '../utils/guidelines/en/ai_generation_guideline.md?raw'
 import { mdToHtml } from '../utils/mdToHtml'
 import { getT, type Locale } from '../i18n/config'
+import { ContactEmailLink } from './ContactEmailLink'
 
 type Props = {
   active?: 'derivative' | 'ai'
@@ -41,7 +42,7 @@ const quickGuideContent: Record<Locale, {
   aiItems: string[]
   aiLink: string
   faqTitle: string
-  faqs: { question: string; answer: string }[]
+  faqs: { question: string; answer: string; contactEmail?: boolean }[]
   officialNote: string
   detailTitle: string
   detailLead: string
@@ -118,7 +119,8 @@ const quickGuideContent: Record<Locale, {
       },
       {
         question: '判断に迷ったら？',
-        answer: 'まず詳細版を確認し、それでも迷う場合はX DMまたはDiscordコミュニティから相談してください。',
+        answer: 'まず詳細版を確認し、それでも迷う場合はメール、X DMまたはDiscordコミュニティから相談してください。',
+        contactEmail: true,
       },
     ],
     officialNote: 'この早見版は読みやすくした要約です。正式な条件や例外判断は、詳細版ガイドラインが優先されます。',
@@ -197,7 +199,8 @@ const quickGuideContent: Record<Locale, {
       },
       {
         question: 'What if I am unsure?',
-        answer: 'Check the detailed guidelines first. If you are still unsure, contact us via X DM or the Discord community.',
+        answer: 'Check the detailed guidelines first. If you are still unsure, contact us by email, via X DM, or through the Discord community.',
+        contactEmail: true,
       },
     ],
     officialNote: 'This quick guide is a readable summary. The detailed guidelines take priority for official conditions and exception handling.',
@@ -269,6 +272,7 @@ function GuidelineQuickStart({ locale }: { locale: Locale }) {
             <article key={faq.question}>
               <h4>{faq.question}</h4>
               <p>{faq.answer}</p>
+              {faq.contactEmail && <p><ContactEmailLink /></p>}
             </article>
           ))}
         </div>

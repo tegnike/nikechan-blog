@@ -72,6 +72,8 @@ Recent decisions:
 
 SNS cards and final contact links are links, so they should not use tab-style surfaces.
 
+The contact email is `support@nikechan.com`. React pages share `CONTACT_EMAIL` and `ContactEmailLink` from `src/components/ContactEmailLink.tsx`; the top page uses a clickable mail card, while About, developer/character profiles, legal pages, and the guidelines quick guide use inline mail links. The Japanese and English Markdown guidelines under `src/utils/guidelines/` also contain the address and must stay in sync when it changes. Existing X and Discord contact options remain available.
+
 Current intended style:
 
 - White button card.

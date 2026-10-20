@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { Heart } from 'lucide-react'
 import { CharacterDetail, CharacterDisclosure, CharacterSectionHeading } from './CharacterDetail'
 import { DeveloperActivities } from './DeveloperActivities'
+import { ContactEmailLink } from './ContactEmailLink'
 import { Locale } from '../i18n/config'
 
 interface NikeProfileProps {
@@ -498,6 +499,9 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
         {isJa ? 'X DMで相談する' : 'Contact via X DM'}
       </a>
+      <p className="mt-4 text-gray-600">
+        {isJa ? 'メール: ' : 'Email: '}<ContactEmailLink />
+      </p>
     </div>
   )
 

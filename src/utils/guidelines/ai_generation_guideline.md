@@ -34,7 +34,7 @@
 #### ボイスアセットの利用条件
 
 - AIニケちゃんのボイスアセットは、[二次創作ガイドラインの「個別提供ボイスアセットの利用」](/guidelines/derivative#voice-model)と提供時の個別通知に従ってください。
-- 申請は、利用目的を明記のうえ [X DM](https://x.com/tegnike) または[公式Discord](https://discord.gg/nikechan)内で作者へのDMにより受け付けます。
+- 申請は、利用目的を明記のうえ [メール（support@nikechan.com）](mailto:support@nikechan.com)、[X DM](https://x.com/tegnike)、または[公式Discord](https://discord.gg/nikechan)内で作者へのDMにより受け付けます。
 
 ---
 

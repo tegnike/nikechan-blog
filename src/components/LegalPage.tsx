@@ -1,10 +1,12 @@
 import type { Locale } from '../i18n/config'
+import { ContactEmailLink } from './ContactEmailLink'
 
 type LegalPageKind = 'privacy' | 'terms'
 
 type Section = {
   heading: string
   body: string[]
+  contactEmail?: boolean
 }
 
 type LegalContent = {
@@ -24,7 +26,7 @@ const privacyJa: LegalContent = {
   eyebrow: 'PRIVACY',
   title: 'プライバシーポリシー',
   lead: '本サイトにおける情報の取り扱いについて定めます。',
-  updatedAt: '2026年5月29日',
+  updatedAt: '2026年10月20日',
   sections: [
     {
       heading: '1. 取得する情報',
@@ -74,8 +76,9 @@ const privacyJa: LegalContent = {
     },
     {
       heading: '8. お問い合わせ',
+      contactEmail: true,
       body: [
-        '本ポリシーに関するお問い合わせは、Aboutページに掲載しているXまたはDiscordからご連絡ください。',
+        '本ポリシーに関するお問い合わせは、以下のメールアドレス、X DMまたはDiscordからご連絡ください。',
       ],
     },
   ],
@@ -85,7 +88,7 @@ const privacyEn: LegalContent = {
   eyebrow: 'PRIVACY',
   title: 'Privacy Policy',
   lead: 'This policy explains how information is handled on this website.',
-  updatedAt: 'May 29, 2026',
+  updatedAt: 'October 20, 2026',
   sections: [
     {
       heading: '1. Information We Collect',
@@ -135,8 +138,9 @@ const privacyEn: LegalContent = {
     },
     {
       heading: '8. Contact',
+      contactEmail: true,
       body: [
-        'For questions about this policy, please contact us through X or Discord as listed on the About page.',
+        'For questions about this policy, please contact us at the email address below, via X DM, or through Discord.',
       ],
     },
   ],
@@ -146,7 +150,7 @@ const termsJa: LegalContent = {
   eyebrow: 'TERMS',
   title: 'サイト利用規約',
   lead: '本サイトを利用する際の基本的な条件を定めます。',
-  updatedAt: '2026年5月29日',
+  updatedAt: '2026年10月20日',
   sections: [
     {
       heading: '1. 適用範囲',
@@ -205,8 +209,9 @@ const termsJa: LegalContent = {
     },
     {
       heading: '9. お問い合わせ',
+      contactEmail: true,
       body: [
-        '本規約に関するお問い合わせは、Aboutページに掲載しているXまたはDiscordからご連絡ください。',
+        '本規約に関するお問い合わせは、以下のメールアドレス、X DMまたはDiscordからご連絡ください。',
       ],
     },
   ],
@@ -216,7 +221,7 @@ const termsEn: LegalContent = {
   eyebrow: 'TERMS',
   title: 'Terms of Use',
   lead: 'These terms set out the basic conditions for using this website.',
-  updatedAt: 'May 29, 2026',
+  updatedAt: 'October 20, 2026',
   sections: [
     {
       heading: '1. Scope',
@@ -275,8 +280,9 @@ const termsEn: LegalContent = {
     },
     {
       heading: '9. Contact',
+      contactEmail: true,
       body: [
-        'For questions about these terms, please contact us through X or Discord as listed on the About page.',
+        'For questions about these terms, please contact us at the email address below, via X DM, or through Discord.',
       ],
     },
   ],
@@ -325,6 +331,7 @@ export function LegalPage({ kind, locale = 'ja' }: Props) {
                   {section.body.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
+                  {section.contactEmail && <p><ContactEmailLink /></p>}
                 </section>
               ))}
             </div>

@@ -34,7 +34,7 @@ The detailed guidelines published on this website are the authoritative source f
 #### Terms for Voice Assets
 
 - AI Nike-Chan voice assets are governed by ["Individually Provided Voice Assets" in the Derivative Creation Guidelines](/guidelines/derivative#voice-model) and the provision notice issued for the project.
-- To apply, describe the intended use and contact the Author by [X DM](https://x.com/tegnike) or direct message through the [official Discord](https://discord.gg/nikechan).
+- To apply, describe the intended use and contact the Author by [email (support@nikechan.com)](mailto:support@nikechan.com), [X DM](https://x.com/tegnike), or direct message through the [official Discord](https://discord.gg/nikechan).
 
 ---
 

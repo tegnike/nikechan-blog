@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { ExternalLink, Heart } from 'lucide-react'
 import { CharacterDetail, CharacterDisclosure, CharacterSectionHeading } from './CharacterDetail'
+import { ContactEmailLink } from './ContactEmailLink'
 import { getT, Locale } from '../i18n/config'
 
 interface AINikeProfileProps {
@@ -255,6 +256,9 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
         {collaboration.cta}
       </a>
+      <p className="mt-4 text-gray-600">
+        {locale === 'ja' ? 'メール: ' : 'Email: '}<ContactEmailLink />
+      </p>
     </div>
   )
 

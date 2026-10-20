@@ -76,7 +76,7 @@ For conditions regarding generation, training, and distribution using AI, please
 - Additional requirements (AI-specific): Handling of permitted materials and permissions must follow the Generative AI Guidelines (e.g., not using official materials other than official VRM models, logos, official character reference sheets, or individually provided voice assets, and obtaining prior permission for others' derivative works).
 
 #### 3.6 Individually Provided Voice Assets {#voice-model}
-- AI Nike-Chan voice assets, including voice synthesis models, are provided individually upon application. Describe your intended use—including publication destination, genre, monetization, and integration target—and contact the Author by [X DM](https://x.com/tegnike) or direct message through the [official Discord](https://discord.gg/nikechan).
+- AI Nike-Chan voice assets, including voice synthesis models, are provided individually upon application. Describe your intended use—including publication destination, genre, monetization, and integration target—and contact the Author by [email (support@nikechan.com)](mailto:support@nikechan.com), [X DM](https://x.com/tegnike), or direct message through the [official Discord](https://discord.gg/nikechan).
 - The provision notice defines the authorized recipient, project, purpose, period, and other conditions. Uses not stated in that notice and reuse in a different project are not permitted.
 - You may not redistribute, sell, transfer, lend, or share original, copied, or modified voice assets, or make them downloadable or extractable by users.
 - You may not use voice assets or generated voice to create or train another voice model, voice clone, training material, or dataset, including through additional training or fine-tuning.
@@ -142,7 +142,7 @@ The following cases are recommended/required to consult in advance (examples):
 - Projects involving external commercial channels such as sponsorship contracts/tie-ups, affiliate links, product sales/reservation links
 - Cases where interpretation of the guidelines is unclear (for content related to generative AI, also refer to the Generative AI Guidelines)
 
-Contact information is available [here](/about).
+Inquiries are also welcome by [email (support@nikechan.com)](mailto:support@nikechan.com). Other contact options are available [here](/about?lang=en#contact).
 
 In principle, we will respond within 1-2 weeks (may vary depending on the timing).
 
@@ -196,7 +196,7 @@ In principle, we will respond within 1-2 weeks (may vary depending on the timing
   - A: Only for printed materials. Non-commercial, within cost recovery, following laws of each country/distribution terms/event terms. Please consult in advance if the scale is large.
 
 - Q: What if my work is reported/deleted?
-  - A: Follow the platform's instructions, and review in light of these guidelines as necessary. If you're unsure about the interpretation of the guidelines, please contact us via X/Discord.
+  - A: Follow the platform's instructions, and review in light of these guidelines as necessary. If you're unsure about the interpretation of the guidelines, please contact us by [email (support@nikechan.com)](mailto:support@nikechan.com), via X, or through Discord.
 
 - Q: How are AI-generated materials handled?
   - A: Please refer to the dedicated "Generative AI Guidelines" (Section 3.5).
