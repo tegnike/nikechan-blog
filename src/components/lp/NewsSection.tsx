@@ -12,6 +12,7 @@ const newsLinks: Record<string, string> = {
   'line-stamp': 'https://store.line.me/stickershop/product/32003839/ja',
   'tutorial': '/tutorials',
   'distribution': '/guidelines',
+  'realtime-video-aituber': '/dev-blog/realtime-video-aituber',
 };
 
 const youtubeVideoId = 'XGGP2Z0IFw0';

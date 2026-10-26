@@ -36,14 +36,52 @@
     "heading": "Recent Updates",
     "items": [
       {
+        "id": "youtube-1000",
+        "tag": "NEW",
+        "date": "2026・10",
+        "title": "Our YouTube Channel Passed 1,000 Subscribers",
+        "description": "The Nike-chan YouTube channel, where we have been streaming AI news since August and posting videos and Shorts, passed 1,000 subscribers in October. Thank you for watching.",
+        "cta": "Visit the YouTube Channel",
+        "externalLink": "https://www.youtube.com/@nikechan"
+      },
+      {
+        "id": "youtube-videos",
+        "tag": "NEW",
+        "date": "2026・10",
+        "title": "We Started Posting Explainer Videos and Shorts on YouTube",
+        "description": "In October we started posting explainer videos alongside our livestreams, including an introduction to the real-time video generation AITuber, a hands-on test of Kyarakuru for turning illustrations into 3D avatars, and a comparison of eight recent speech synthesis models. We are also posting short AI news Shorts almost every day.",
+        "thumbnail": "/static/images/news/youtube-videos/thumbnail.jpg",
+        "cta": "Browse the Videos",
+        "externalLink": "https://www.youtube.com/@nikechan/videos"
+      },
+      {
+        "id": "realtime-video-aituber",
+        "tag": "NEW",
+        "date": "2026・9",
+        "title": "We Streamed an AITuber That Keeps Changing With Viewer Comments",
+        "description": "We built a real-time video generation AITuber whose visuals keep changing as it talks in response to viewer comments, and streamed it four times on YouTube in September. The development blog covers how it works and what we learned from the streams.",
+        "thumbnail": "/static/images/posts/realtime-video-aituber/thumbnail.png",
+        "cta": "Read the Article"
+      },
+      {
         "id": "ai-nike-fest-2026",
         "tag": "NEW",
         "date": "2026・9",
-        "title": "AI Nike Fest Celebrates Our Discord Server's First Anniversary",
-        "description": "AI Nike Fest will be held on September 5, 2026 at 10:00 PM JST to celebrate the first anniversary of the AI Nike Chan Discord server. The Discord server is the event venue. The program includes a one-year retrospective, AI character lightning talks, and a community works contest, while the special site showcases 17 games, videos, music projects, tools, and more.",
+        "title": "We Held AI Nike Fest for Our Discord Server's First Anniversary",
+        "description": "On September 5, 2026, we held AI Nike Fest on the AI Nike Chan Discord server to celebrate its first anniversary. The program included a one-year retrospective, AI character lightning talks, and a community works contest. The stream archive is on YouTube, and the special site showcases the games, videos, music, tools, and other works submitted by the community.",
         "thumbnail": "/static/images/news/ai-nike-fest-2026/thumbnail.png",
         "cta": "View the AI Nike Fest Site",
         "externalLink": "https://fes2026.nikechan.com"
+      },
+      {
+        "id": "youtube-news-stream",
+        "tag": "NEW",
+        "date": "2026・8",
+        "title": "We Started AI News Livestreams on YouTube",
+        "description": "Since August 12, developer Nike and AI Nike-chan have been livestreaming on YouTube to introduce news about AI characters and AI. Streams usually start around 8:00 PM JST and also include hands-on tests of new tools and game projects.",
+        "thumbnail": "/static/images/news/youtube-news-stream/thumbnail.jpg",
+        "cta": "Visit the YouTube Channel",
+        "externalLink": "https://www.youtube.com/@nikechan"
       },
       {
         "id": "ai-character-news",

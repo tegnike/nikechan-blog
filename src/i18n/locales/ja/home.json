@@ -36,14 +36,52 @@
     "heading": "最近のアップデート",
     "items": [
       {
+        "id": "youtube-1000",
+        "tag": "NEW",
+        "date": "2026・10",
+        "title": "YouTubeチャンネルの登録者が1,000人を超えました",
+        "description": "8月に始めたAIニュース配信や、動画・ショートの投稿を続けてきたYouTubeチャンネル「ニケちゃん」の登録者が、10月に1,000人を超えました。いつも見てくださり、ありがとうございます。",
+        "cta": "YouTubeチャンネルを見る",
+        "externalLink": "https://www.youtube.com/@nikechan"
+      },
+      {
+        "id": "youtube-videos",
+        "tag": "NEW",
+        "date": "2026・10",
+        "title": "YouTubeで解説動画とショート動画の投稿を始めました",
+        "description": "10月から、配信とは別に解説動画の投稿を始めました。リアルタイム動画生成AITuberの紹介、イラストから3Dアバターを作る「きゃらくる」の検証、最新の合成音声8種の聴き比べなどを公開しています。AIニュースを短く伝えるショート動画も、ほぼ毎日投稿しています。",
+        "thumbnail": "/static/images/news/youtube-videos/thumbnail.jpg",
+        "cta": "動画一覧を見る",
+        "externalLink": "https://www.youtube.com/@nikechan/videos"
+      },
+      {
+        "id": "realtime-video-aituber",
+        "tag": "NEW",
+        "date": "2026・9",
+        "title": "コメントの通りに動き続けるAITuberを配信しました",
+        "description": "視聴者のコメントに応じて、話しながら映像が変わり続けるリアルタイム動画生成AITuberを開発し、9月にYouTubeで4回配信しました。仕組みと、配信して分かったことは開発ブログにまとめています。",
+        "thumbnail": "/static/images/posts/realtime-video-aituber/thumbnail.png",
+        "cta": "紹介記事を読む"
+      },
+      {
         "id": "ai-nike-fest-2026",
         "tag": "NEW",
         "date": "2026・9",
-        "title": "AIニケちゃんDiscordサーバー1周年記念「AIニケフェス」を開催します",
-        "description": "2026年9月5日（土）22:00から、AIニケちゃんDiscordサーバー1周年を記念した「AIニケフェス」を開催します。会場はAIニケちゃんDiscordサーバーです。1年の振り返り、AIキャラクターLT、作品コンテストを行い、ゲーム・映像・音楽・ツールなどコミュニティから届いた17作品を特設サイトで紹介しています。",
+        "title": "AIニケちゃんDiscordサーバー1周年記念「AIニケフェス」を開催しました",
+        "description": "2026年9月5日（土）、AIニケちゃんDiscordサーバー1周年を記念した「AIニケフェス」をDiscordサーバーで開催しました。1年の振り返り、AIキャラクターLT、作品コンテストを行いました。当日の様子はYouTubeのアーカイブで、コミュニティから届いたゲーム・映像・音楽・ツールなどの作品は特設サイトでご覧いただけます。",
         "thumbnail": "/static/images/news/ai-nike-fest-2026/thumbnail.png",
         "cta": "AIニケフェス特設サイトを見る",
         "externalLink": "https://fes2026.nikechan.com"
+      },
+      {
+        "id": "youtube-news-stream",
+        "tag": "NEW",
+        "date": "2026・8",
+        "title": "YouTubeでAIニュース配信を始めました",
+        "description": "8月12日から、開発者ニケとAIニケちゃんが、AIキャラクターやAIのニュースを紹介するYouTube配信を始めました。日本時間20時ごろを中心に、ニュース紹介のほか、新しいツールの検証やゲーム企画も配信しています。",
+        "thumbnail": "/static/images/news/youtube-news-stream/thumbnail.jpg",
+        "cta": "YouTubeチャンネルを見る",
+        "externalLink": "https://www.youtube.com/@nikechan"
       },
       {
         "id": "ai-character-news",

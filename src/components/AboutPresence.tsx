@@ -95,6 +95,17 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
       external: true,
     },
     {
+      icon: 'fa-brands fa-youtube',
+      title: { ja: 'YouTube', en: 'YouTube' },
+      description: {
+        ja: '開発者ニケと、AIニュースの配信や解説動画・ショートを届けています。',
+        en: 'AI news livestreams, explainer videos, and Shorts with developer Nike.',
+      },
+      href: 'https://www.youtube.com/@nikechan',
+      label: { ja: 'YouTubeを見る', en: 'View YouTube' },
+      external: true,
+    },
+    {
       icon: 'fa-solid fa-images',
       title: { ja: 'プロフィールと創作', en: 'Profile and creations' },
       description: {

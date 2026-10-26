@@ -57,12 +57,14 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         'Webエンジニアとして8年以上、Javaによる業務システム開発や、Ruby on Railsを中心としたWebサービス開発に従事。ポーランドを拠点に、日本企業のプロジェクトへフルリモートで参画している。',
         '要件整理、基本設計、技術選定、実装、インフラ構築、公開後の運用・保守まで一貫して担当。現在は会話設計、記憶、RAG、外部ツール連携を含むAIエージェント開発と、AIツールを活用した開発プロセスに取り組んでいる。',
         '個人開発では、GitHub Stars 1,000件を超える「AITuberKit」を継続開発。AIニケちゃんを長期運用し、実際の仕事や人との関わりを通して、AIキャラクターが社会の中で活動するための技術と運用を検証している。',
+        '2026年8月からは、YouTubeチャンネル「ニケちゃん」でAIニケちゃんと一緒にAIキャラクターやAIのニュースを紹介する配信を開始。新しいAIツールの検証や解説動画・ショート動画も投稿している。',
       ]
     : [
         'A developer focused professionally on AI agents while also building and operating AI characters as long-term independent projects. Creator of AI Nike-chan and this website.',
         'A web engineer with more than eight years of experience across Java-based business systems and Ruby on Rails web services. Based in Poland and working fully remotely with Japanese companies.',
         'Works end to end across requirements, basic design, technology selection, implementation, infrastructure, launch, and ongoing operation. Current work covers AI agents with conversation design, memory, RAG, and external tool integrations, along with AI-assisted development practices.',
         'Maintains AITuberKit, an open-source project with more than 1,000 GitHub stars, and operates AI Nike-chan through real work and relationships to study how AI characters can participate meaningfully in society.',
+        'Since August 2026, has been livestreaming news about AI characters and AI with AI Nike-chan on the Nike-chan YouTube channel, along with hands-on tests of new AI tools, explainer videos, and Shorts.',
       ]
 
   const links = [
