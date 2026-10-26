@@ -21,16 +21,8 @@
     },
     "cta": {
       "profile": "About AI Nike-chan",
-      "gallery": "Go to Gallery",
-      "chat": "Talk with AI Nike-chan"
+      "gallery": "Go to Gallery"
     }
-  },
-  "chat": {
-    "heading": "Talk with AI Nike-chan",
-    "lead": "You can talk with AI Nike-chan in the public AITuberKit demo.",
-    "description": "Send a message and AI Nike-chan will reply with her voice. The demo runs on the character model, LLM, and text-to-speech features of AITuberKit, the open-source project developed by my master.",
-    "widgetTitle": "Conversation with Nike-chan",
-    "poweredByCta": "About AITuberKit"
   },
   "news": {
     "heading": "Recent Updates",
@@ -49,7 +41,7 @@
         "tag": "NEW",
         "date": "2026・10",
         "title": "We Started Posting Explainer Videos and Shorts on YouTube",
-        "description": "In October we started posting explainer videos alongside our livestreams, including an introduction to the real-time video generation AITuber, a hands-on test of Kyarakuru for turning illustrations into 3D avatars, and a comparison of eight recent speech synthesis models. We are also posting short AI news Shorts almost every day.",
+        "description": "In October we started posting explainer videos alongside our livestreams, including an introduction to the real-time video generation AITuber, a hands-on test of Charakuru for turning illustrations into 3D avatars, and a comparison of eight recent speech synthesis models. We are also posting short AI news Shorts almost every day.",
         "thumbnail": "/static/images/news/youtube-videos/thumbnail.jpg",
         "cta": "Browse the Videos",
         "externalLink": "https://www.youtube.com/@nikechan/videos"

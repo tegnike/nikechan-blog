@@ -1,5 +1,4 @@
 import { WelcomeSection } from "./lp/WelcomeSection";
-import { AITuberChatSection } from "./lp/AITuberChatSection";
 import { NewsSection } from "./lp/NewsSection";
 import { AboutSection } from "./lp/AboutSection";
 import { LicenseSection } from "./lp/LicenseSection";
@@ -24,7 +23,6 @@ export function LandingPage({ locale = 'ja' }: Props) {
         <div className="character-showcase-bg absolute inset-0" />
         <div className="relative z-10">
           <AboutSection locale={locale} />
-          <AITuberChatSection locale={locale} />
           <NewsSection locale={locale} limit={3} />
           <LicenseSection locale={locale} />
           <GallerySection locale={locale} />
