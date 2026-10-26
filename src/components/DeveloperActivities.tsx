@@ -18,6 +18,8 @@ const kindLabels: Record<DeveloperActivityKind, LocalizedText> = {
   talk: { ja: '登壇', en: 'TALK' },
   exhibition: { ja: '出展', en: 'EXHIBITION' },
   participation: { ja: '参加', en: 'PARTICIPATION' },
+  media: { ja: '掲載', en: 'MEDIA' },
+  writing: { ja: '執筆', en: 'WRITING' },
 }
 
 const formatDate = (date: string, locale: Locale) => {
@@ -39,20 +41,20 @@ export function DeveloperActivities({ locale, limit, showAllLink = false, embedd
       id="activities"
       className={`${embedded ? 'developer-activities--embedded' : 'glass-panel'} developer-activities scroll-mt-28`}
       {...(embedded
-        ? { 'aria-label': locale === 'ja' ? 'イベント参加・登壇記録' : 'Events, exhibitions, and talks' }
+        ? { 'aria-label': locale === 'ja' ? 'イベント・メディア・執筆の記録' : 'Events, Media & Writing' }
         : { 'aria-labelledby': 'activities-title' })}
     >
       {!embedded && (
         <div className="developer-activities__heading">
           <CharacterSectionHeading
-            label="EVENTS & TALKS"
-            title={locale === 'ja' ? 'イベント参加・登壇記録' : 'Events, exhibitions, and talks'}
+            label="EVENTS, MEDIA & WRITING"
+            title={locale === 'ja' ? 'イベント・メディア・執筆の記録' : 'Events, Media & Writing'}
             headingId="activities-title"
           />
           <p>
             {locale === 'ja'
-              ? 'ニケが参加したイベント、展示、登壇の公開記録です。制作物をどこで、どのように共有したかを残していきます。'
-              : 'A public record of events, exhibitions, and talks by Nike—documenting where the work was shared and what was presented.'}
+              ? 'ニケが参加したイベント、展示、登壇に加え、メディア掲載や執筆・寄稿の公開記録です。制作物や考えを、どこで、どのように共有したかを残していきます。'
+              : 'A public record of events, exhibitions, and talks by Nike, along with media coverage and writing—documenting where the work and ideas were shared.'}
           </p>
         </div>
       )}

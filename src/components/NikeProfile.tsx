@@ -634,8 +634,8 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       customSections={
         <>
           <CharacterDisclosure
-            label="EVENTS & TALKS"
-            title={isJa ? 'イベント参加・登壇記録' : 'Events, exhibitions, and talks'}
+            label="EVENTS, MEDIA & WRITING"
+            title={isJa ? 'イベント・メディア・執筆の記録' : 'Events, Media & Writing'}
             description={isJa ? '最近の3件と公開資料を見る' : 'View the latest three records and materials'}
           >
             <DeveloperActivities locale={locale} limit={3} showAllLink embedded />

@@ -3,7 +3,7 @@ export type LocalizedText = {
   en: string
 }
 
-export type DeveloperActivityKind = 'talk' | 'exhibition' | 'participation'
+export type DeveloperActivityKind = 'talk' | 'exhibition' | 'participation' | 'media' | 'writing'
 
 export type DeveloperActivityLink = {
   label: LocalizedText
@@ -28,7 +28,7 @@ export type DeveloperActivity = {
   slides?: DeveloperActivitySlides
 }
 
-// Public records of Nike's event activity. Add new entries in descending date order.
+// Public records of Nike's events, talks, media coverage, and writing. Add new entries in descending date order.
 export const developerActivities: DeveloperActivity[] = [
   {
     slug: 'alibaba-meetup-sapporo-2026',

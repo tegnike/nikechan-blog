@@ -15,6 +15,8 @@ const kindLabels: Record<DeveloperActivityKind, LocalizedText> = {
   talk: { ja: '登壇', en: 'Talk' },
   exhibition: { ja: '出展', en: 'Exhibition' },
   participation: { ja: '参加', en: 'Participation' },
+  media: { ja: '掲載', en: 'Media' },
+  writing: { ja: '執筆', en: 'Writing' },
 }
 
 const formatDate = (date: string, locale: Locale) => {
@@ -45,7 +47,7 @@ export function ActivityDetail({ activity, locale }: Props) {
         <div className="character-back-section">
           <a href={`/activities${langQuery}`} className="character-back-link">
             <ArrowLeft aria-hidden="true" />
-            <span>{locale === 'ja' ? 'イベント・登壇記録へ戻る' : 'Back to Events & Talks'}</span>
+            <span>{locale === 'ja' ? 'イベント・メディア・執筆の記録へ戻る' : 'Back to Events, Media & Writing'}</span>
           </a>
         </div>
 

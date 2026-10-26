@@ -14,11 +14,11 @@ export function Activities({ locale }: Props) {
       <section className="site-page-hero" aria-labelledby="activities-page-title">
         <div className="character-detail-hero__grid" aria-hidden="true" />
         <div className="site-page-hero__inner">
-          <h1 id="activities-page-title">EVENTS &amp; TALKS</h1>
+          <h1 id="activities-page-title">EVENTS, MEDIA &amp; WRITING</h1>
           <p>
             {locale === 'ja'
-              ? '開発者ニケのイベント参加、展示、登壇の記録'
-              : 'A record of Nike’s events, exhibitions, and talks'}
+              ? '開発者ニケのイベント参加・展示・登壇、メディア掲載、執筆の記録'
+              : 'A record of Nike’s events, exhibitions, talks, media coverage, and writing'}
           </p>
         </div>
       </section>

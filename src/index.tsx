@@ -528,7 +528,7 @@ app.get('/developer', (c) => {
   )
 })
 
-// Events, exhibitions, and talks
+// Events, exhibitions, talks, media coverage, and writing
 app.get('/activities', (c) => {
   const currentPath = c.req.path
   const locale = c.get('locale') as Locale
@@ -539,16 +539,16 @@ app.get('/activities', (c) => {
     {
       locale,
       title: locale === 'ja'
-        ? 'イベント参加・登壇記録 | AIニケちゃんオフィシャルサイト'
-        : 'Events & Talks | AI Nike Chan Official Website',
+        ? 'イベント・メディア・執筆の記録 | AIニケちゃんオフィシャルサイト'
+        : 'Events, Media & Writing | AI Nike Chan Official Website',
       description: locale === 'ja'
-        ? '開発者ニケのイベント参加、展示、登壇の記録。AIキャラクター、AITuber、AIエージェントに関する発表内容と公開リンクを掲載しています。'
-        : 'A public record of Nike’s events, exhibitions, and talks on AI characters, AITubers, and AI agents.',
+        ? '開発者ニケのイベント参加、展示、登壇、メディア掲載、執筆の記録。AIキャラクター、AITuber、AIエージェントに関する発表内容や記事と公開リンクを掲載しています。'
+        : 'A public record of Nike’s events, exhibitions, talks, media coverage, and writing on AI characters, AITubers, and AI agents.',
       canonicalUrl: 'https://nikechan.com/activities',
       ogType: 'website',
       keywords: locale === 'ja'
-        ? 'ニケ, 登壇, イベント, 展示, AIキャラクター, AITuber, AIエージェント'
-        : 'Nike, talks, events, exhibitions, AI characters, AITuber, AI agents',
+        ? 'ニケ, 登壇, イベント, 展示, メディア掲載, 執筆, AIキャラクター, AITuber, AIエージェント'
+        : 'Nike, talks, events, exhibitions, media coverage, writing, AI characters, AITuber, AI agents',
     }
   )
 })
