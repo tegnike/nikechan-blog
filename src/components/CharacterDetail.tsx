@@ -55,7 +55,6 @@ interface CharacterDetailProps {
   historyTitle?: string
   products?: ProductItem[]
   productsTitle?: string
-  workSectionLabel?: string
   workSectionTitle?: string
   workNavLabel?: string
   workLayout?: 'split' | 'stacked'
@@ -73,28 +72,24 @@ interface CharacterDetailProps {
 }
 
 interface CharacterSectionHeadingProps {
-  label: string
   title: ReactNode
   headingId?: string
 }
 
 interface CharacterDisclosureProps {
-  label: string
   title: ReactNode
   description?: ReactNode
   children: ReactNode
   id?: string
 }
 
-export const CharacterSectionHeading: FC<CharacterSectionHeadingProps> = ({ label, title, headingId }) => (
+export const CharacterSectionHeading: FC<CharacterSectionHeadingProps> = ({ title, headingId }) => (
   <div className="character-section-heading character-section-heading--additional">
-    <span>{label}</span>
     <h2 id={headingId}>{title}</h2>
   </div>
 )
 
 export const CharacterDisclosure: FC<CharacterDisclosureProps> = ({
-  label,
   title,
   description,
   children,
@@ -102,7 +97,6 @@ export const CharacterDisclosure: FC<CharacterDisclosureProps> = ({
 }) => (
   <section className="character-chapter" id={id}>
     <header className="character-chapter__heading">
-      <span>{label}</span>
       <h2>{title}</h2>
       {description && <p>{description}</p>}
     </header>
@@ -131,7 +125,6 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   historyTitle,
   products,
   productsTitle,
-  workSectionLabel,
   workSectionTitle,
   workNavLabel,
   workLayout = 'split',
@@ -274,7 +267,6 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
         <section className="character-profile-layout" id="profile" aria-label={locale === 'ja' ? 'プロフィール' : 'Profile'}>
           <div className="character-profile-card">
             <div className="character-section-heading">
-              <span>PROFILE</span>
               <h2>{nameJa}</h2>
             </div>
             <dl className="character-profile-data">
@@ -289,7 +281,6 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
 
           <div className="character-description-card">
             <div className="character-section-heading">
-              <span>INTRODUCTION</span>
               <h2>{role}</h2>
             </div>
             <div className="character-description-body">
@@ -326,7 +317,6 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
               <div className="glass-panel character-reference-panel" id="reference">
                 <div className="character-reference-panel__copy">
                   <CharacterSectionHeading
-                    label="REFERENCE"
                     title={locale === 'ja' ? '三面図（二次創作用）' : 'Reference Sheet (Fan Art)'}
                   />
                   <p>
@@ -360,7 +350,6 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
             {(historyItems || products) && (
               <section className="character-work-section" id="explore">
                 <CharacterSectionHeading
-                  label={workSectionLabel || 'EXPLORE'}
                   title={workSectionTitle || (locale === 'ja' ? '活動と制作' : 'Work and activity')}
                 />
                 <div className={`character-work-grid ${historyItems && products ? `character-work-grid--${workLayout}` : ''} ${productsFirst ? 'character-work-grid--products-first' : ''}`}>
@@ -437,7 +426,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
             {/* Support Section */}
             {supportLinks && supportLinks.length > 0 && (
               <div className="glass-panel character-support-panel">
-                <CharacterSectionHeading label="LINKS" title={supportTitle || 'SUPPORT'} />
+                <CharacterSectionHeading title={supportTitle || 'SUPPORT'} />
                 {supportDescription && (
                   <p className="text-gray-600 mb-6 leading-relaxed">
                     {supportDescription}

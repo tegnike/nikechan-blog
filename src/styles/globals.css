@@ -1228,7 +1228,7 @@ body.site-mobile-menu-open .site-header {
 
 .ai-about-section-head h2,
 .ai-about-memory h2 {
-  margin: 12px 0 0;
+  margin: 0;
   color: var(--ai-ink);
   font-family: 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
   font-size: clamp(34px, 3.2vw, 48px);
@@ -1295,7 +1295,7 @@ body.site-mobile-menu-open .site-header {
 }
 
 .ai-about-role-card__identity h3 {
-  margin: 4px 0 0;
+  margin: 0;
   color: var(--ai-ink);
   font-size: 28px;
   font-weight: 900;
@@ -1510,7 +1510,7 @@ body.site-mobile-menu-open .site-header {
 }
 
 .ai-about-layer h3 {
-  margin: 6px 0 0;
+  margin: 0;
   color: var(--ai-ink);
   font-size: 24px;
   font-weight: 900;
@@ -1586,7 +1586,7 @@ body.site-mobile-menu-open .site-header {
 }
 
 .ai-about-aituber h3 {
-  margin: 5px 0 0;
+  margin: 0;
   color: var(--ai-ink);
   font-size: 24px;
   font-weight: 900;
@@ -3224,7 +3224,7 @@ body.site-mobile-menu-open .site-header {
 }
 
 .character-section-heading h2 {
-  margin: 10px 0 0;
+  margin: 0;
   color: var(--character-ink);
   font-family: 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
   font-size: 38px;
@@ -5936,7 +5936,7 @@ a.home-contact-link-card:hover {
 }
 
 .home-section-subheading h3 {
-  margin: 8px 0 0;
+  margin: 0;
   color: var(--character-ink);
   font-family: 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
   font-size: clamp(26px, 3vw, 38px);
@@ -6061,10 +6061,7 @@ a.glass-panel:hover {
   box-shadow: 3px 3px 0 var(--character-ink) !important;
 }
 
-.news-badge,
-.ai-news-chip,
-.post-tag,
-.blog-post-card__tag {
+.news-badge {
   display: inline-flex;
   align-items: center;
   min-height: 26px;
@@ -6110,12 +6107,14 @@ a.glass-panel:hover {
   box-shadow: none;
 }
 
-.ai-news-chip {
-  background: #fff;
+.ai-news-meta {
+  gap: 8px 0;
 }
 
-.ai-news-chip--category {
-  background: var(--character-yellow);
+.ai-news-meta > span + span::before {
+  content: "·";
+  margin: 0 8px;
+  color: #9a93a4;
 }
 
 .ai-news-redesign .site-page-hero__inner > p {
@@ -6537,16 +6536,6 @@ a.glass-panel:hover {
   line-height: 1.45;
 }
 
-.blog-post-card__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.blog-post-card__tag {
-  background: #fff;
-}
-
 .blog-pagination-button {
   min-width: 34px;
   min-height: 34px;
@@ -6584,12 +6573,6 @@ a.glass-panel:hover {
   margin: 0 0 18px;
   font-size: clamp(26px, 3.6vw, 42px);
   line-height: 1.28;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  line-break: anywhere;
-}
-
-.post-redesign-hero .site-page-hero__inner > p {
   overflow-wrap: anywhere;
   word-break: break-word;
   line-break: anywhere;
@@ -7217,7 +7200,7 @@ a.glass-panel:hover {
 }
 
 .character-chapter__heading h2 {
-  margin: 7px 0 0;
+  margin: 0;
   color: var(--character-ink);
   font-family: 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
   font-size: 26px;
@@ -7868,7 +7851,7 @@ a.glass-panel:hover {
 }
 
 .character-action-grid strong {
-  margin-top: 18px;
+  margin-top: 0;
   font-size: 18px;
   line-height: 1.35;
 }

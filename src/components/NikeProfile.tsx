@@ -446,7 +446,6 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
   const positioningSection = (
     <section className="character-feature-panel">
       <CharacterSectionHeading
-        label="POSITIONING"
         title={isJa ? 'AIキャラクター開発の方針' : 'AI character development approach'}
       />
       <p className="text-gray-600 leading-relaxed max-w-4xl">
@@ -624,7 +623,6 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       historyTitle="CAREER"
       products={products}
       productsTitle="PRODUCTS"
-      workSectionLabel="SELECTED WORK"
       workSectionTitle={isJa ? '開発実績' : 'Development work'}
       workNavLabel={isJa ? '実績' : 'Work'}
       workLayout="stacked"
@@ -634,7 +632,6 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       customSections={
         <>
           <CharacterDisclosure
-            label="EVENTS, MEDIA & WRITING"
             title={isJa ? 'イベント・メディア・執筆の記録' : 'Events, Media & Writing'}
             description={isJa ? '最近の3件と公開資料を見る' : 'View the latest three records and materials'}
           >
@@ -642,7 +639,6 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
           </CharacterDisclosure>
           <section className="character-connect-panel" id="connect">
             <CharacterSectionHeading
-              label="CONNECT"
               title={isJa ? '活動への関わり方' : 'Ways to get involved'}
             />
             <div className="character-connect-panel__grid">

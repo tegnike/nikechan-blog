@@ -165,17 +165,17 @@ export function AiNewsCard({
 
   return (
     <article className="glass-panel ai-news-card p-6 md:p-7">
-      <div className="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
-        <span className="ai-news-chip ai-news-chip--category">
+      <div className="ai-news-meta mb-4 flex flex-wrap items-center text-xs font-semibold text-gray-500">
+        <span>
           {labels[item.category] || item.category}
         </span>
-        <span className="ai-news-chip">
+        <span>
           {getHost(item, locale)}
         </span>
-        <span className="ai-news-chip">
+        <span>
           {getLanguageLabel(item, locale)}
         </span>
-        <span className="ai-news-chip inline-flex items-center gap-1">
+        <span className="inline-flex items-center gap-1">
           <CalendarDays className="h-3.5 w-3.5" />
           {formatAiNewsDateLabel(item.published_at, locale)}
         </span>
@@ -219,14 +219,7 @@ export function AiNewsCard({
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-2">
-          {item.tags.map((tag) => (
-            <span key={tag} className="text-xs font-semibold text-gray-500">
-              #{tag}
-            </span>
-          ))}
-        </div>
+      <div className="mt-5 flex justify-end">
         <a
           href={item.url}
           target="_blank"

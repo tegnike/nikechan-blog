@@ -21,7 +21,6 @@ export function ContactSupportSection({ locale = 'ja' }: Props) {
         {/* コラボレーション */}
         <div className="glass-panel home-contact-collaboration">
           <div className="home-section-subheading">
-            <span>CONTACT</span>
             <h3>{t('home:contact.collaboration.heading')}</h3>
           </div>
           <p>

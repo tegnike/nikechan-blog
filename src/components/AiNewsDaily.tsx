@@ -1,4 +1,4 @@
-import { ArrowLeft, CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react'
 import { AiNewsCard, formatAiNewsDateLabel } from './AiCharacterNews'
 import type { AiCharacterNewsDateGroup, AiCharacterNewsItem } from '../lib/ai-character-news'
 import type { Locale } from '../i18n/config'
@@ -140,12 +140,7 @@ export function AiNewsDailyList({ dateGroups, error, locale = 'ja' }: ListProps)
             {dateGroups.map((group) => (
               <article key={group.date} className="glass-panel ai-news-daily-card p-6 md:p-7">
                 <div className="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
-                  <span className="ai-news-chip ai-news-chip--category">Date</span>
-                  <span className="ai-news-chip inline-flex items-center gap-1">
-                    <CalendarDays className="h-3.5 w-3.5" />
-                    {formatAiNewsDateLabel(`${group.date}T00:00:00+09:00`, locale)}
-                  </span>
-                  <span className="ai-news-chip">{group.count} {text.topics}</span>
+                  <span className="text-gray-500">{group.count} {text.topics}</span>
                 </div>
                 <h2>{formatAiNewsDateLabel(`${group.date}T00:00:00+09:00`, locale)}</h2>
                 <div className="mt-5 flex justify-end">

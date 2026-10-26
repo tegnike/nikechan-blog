@@ -1316,14 +1316,13 @@ function bootstrap() {
     const displayNikeComment = (item: AiNewsItem) => locale === 'en' && item.nike_comment_en ? item.nike_comment_en : item.nike_comment
 
     const renderArticle = (item: AiNewsItem, index: number) => {
-      const tags = Array.isArray(item.tags) ? item.tags : []
       return `
         <article class="glass-panel ai-news-card p-6 md:p-7">
-          <div class="mb-4 flex flex-wrap items-center gap-2 text-xs font-semibold">
-            <span class="ai-news-chip ai-news-chip--category">${escapeHtml(categoryLabels[locale][item.category] || item.category)}</span>
-            <span class="ai-news-chip">${escapeHtml(getHost(item))}</span>
-            <span class="ai-news-chip">${escapeHtml(getLanguageLabel(item))}</span>
-            <span class="ai-news-chip inline-flex items-center gap-1">
+          <div class="ai-news-meta mb-4 flex flex-wrap items-center text-xs font-semibold text-gray-500">
+            <span>${escapeHtml(categoryLabels[locale][item.category] || item.category)}</span>
+            <span>${escapeHtml(getHost(item))}</span>
+            <span>${escapeHtml(getLanguageLabel(item))}</span>
+            <span class="inline-flex items-center gap-1">
               <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
               ${escapeHtml(formatDate(item.published_at))}
             </span>
@@ -1349,10 +1348,7 @@ function bootstrap() {
               </div>
             </div>
           </div>
-          <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
-            <div class="flex flex-wrap gap-2">
-              ${tags.map((tag) => `<span class="text-xs font-semibold text-gray-500">#${escapeHtml(String(tag))}</span>`).join('')}
-            </div>
+          <div class="mt-5 flex justify-end">
             <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="design-action-button">
               ${locale === 'ja' ? '記事を読む' : 'Read article'}
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>

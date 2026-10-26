@@ -136,7 +136,6 @@ export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
                 '--card-index': index,
               } as CSSProperties}
             >
-              <span className="character-index-card__number">{String(index + 1).padStart(2, '0')}</span>
               <div className="character-index-card__image">
                 <img
                   src={char.listIcon}

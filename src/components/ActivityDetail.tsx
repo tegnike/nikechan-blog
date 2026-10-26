@@ -63,11 +63,6 @@ export function ActivityDetail({ activity, locale }: Props) {
           </div>
           <h2 id="activity-slide-title">{localize(slides.title)}</h2>
           <p>{localize(activity.description)}</p>
-          <ul className="activity-detail-summary__topics" aria-label={locale === 'ja' ? 'テーマ' : 'Topics'}>
-            {activity.topics.map((topic) => (
-              <li key={localize(topic)}>{localize(topic)}</li>
-            ))}
-          </ul>
           <div className="activity-detail-summary__links">
             {activity.links.map((link) => {
               const url = localize(link.url)

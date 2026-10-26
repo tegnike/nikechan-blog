@@ -79,13 +79,6 @@ export const PostDetail = ({ post, html, toc, prevPost, nextPost, locale = 'ja' 
         readOnly
         value={fullMarkdown}
       />
-      <section className="site-page-hero post-redesign-hero">
-        <div className="character-detail-hero__grid" aria-hidden="true" />
-        <div className="site-page-hero__inner">
-          <div className="post-redesign-hero__label">ARTICLE</div>
-          <p>{post.title}</p>
-        </div>
-      </section>
       <div className="character-showcase-bg">
         <div className="post-redesign-container mx-auto py-8 md:py-14">
         {/* Article Header */}
@@ -103,19 +96,7 @@ export const PostDetail = ({ post, html, toc, prevPost, nextPost, locale = 'ja' 
                 : <span>{post.author}</span>
             )}
           </div>
-          {post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="post-tag"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-          {/* SP: タグの下に配置 */}
+          {/* SP: 日付の下に配置 */}
           <ShareButtons className="flex md:hidden mt-3" />
         </div>
 

@@ -19,7 +19,6 @@ export function LicenseSection({ locale = 'ja' }: Props) {
           <div className="home-license-layout">
             <div className="home-license-copy">
               <div className="home-section-subheading">
-                <span>GENERATIVE AI</span>
                 <h3>{locale === 'ja' ? '作る前に、使い方だけ確認' : 'Check the rules before creating'}</h3>
               </div>
 
@@ -72,7 +71,6 @@ export function LicenseSection({ locale = 'ja' }: Props) {
 
             <div className="home-license-example">
               <div className="home-section-subheading">
-                <span>IMAGE TO IMAGE</span>
                 <h3>{t('home:license.example.heading')}</h3>
               </div>
 

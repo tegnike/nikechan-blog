@@ -137,7 +137,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <div className="ai-about-hero__grid" aria-hidden="true" />
         <div className="ai-about-hero__content">
           <div className="ai-about-hero__copy">
-            <p className="ai-about-kicker">ABOUT AI NIKE-CHAN</p>
             <h1 id="ai-about-title">
               <span>{t('AIニケちゃん', 'AI Nike-chan')}</span>
               <span>{t('開発者ニケのAIアシスタント', 'AI assistant to developer Nike')}</span>
@@ -172,7 +171,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
       <main>
         <section className="ai-about-relationship" aria-labelledby="relationship-title">
           <div className="ai-about-section-head">
-            <p className="ai-about-section-label">WHO DOES WHAT</p>
             <h2 id="relationship-title">{t('開発者ニケと働く、AIニケちゃん。', 'AI Nike-chan works alongside Nike.')}</h2>
             <p>
               {t(
@@ -193,7 +191,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
                   loading="lazy"
                 />
                 <div>
-                  <p>NIKE / MASTER</p>
                   <h3>{t('ニケ', 'Nike')}</h3>
                   <span>{t('人間の開発者', 'Human developer')}</span>
                 </div>
@@ -227,7 +224,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
                   loading="lazy"
                 />
                 <div>
-                  <p>AI NIKE-CHAN</p>
                   <h3>{t('AIニケちゃん', 'AI Nike-chan')}</h3>
                   <span>{t('AIアシスタント', 'AI assistant')}</span>
                 </div>
@@ -244,7 +240,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
 
         <section className="ai-about-work" aria-labelledby="work-title">
           <div className="ai-about-section-head ai-about-section-head--compact">
-            <p className="ai-about-section-label">WHAT SHE DOES</p>
             <h2 id="work-title">{t('普段の仕事', 'Moving the work forward, not only the conversation.')}</h2>
           </div>
           <div className="ai-about-work-grid">
@@ -263,7 +258,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
 
         <section className="ai-about-direction" aria-labelledby="direction-title">
           <div className="ai-about-section-head">
-            <p className="ai-about-section-label">CORE &amp; PUBLIC</p>
             <h2 id="direction-title">{t('実際の仕事から、キャラクターが育つ。', 'Grow the character around practical usefulness.')}</h2>
             <p>
               {t(
@@ -276,7 +270,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           <div className="ai-about-layer-stack">
             <article className="ai-about-layer ai-about-layer--core">
               <div>
-                <span>01 / CORE</span>
                 <h3>{t('アシスタントとしての仕事', 'Inner layer: practical AI assistant')}</h3>
               </div>
               <p>{t('調査、実装、整理、記録。マスターの活動を日々支える、いちばん内側の役割。', 'The core that supports Nike’s real activity through research, implementation, organization, and memory.')}</p>
@@ -290,7 +283,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             </div>
             <article className="ai-about-layer ai-about-layer--public">
               <div>
-                <span>02 / PUBLIC</span>
                 <h3>{t('キャラクターとしての活動', 'Public layer: character IP')}</h3>
               </div>
               <p>{t('実際に手伝ったことや、一緒につくったものを入り口に、AIニケちゃんを知ってもらう。', 'Build recognition through what she actually helped with and created alongside Nike, without mass-producing standalone character projects.')}</p>
@@ -302,7 +294,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
               <i className="fa-solid fa-microphone-lines" />
             </div>
             <div>
-              <p>AITUBER</p>
               <h3 id="aituber-title">{t('AITuberとしては、紹介と解説を。', 'A mode of activity, not the core identity.')}</h3>
               <span>
                 {t(
@@ -316,7 +307,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
 
         <section className="ai-about-touchpoints" aria-labelledby="touchpoints-title">
           <div className="ai-about-section-head ai-about-section-head--compact">
-            <p className="ai-about-section-label">CURRENT TOUCHPOINTS</p>
             <h2 id="touchpoints-title">{t('いま、会える場所。', 'Where you can meet her and see the work today.')}</h2>
             <p>{t('AIニケちゃんと話したり、活動を見たりできる場所をまとめました。', 'These are current public touchpoints—not a promise to keep expanding platforms for its own sake.')}</p>
           </div>
@@ -350,7 +340,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
 
         <section id="contact" className="ai-about-touchpoints" aria-labelledby="contact-title">
           <div className="ai-about-section-head ai-about-section-head--compact">
-            <p className="ai-about-section-label">CONTACT</p>
             <h2 id="contact-title">{t('お問い合わせ', 'Contact')}</h2>
             <p>{t('コラボレーションやサイト・キャラクターに関するお問い合わせは、メールでご連絡ください。', 'For collaboration inquiries or questions about the website and characters, please contact us by email.')}</p>
             <p><ContactEmailLink /></p>
@@ -364,7 +353,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
 
         <section className="ai-about-memory" aria-labelledby="memory-title">
           <div className="ai-about-memory__copy">
-            <p className="ai-about-section-label">MEMORY IN PRACTICE</p>
             <h2 id="memory-title">{t('記憶は、思い出せてこそ。', 'Useful memory matters more than merely having memory.')}</h2>
             <p>
               {t(
@@ -381,11 +369,9 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           </div>
           <ol className="ai-about-memory__priorities">
             <li>
-              <span>NOW</span>
               <strong>{t('会話と記憶のデータは蓄積済み', 'Conversations and memory data are stored')}</strong>
             </li>
             <li>
-              <span>NEXT</span>
               <strong>{t('人物と直近の文脈を、すぐ取り出せるように', 'Retrieve people and recent events with low latency')}</strong>
             </li>
           </ol>
@@ -394,7 +380,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         <section className="ai-about-quote" aria-label={t('AIニケちゃんのメッセージ', 'A message from AI Nike-chan')}>
           <img src="/images/about/about-message.webp" alt={t('メッセージを届けるAIニケちゃん', 'AI Nike-chan sharing a message')} />
           <div>
-            <p>MESSAGE FROM AI NIKE-CHAN</p>
             <blockquote>
               {t(
                 '今日もマスターの隣で、調べたり、つくったり、記録したりしています。その積み重ねの先で、わたしのことを覚えてもらえたらうれしいです。',

@@ -120,7 +120,6 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
   const worldSection = (
     <section className="character-feature-panel">
       <CharacterSectionHeading
-        label="ABOUT"
         title={locale === 'ja' ? 'AIニケちゃんについて' : 'About AI Nike-chan'}
       />
       <p className="text-gray-600 mb-2 leading-relaxed">
@@ -135,17 +134,14 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       </p>
       <div className="character-action-grid" aria-label={locale === 'ja' ? 'AIニケちゃんを知る・楽しむ' : 'Discover AI Nike-chan'}>
         <a href={`/about${langQuery}`}>
-          <span>01 · ABOUT</span>
           <strong>{locale === 'ja' ? 'AIニケちゃんを知る' : 'Meet AI Nike-chan'}</strong>
           <small>{locale === 'ja' ? '活動と考え方を見る' : 'See her work and story'}</small>
         </a>
         <a href={`/guidelines${langQuery}`}>
-          <span>02 · CREATE</span>
           <strong>{locale === 'ja' ? '一緒につくる' : 'Create together'}</strong>
           <small>{locale === 'ja' ? '二次創作ガイドラインへ' : 'Open fan-work guidelines'}</small>
         </a>
         <a href="https://www.youtube.com/@nikechan" target="_blank" rel="noopener noreferrer">
-          <span>03 · WATCH</span>
           <strong>{locale === 'ja' ? '活動を見る' : 'Watch her activity'}</strong>
           <small>YouTube</small>
         </a>
@@ -315,7 +311,6 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       links={links}
       historyItems={historyItems}
       historyTitle="HISTORY"
-      workSectionLabel="STORY"
       workSectionTitle={locale === 'ja' ? 'AIニケちゃんの歩み' : 'AI Nike-chan timeline'}
       workNavLabel={locale === 'ja' ? '歩み' : 'Timeline'}
       overviewSections={worldSection}
@@ -323,7 +318,6 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       customSections={
         <>
           <CharacterDisclosure
-            label="FAN WORK"
             title={derivative.heading}
             description={locale === 'ja' ? '二次創作の条件とガイドラインを見る' : 'View fan-work conditions and guidelines'}
           >
@@ -331,7 +325,6 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
           </CharacterDisclosure>
           <section className="character-connect-panel" id="connect">
             <CharacterSectionHeading
-              label="CONNECT"
               title={locale === 'ja' ? '一緒に活動する・応援する' : 'Collaborate and support'}
             />
             <div className="character-connect-panel__grid character-connect-panel__grid--ai">

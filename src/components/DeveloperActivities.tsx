@@ -47,7 +47,6 @@ export function DeveloperActivities({ locale, limit, showAllLink = false, embedd
       {!embedded && (
         <div className="developer-activities__heading">
           <CharacterSectionHeading
-            label="EVENTS, MEDIA & WRITING"
             title={locale === 'ja' ? 'イベント・メディア・執筆の記録' : 'Events, Media & Writing'}
             headingId="activities-title"
           />
@@ -75,11 +74,6 @@ export function DeveloperActivities({ locale, limit, showAllLink = false, embedd
             <div className="developer-activity-card__body">
               <h3>{localize(activity.title)}</h3>
               <p>{localize(activity.description)}</p>
-              <ul className="developer-activity-card__topics" aria-label={locale === 'ja' ? 'テーマ' : 'Topics'}>
-                {activity.topics.map((topic) => (
-                  <li key={localize(topic)}>{localize(topic)}</li>
-                ))}
-              </ul>
               <div className="developer-activity-card__links">
                 {activity.slides && (
                   <a

@@ -77,18 +77,6 @@ export const DevBlog = ({ locale = 'ja', articles = [] }: Props) => {
                         <h3 className="blog-post-card__title line-clamp-2">
                           {post.title}
                         </h3>
-                        {post.tags.length > 0 && (
-                          <div className="blog-post-card__tags">
-                            {post.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="blog-post-card__tag"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
                       </div>
                     </a>
                   )
