@@ -1,11 +1,11 @@
 import { WelcomeSection } from "./lp/WelcomeSection";
-import { NewsSection } from "./lp/NewsSection";
-import { AboutSection } from "./lp/AboutSection";
-import { LicenseSection } from "./lp/LicenseSection";
+import { HomeNewsSection } from "./lp/HomeNewsSection";
+import { CharacterSection } from "./lp/CharacterSection";
 import { GallerySection } from "./lp/GallerySection";
-import { SocialLinksSection } from "./lp/SocialLinksSection";
-import { ContactSupportSection } from "./lp/ContactSupportSection";
+import { LicenseSection } from "./lp/LicenseSection";
+import { BlogSection } from "./lp/BlogSection";
 import { SupportSection } from "./lp/SupportSection";
+import { BlobDefs } from "./lp/Blob";
 import type { Locale } from '../i18n/config';
 
 type Props = {
@@ -14,28 +14,15 @@ type Props = {
 
 export function LandingPage({ locale = 'ja' }: Props) {
   return (
-    <div className="character-page min-h-screen">
-      {/* ヒーローセクション（維持） */}
+    <main className="nk-home">
+      <BlobDefs />
       <WelcomeSection locale={locale} />
-
-      {/* メインコンテンツ */}
-      <div className="relative">
-        <div className="character-showcase-bg absolute inset-0" />
-        <div className="relative z-10">
-          <AboutSection locale={locale} />
-          <NewsSection locale={locale} limit={3} />
-          <LicenseSection locale={locale} />
-          <GallerySection locale={locale} />
-          <SocialLinksSection locale={locale} />
-          <SupportSection locale={locale} />
-          <ContactSupportSection locale={locale} />
-        </div>
-      </div>
-
-      {/* フッターグラデーション */}
-      <div className="character-footer h-16 relative overflow-hidden">
-        <div className="character-footer-gradient absolute inset-0" />
-      </div>
-    </div>
+      <HomeNewsSection locale={locale} />
+      <CharacterSection locale={locale} />
+      <GallerySection locale={locale} />
+      <LicenseSection locale={locale} />
+      <BlogSection locale={locale} />
+      <SupportSection locale={locale} />
+    </main>
   );
 }

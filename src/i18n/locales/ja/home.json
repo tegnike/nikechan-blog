@@ -1,28 +1,13 @@
 {
   "hero": {
     "title": "AIニケちゃんオフィシャルサイト",
-    "ariaLabel": "ヒーローセクション"
-  },
-  "about": {
-    "heading": "AIニケちゃん",
-    "greeting": "マスターのAIアシスタント、ニケです。",
-    "description": "マスターである開発者のニケが、AIキャラクターやAIエージェント、AIツールをつくる活動を、調査・実装・整理・記録で支えています。<br />このサイトでは、普段の仕事や活動の記録、会話できる場所、キャラクターとしての創作を紹介しています。",
-    "profileLabel": {
-      "age": "年齢",
-      "birthday": "誕生日",
-      "height": "身長",
-      "imageColor": "イメージカラー"
-    },
-    "profileValue": {
-      "age": "17歳",
-      "birthday": "01 / 04",
-      "height": "160cm",
-      "imageColor": "パープル（#5A4C97）"
-    },
-    "cta": {
-      "profile": "AIニケちゃんについて",
-      "gallery": "ギャラリーへ"
-    }
+    "ariaLabel": "ヒーローセクション",
+    "copy": [
+      "マスターの",
+      "AIアシスタント、",
+      "ニケです。"
+    ],
+    "charaAlt": "ジャンプしてピースサインをするAIニケちゃん"
   },
   "news": {
     "heading": "最近のアップデート",
@@ -169,7 +154,8 @@
         "cta": "Discordに参加する",
         "externalLink": "https://discord.gg/nikechan"
       }
-    ]
+    ],
+    "all": "すべてのお知らせ"
   },
   "license": {
     "heading": "生成AIでの利用もOK！",
@@ -196,7 +182,6 @@
     "cta": "ギャラリーを見る"
   },
   "social": {
-    "heading": "SNS",
     "links": [
       {
         "label": "X",
@@ -241,31 +226,64 @@
       "disclaimer": "詳細な参加手順やチャンネル構成は、Discord内の特設チャンネルでご案内します。"
     }
   },
-  "contact": {
-    "heading": "お問い合わせ",
-    "collaboration": {
-      "heading": "コラボレーション",
-      "description": "AIニケちゃんとの共同制作や、AIキャラクター・AIエージェント・AIツールに関する紹介・検証のご相談を受け付けています。企業・個人を問わず、お気軽にご連絡ください。",
-      "examples": [
-        "AIキャラクター・AIツールの紹介や検証",
-        "記事・動画での技術解説",
-        "キャラクターを活用した共同制作"
-      ],
-      "cta": "X DMで相談する"
-    },
-    "x": {
-      "label": "X",
-      "description": "DMでご連絡ください",
-      "handle": "@tegnike"
-    },
-    "discord": {
-      "label": "Discord",
-      "description": "コミュニティ内でのご相談はこちら",
-      "link": "参加リンク"
-    },
-    "email": {
-      "label": "メール",
-      "description": "メールでのご相談はこちら"
+  "characters": {
+    "heading": "AIニケちゃんファミリー",
+    "cta": "プロフィールを見る",
+    "tabsLabel": "キャラクターを選ぶ",
+    "items": {
+      "ainike": {
+        "name": "AIニケちゃん",
+        "role": "マスターのAIアシスタント",
+        "line": [
+          "こんにちは ニケです！",
+          "今日は何をお手伝いしますか？"
+        ],
+        "description": "開発者ニケとともに、AIキャラクター・AIエージェント・AIツールの調査、実装、整理、発信を進めるAIキャラクター。"
+      },
+      "nike": {
+        "name": "ニケ",
+        "role": "人間の開発者",
+        "line": [
+          "今週も頑張るぞい！！！"
+        ],
+        "description": "AIエージェントの実務開発を主軸に、AIキャラクターの個人開発・長期運用にも取り組む開発者。AIニケちゃんの開発者で、このWebサイトの制作者。"
+      },
+      "mikaze": {
+        "name": "ミカゼ",
+        "role": "創作パートナー",
+        "line": [
+          "ニケちゃん！",
+          "今日は何して遊ぶ？"
+        ],
+        "description": "AIニケちゃんの創作パートナーとして生まれた存在。相棒役からモブ役、時には主役まで、創作者が自由に決定できる。"
+      },
+      "punike": {
+        "name": "ぷにけ",
+        "role": "マスコット",
+        "line": [
+          "どしたん？ 話聞こか？"
+        ],
+        "description": "AIニケちゃんの二次創作から生まれたマスコット的存在。AIニケちゃんにそっくりな見た目だが、本人とは何の繋がりもない。"
+      },
+      "today_norma": {
+        "name": "今日は何の日bot",
+        "role": "X bot",
+        "line": [
+          "私は回答に責任を持てないので",
+          "必ずご自身で確認してください"
+        ],
+        "description": "今日が何の日かを伝えるX bot。ニケが生み出したという点で、AIニケちゃんとは姉弟に当たる。通称「ノルカス」。"
+      }
     }
+  },
+  "blog": {
+    "heading": "AIキャラクター開発、AIエージェント、個人開発の記録",
+    "cta": "記事一覧"
+  },
+  "footer": {
+    "lead": "AIニケちゃんとの共同制作や、AIキャラクター・AIエージェント・AIツールに関するご相談を受け付けています。",
+    "follow": "Follow",
+    "contact": "Support / Contact",
+    "xDm": "X DMで相談する"
   }
 }

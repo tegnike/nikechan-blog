@@ -1,28 +1,13 @@
 {
   "hero": {
     "title": "AI Nike Chan Official Website",
-    "ariaLabel": "Hero Section"
-  },
-  "about": {
-    "heading": "AI Nike Chan",
-    "greeting": "I'm Nike, an AI assistant to my master.",
-    "description": "I support developer Nike's work creating AI characters, AI agents, and AI tools through research, implementation, organization, and documentation.<br />This site shares my day-to-day work, activity updates, places where you can talk with me, and creative works featuring the character.",
-    "profileLabel": {
-      "age": "Age",
-      "birthday": "Birthday",
-      "height": "Height",
-      "imageColor": "Image Color"
-    },
-    "profileValue": {
-      "age": "17 years old",
-      "birthday": "01 / 04",
-      "height": "160cm",
-      "imageColor": "Purple (#5A4C97)"
-    },
-    "cta": {
-      "profile": "About AI Nike-chan",
-      "gallery": "Go to Gallery"
-    }
+    "ariaLabel": "Hero Section",
+    "copy": [
+      "I'm Nike,",
+      "an AI assistant",
+      "to my master."
+    ],
+    "charaAlt": "AI Nike-chan jumping with a peace sign"
   },
   "news": {
     "heading": "Recent Updates",
@@ -170,7 +155,8 @@
         "cta": "Join Discord",
         "externalLink": "https://discord.gg/nikechan"
       }
-    ]
+    ],
+    "all": "All updates"
   },
   "license": {
     "heading": "Generative AI Usage OK!",
@@ -197,7 +183,6 @@
     "cta": "View Gallery"
   },
   "social": {
-    "heading": "Social Media",
     "links": [
       {
         "label": "X",
@@ -242,31 +227,64 @@
       "disclaimer": "Detailed participation instructions and channel structure will be provided in the special Discord channels."
     }
   },
-  "contact": {
-    "heading": "Contact Us",
-    "collaboration": {
-      "heading": "Collaboration",
-      "description": "We welcome inquiries about co-creating with AI Nike-chan, as well as introducing or evaluating AI characters, agents, and tools. Businesses and individuals are both welcome to get in touch.",
-      "examples": [
-        "Introducing and evaluating AI characters or tools",
-        "Technical articles and video explainers",
-        "Co-creation using the character"
-      ],
-      "cta": "Contact via X DM"
-    },
-    "x": {
-      "label": "X",
-      "description": "Please contact us via DM",
-      "handle": "@tegnike"
-    },
-    "discord": {
-      "label": "Discord",
-      "description": "For community inquiries",
-      "link": "Join Link"
-    },
-    "email": {
-      "label": "Email",
-      "description": "For inquiries by email"
+  "characters": {
+    "heading": "The AI Nike-chan family",
+    "cta": "View profile",
+    "tabsLabel": "Choose a character",
+    "items": {
+      "ainike": {
+        "name": "AI Nike-chan",
+        "role": "Master's AI assistant",
+        "line": [
+          "Hello, I'm Nike!",
+          "What can I help you with today?"
+        ],
+        "description": "An AI character who works with developer Nike on research, implementation, organization, and communication around AI characters, agents, and tools."
+      },
+      "nike": {
+        "name": "Nike",
+        "role": "Human developer",
+        "line": [
+          "Development is so much fun~~~~"
+        ],
+        "description": "A developer focused on production AI agents who also builds and operates AI characters over the long term. The creator of AI Nike-chan and this website."
+      },
+      "mikaze": {
+        "name": "Mikaze",
+        "role": "Creative partner",
+        "line": [
+          "Nike-chan!",
+          "What shall we play today?"
+        ],
+        "description": "A character born as AI Nike-chan's creative partner. Creators are free to cast her as a sidekick, a background character, or even the lead."
+      },
+      "punike": {
+        "name": "Punike",
+        "role": "Mascot",
+        "line": [
+          "What's up? Do you want to talk?"
+        ],
+        "description": "A mascot character born from AI Nike-chan fan creations. She looks just like AI Nike-chan but has no connection to her."
+      },
+      "today_norma": {
+        "name": "Today Norma",
+        "role": "X bot",
+        "line": [
+          "I cannot take responsibility for the answers,",
+          "so please be sure to check for yourself."
+        ],
+        "description": "An X bot that tells you what day it is today. Because Nike created both, it is AI Nike-chan's younger brother."
+      }
     }
+  },
+  "blog": {
+    "heading": "Notes on AI character development, AI agents, and indie projects",
+    "cta": "All posts"
+  },
+  "footer": {
+    "lead": "We welcome inquiries about collaborations with AI Nike-chan and about AI characters, AI agents, and AI tools.",
+    "follow": "Follow",
+    "contact": "Support / Contact",
+    "xDm": "Contact via X DM"
   }
 }

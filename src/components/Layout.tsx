@@ -3,6 +3,7 @@ import { GalleryModal } from './GalleryModal'
 import { Languages } from 'lucide-react'
 import { getT, type Locale } from '../i18n/config'
 import { getOptimizedImageSources } from '../utils/imageOptimization'
+import { CONTACT_EMAIL } from './ContactEmailLink'
 // Removed Sparkles icon in favor of a static logo image
 
 type Props = {
@@ -38,16 +39,19 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
     const clean = currentPath.split(/[?#]/)[0].replace(/\/$/, '');
     return clean === p || clean.startsWith(`${p}/`)
   })
+  // トップページだけヘッダーをヒーローに重ねる
+  const cleanPath = currentPath.split(/[?#]/)[0].replace(/\/$/, '')
+  const socialLinks = t('home:social.links', { returnObjects: true }) as Array<{ label: string; handle: string; note?: string }>
+  const socialUrls = ['https://x.com/tegnike', 'https://x.com/ai_nikechan', 'https://discord.gg/nikechan', 'https://www.youtube.com/@nikechan']
   const isAboutActive = isPathIn(['/about', '/developer'])
   const isCreateActive = isPathIn(['/tutorials', '/guidelines'])
   const isActivityActive = isPathIn(['/updates', '/ai-news', '/dev-blog', '/activities'])
 
   return (
     <GalleryModalProvider>
-      <header className={`site-header ${currentPath.split(/[?#]/)[0].replace(/\/$/, '') === '/about' ? 'site-header--about' : ''}`}>
-        <div className="site-header__pattern" aria-hidden="true"></div>
+      <header className={`site-header ${cleanPath === '' ? 'site-header--overlay' : ''}`} data-site-header>
         <div className="site-header__inner">
-          <div className="site-header__brand transition-transform duration-200 ease-out hover:scale-105">
+          <div className="site-header__brand">
             <a href={addLangParam("/")} className="site-header__logo" aria-label="Nike Chan - Official Website">
               <img
                 src={logoSources?.src ?? "/images/logos/logo_with_frame_and_shadow.png"}
@@ -178,11 +182,9 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
               <span>{locale === 'ja' ? 'JA' : 'EN'}</span>
             </button>
 
-            <div className="transition-transform duration-150 ease-out hover:scale-105 active:scale-95">
-              <button id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false" className="site-header__mobile-button">
-                {t('navigation:menu')}
-              </button>
-            </div>
+            <button id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false" className="site-header__mobile-button">
+              {t('navigation:menu')}
+            </button>
           </div>
 
           {/* Mobile dropdown menu */}
@@ -209,16 +211,49 @@ export function Layout({ children, title = 'My Portfolio & Blog', currentPath, l
 
       {children}
 
-      <footer className="border-t">
-        <div className="container mx-auto px-4 py-5 text-center text-gray-600">
-          <nav className="mb-3 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm" aria-label={locale === 'ja' ? 'フッターリンク' : 'Footer links'}>
-            {footerLinks.map((link) => (
-              <a key={link.href} href={addLangParam(link.href)} className="hover:text-gray-900 transition-colors">
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <p>{t('common:copyright')}</p>
+      <footer className="site-footer">
+        <div className="site-shell">
+          <div className="site-footer__top">
+            <div>
+              <img
+                className="site-footer__logo"
+                src={logoSources?.src ?? "/images/logos/logo_with_frame_and_shadow.png"}
+                srcSet={logoSources?.srcSet}
+                sizes="260px"
+                alt="Nike Chan Logo"
+                loading="lazy"
+                decoding="async"
+              />
+              <p className="site-footer__lead">{t('home:footer.lead')}</p>
+            </div>
+            <div>
+              <h2 className="site-footer__heading">{t('home:footer.follow')}</h2>
+              <ul className="site-footer__list">
+                {socialLinks.map((link, index) => (
+                  <li key={`${link.label}-${link.handle}`}>
+                    <a href={socialUrls[index]} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                    <small>{link.handle}{link.note ? `（${link.note}）` : ''}</small>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="site-footer__heading">{t('home:footer.contact')}</h2>
+              <ul className="site-footer__list">
+                <li><a href="https://nikechan.fanbox.cc/" target="_blank" rel="noopener noreferrer">{t('home:support.fanbox.cta')}</a></li>
+                <li><a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer">{t('home:footer.xDm')}</a></li>
+                <li><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="site-footer__bottom">
+            <p>{t('common:copyright')}</p>
+            <nav aria-label={locale === 'ja' ? 'フッターリンク' : 'Footer links'}>
+              {footerLinks.map((link) => (
+                <a key={link.href} href={addLangParam(link.href)}>{link.label}</a>
+              ))}
+            </nav>
+          </div>
         </div>
       </footer>
 

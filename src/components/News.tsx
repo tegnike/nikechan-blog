@@ -1,18 +1,10 @@
 import { getT, type Locale } from '../i18n/config';
 import { getOptimizedImageSources } from '../utils/imageOptimization';
+import { newsLinks } from '../utils/newsLinks'
 
 type Props = {
   locale?: Locale;
 }
-
-const newsLinks: Record<string, string> = {
-  'ai-character-news': '/ai-news',
-  'character-page': '/characters',
-  'line-stamp': 'https://store.line.me/stickershop/product/32003839/ja',
-  'tutorial': '/tutorials',
-  'distribution': '/guidelines',
-  'realtime-video-aituber': '/dev-blog/realtime-video-aituber',
-};
 
 const youtubeVideoId = 'XGGP2Z0IFw0';
 

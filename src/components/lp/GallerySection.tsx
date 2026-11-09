@@ -1,65 +1,50 @@
 import { getT, type Locale } from '../../i18n/config';
 import { getRandomGalleryItems } from '../../utils/galleryData';
+import { withLang } from '../../utils/langPath';
 
 type Props = {
   locale?: Locale;
 }
 
+type GalleryItem = ReturnType<typeof getRandomGalleryItems>[number];
+
+/** 途切れずに流すため、同じ並びを2回続けて置く。2回目は読み上げとキーボード操作の対象から外す */
+function MarqueeRow({ items, href }: { items: GalleryItem[]; href: string }) {
+  return (
+    <div className="nk-gallery__row">
+      {[0, 1].map((copy) =>
+        items.map((item) => (
+          <a
+            key={`${copy}-${item.id}`}
+            href={href}
+            aria-hidden={copy === 1 ? true : undefined}
+            tabIndex={copy === 1 ? -1 : undefined}
+          >
+            <img src={item.src} alt={copy === 0 ? item.alt : ''} width={260} height={260} loading="lazy" decoding="async" />
+          </a>
+        ))
+      )}
+    </div>
+  );
+}
+
 export function GallerySection({ locale = 'ja' }: Props) {
   const t = getT(locale);
-  const galleryItems = getRandomGalleryItems(8);
+  const items = getRandomGalleryItems(16);
+  const href = withLang('/gallery', locale);
 
   return (
-    <section className="home-gallery-section gallery-redesign py-10 sm:py-16 px-2 sm:px-6">
-      <div className="site-shell">
-        {/* 見出し */}
-        <h2 className="home-section-title">
-          {t('home:gallery.heading')}
-        </h2>
-
-        {/* ギャラリーグリッド */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          {galleryItems.map((item, index) => (
-            <a
-              key={item.id}
-              href="/gallery"
-              className="relative aspect-square overflow-hidden group cursor-pointer gallery-item home-gallery-item"
-              style={{
-                animationDelay: `${index * 0.05}s`,
-              }}
-            >
-              <img
-                src={item.src}
-                alt={item.alt}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </a>
-          ))}
+    <section className="nk-sec nk-gallery" id="gallery">
+      <div className="site-shell nk-sec-head">
+        <div>
+          <h2 className="nk-sec-title">Gallery</h2>
+          <p className="nk-sec-sub">{t('home:gallery.heading')}</p>
         </div>
-
-        {/* CTA */}
-        <div className="flex justify-center mt-10">
-          <a
-            href="/gallery"
-            className="design-action-button"
-          >
-            {t('home:gallery.cta')}
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </a>
-        </div>
+        <a className="nk-btn" href={href}>{t('home:gallery.cta')}</a>
+      </div>
+      <div className="nk-gallery__band">
+        <MarqueeRow items={items.slice(0, 8)} href={href} />
+        <MarqueeRow items={items.slice(8)} href={href} />
       </div>
     </section>
   );

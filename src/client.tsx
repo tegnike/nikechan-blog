@@ -273,6 +273,65 @@ function bootstrap() {
     })
   }
 
+  // トップページ: ヘッダーをヒーローに重ね、ヒーローを過ぎたら白い帯に切り替える。
+  // ヒーローの立ち絵はポインターの位置に合わせて少しだけ動かす。
+  function setupHomeHero() {
+    const header = document.querySelector<HTMLElement>('[data-site-header].site-header--overlay')
+    const hero = document.querySelector<HTMLElement>('[data-home-hero]')
+    if (!header || !hero) return
+
+    const updateHeader = () => {
+      header.classList.toggle('is-stuck', window.scrollY > hero.offsetHeight - header.offsetHeight)
+    }
+    updateHeader()
+    window.addEventListener('scroll', updateHeader, { passive: true })
+    window.addEventListener('resize', updateHeader)
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    hero.addEventListener('pointermove', (event) => {
+      if (event.pointerType !== 'mouse') return
+      hero.style.setProperty('--px', (event.clientX / window.innerWidth - 0.5).toFixed(3))
+      hero.style.setProperty('--py', (event.clientY / window.innerHeight - 0.5).toFixed(3))
+    })
+  }
+
+  // トップページ: キャラクターの切り替え。パネルは全員分がサーバーで描画済みなので、表示と色だけ切り替える。
+  function setupCharacterTabs() {
+    const stage = document.querySelector<HTMLElement>('[data-character-stage]')
+    if (!stage) return
+    const tabs = Array.from(stage.querySelectorAll<HTMLButtonElement>('[data-character-tab]'))
+
+    const select = (index: number, focus = false) => {
+      tabs.forEach((tab, i) => {
+        const selected = i === index
+        const panel = document.getElementById(tab.getAttribute('aria-controls') ?? '')
+        tab.setAttribute('aria-selected', String(selected))
+        tab.tabIndex = selected ? 0 : -1
+        if (!panel) return
+        panel.hidden = !selected
+        panel.classList.remove('is-in')
+        if (selected) {
+          stage.style.setProperty('--c', panel.dataset.color ?? '')
+          stage.style.setProperty('--c-soft', panel.dataset.soft ?? '')
+          void panel.offsetWidth // 入場アニメーションを毎回やり直す
+          panel.classList.add('is-in')
+        }
+      })
+      if (focus) tabs[index].focus()
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.tabIndex = index === 0 ? 0 : -1
+      tab.addEventListener('click', () => select(index))
+      tab.addEventListener('keydown', (event) => {
+        const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0
+        if (step === 0) return
+        event.preventDefault()
+        select((index + step + tabs.length) % tabs.length, true)
+      })
+    })
+  }
+
   // AITuberKit embeds focus their message input after mounting. Defer mounting
   // until the chat area is mostly visible so initial page load stays at the top.
   function setupAITuberChatEmbed() {
@@ -1439,6 +1498,8 @@ function bootstrap() {
     setupMobileMenu() // Header: モバイルメニュー
     setupLanguageSwitcher() // 言語切り替え
     setupAITuberChatEmbed() // 初期表示で会話欄へフォーカスが飛ぶのを防止
+    setupHomeHero() // トップ: ヘッダーの重なりと立ち絵の追従
+    setupCharacterTabs() // トップ: キャラクター切り替え
     setupTutorialTabs() // チュートリアルページの画像/動画タブ切り替え
     setupVideoModeToggle() // 動画チュートリアルの切り替え
     setupVideoToolToggle() // 動画生成ツール切り替え

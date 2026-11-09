@@ -126,6 +126,12 @@ export const renderer = reactRenderer(({
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap"
+          rel="stylesheet"
+        />
         <link href="/static/styles/globals.css" rel="stylesheet" />
         <link rel="icon" href="/static/favicon.ico" />
         <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
