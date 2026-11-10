@@ -179,6 +179,16 @@ export function AiNewsCard({
           <CalendarDays className="h-3.5 w-3.5" />
           {formatAiNewsDateLabel(item.published_at, locale)}
         </span>
+        {/* 元記事へのリンクは、カード下部に空きを作らないよう見出し行の右端に置く */}
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ai-news-read"
+        >
+          {text.readArticle}
+          <ExternalLink className="h-3.5 w-3.5" />
+        </a>
       </div>
 
       <h3 className="text-2xl font-black leading-tight text-gray-900 md:text-3xl">
@@ -219,17 +229,6 @@ export function AiNewsCard({
         </div>
       </div>
 
-      <div className="mt-5 flex justify-end">
-        <a
-          href={item.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="design-action-button"
-        >
-          {text.readArticle}
-          <ExternalLink className="h-4 w-4" />
-        </a>
-      </div>
     </article>
   )
 }

@@ -1385,6 +1385,10 @@ function bootstrap() {
               <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
               ${escapeHtml(formatDate(item.published_at))}
             </span>
+            <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="ai-news-read">
+              ${locale === 'ja' ? '記事を読む' : 'Read article'}
+              <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
           </div>
           <h3 class="text-2xl font-black leading-tight text-gray-900 md:text-3xl">${escapeHtml(displayTitle(item))}</h3>
           <p class="mt-4 whitespace-pre-wrap text-base leading-relaxed text-gray-700">${escapeHtml(displaySummary(item))}</p>
@@ -1406,12 +1410,6 @@ function bootstrap() {
                 <div class="nike-news-pet nike-news-pet-${getPetAnimation(index)}" role="img" aria-label="${locale === 'ja' ? '話しているAIニケちゃん' : 'AI Nike Chan speaking'}"></div>
               </div>
             </div>
-          </div>
-          <div class="mt-5 flex justify-end">
-            <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="design-action-button">
-              ${locale === 'ja' ? '記事を読む' : 'Read article'}
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-            </a>
           </div>
         </article>
       `

@@ -1857,3 +1857,31 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   border: 0;
   background: var(--nk-tint);
 }
+
+/* AIニュース: 元記事へのリンク。分類・出典・日付の行の右端に置く */
+.character-page .ai-news-card .ai-news-meta a.ai-news-read {
+  min-height: 0;
+  border: 0;
+  background: transparent;
+  transform: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: var(--nk-ink);
+  box-shadow: inset 0 0 0 1.5px var(--nk-ink);
+  font-family: var(--nk-display);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.character-page .ai-news-card .ai-news-meta a.ai-news-read:hover {
+  color: #fff;
+  background: var(--nk-ink);
+}
