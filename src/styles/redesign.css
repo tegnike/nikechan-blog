@@ -1997,8 +1997,8 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 /* 実際の仕事から〜: 画面幅いっぱいの白い帯にして、左に文章・右に立ち絵 */
 .ai-about-direction {
   width: 100%;
-  margin: 20px 0;
-  padding: 72px 0;
+  margin: 0;
+  padding: 80px 0;
   overflow: hidden;
   border: 0;
   border-radius: 0;
@@ -2149,7 +2149,7 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 .ai-about-memory {
   display: block;
   width: 100%;
-  margin: 20px 0;
+  margin: 0;
   padding: 96px 0;
   overflow: hidden;
   border: 0;
@@ -2283,12 +2283,10 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 
 @media (max-width: 640px) {
   .ai-about-direction {
-    margin: 12px 0;
-    padding: 32px 0 44px;
+    padding: 32px 0 48px;
   }
 
   .ai-about-memory {
-    margin: 12px 0;
     padding: 56px 0;
   }
 
@@ -2302,5 +2300,68 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   .ai-about-direction__blob,
   .ai-about-memory__blob {
     animation: none;
+  }
+}
+
+/* アバウトページ全体を「1行＝1区画」の帯の並びにする（白 → 薄紫 → 白 → 薄紫 → 濃紺） */
+.ai-about-page main {
+  row-gap: 0;
+  padding: 0 0 80px;
+}
+
+.ai-about-relationship,
+.ai-about-work,
+.ai-about-touchpoints {
+  padding: 80px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+/* 枠の幅は保ったまま、背景だけ画面の端まで伸ばす */
+.ai-about-relationship {
+  background: #fff;
+  box-shadow: 0 0 0 100vmax #fff;
+  clip-path: inset(0 -100vmax);
+}
+
+.ai-about-relationship .ai-about-role-card {
+  border: 0;
+  border-radius: 20px;
+  background: var(--nk-tint);
+}
+
+.ai-about-work-grid article,
+.ai-about-touchpoint-card {
+  border-radius: 16px;
+}
+
+.ai-about-quote {
+  margin-top: 64px;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+@media (max-width: 1023px) {
+  .ai-about-relationship,
+  .ai-about-work,
+  .ai-about-touchpoints {
+    padding: 56px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .ai-about-page main {
+    padding-bottom: 56px;
+  }
+
+  .ai-about-relationship,
+  .ai-about-work,
+  .ai-about-touchpoints {
+    padding: 44px 0;
+  }
+
+  .ai-about-quote {
+    margin-top: 40px;
   }
 }
