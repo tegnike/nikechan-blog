@@ -702,8 +702,8 @@
   position: relative;
   z-index: 1;
   display: grid;
-  row-gap: 72px;
-  padding: 80px 0 104px;
+  row-gap: 28px;
+  padding: 48px 0 72px;
 }
 
 .ai-about-hero {
@@ -1061,7 +1061,7 @@
   padding: 42px;
   border: 1px solid var(--nk-line);
   border-radius: 10px;
-  background: #F2EEFF;
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .ai-about-work-grid {
@@ -1439,8 +1439,8 @@
 
 @media (max-width: 1023px) {
   .ai-about-page main {
-    row-gap: 58px;
-    padding: 58px 0 88px;
+    row-gap: 24px;
+    padding: 40px 0 64px;
   }
 
   .ai-about-hero {
@@ -1512,8 +1512,8 @@
   }
 
   .ai-about-page main {
-    row-gap: 44px;
-    padding: 30px 0 70px;
+    row-gap: 16px;
+    padding: 24px 0 56px;
   }
 
   .ai-about-hero {
