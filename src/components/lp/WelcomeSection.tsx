@@ -1,5 +1,4 @@
 import { getT, type Locale } from '../../i18n/config'
-import { getCharacterImage } from '../../lib/characterImages'
 import { getOptimizedImageSources } from '../../utils/imageOptimization'
 import { withLang } from '../../utils/langPath'
 import { Blob } from './Blob'
@@ -18,7 +17,6 @@ export function WelcomeSection({ locale = 'ja' }: Props) {
   const t = getT(locale)
   const copy = t('home:hero.copy', { returnObjects: true }) as string[]
   const latestNews = (t('home:news.items', { returnObjects: true }) as NewsItem[])[0]
-  const sprite = getCharacterImage('/images/characters/sprites/ainikechan.png')
   const logo = getOptimizedImageSources(LOGO)
 
   return (
@@ -43,11 +41,9 @@ export function WelcomeSection({ locale = 'ja' }: Props) {
         <div className="nk-hero__chara-wrap">
           <img
             className="nk-hero__chara"
-            src={sprite?.src ?? '/images/characters/sprites/ainikechan.png'}
-            srcSet={sprite?.srcSet}
-            sizes="(max-width: 860px) 90vw, 60vw"
-            width={sprite?.width}
-            height={sprite?.height}
+            src="/images/lp/top.webp"
+            width="864"
+            height="1184"
             alt={t('home:hero.charaAlt')}
             loading="eager"
             fetchPriority="high"
@@ -64,14 +60,6 @@ export function WelcomeSection({ locale = 'ja' }: Props) {
             </span>
           ))}
         </h1>
-
-        <img
-          className="nk-hero__logo"
-          src={logo?.src ?? LOGO}
-          srcSet={logo?.srcSet}
-          sizes="(max-width: 860px) 210px, 440px"
-          alt={t('home:hero.title')}
-        />
 
         {latestNews && (
           <a className="nk-hero__news" href={withLang('/updates', locale)}>

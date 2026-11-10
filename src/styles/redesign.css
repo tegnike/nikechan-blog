@@ -72,7 +72,7 @@ body {
 .site-header__logo img {
   display: block;
   width: auto;
-  height: 46px;
+  height: 60px;
   transition: opacity 0.3s;
 }
 
@@ -257,7 +257,7 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   }
 
   .site-header__logo img {
-    height: 40px;
+    height: 50px;
   }
 }
 
@@ -633,13 +633,13 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 
 .nk-hero__chara {
   position: absolute;
-  bottom: -13vh;
+  bottom: 1vh;
   left: 50%;
   width: auto;
   max-width: none;
-  height: 100svh;
+  height: min(90svh, 62vw);
   filter: drop-shadow(0 30px 40px rgba(34, 26, 69, 0.18));
-  translate: -42% 0;
+  translate: -58% 0;
   transform: translate(calc(var(--px, 0) * -14px), calc(var(--py, 0) * -8px));
   transition: transform 0.5s var(--nk-ease);
 }
@@ -713,7 +713,7 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   position: absolute;
   right: var(--nk-hero-pad);
   bottom: 48px;
-  width: min(380px, 80vw);
+  width: min(340px, 80vw);
   padding: 18px 22px;
   border-radius: 20px;
   color: var(--nk-ink);
@@ -1271,9 +1271,9 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   }
 
   .nk-hero__chara {
-    bottom: 11vh;
-    height: 70svh;
-    translate: -38% 0;
+    bottom: 132px;
+    height: min(62svh, 120vw);
+    translate: -46% 0;
   }
 
   .nk-hero__copy {
@@ -2113,13 +2113,13 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   line-height: 1.8;
 }
 
-.ai-about-contact__links {
+.nk-contact-links {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.ai-about-contact__links a {
+.nk-contact-links a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -2134,13 +2134,13 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   transition: color 0.2s, background 0.2s;
 }
 
-.ai-about-contact__links a.ai-about-contact__mail,
-.ai-about-contact__links a:hover {
+.nk-contact-links a.nk-contact-links__mail,
+.nk-contact-links a:hover {
   color: #fff;
   background: var(--nk-ink);
 }
 
-.ai-about-contact__links a.ai-about-contact__mail:hover {
+.nk-contact-links a.nk-contact-links__mail:hover {
   background: var(--nk-pink);
   box-shadow: inset 0 0 0 1.5px var(--nk-pink);
 }
@@ -2290,7 +2290,7 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
     padding: 56px 0;
   }
 
-  .ai-about-contact__links a {
+  .nk-contact-links a {
     padding: 9px 14px;
     font-size: 13px;
   }
@@ -2424,4 +2424,195 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   padding-bottom: 72px;
   color: #fff;
   background: var(--nk-night);
+}
+
+/* ---------- YouTube 案内（トップ・アバウト共用） ---------- */
+.nk-youtube--tint {
+  background: var(--nk-tint);
+}
+
+.nk-youtube--white {
+  background: #fff;
+}
+
+.nk-youtube__in {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.nk-youtube__text {
+  margin-top: 28px;
+  color: var(--nk-ink);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.nk-youtube__btn {
+  margin-top: 32px;
+}
+
+.nk-youtube__btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.nk-youtube__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nk-youtube__card {
+  display: block;
+}
+
+.nk-youtube__card .nk-post__img {
+  position: relative;
+}
+
+.nk-youtube__card .nk-post__img img {
+  display: block;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.nk-youtube__label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--nk-violet);
+  font-family: var(--nk-display);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.nk-youtube__card b {
+  display: inline;
+  font-size: 19px;
+}
+
+.nk-youtube__card .nk-post__img + b {
+  margin-top: 16px;
+}
+
+.nk-youtube__card .nk-post__img {
+  margin-bottom: 16px;
+}
+
+.nk-youtube__card p {
+  margin: 8px 0 0;
+  color: var(--nk-ink-soft);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* アバウトページでは main のグリッド内に入るので幅と余白を合わせる */
+.ai-about-page .nk-youtube {
+  width: 100%;
+  padding: 80px 0;
+}
+
+/* ---------- 活動記録: 依頼の案内 ---------- */
+.nk-request {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  margin-top: 40px;
+  padding: 40px;
+  border-radius: 24px;
+  color: #fff;
+  background: var(--nk-night);
+}
+
+.nk-request > div:first-child {
+  flex: 1 1 420px;
+}
+
+.nk-request h2 {
+  margin: 0;
+  font-family: var(--nk-display);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.nk-request p {
+  margin: 12px 0 0;
+  color: var(--nk-on-night-soft);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.nk-request .nk-contact-links a {
+  color: #fff;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.7);
+}
+
+.nk-request .nk-contact-links a.nk-contact-links__mail {
+  color: var(--nk-ink);
+  background: #fff;
+  box-shadow: none;
+}
+
+.nk-request .nk-contact-links a:hover,
+.nk-request .nk-contact-links a.nk-contact-links__mail:hover {
+  color: #fff;
+  background: var(--nk-pink);
+  box-shadow: inset 0 0 0 1.5px var(--nk-pink);
+}
+
+@media (max-width: 860px) {
+  .nk-youtube__in {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .ai-about-page .nk-youtube {
+    padding: 56px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .nk-youtube__list {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-about-page .nk-youtube {
+    padding: 44px 0;
+  }
+
+  .nk-request {
+    margin-top: 22px;
+    padding: 28px 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .nk-hero__copy:not(.nk-hero__copy--horizontal) {
+    font-size: 26px;
+  }
+}
+
+/* キービジュアルのロゴとお知らせカードが重ならないよう、中間の幅では少し左へ寄せる */
+@media (min-width: 861px) and (max-width: 1200px) {
+  .nk-hero__chara {
+    height: min(90svh, 56vw);
+    translate: -62% 0;
+  }
+
+  .nk-hero__news {
+    width: 300px;
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1000px) {
+  .nk-hero__news {
+    width: 260px;
+  }
 }

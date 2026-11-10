@@ -2,6 +2,7 @@ import { type FC } from 'react'
 import { type Locale } from '../i18n/config'
 import { CONTACT_EMAIL } from './ContactEmailLink'
 import { Blob, BlobDefs } from './lp/Blob'
+import { YoutubeSection } from './lp/YoutubeSection'
 
 type Props = {
   locale?: Locale
@@ -353,8 +354,8 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
               <h3 id="contact-title">{t('お問い合わせ', 'Contact')}</h3>
               <p>{t('コラボレーションやサイト・キャラクターに関するお問い合わせは、メールでご連絡ください。', 'For collaboration inquiries or questions about the website and characters, please contact us by email.')}</p>
             </div>
-            <div className="ai-about-contact__links">
-              <a href={`mailto:${CONTACT_EMAIL}`} className="ai-about-contact__mail">
+            <div className="nk-contact-links">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="nk-contact-links__mail">
                 <i className="fa-solid fa-envelope" aria-hidden="true" />
                 {CONTACT_EMAIL}
               </a>
@@ -363,6 +364,8 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             </div>
           </div>
         </section>
+
+        <YoutubeSection locale={locale} tone="white" />
 
         <section className="ai-about-memory" aria-labelledby="memory-title">
           <Blob className="ai-about-memory__blob ai-about-memory__blob--a" />

@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react'
 import { type Locale } from '../i18n/config'
+import { CONTACT_EMAIL } from './ContactEmailLink'
 import { DeveloperActivities } from './DeveloperActivities'
 
 type Props = {
@@ -31,6 +32,26 @@ export function Activities({ locale }: Props) {
           </a>
         </div>
         <DeveloperActivities locale={locale} />
+
+        <section className="nk-request" aria-labelledby="activities-request-title">
+          <div>
+            <h2 id="activities-request-title">
+              {locale === 'ja' ? '登壇・取材・執筆のご依頼を受け付けています' : 'Open to talks, interviews, and writing'}
+            </h2>
+            <p>
+              {locale === 'ja'
+                ? 'AIキャラクターやAIエージェントの開発・運用について、イベント登壇、メディア取材、記事の執筆・寄稿などのご相談を受け付けています。内容が固まっていない段階でも、お気軽にお声がけください。'
+                : 'Nike is available for event talks, media interviews, and articles on building and operating AI characters and AI agents. Feel free to reach out even at an early stage.'}
+            </p>
+          </div>
+          <div className="nk-contact-links">
+            <a href={`mailto:${CONTACT_EMAIL}`} className="nk-contact-links__mail">
+              <i className="fa-solid fa-envelope" aria-hidden="true" />
+              {CONTACT_EMAIL}
+            </a>
+            <a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer">X DM</a>
+          </div>
+        </section>
       </main>
     </div>
   )

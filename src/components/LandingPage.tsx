@@ -1,5 +1,6 @@
 import { WelcomeSection } from "./lp/WelcomeSection";
 import { HomeNewsSection } from "./lp/HomeNewsSection";
+import { YoutubeSection } from "./lp/YoutubeSection";
 import { CharacterSection } from "./lp/CharacterSection";
 import { GallerySection } from "./lp/GallerySection";
 import { LicenseSection } from "./lp/LicenseSection";
@@ -18,6 +19,7 @@ export function LandingPage({ locale = 'ja' }: Props) {
       <BlobDefs />
       <WelcomeSection locale={locale} />
       <HomeNewsSection locale={locale} />
+      <YoutubeSection locale={locale} tone="tint" />
       <CharacterSection locale={locale} />
       <GallerySection locale={locale} />
       <LicenseSection locale={locale} />
