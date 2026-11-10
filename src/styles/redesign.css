@@ -1994,16 +1994,24 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 
 /* ---------- アバウトページ中盤: 絵と濃紺の帯で白枠の連続を崩す ---------- */
 
-/* 実際の仕事から〜: 枠を外し、左に文章・右に立ち絵 */
+/* 実際の仕事から〜: 画面幅いっぱいの白い帯にして、左に文章・右に立ち絵 */
 .ai-about-direction {
+  width: 100%;
+  margin: 20px 0;
+  padding: 72px 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+}
+
+.ai-about-direction__inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
   gap: 56px;
   align-items: center;
-  padding: 36px 0;
-  border: 0;
-  border-radius: 0;
-  background: none;
+  width: var(--site-shell);
+  margin: 0 auto;
 }
 
 .ai-about-direction .ai-about-layer-stack {
@@ -2036,6 +2044,7 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   margin-top: 28px;
   border: 0;
   border-radius: 20px;
+  background: var(--nk-tint);
 }
 
 .ai-about-direction__visual {
@@ -2218,9 +2227,12 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 
 @media (max-width: 1023px) {
   .ai-about-direction {
+    padding: 48px 0 56px;
+  }
+
+  .ai-about-direction__inner {
     grid-template-columns: 1fr;
     gap: 8px;
-    padding: 16px 0;
   }
 
   .ai-about-direction__visual {
@@ -2271,7 +2283,8 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 
 @media (max-width: 640px) {
   .ai-about-direction {
-    padding: 8px 0;
+    margin: 12px 0;
+    padding: 32px 0 44px;
   }
 
   .ai-about-memory {

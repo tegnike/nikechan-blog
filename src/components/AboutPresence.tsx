@@ -259,6 +259,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         </section>
 
         <section className="ai-about-direction" aria-labelledby="direction-title">
+          <div className="ai-about-direction__inner">
           <div className="ai-about-direction__copy">
           <div className="ai-about-section-head">
             <h2 id="direction-title">{t('実際の仕事から、キャラクターが育つ。', 'Grow the character around practical usefulness.')}</h2>
@@ -311,6 +312,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             <Blob className="ai-about-direction__blob ai-about-direction__blob--main" shape={2} />
             <Blob className="ai-about-direction__blob ai-about-direction__blob--sub" />
             <img src="/images/characters/sprites/ainikechan.png" alt="" loading="lazy" />
+          </div>
           </div>
         </section>
 
