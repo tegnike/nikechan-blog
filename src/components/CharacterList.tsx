@@ -1,6 +1,8 @@
 import { type CSSProperties, type FC } from 'react'
 import { Locale, getT } from '../i18n/config'
 import { getCharacterImage } from '../lib/characterImages'
+import { withLang } from '../utils/langPath'
+import { Blob, BlobDefs } from './lp/Blob'
 
 interface CharacterListProps {
   locale: Locale
@@ -76,89 +78,89 @@ const characters = [
 const navOrder = ['ainike', 'nike', 'mikaze', 'punike', 'today_norma']
 const navCharacters = navOrder.map((id) => characters.find((c) => c.id === id)!)
 
+type CharacterText = {
+  name: string
+  role: string
+  line: string[]
+}
+
 export const CharacterList: FC<CharacterListProps> = ({ locale }) => {
   const t = getT(locale)
-  const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
+  const texts = t('home:characters.items', { returnObjects: true }) as Record<string, CharacterText>
 
   return (
-    <div className="character-page character-page--index min-h-screen">
-      <section className="character-index-hero" aria-labelledby="character-index-title">
-        <div className="character-index-hero__grid" aria-hidden="true" />
-        <div className="character-index-hero__inner">
-          <div className="character-index-hero__copy">
-            <h1 id="character-index-title">CHARACTER</h1>
-            <h2>{locale === 'ja' ? 'AIニケちゃんファミリー' : 'AI Nikechan Family'}</h2>
-            <p>
-              {locale === 'ja'
-                ? 'AIキャラクター「AIニケちゃん」と、その仲間たちのプロフィールページです。全てのキャラクターがAIを活用した二次創作で利用できます。各キャラクターの詳細なプロフィールをぜひご覧ください。'
-                : 'This is the profile page for AI character "AI Nikechan" and her companions. All characters are available for AI-powered fan creations. Please explore each character\'s detailed profile.'}
-            </p>
-          </div>
+    <div className="nk-home">
+      <BlobDefs />
+      <section className="nk-cast" aria-labelledby="character-index-title">
+        <Blob className="nk-blob nk-blob--a" />
+        <Blob className="nk-blob nk-blob--b" shape={2} />
+        <Blob className="nk-blob nk-blob--d" shape={2} />
+        <div className="nk-hero__marquee" aria-hidden="true">
+          <span>family</span><span>family</span><span>family</span><span>family</span>
+        </div>
 
-          <div className="character-index-hero__cast" aria-label={t('navigation:character')}>
-            {characters.map((char, index) => (
-              <a
-                key={char.id}
-                href={`/characters/${char.id}${langQuery}`}
-                className="character-index-hero__sprite-link"
-                style={{
-                  '--char-color': char.color,
-                  '--char-scale': char.scale,
-                  '--char-order': index,
-                } as CSSProperties}
-                aria-label={locale === 'ja' ? `${char.nameJa}の詳細を見る` : `View ${char.nameEn} profile`}
-              >
-                <img
-                  src={char.sprite.src}
-                  srcSet={char.sprite.srcSet}
-                  sizes={`(max-width: 640px) ${(char.id === 'ainike' ? 112 : 86) * char.scale}px, (max-width: 1023px) ${Math.ceil((char.id === 'ainike' ? 260 : 202) * char.scale * 1.06)}px, ${Math.ceil((char.id === 'ainike' ? 320 : 250) * char.scale * 1.06)}px`}
-                  alt={char.nameJa}
-                  width={char.sprite.width}
-                  height={char.sprite.height}
-                  className="character-index-hero__sprite"
-                  decoding="async"
-                />
-              </a>
-            ))}
-          </div>
+        <div className="site-shell nk-cast__copy">
+          <h1 id="character-index-title" className="nk-sec-title">Character</h1>
+          <p className="nk-sec-sub">{t('home:characters.heading')}</p>
+          <p className="nk-cast__desc">
+            {locale === 'ja'
+              ? 'AIキャラクター「AIニケちゃん」と、その仲間たちのプロフィールページです。全てのキャラクターがAIを活用した二次創作で利用できます。'
+              : 'Profiles of the AI character "AI Nike-chan" and her companions. All characters are available for AI-powered fan creations.'}
+          </p>
+        </div>
+
+        {/* 全員の立ち絵。それぞれが詳細ページへのリンクを兼ねる */}
+        <div className="nk-cast__row" aria-label={t('navigation:character')}>
+          {characters.map((char, index) => (
+            <a
+              key={char.id}
+              href={withLang(`/characters/${char.id}`, locale)}
+              style={{ '--s': char.scale, '--i': index, '--c': char.color } as CSSProperties}
+              data-name={texts[char.id].name}
+              aria-label={locale === 'ja' ? `${texts[char.id].name}の詳細を見る` : `View ${texts[char.id].name}'s profile`}
+            >
+              <img
+                src={char.sprite.src}
+                srcSet={char.sprite.srcSet}
+                sizes="(max-width: 860px) 24vw, 340px"
+                alt=""
+                width={char.sprite.width}
+                height={char.sprite.height}
+                decoding="async"
+              />
+            </a>
+          ))}
         </div>
       </section>
 
-      <main className="character-index-main">
-        <section className="character-index-grid" aria-label={t('navigation:character')}>
-          {navCharacters.map((char, index) => (
-            <a
-              key={char.id}
-              href={`/characters/${char.id}${langQuery}`}
-              className="character-index-card"
-              style={{
-                '--char-color': char.color,
-                '--card-index': index,
-              } as CSSProperties}
-            >
-              <div className="character-index-card__image">
-                <img
-                  src={char.listIcon}
-                  srcSet={char.listIconSrcSet}
-                  sizes="(max-width: 640px) 106px, 132px"
-                  alt={char.nameJa}
-                  width={160}
-                  height={160}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div>
-                <p>{char.nameEn}</p>
-                <h3>{char.nameJa}</h3>
-              </div>
-              <span className="character-index-card__cta">
-                {locale === 'ja' ? '詳細を見る' : 'View profile'}
-                <i className="fa-solid fa-arrow-right" />
-              </span>
-            </a>
-          ))}
-        </section>
+      <main className="nk-sec">
+        <ul className="site-shell nk-roster">
+          {navCharacters.map((char) => {
+            const text = texts[char.id]
+            return (
+              <li key={char.id}>
+                <a href={withLang(`/characters/${char.id}`, locale)} style={{ '--c': char.color } as CSSProperties}>
+                  <img
+                    className="nk-roster__icon"
+                    src={char.listIcon}
+                    srcSet={char.listIconSrcSet}
+                    sizes="96px"
+                    alt=""
+                    width={160}
+                    height={160}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div>
+                    <p className="nk-roster__role">{text.role}</p>
+                    <h2 className="nk-roster__name">{text.name}</h2>
+                  </div>
+                  <p className="nk-roster__line">{text.line.join(' ')}</p>
+                </a>
+              </li>
+            )
+          })}
+        </ul>
       </main>
     </div>
   )

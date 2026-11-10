@@ -2,6 +2,10 @@ import { type CSSProperties, type FC, type ReactNode } from 'react'
 import { Locale } from '../i18n/config'
 import { getCharacterImage } from '../lib/characterImages'
 import { ArrowLeft, Download, ExternalLink } from 'lucide-react'
+import { Blob, BlobDefs } from './lp/Blob'
+
+// 等身の低いキャラクターは立ち絵を小さく見せる（トップのキャラクター欄と同じ比率）
+const heroScale: Record<string, number> = { punike: 0.62, today_norma: 0.74 }
 
 interface ProfileItem {
   label: string
@@ -136,30 +140,13 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   overviewNavLabel,
   customSections,
   currentCharacterId,
-  headerTitle = 'CHARACTER',
   trihedralFigure,
 }) => {
   const heroImage = getCharacterImage(image)
-  const heroSizes = currentCharacterId === 'ainike'
-    ? '(max-width: 640px) min(332px, 82vw), (max-width: 1023px) min(450px, 88vw), (max-width: 1350px) min(370px, 36vw), min(400px, 36vw)'
-    : '(max-width: 640px) min(420px, 96vw), (max-width: 1023px) min(548px, 94vw), (max-width: 1350px) min(430px, 38vw), min(452px, 38vw)'
   const langQuery = locale !== 'ja' ? `?lang=${locale}` : ''
   const displayCatchphrase = locale === 'ja' ? catchphrase : (catchphraseEn || catchphrase)
   const displayCatchphraseLines = locale === 'ja' ? catchphraseLines : (catchphraseLinesEn || catchphraseLines)
-  const displayCatchphraseText = displayCatchphraseLines?.join(' ') || displayCatchphrase
   const displayHeroSummary = locale === 'ja' ? heroSummary : (heroSummaryEn || heroSummary)
-  const watermarkLines = nameEn.split(' ')
-  const renderHeroLinks = (placementClass: string) => links && links.length > 0 && (
-    <div className={`character-detail-hero__links ${placementClass}`} aria-label={locale === 'ja' ? '関連リンク' : 'Related links'}>
-      {links.map((link) => (
-        <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
-          {link.icon}
-          {link.label}
-        </a>
-      ))}
-    </div>
-  )
-
   // 全キャラクターリスト（固定順序: AIニケ, ニケ, ミカゼ, ぷにけ, 今日は何の日bot）
   const allCharacters = [
     {
@@ -201,56 +188,58 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
 
   return (
     <div
-      className={`character-page character-detail-page character-detail-page--${currentCharacterId} min-h-screen`}
+      className={`character-page character-detail-page character-detail-page--${currentCharacterId}`}
       style={{ '--char-color': accentColor } as CSSProperties}
     >
-      <section className="character-detail-hero" aria-labelledby="character-detail-title">
-        <div className="character-detail-hero__grid" aria-hidden="true" />
-        <div className="character-detail-hero__watermark" aria-hidden="true">
-          {watermarkLines.map((line) => (
-            <span key={line}>{line}</span>
-          ))}
-        </div>
-        <div className="character-detail-hero__inner">
-          <div className="character-detail-hero__copy">
-            <span className="character-detail-hero__eyebrow">{headerTitle}</span>
-            <h1 id="character-detail-title">{nameJa}</h1>
-            {displayHeroSummary && (
-              <p className="character-detail-hero__summary">{displayHeroSummary}</p>
-            )}
-            <p className="character-detail-hero__lead">
-              {displayCatchphraseText}
+      <BlobDefs />
+      <section className="nk-dhero" aria-labelledby="character-detail-title">
+        <Blob className="nk-dhero__disc" shape={2} />
+        <div className="nk-dhero__latin" aria-hidden="true">{nameEn}</div>
+        <div className="site-shell nk-dhero__inner">
+          <div className="nk-dhero__copy">
+            {displayHeroSummary && <p className="nk-dhero__role">{displayHeroSummary}</p>}
+            <h1 id="character-detail-title" className="nk-dhero__name">{nameJa}</h1>
+            <p className="nk-dhero__line">
+              {displayCatchphraseLines
+                ? displayCatchphraseLines.map((line) => <span key={line}>{line}</span>)
+                : displayCatchphrase}
             </p>
-            {renderHeroLinks('character-detail-hero__links--desktop')}
+            {links && links.length > 0 && (
+              <div className="nk-dhero__links" aria-label={locale === 'ja' ? '関連リンク' : 'Related links'}>
+                {links.map((link) => (
+                  <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
+                    {link.icon}
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
-
-          <div className="character-detail-hero__visual">
+          <div className="nk-dhero__art">
             <img
               src={heroImage?.src || image}
               srcSet={heroImage?.srcSet}
-              sizes={heroSizes}
+              sizes="(max-width: 860px) 80vw, 560px"
               alt={nameJa}
               width={heroImage?.width || 1792}
               height={heroImage?.height || 2400}
               decoding="async"
               fetchPriority="high"
-              className="character-detail-hero__image"
+              style={{ '--s': heroScale[currentCharacterId] ?? 1 } as CSSProperties}
             />
           </div>
-          {renderHeroLinks('character-detail-hero__links--mobile')}
         </div>
       </section>
-
       <main className="character-detail-main">
-        <nav className="character-section-nav" aria-label={locale === 'ja' ? 'ページ内メニュー' : 'On this page'}>
+        <nav className="nk-subnav" aria-label={locale === 'ja' ? 'ページ内メニュー' : 'On this page'}>
           <a
             href={`/characters${langQuery}`}
-            className="character-back-link"
+            className="nk-subnav__back"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>{locale === 'ja' ? '一覧に戻る' : 'Back to List'}</span>
           </a>
-          <div className="character-section-nav__links">
+          <div className="nk-subnav__links">
             <a href="#profile">{locale === 'ja' ? 'プロフィール' : 'Profile'}</a>
             {overviewSections && (
               <a href="#overview">{overviewNavLabel || (locale === 'ja' ? '概要' : 'Overview')}</a>

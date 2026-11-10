@@ -1387,3 +1387,427 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
     clip-path: none;
   }
 }
+
+/* ---------- 未移行ページを新デザインになじませる上書き ---------- */
+/* 各ページを移行したら、対応する指定をここから消す */
+.character-page,
+.ai-about-page {
+  color: var(--nk-ink);
+  background: #fff;
+}
+
+/* 記事ページなどは character-showcase-bg が本文の入れ物を兼ねるので、非表示にせず柄だけ消す */
+.character-showcase-bg {
+  background: none;
+}
+
+.ai-about-hero__grid,
+.site-page-hero::before {
+  display: none;
+}
+
+.site-page-hero {
+  background: var(--nk-night);
+}
+
+/* ---------- キャラクター一覧（/characters） ---------- */
+.nk-cast {
+  position: relative;
+  min-height: max(86svh, 640px);
+  overflow: hidden;
+  color: var(--nk-ink);
+  background: var(--nk-cyan-pale);
+}
+
+.nk-cast__copy {
+  position: relative;
+  padding-top: 72px;
+}
+
+.nk-cast__desc {
+  max-width: 34em;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.nk-cast__row {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: min(54svh, 29vw);
+}
+
+.nk-cast__row a {
+  position: relative;
+  flex: none;
+  height: calc(100% * var(--s, 1));
+  opacity: 0;
+  transform: translateY(12%);
+  animation: nk-rise 0.9s var(--nk-ease) calc(0.15s + var(--i) * 0.1s) forwards;
+}
+
+.nk-cast__row img {
+  width: auto;
+  max-width: none;
+  height: 100%;
+  filter: drop-shadow(0 18px 24px rgba(34, 26, 69, 0.16));
+  transition: translate 0.35s var(--nk-ease);
+}
+
+.nk-cast__row a:hover img,
+.nk-cast__row a:focus-visible img {
+  translate: 0 -14px;
+}
+
+/* 立ち絵に重ねる名前の札。ホバーとフォーカスで出す */
+.nk-cast__row a::after {
+  content: attr(data-name);
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  padding: 6px 16px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--nk-ink);
+  font-family: var(--nk-display);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  translate: -50% 8px;
+  transition: opacity 0.25s, translate 0.25s var(--nk-ease);
+}
+
+.nk-cast__row a:hover::after,
+.nk-cast__row a:focus-visible::after {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.nk-roster li:first-child a {
+  border-top: 1px solid var(--nk-line);
+}
+
+.nk-roster a {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 32px;
+  align-items: center;
+  isolation: isolate;
+  padding: 28px 20px;
+  border-bottom: 1px solid var(--nk-line);
+  color: var(--nk-ink);
+  text-decoration: none;
+}
+
+.nk-roster a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--c) 18%, white);
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale 0.45s var(--nk-ease);
+}
+
+.nk-roster a:hover::before,
+.nk-roster a:focus-visible::before {
+  scale: 1 1;
+}
+
+.nk-roster__icon {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 4px var(--c);
+  object-fit: cover;
+}
+
+.nk-roster__role {
+  color: var(--nk-ink-soft);
+  font-family: var(--nk-display);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.nk-roster__name {
+  font-family: var(--nk-display);
+  font-size: clamp(24px, 2.8vw, 36px);
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.nk-roster__line {
+  padding-left: 20px;
+  border-left: 4px solid var(--c);
+  font-family: var(--nk-display);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+/* ---------- キャラクター詳細（/characters/:id、/developer） ---------- */
+.nk-dhero {
+  --c: color-mix(in srgb, var(--char-color) 76%, white);
+  --c-soft: color-mix(in srgb, var(--char-color) 32%, white);
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: var(--nk-night);
+  line-height: 1.9;
+}
+
+.nk-dhero__disc {
+  position: absolute;
+  top: -6%;
+  right: -4%;
+  width: min(58%, 820px);
+  fill: var(--c);
+  animation: nk-drift 16s ease-in-out infinite alternate;
+}
+
+.nk-dhero__latin {
+  position: absolute;
+  top: 28px;
+  right: max(16px, calc((100vw - 1180px) / 2 - 40px));
+  color: transparent;
+  font-family: var(--nk-latin);
+  font-size: clamp(56px, 8vw, 120px);
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+}
+
+.nk-dhero__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  min-height: min(78svh, 720px);
+}
+
+.nk-dhero__copy {
+  align-self: center;
+  padding: 72px 0;
+}
+
+.nk-dhero__copy > * {
+  animation: nk-text-in 0.7s var(--nk-ease) both;
+}
+
+.nk-dhero__copy > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.nk-dhero__copy > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.nk-dhero__copy > :nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.nk-dhero__role {
+  max-width: 34em;
+  color: var(--c-soft);
+  font-family: var(--nk-display);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.nk-dhero__name {
+  margin: 8px 0 30px;
+  font-family: var(--nk-display);
+  font-size: clamp(44px, 6vw, 84px);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.nk-dhero__line {
+  padding-left: 22px;
+  border-left: 4px solid var(--c);
+  font-family: var(--nk-display);
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.nk-dhero__line span {
+  display: block;
+}
+
+.nk-dhero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 36px;
+}
+
+.nk-dhero__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: #fff;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.5);
+  font-family: var(--nk-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.nk-dhero__links a:hover {
+  color: var(--nk-ink);
+  background: #fff;
+}
+
+.nk-dhero__links svg,
+.nk-dhero__links i {
+  width: 16px;
+  height: 16px;
+  font-size: 14px;
+}
+
+.nk-dhero__art {
+  position: relative;
+}
+
+.nk-dhero__art img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: auto;
+  max-width: none;
+  height: 96%;
+  filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.35));
+  scale: var(--s, 1);
+  translate: -50% 0;
+  transform-origin: bottom center;
+  animation: nk-chara-in 0.9s var(--nk-ease) both;
+}
+
+.nk-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  width: var(--site-shell);
+  margin: 0 auto;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--nk-line);
+  font-family: var(--nk-display);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.nk-subnav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--nk-ink);
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.nk-subnav a:hover {
+  background: var(--nk-lilac);
+}
+
+.nk-subnav__back {
+  margin-left: -12px;
+}
+
+.nk-subnav__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+@media (max-width: 860px) {
+  .nk-cast {
+    min-height: 500px;
+  }
+
+  .nk-cast__copy {
+    padding-top: 40px;
+  }
+
+  .nk-cast__row {
+    height: 34vw;
+  }
+
+  .nk-roster a {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 12px 18px;
+    padding: 22px 8px;
+  }
+
+  .nk-roster__icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .nk-roster__line {
+    grid-column: 1 / -1;
+    font-size: 15px;
+  }
+
+  .nk-dhero__inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .nk-dhero__art {
+    order: -1;
+    height: 400px;
+    margin-top: 24px;
+  }
+
+  .nk-dhero__copy {
+    padding: 24px 0 56px;
+  }
+
+  .nk-dhero__disc {
+    top: 2%;
+    right: -30%;
+    width: 110%;
+  }
+
+  .nk-dhero__latin {
+    right: 8px;
+    font-size: 52px;
+  }
+
+  .nk-subnav__links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nk-dhero *,
+  .nk-cast * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .nk-cast__row a {
+    opacity: 1;
+    transform: none;
+  }
+}
