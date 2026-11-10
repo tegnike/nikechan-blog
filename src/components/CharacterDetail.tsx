@@ -100,10 +100,10 @@ export const CharacterDisclosure: FC<CharacterDisclosureProps> = ({
   id,
 }) => (
   <section className="character-chapter" id={id}>
-    <header className="character-chapter__heading">
+    <div className="character-section-heading character-section-heading--additional">
       <h2>{title}</h2>
       {description && <p>{description}</p>}
-    </header>
+    </div>
     <div className="character-chapter__body">{children}</div>
   </section>
 )

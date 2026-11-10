@@ -1956,3 +1956,38 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   padding-top: 16px;
   border-top: 1px solid var(--nk-line);
 }
+
+/* キャラクター詳細: 折りたたみ章（二次創作・活動記録）も他の区画と同じ枠・見出しに揃える */
+.character-detail-page .character-chapter {
+  padding: 40px;
+}
+
+/* 区画どうしの間隔は親の gap に任せ、個別の上マージンは持たせない */
+.character-additional-sections > .character-chapter,
+.character-additional-sections > .character-connect-panel,
+.character-overview-sections > .character-feature-panel {
+  margin-top: 0;
+}
+
+.character-chapter .character-section-heading p {
+  margin: 10px 0 0;
+  color: var(--nk-ink-soft);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.character-chapter__body {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+@media (max-width: 640px) {
+  .character-detail-page .character-chapter {
+    padding: 26px 22px;
+  }
+
+  .character-chapter__body {
+    padding: 0;
+  }
+}
