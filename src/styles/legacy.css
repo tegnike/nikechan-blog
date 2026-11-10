@@ -4540,35 +4540,6 @@ a.glass-panel:hover {
   margin-top: 14px;
 }
 
-.ai-news-date-heading {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  margin: 0;
-  border: 1px solid var(--nk-line);
-  border-radius: 8px;
-  background: var(--character-yellow);
-  padding: 8px 14px;
-  box-shadow: none;
-  color: var(--character-ink);
-  font-family: var(--nk-display);
-  font-size: clamp(20px, 2.2vw, 28px);
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 1.2;
-}
-
-.ai-news-date-heading-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.ai-news-date-heading-link:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 3px;
-  text-underline-offset: 4px;
-}
-
 .ai-news-card .nike-comment-bubble {
   background: #fff;
   border-color: var(--nk-line);

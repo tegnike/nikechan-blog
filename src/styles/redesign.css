@@ -1885,3 +1885,54 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   color: #fff;
   background: var(--nk-ink);
 }
+
+/* AIニュース: 日付の見出し。日付の右に線を引いて、その日のニュースの区切りにする */
+.ai-news-date-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  color: var(--nk-ink);
+  font-family: var(--nk-display);
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.ai-news-date-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--nk-line);
+}
+
+/* その日の一覧ページへ飛べる日付は、濃紺の丸ボタンにして地の色と区別する */
+.ai-news-date-heading-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--nk-ink);
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.ai-news-date-heading-link::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  rotate: 45deg;
+  transition: translate 0.2s var(--nk-ease);
+}
+
+.ai-news-date-heading-link:hover {
+  background: var(--nk-pink);
+}
+
+.ai-news-date-heading-link:hover::after {
+  translate: 3px 0;
+}
