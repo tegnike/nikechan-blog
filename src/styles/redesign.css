@@ -1738,8 +1738,9 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 }
 
 @media (max-width: 860px) {
+  /* 説明文と立ち絵が重ならない高さを確保する */
   .nk-cast {
-    min-height: 500px;
+    min-height: max(500px, calc(34vw + 300px));
   }
 
   .nk-cast__copy {
@@ -1809,5 +1810,33 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   .nk-cast__row a {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ---------- 文字組みと狭い画面の調整 ---------- */
+/* 日本語を文節で折り返し、1文字だけ次の行に落ちるのを防ぐ（対応ブラウザのみ） */
+.nk-home,
+.nk-dhero,
+.site-footer {
+  word-break: auto-phrase;
+  text-wrap: pretty;
+}
+
+@media (max-width: 860px) {
+  /* 台座を立ち絵の範囲に収め、下の文章と重ならないようにする */
+  .nk-dhero__disc,
+  .nk-chara__disc {
+    top: 0;
+    right: auto;
+    left: 50%;
+    width: auto;
+    height: 420px;
+    translate: -45% 0;
+  }
+
+  /* 長い英字名（TODAY NORMA など）が立ち絵の下の文章まで伸びないようにする */
+  .nk-dhero__latin,
+  .nk-chara__latin {
+    font-size: 36px;
   }
 }
