@@ -1858,8 +1858,8 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   background: var(--nk-tint);
 }
 
-/* AIニュース: 元記事へのリンク。分類・出典・日付の行の右端に置く */
-.character-page .ai-news-card .ai-news-meta a.ai-news-read {
+/* AIニュース: 元記事へのリンク。最下段で出典・日付の右に置く */
+.character-page .ai-news-card .ai-news-foot a.ai-news-read {
   min-height: 0;
   border: 0;
   background: transparent;
@@ -1881,7 +1881,7 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   transition: background-color 0.2s, color 0.2s;
 }
 
-.character-page .ai-news-card .ai-news-meta a.ai-news-read:hover {
+.character-page .ai-news-card .ai-news-foot a.ai-news-read:hover {
   color: #fff;
   background: var(--nk-ink);
 }
@@ -1935,4 +1935,24 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 
 .ai-news-date-heading-link:hover::after {
   translate: 3px 0;
+}
+
+/* AIニュース: 分類はタイトルの上に小さく、出典・言語・日付は最下段にまとめる */
+.ai-news-category {
+  margin-bottom: 10px;
+  color: var(--nk-violet);
+  font-family: var(--nk-display);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ai-news-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--nk-line);
 }

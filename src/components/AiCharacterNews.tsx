@@ -165,31 +165,7 @@ export function AiNewsCard({
 
   return (
     <article className="glass-panel ai-news-card p-6 md:p-7">
-      <div className="ai-news-meta mb-4 flex flex-wrap items-center text-xs font-semibold text-gray-500">
-        <span>
-          {labels[item.category] || item.category}
-        </span>
-        <span>
-          {getHost(item, locale)}
-        </span>
-        <span>
-          {getLanguageLabel(item, locale)}
-        </span>
-        <span className="inline-flex items-center gap-1">
-          <CalendarDays className="h-3.5 w-3.5" />
-          {formatAiNewsDateLabel(item.published_at, locale)}
-        </span>
-        {/* 元記事へのリンクは、カード下部に空きを作らないよう見出し行の右端に置く */}
-        <a
-          href={item.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ai-news-read"
-        >
-          {text.readArticle}
-          <ExternalLink className="h-3.5 w-3.5" />
-        </a>
-      </div>
+      <p className="ai-news-category">{labels[item.category] || item.category}</p>
 
       <h3 className="text-2xl font-black leading-tight text-gray-900 md:text-3xl">
         {displayTitle(item, locale)}
@@ -229,6 +205,30 @@ export function AiNewsCard({
         </div>
       </div>
 
+      {/* 出典・言語・日付と、元記事へのリンクを最下段に並べる */}
+      <div className="ai-news-foot">
+        <div className="ai-news-meta flex flex-wrap items-center text-xs font-semibold text-gray-500">
+          <span>
+            {getHost(item, locale)}
+          </span>
+          <span>
+            {getLanguageLabel(item, locale)}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <CalendarDays className="h-3.5 w-3.5" />
+            {formatAiNewsDateLabel(item.published_at, locale)}
+          </span>
+        </div>
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ai-news-read"
+        >
+          {text.readArticle}
+          <ExternalLink className="h-3.5 w-3.5" />
+        </a>
+      </div>
     </article>
   )
 }
