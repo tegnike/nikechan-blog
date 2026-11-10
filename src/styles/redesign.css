@@ -1991,3 +1991,303 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
     padding: 0;
   }
 }
+
+/* ---------- アバウトページ中盤: 絵と濃紺の帯で白枠の連続を崩す ---------- */
+
+/* 実際の仕事から〜: 枠を外し、左に文章・右に立ち絵 */
+.ai-about-direction {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+  gap: 56px;
+  align-items: center;
+  padding: 36px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.ai-about-direction .ai-about-layer-stack {
+  max-width: none;
+  margin: 28px 0 0;
+}
+
+.ai-about-direction .ai-about-layer {
+  grid-template-columns: 1fr;
+  gap: 8px;
+  border: 0;
+  border-radius: 20px;
+}
+
+.ai-about-direction .ai-about-layer--core {
+  background: var(--nk-cyan-pale);
+}
+
+.ai-about-direction .ai-about-layer--public {
+  background: var(--nk-pink-pale);
+}
+
+.ai-about-direction .ai-about-layer-stack__flow {
+  justify-content: flex-start;
+  min-height: 56px;
+  padding-left: 28px;
+}
+
+.ai-about-direction .ai-about-aituber {
+  margin-top: 28px;
+  border: 0;
+  border-radius: 20px;
+}
+
+.ai-about-direction__visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 560px;
+}
+
+.ai-about-direction__visual img {
+  position: relative;
+  width: auto;
+  height: 600px;
+  max-width: none;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 28px rgba(34, 26, 69, 0.16));
+}
+
+.ai-about-direction__blob {
+  position: absolute;
+  animation: nk-drift 18s ease-in-out infinite alternate;
+}
+
+.ai-about-direction__blob--main {
+  top: 6%;
+  left: -12%;
+  width: 124%;
+  fill: var(--nk-pink-pale);
+}
+
+.ai-about-direction__blob--sub {
+  right: -14%;
+  bottom: 2%;
+  width: 46%;
+  fill: var(--nk-cyan);
+  opacity: 0.7;
+  animation-duration: 24s;
+  animation-direction: alternate-reverse;
+}
+
+/* いま、会える場所: お問い合わせを同じ枠の最下段に統合 */
+.ai-about-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 32px;
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--nk-line);
+  scroll-margin-top: calc(var(--nk-header-h) + 24px);
+}
+
+.ai-about-contact h3 {
+  margin: 0;
+  color: var(--nk-ink);
+  font-family: var(--nk-display);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.ai-about-contact__copy p {
+  margin: 6px 0 0;
+  color: var(--nk-ink-soft);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.ai-about-contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ai-about-contact__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  color: var(--nk-ink);
+  box-shadow: inset 0 0 0 1.5px var(--nk-ink);
+  font-family: var(--nk-display);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+
+.ai-about-contact__links a.ai-about-contact__mail,
+.ai-about-contact__links a:hover {
+  color: #fff;
+  background: var(--nk-ink);
+}
+
+.ai-about-contact__links a.ai-about-contact__mail:hover {
+  background: var(--nk-pink);
+  box-shadow: inset 0 0 0 1.5px var(--nk-pink);
+}
+
+/* 記憶は〜: 画面幅いっぱいの濃紺の帯 */
+.ai-about-memory {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  padding: 96px 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  color: #fff;
+  background: var(--nk-night);
+}
+
+.ai-about-memory__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(320px, 0.94fr);
+  gap: 56px;
+  align-items: center;
+  width: var(--site-shell);
+  margin: 0 auto;
+}
+
+.ai-about-memory h2 {
+  color: #fff;
+}
+
+.ai-about-memory__copy > p {
+  color: var(--nk-on-night-soft);
+}
+
+.ai-about-memory__priorities {
+  gap: 16px;
+}
+
+.ai-about-memory__priorities li {
+  gap: 8px;
+  padding: 22px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.ai-about-memory__priorities span {
+  color: var(--nk-pink);
+  font-family: var(--nk-display);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.ai-about-memory__priorities strong {
+  font-family: var(--nk-display);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.ai-about-memory__blob {
+  position: absolute;
+  animation: nk-drift 20s ease-in-out infinite alternate;
+}
+
+.ai-about-memory__blob--a {
+  top: -38%;
+  right: -8%;
+  width: 46%;
+  fill: var(--nk-violet);
+  opacity: 0.55;
+}
+
+.ai-about-memory__blob--b {
+  bottom: -46%;
+  left: -6%;
+  width: 26%;
+  fill: var(--nk-pink);
+  opacity: 0.8;
+  animation-duration: 26s;
+  animation-direction: alternate-reverse;
+}
+
+@media (max-width: 1023px) {
+  .ai-about-direction {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px 0;
+  }
+
+  .ai-about-direction__visual {
+    order: -1;
+    min-height: 0;
+    height: 340px;
+    overflow: visible;
+  }
+
+  .ai-about-direction__visual img {
+    height: 360px;
+  }
+
+  .ai-about-direction__blob--main {
+    top: 0;
+    left: 50%;
+    width: 360px;
+    translate: -50% 0;
+  }
+
+  .ai-about-direction__blob--sub {
+    right: 50%;
+    width: 130px;
+    translate: 190px 0;
+  }
+
+  .ai-about-memory {
+    padding: 72px 0;
+  }
+
+  .ai-about-memory__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .ai-about-memory__blob--a {
+    top: -12%;
+    right: -30%;
+    width: 90%;
+  }
+
+  .ai-about-memory__blob--b {
+    bottom: -8%;
+    left: -20%;
+    width: 50%;
+  }
+}
+
+@media (max-width: 640px) {
+  .ai-about-direction {
+    padding: 8px 0;
+  }
+
+  .ai-about-memory {
+    margin: 12px 0;
+    padding: 56px 0;
+  }
+
+  .ai-about-contact__links a {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-about-direction__blob,
+  .ai-about-memory__blob {
+    animation: none;
+  }
+}

@@ -1,6 +1,7 @@
 import { type FC } from 'react'
 import { type Locale } from '../i18n/config'
-import { ContactEmailLink } from './ContactEmailLink'
+import { CONTACT_EMAIL } from './ContactEmailLink'
+import { Blob, BlobDefs } from './lp/Blob'
 
 type Props = {
   locale?: Locale
@@ -130,6 +131,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
 
   return (
     <div className="ai-about-page">
+      <BlobDefs />
       <section className="ai-about-hero" aria-labelledby="ai-about-title">
         <picture className="ai-about-hero__keyvisual" aria-hidden="true">
           <img src="/images/about/about-hero-keyvisual.webp" alt="" />
@@ -257,6 +259,7 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
         </section>
 
         <section className="ai-about-direction" aria-labelledby="direction-title">
+          <div className="ai-about-direction__copy">
           <div className="ai-about-section-head">
             <h2 id="direction-title">{t('実際の仕事から、キャラクターが育つ。', 'Grow the character around practical usefulness.')}</h2>
             <p>
@@ -303,6 +306,12 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
               </span>
             </div>
           </aside>
+          </div>
+          <div className="ai-about-direction__visual" aria-hidden="true">
+            <Blob className="ai-about-direction__blob ai-about-direction__blob--main" shape={2} />
+            <Blob className="ai-about-direction__blob ai-about-direction__blob--sub" />
+            <img src="/images/characters/sprites/ainikechan.png" alt="" loading="lazy" />
+          </div>
         </section>
 
         <section className="ai-about-touchpoints" aria-labelledby="touchpoints-title">
@@ -336,22 +345,27 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
               </a>
             ))}
           </div>
-        </section>
 
-        <section id="contact" className="ai-about-touchpoints" aria-labelledby="contact-title">
-          <div className="ai-about-section-head ai-about-section-head--compact">
-            <h2 id="contact-title">{t('お問い合わせ', 'Contact')}</h2>
-            <p>{t('コラボレーションやサイト・キャラクターに関するお問い合わせは、メールでご連絡ください。', 'For collaboration inquiries or questions about the website and characters, please contact us by email.')}</p>
-            <p><ContactEmailLink /></p>
-            <p>
+          <div id="contact" className="ai-about-contact" role="group" aria-labelledby="contact-title">
+            <div className="ai-about-contact__copy">
+              <h3 id="contact-title">{t('お問い合わせ', 'Contact')}</h3>
+              <p>{t('コラボレーションやサイト・キャラクターに関するお問い合わせは、メールでご連絡ください。', 'For collaboration inquiries or questions about the website and characters, please contact us by email.')}</p>
+            </div>
+            <div className="ai-about-contact__links">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="ai-about-contact__mail">
+                <i className="fa-solid fa-envelope" aria-hidden="true" />
+                {CONTACT_EMAIL}
+              </a>
               <a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer">X DM</a>
-              {' / '}
               <a href="https://discord.gg/nikechan" target="_blank" rel="noopener noreferrer">Discord</a>
-            </p>
+            </div>
           </div>
         </section>
 
         <section className="ai-about-memory" aria-labelledby="memory-title">
+          <Blob className="ai-about-memory__blob ai-about-memory__blob--a" />
+          <Blob className="ai-about-memory__blob ai-about-memory__blob--b" shape={2} />
+          <div className="ai-about-memory__inner">
           <div className="ai-about-memory__copy">
             <h2 id="memory-title">{t('記憶は、思い出せてこそ。', 'Useful memory matters more than merely having memory.')}</h2>
             <p>
@@ -369,12 +383,15 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
           </div>
           <ol className="ai-about-memory__priorities">
             <li>
+              <span>{t('いま', 'Now')}</span>
               <strong>{t('会話と記憶のデータは蓄積済み', 'Conversations and memory data are stored')}</strong>
             </li>
             <li>
+              <span>{t('これから', 'Next')}</span>
               <strong>{t('人物と直近の文脈を、すぐ取り出せるように', 'Retrieve people and recent events with low latency')}</strong>
             </li>
           </ol>
+          </div>
         </section>
 
         <section className="ai-about-quote" aria-label={t('AIニケちゃんのメッセージ', 'A message from AI Nike-chan')}>
