@@ -9,6 +9,7 @@
   --nk-night: #1e1640;
   --nk-violet: #5a4c97;
   --nk-lilac: #efecfa;
+  --nk-tint: #f1eefa;
   --nk-paper: #ffffff;
   --nk-ink: #221a45;
   --nk-ink-soft: #5d5780;
@@ -1390,10 +1391,11 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 
 /* ---------- 未移行ページを新デザインになじませる上書き ---------- */
 /* 各ページを移行したら、対応する指定をここから消す */
+/* 地を淡い紫にして、白い枠（パネル・カード）との境目を色の差で見せる */
 .character-page,
 .ai-about-page {
   color: var(--nk-ink);
-  background: #fff;
+  background: var(--nk-tint);
 }
 
 /* 記事ページなどは character-showcase-bg が本文の入れ物を兼ねるので、非表示にせず柄だけ消す */
@@ -1839,4 +1841,19 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   .nk-chara__latin {
     font-size: 36px;
   }
+}
+
+/* 旧デザインのページ下端にあったピンクのぼかしは、濃紺のフッターと合わないので消す */
+.character-footer-gradient {
+  background: none;
+}
+
+/* 記事ページは読み物なので地を白にし、目次だけ淡い紫の面で区切る */
+.character-page.post-redesign {
+  background: #fff;
+}
+
+.post-toc-panel {
+  border: 0;
+  background: var(--nk-tint);
 }
