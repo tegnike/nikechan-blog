@@ -2,7 +2,6 @@ import { type FC } from 'react'
 import { type Locale } from '../i18n/config'
 import { CONTACT_EMAIL } from './ContactEmailLink'
 import { Blob, BlobDefs } from './lp/Blob'
-import { YoutubeSection } from './lp/YoutubeSection'
 
 type Props = {
   locale?: Locale
@@ -364,8 +363,6 @@ export const AboutPresence: FC<Props> = ({ locale = 'ja' }) => {
             </div>
           </div>
         </section>
-
-        <YoutubeSection locale={locale} tone="white" />
 
         <section className="ai-about-memory" aria-labelledby="memory-title">
           <Blob className="ai-about-memory__blob ai-about-memory__blob--a" />

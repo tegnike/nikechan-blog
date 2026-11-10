@@ -14,7 +14,7 @@ const YoutubeIcon = () => (
   </svg>
 )
 
-/** YouTubeチャンネルの案内。トップページとアバウトページで共用する */
+/** YouTubeチャンネルの案内（トップページ用） */
 export function YoutubeSection({ locale = 'ja', tone = 'tint' }: Props) {
   const t = (ja: string, en: string) => (locale === 'ja' ? ja : en)
 
@@ -46,7 +46,7 @@ export function YoutubeSection({ locale = 'ja', tone = 'tint' }: Props) {
       <div className="site-shell nk-youtube__in">
         <div className="nk-youtube__lead">
           <h2 className="nk-sec-title" id="youtube-title">YouTube</h2>
-          <p className="nk-sec-sub">{t('チャンネル「ニケちゃん」', 'The “Nike-chan” channel')}</p>
+          <p className="nk-sec-sub">{t('チャンネル「ニケちゃんねる」', 'Nike Channel (ニケちゃんねる)')}</p>
           <p className="nk-youtube__text">
             {t(
               'AIニュースの配信、解説動画、ショートを投稿しています。おかげさまで登録者は1,000人を超えました。',
