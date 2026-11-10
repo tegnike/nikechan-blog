@@ -22,7 +22,7 @@ type Props = {
 
 export const MonthlySummary = ({ yearMonth, summary }: Props) => {
     return (
-      <>
+      <div className="nk-log-page">
         <div className="pt-12 pb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-center text-white">
             LOG
@@ -93,6 +93,6 @@ export const MonthlySummary = ({ yearMonth, summary }: Props) => {
             </a>
           </div>
         </div>
-      </>
+      </div>
     )
 }

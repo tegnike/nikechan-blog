@@ -6,10 +6,10 @@ type Props = {
 }
 
 export const Log = ({ summaries }: Props) => (
-  <>
+  <div className="nk-log-page">
     <div className="pt-12 pb-12">
       <h1 className="text-4xl md:text-5xl font-bold text-center text-white">LOG</h1>
     </div>
     <NikeLog summaries={summaries} />
-  </>
+  </div>
 )

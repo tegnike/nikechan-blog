@@ -2365,3 +2365,63 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
     margin-top: 40px;
   }
 }
+
+/* ---------- スマホ確認で見つけた旧デザインの取りこぼし ---------- */
+
+/* 活動記録: 戻るリンク（旧スタイルを消した際に体裁が抜けていた） */
+.character-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 18px 0 14px;
+  border-radius: 999px;
+  color: var(--nk-ink);
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--nk-ink);
+  font-family: var(--nk-display);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+
+.character-back-link:hover {
+  color: #fff;
+  background: var(--nk-ink);
+}
+
+.character-back-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 活動記録: カードの下敷きを消し、見出しを通常の見出しに戻す */
+.developer-activity-card {
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+.character-page .developer-activity-card .developer-activity-card__body h3 {
+  font-family: var(--nk-display);
+  font-size: 18px;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+
+/* 開発者ブログ: 区切り見出しを他ページと同じ濃紺に */
+.blog-section-title {
+  padding-bottom: 0;
+  border-bottom: 0;
+  color: var(--nk-ink);
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.3;
+  text-shadow: none;
+}
+
+/* ログ: 白文字前提のページなので濃紺の地を敷く */
+.nk-log-page {
+  padding-bottom: 72px;
+  color: #fff;
+  background: var(--nk-night);
+}
