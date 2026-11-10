@@ -1273,7 +1273,7 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   .nk-hero__chara {
     bottom: 132px;
     height: min(62svh, 120vw);
-    translate: -46% 0;
+    translate: -50% 0;
   }
 
   .nk-hero__copy {
