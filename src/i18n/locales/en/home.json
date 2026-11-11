@@ -206,25 +206,34 @@
   },
   "support": {
     "heading": "Support AI Nike-chan's Work",
-    "fanbox": {
-      "heading": "Support via FANBOX",
-      "description": "Your support helps fund AI Nike-chan's activities and the production of AI characters and tools. All support plans offer the same benefits, regardless of amount.",
-      "features": [
-        "Same Benefits: All plans have the same content",
-        "Currently, payments are consolidated to FANBOX"
-      ],
-      "cta": "Support on FANBOX"
+    "lead": "Your support helps fund AI Nike-chan's activities and the production of AI characters and tools. There are three ways to support, and all of them come with the same benefits.",
+    "channelsHeading": "Ways to support",
+    "channels": {
+      "fanbox": {
+        "name": "pixivFANBOX",
+        "description": "Every plan has the same benefits, regardless of amount"
+      },
+      "discord": {
+        "name": "Discord Server Boost",
+        "description": "Boost AI Nike-chan's Discord server"
+      },
+      "youtube": {
+        "name": "YouTube Membership",
+        "description": "Become a member of the ニケちゃんねる (Nike Channel) YouTube channel"
+      }
     },
-    "discord": {
-      "heading": "About Discord",
-      "description": "Sponsors can join special Discord channels. However, our basic policy is to make information public and minimize exclusive content.",
-      "featuresHeading": "What you can see in public channels (examples)",
-      "features": [
-        "Early access to pre-release information",
-        "Administrator's work streams",
-        "More to be added as needed"
-      ],
-      "disclaimer": "Detailed participation instructions and channel structure will be provided in the special Discord channels."
+    "otherChannels": "* X Subscriptions and GitHub Sponsors are not eligible for the supporter benefits.",
+    "benefitsHeading": "Supporter benefits",
+    "benefits": [
+      "Early access to pre-release information",
+      "Access to supporter-only channels",
+      "Conversations with the AI Nike-chan bot",
+      "Priority invitations to game projects and participatory events",
+      "More to be added as needed"
+    ],
+    "benefitsNote": "Benefits are unlocked through a role on our Discord server. If you don't receive the role, please open a ticket in the 「ご意見・要望」 (Feedback & Requests) channel.",
+    "fanbox": {
+      "cta": "Support on FANBOX"
     }
   },
   "characters": {

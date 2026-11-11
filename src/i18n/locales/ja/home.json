@@ -205,25 +205,34 @@
   },
   "support": {
     "heading": "AIニケちゃんの活動を支援する",
-    "fanbox": {
-      "heading": "FANBOX で支援",
-      "description": "ご支援は、AIニケちゃんの活動と、AIキャラクター・AIツールの制作費に充てます。どの支援プランでも受けられる特典は同じで、金額で差が出ない設計です。",
-      "features": [
-        "同一特典：どのプランでも内容は共通",
-        "現在、決済はFANBOXに一本化"
-      ],
-      "cta": "FANBOXで支援する"
+    "lead": "ご支援は、AIニケちゃんの活動と、AIキャラクター・AIツールの制作費に充てます。支援の窓口は3つあり、どこから支援いただいても特典は同じです。",
+    "channelsHeading": "支援の窓口",
+    "channels": {
+      "fanbox": {
+        "name": "pixivFANBOX",
+        "description": "どのプランでも特典は同じで、金額による差はありません"
+      },
+      "discord": {
+        "name": "Discord サーバーブースト",
+        "description": "AIニケちゃんのDiscordサーバーをブーストして支援"
+      },
+      "youtube": {
+        "name": "YouTube メンバーシップ",
+        "description": "チャンネル「ニケちゃんねる」のメンバーになって支援"
+      }
     },
-    "discord": {
-      "heading": "Discord について",
-      "description": "スポンサーはDiscordの特設チャンネルに参加できます。ただし基本方針として情報は公にし、ここでしか得られない情報は極力設けません。",
-      "featuresHeading": "公開チャンネルで見られるもの（例）",
-      "features": [
-        "公開前情報の先出し",
-        "管理者の作業配信",
-        "必要に応じて今後も追加予定"
-      ],
-      "disclaimer": "詳細な参加手順やチャンネル構成は、Discord内の特設チャンネルでご案内します。"
+    "otherChannels": "※ X のサブスクリプションと GitHub Sponsors は、サポーター特典の対象外です。",
+    "benefitsHeading": "サポーター特典",
+    "benefits": [
+      "公開前情報の先出し",
+      "サポーター専用チャンネルへの参加",
+      "AIニケちゃんbotとの対話",
+      "ゲーム企画や参加型の活動への優先招待",
+      "必要に応じて今後も追加予定"
+    ],
+    "benefitsNote": "特典はDiscordサーバーのロールで受け取れます。ロールが付与されない場合は、「ご意見・要望」チャンネルでチケットを作成してください。",
+    "fanbox": {
+      "cta": "FANBOXで支援する"
     }
   },
   "characters": {

@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { Heart } from 'lucide-react'
 import { CharacterDetail, CharacterDisclosure, CharacterSectionHeading } from './CharacterDetail'
 import { DeveloperActivities } from './DeveloperActivities'
 import { ContactEmailLink } from './ContactEmailLink'
+import { SupportDetails } from './support/SupportDetails'
 import { Locale } from '../i18n/config'
 
 interface NikeProfileProps {
@@ -506,100 +506,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
     </div>
   )
 
-  // Custom Support Section with detailed content (same as AI Nikechan)
-  const supportSection = (
-    <div className="character-content-section">
-      <p className="text-gray-600 mb-4 leading-relaxed">
-        {isJa
-          ? 'AIニケちゃんの開発を支えてくださるスポンサーを募集しています。FANBOX経由での支援はすべて同じ特典設計となっており、オープンな運営方針で還元していきます。'
-          : 'We are looking for sponsors to support AI Nikechan\'s development. All support via FANBOX has the same benefit design, with an open management policy.'}
-      </p>
-      <ul className="text-gray-600 mb-6 space-y-2">
-        <li className="flex items-center gap-2">
-          <span className="text-pink-400">•</span>
-          <span>
-            {isJa
-              ? 'どのプランでも特典は共通で、金額差での優劣はありません'
-              : 'All plans have the same benefits, no hierarchy based on amount'}
-          </span>
-        </li>
-        <li className="flex items-center gap-2">
-          <span className="text-pink-400">•</span>
-          <span>
-            {isJa
-              ? '支援金はモデル改良や運用環境の保守に活用します'
-              : 'Support funds are used for model improvement and infrastructure maintenance'}
-          </span>
-        </li>
-      </ul>
-      <div className="flex flex-wrap gap-4 mb-8">
-        <a
-          href="https://nikechan.fanbox.cc/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
-          style={{ backgroundColor: '#F9A3AB' }}
-        >
-          <Heart className="w-4 h-4" />
-          {isJa ? 'FANBOXで支援' : 'Support on FANBOX'}
-        </a>
-        <a
-          href="https://discord.gg/nikechan"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
-          style={{ backgroundColor: '#F9A3AB' }}
-        >
-          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />
-          {isJa ? 'Discordコミュニティ' : 'Discord Community'}
-        </a>
-      </div>
-
-      {/* Discord Sponsor Channel Sub-section */}
-      <div className="bg-pink-50 rounded-xl p-5 border border-pink-100">
-        <h4 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
-          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 opacity-70" />
-          {isJa ? 'Discord スポンサーチャンネル' : 'Discord Sponsor Channel'}
-        </h4>
-        <p className="text-gray-600 text-sm mb-4">
-          {isJa
-            ? 'スポンサーにはDiscord内の専用チャンネルをご案内します。ただし情報は可能な限り公開し、ここだけの専有情報は抑制する方針です。'
-            : 'Sponsors will have access to a dedicated channel on Discord. However, we aim to share information publicly as much as possible, minimizing exclusive content.'}
-        </p>
-        <ul className="text-gray-600 text-sm space-y-2">
-          <li className="flex items-center gap-2">
-            <span className="text-pink-400">•</span>
-            <span>
-              {isJa
-                ? '公開予定のアップデートを先行で共有'
-                : 'Early access to upcoming updates'}
-            </span>
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="text-pink-400">•</span>
-            <span>
-              {isJa
-                ? 'AIニケちゃんの調整ログや作業配信の告知'
-                : 'AI Nikechan adjustment logs and work stream announcements'}
-            </span>
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="text-pink-400">•</span>
-            <span>
-              {isJa
-                ? 'スポンサー向けイベントの先行案内'
-                : 'Early announcements for sponsor events'}
-            </span>
-          </li>
-        </ul>
-        <p className="text-gray-500 text-xs mt-4">
-          {isJa
-            ? '参加手順やチャンネル構成の詳細はDiscord内の特設チャンネルでご案内します。'
-            : 'Participation instructions and channel details are provided in a dedicated Discord channel.'}
-        </p>
-      </div>
-    </div>
-  )
+  const supportSection = <SupportDetails locale={locale} accent="#F9A3AB" boxClassName="bg-pink-50 border-pink-100" />
 
   return (
     <CharacterDetail

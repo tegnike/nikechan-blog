@@ -1248,15 +1248,54 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   font-weight: 700;
 }
 
-.nk-support__label {
-  margin-top: 18px;
+.nk-support__lead {
+  max-width: 720px;
+  margin-top: 24px;
   color: var(--nk-ink-soft);
-  font-size: 13px;
-  font-weight: 700;
+  line-height: 1.9;
 }
 
-.nk-support__label + ul {
-  margin-top: 8px;
+.nk-support__grid .nk-support__channels li {
+  padding: 0;
+}
+
+.nk-support__channels a {
+  display: grid;
+  grid-template-columns: 1fr 22px;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 8px;
+  color: var(--nk-ink);
+  text-decoration: none;
+  transition: background-color 0.2s, padding 0.3s var(--nk-ease);
+}
+
+.nk-support__channels a:hover {
+  padding-left: 20px;
+  background: #fff;
+}
+
+.nk-support__channels b,
+.nk-support__channels small {
+  display: block;
+}
+
+.nk-support__channels small {
+  margin-top: 2px;
+  color: var(--nk-ink-soft);
+  font-family: var(--nk-body);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nk-support__channels svg {
+  width: 22px;
+  color: var(--nk-violet);
+  transition: translate 0.3s var(--nk-ease);
+}
+
+.nk-support__channels a:hover svg {
+  translate: 4px 0;
 }
 
 .nk-support__note {

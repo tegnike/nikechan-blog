@@ -1,7 +1,8 @@
 import { FC } from 'react'
-import { ExternalLink, Heart } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import { CharacterDetail, CharacterDisclosure, CharacterSectionHeading } from './CharacterDetail'
 import { ContactEmailLink } from './ContactEmailLink'
+import { SupportDetails } from './support/SupportDetails'
 import { getT, Locale } from '../i18n/config'
 
 interface AINikeProfileProps {
@@ -22,18 +23,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
     button: string
   }
   const history = t('about:profile.history', { returnObjects: true }) as { events: Array<{ date: string; label: string; description: string }> }
-  const support = t('about:profile.support', { returnObjects: true }) as {
-    description: string
-    text: string
-    features: string[]
-    buttons: { fanbox: string; discord: string }
-    sponsorChannel: {
-      title: string
-      description: string
-      benefits: string[]
-      note: string
-    }
-  }
+  const support = t('about:profile.support', { returnObjects: true }) as { heading: string; description: string }
   const collaboration = t('about:profile.collaboration', { returnObjects: true }) as {
     heading: string
     description: string
@@ -167,66 +157,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
     </div>
   )
 
-  // Custom Support Section with detailed content
-  const supportSection = (
-    <div className="character-content-section">
-      <p className="text-gray-600 mb-4 leading-relaxed">
-        {support.text}
-      </p>
-      <ul className="text-gray-600 mb-6 space-y-2">
-        {support.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2">
-            <span className="text-purple-600">•</span>
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ul>
-      <div className="flex flex-wrap gap-4 mb-8">
-        <a
-          href="https://nikechan.fanbox.cc/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
-          style={{ backgroundColor: '#5A4C97' }}
-        >
-          <Heart className="w-4 h-4" />
-          {support.buttons.fanbox}
-        </a>
-        <a
-          href="https://discord.gg/nikechan"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
-          style={{ backgroundColor: '#5A4C97' }}
-        >
-          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 brightness-0 invert" />
-          {support.buttons.discord}
-        </a>
-      </div>
-
-      {/* Discord Sponsor Channel Sub-section */}
-      <div className="character-subcard bg-purple-50 rounded-xl p-5 border border-purple-100">
-        <h4 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
-          <img src="/icons/discord.svg" alt="Discord" className="w-4 h-4 opacity-70" />
-          {support.sponsorChannel.title}
-        </h4>
-        <p className="text-gray-600 text-sm mb-4">
-          {support.sponsorChannel.description}
-        </p>
-        <ul className="text-gray-600 text-sm space-y-2">
-          {support.sponsorChannel.benefits.map((benefit, i) => (
-            <li key={i} className="flex items-center gap-2">
-              <span className="text-purple-600">•</span>
-              <span>{benefit}</span>
-            </li>
-          ))}
-        </ul>
-        <p className="text-gray-500 text-xs mt-4">
-          {support.sponsorChannel.note}
-        </p>
-      </div>
-    </div>
-  )
+  const supportSection = <SupportDetails locale={locale} accent="#5A4C97" boxClassName="bg-purple-50 border-purple-100" />
 
   // Collaboration Section
   const collaborationSection = (

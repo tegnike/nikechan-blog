@@ -1,45 +1,51 @@
-import { getT, type Locale } from '../../i18n/config';
+import type { Locale } from '../../i18n/config';
+import { getSupportContent } from '../support/supportData';
 
 type Props = {
   locale?: Locale;
 }
 
+const Arrow = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+    <path d="M5 12h14M13 6l6 6-6 6" />
+  </svg>
+);
+
 export function SupportSection({ locale = 'ja' }: Props) {
-  const t = getT(locale);
-  const fanboxFeatures = t('home:support.fanbox.features', { returnObjects: true }) as string[];
-  const discordFeatures = t('home:support.discord.features', { returnObjects: true }) as string[];
+  const support = getSupportContent(locale);
 
   return (
     <section className="nk-sec nk-support" id="support">
       <div className="site-shell">
         <h2 className="nk-sec-title">Support</h2>
-        <p className="nk-sec-sub">{t('home:support.heading')}</p>
+        <p className="nk-sec-sub">{support.heading}</p>
+        <p className="nk-support__lead">{support.lead}</p>
 
         <div className="nk-support__grid">
           <div>
-            <h3>{t('home:support.fanbox.heading')}</h3>
-            <p>{t('home:support.fanbox.description')}</p>
-            <ul>
-              {fanboxFeatures.map((feature) => <li key={feature}>{feature}</li>)}
+            <h3>{support.channelsHeading}</h3>
+            <ul className="nk-support__channels">
+              {support.channels.map((channel) => (
+                <li key={channel.id}>
+                  <a href={channel.href} target="_blank" rel="noopener noreferrer">
+                    <span>
+                      <b>{channel.name}</b>
+                      <small>{channel.description}</small>
+                    </span>
+                    <Arrow />
+                  </a>
+                </li>
+              ))}
             </ul>
-            <a
-              className="nk-btn"
-              href="https://nikechan.fanbox.cc/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t('home:support.fanbox.cta')}
-            </a>
+            <p className="nk-support__note">{support.otherChannels}</p>
           </div>
 
           <div>
-            <h3>{t('home:support.discord.heading')}</h3>
-            <p>{t('home:support.discord.description')}</p>
-            <p className="nk-support__label">{t('home:support.discord.featuresHeading')}</p>
+            <h3>{support.benefitsHeading}</h3>
             <ul>
-              {discordFeatures.map((feature) => <li key={feature}>{feature}</li>)}
+              {support.benefits.map((benefit) => <li key={benefit}>{benefit}</li>)}
             </ul>
-            <p className="nk-support__note">{t('home:support.discord.disclaimer')}</p>
+            <p className="nk-support__note">{support.benefitsNote}</p>
           </div>
         </div>
       </div>
