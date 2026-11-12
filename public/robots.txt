@@ -7,7 +7,6 @@ Allow: /
 # Directories
 Allow: /gallery/
 Allow: /guidelines/
-Allow: /log/
 Allow: /about
 Allow: /developer
 Allow: /dev_blog

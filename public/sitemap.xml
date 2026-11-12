@@ -134,18 +134,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/terms" />
   </url>
   <url>
-    <loc>https://nikechan.com/log</loc>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/log" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/log?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/log" />
-  </url>
-  <url>
-    <loc>https://nikechan.com/log?lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/log" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/log?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nikechan.com/log" />
-  </url>
-  <url>
     <loc>https://nikechan.com/developer</loc>
     <xhtml:link rel="alternate" hreflang="ja" href="https://nikechan.com/developer" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nikechan.com/developer?lang=en" />

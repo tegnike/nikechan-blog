@@ -32,7 +32,6 @@ const STATIC_PATHS: string[] = [
   '/guidelines/ai',
   '/privacy',
   '/terms',
-  '/log',
   '/developer',
   '/activities',
   '/activities/alibaba-meetup-sapporo-2026',

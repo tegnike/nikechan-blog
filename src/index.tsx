@@ -438,6 +438,13 @@ app.get('/terms', (c) => {
   )
 })
 
+// 活動記録（/log 以下）は非公開。ルートと画面は残してあり、公開に戻すときは true にする
+const LOG_PAGES_PUBLIC = false
+app.use('/log/*', async (c, next) => {
+  if (!LOG_PAGES_PUBLIC) return c.notFound()
+  await next()
+})
+
 // Log page (活動記録)
 app.get('/log', async (c) => {
   c.header('Cache-Control', 'public, max-age=1800') // 30分キャッシュ
