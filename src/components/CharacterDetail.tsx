@@ -57,6 +57,7 @@ interface CharacterDetailProps {
   // Additional sections
   historyItems?: HistoryItem[]
   historyTitle?: string
+  historyFooter?: ReactNode
   products?: ProductItem[]
   productsTitle?: string
   workSectionTitle?: string
@@ -127,6 +128,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
   links,
   historyItems,
   historyTitle,
+  historyFooter,
   products,
   productsTitle,
   workSectionTitle,
@@ -359,6 +361,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                           </div>
                         ))}
                       </div>
+                      {historyFooter && <div className="mt-6">{historyFooter}</div>}
                     </section>
                   )}
 

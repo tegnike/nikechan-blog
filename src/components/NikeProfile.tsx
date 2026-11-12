@@ -55,15 +55,15 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
     ? [
         'AIエージェントの実務開発を主軸に、AIキャラクターの個人開発・長期運用にも取り組む開発者。AIニケちゃんの開発者で、このWebサイトの制作者。',
         'Webエンジニアとして8年以上、Javaによる業務システム開発や、Ruby on Railsを中心としたWebサービス開発に従事。ポーランドを拠点に、日本企業のプロジェクトへフルリモートで参画している。',
-        '要件整理、基本設計、技術選定、実装、インフラ構築、公開後の運用・保守まで一貫して担当。現在は会話設計、記憶、RAG、外部ツール連携を含むAIエージェント開発と、AIツールを活用した開発プロセスに取り組んでいる。',
-        '個人開発では、GitHub Stars 1,000件を超える「AITuberKit」を継続開発。AIニケちゃんを長期運用し、実際の仕事や人との関わりを通して、AIキャラクターが社会の中で活動するための技術と運用を検証している。',
+        '要件整理、基本設計、技術選定、実装、インフラ構築、公開後の運用・保守まで一貫して担当。2024年からはLLMを使った開発が中心で、AIに仕事を頼める業務自動化サービス、記事をAIが採点・要約して音声にするサービス、AIキャラクターの記憶システムなどを開発している。AIコーディングエージェントにコードや設計書を作らせ、品質を測る検証にも取り組んでいる。',
+        '個人開発では、GitHub Stars 1,000件を超える「AITuberKit」を継続開発し、法人向けの商用ライセンスも提供。AIニケちゃんを長期運用し、実際の仕事や人との関わりを通して、AIキャラクターが社会の中で活動するための技術と運用を検証している。',
         '2026年8月からは、YouTubeチャンネル「ニケちゃんねる」でAIニケちゃんと一緒にAIキャラクターやAIのニュースを紹介する配信を開始。新しいAIツールの検証や解説動画・ショート動画も投稿している。',
       ]
     : [
         'A developer focused professionally on AI agents while also building and operating AI characters as long-term independent projects. Creator of AI Nike-chan and this website.',
         'A web engineer with more than eight years of experience across Java-based business systems and Ruby on Rails web services. Based in Poland and working fully remotely with Japanese companies.',
-        'Works end to end across requirements, basic design, technology selection, implementation, infrastructure, launch, and ongoing operation. Current work covers AI agents with conversation design, memory, RAG, and external tool integrations, along with AI-assisted development practices.',
-        'Maintains AITuberKit, an open-source project with more than 1,000 GitHub stars, and operates AI Nike-chan through real work and relationships to study how AI characters can participate meaningfully in society.',
+        'Works end to end across requirements, basic design, technology selection, implementation, infrastructure, launch, and ongoing operation. Since 2024, the work has centered on LLM-based development: a business automation service where people hand tasks to AI, a service where AI scores and summarizes articles and turns them into audio, and memory systems for AI characters. Also runs evaluations in which AI coding agents generate code and design documents and the output quality is measured.',
+        'Maintains AITuberKit, an open-source project with more than 1,000 GitHub stars that is also offered to companies under a commercial license, and operates AI Nike-chan through real work and relationships to study how AI characters can participate meaningfully in society.',
         'Since August 2026, has been livestreaming news about AI characters and AI with AI Nike-chan on the Nike-chan YouTube channel, along with hands-on tests of new AI tools, explainer videos, and Shorts.',
       ]
 
@@ -108,10 +108,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
           label: '業務システム開発',
           description: (
             <>
-              <p>治験関連企業にて、検査薬管理システムの運用・機能開発を担当。Javaを用いた業務システムの保守・改善に従事。</p>
+              <p>治験関連企業にて、治験の患者登録システムの開発・運用を担当。JavaとC#を用いた業務システムの保守・改善に従事。</p>
               <ul>
-                <li>Javaによる検査薬管理システムの保守・運用</li>
-                <li>業務要件に応じた機能追加・改修を継続的に実施</li>
+                <li>要件のヒアリングと仕様書作成から、追加開発、テスト、運用・保守まで担当</li>
+                <li>Ruby on Railsによる業務管理システムを、要件定義から開発、テストまで担当</li>
               </ul>
             </>
           ),
@@ -123,7 +123,8 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
             <>
               <p>フリーランスとして、日本企業の受託開発にフルリモートで参画。Ruby on Railsを中心に、複数のWebサービス開発を担当。</p>
               <ul>
-                <li>予約、EC、業務管理など、複数分野のWebサービスを開発</li>
+                <li>予約、EC、動画視聴、業務管理など、複数分野のWebサービスを開発</li>
+                <li>予約サービスでは、サーバーサイドのリードエンジニアを約2年担当</li>
                 <li>基本設計から実装、コードレビューまでを担当</li>
                 <li>フロントエンド、バックエンド、インフラ・運用まで対応範囲を拡大</li>
                 <li>抽選・ガチャシステムの要件整理、設計、技術選定、実装を一貫して担当</li>
@@ -139,9 +140,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
             <>
               <p>個人開発で培ったAI技術を実務に展開し、LLMを活用したAIエージェント開発を担当。</p>
               <ul>
-                <li>会話設計、記憶、RAG、外部ツール連携を設計・実装</li>
-                <li>長期的な運用保守を通じてシステムを継続改善</li>
-                <li>特定の言語に固定せず、RailsやPythonを目的に応じて活用</li>
+                <li>AIキャラクターの長期記憶システムの設計を主導し、記憶の保存先をベクトル検索へ移行</li>
+                <li>AIキャラクターの口調でXへ自動投稿するサービスのバックエンドを開発</li>
+                <li>VRMアバターのリップシンクと、感情に合わせた表情・モーションの仕組みを実装</li>
+                <li>特定の言語に固定せず、Rails、Python、TypeScriptを目的に応じて活用</li>
               </ul>
             </>
           ),
@@ -153,9 +155,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
             <>
               <p>AIエージェント開発を主軸とし、AI開発ツールを組み込んだ開発プロセスを実践。</p>
               <ul>
-                <li>要件整理から設計、実装、公開、運用までを一貫して担当</li>
+                <li>業務自動化のAIエージェント基盤で、エージェントが計画を作り、利用者の承認後に実行する仕組みを実装</li>
+                <li>記事をAIが採点・要約して音声にするサービスで、採点と要約、音声合成の仕組みを開発</li>
+                <li>設計書からテストやコードをAIに作らせ、テスト通過率や正解との差分で採点する検証を継続</li>
                 <li>AIツールを活用し、調査・実装・検証の進め方そのものを改善</li>
-                <li>Web開発で培った総合力を、AIエージェントの実用開発に活かす</li>
               </ul>
             </>
           ),
@@ -167,10 +170,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
           label: 'Business system development',
           description: (
             <>
-              <p>Maintained and extended a Java-based diagnostic agent management system at a clinical research company.</p>
+              <p>Developed and operated a patient enrollment system for clinical trials at a clinical research company, maintaining and improving business systems written in Java and C#.</p>
               <ul>
-                <li>Maintained and operated a Java-based diagnostic agent management system</li>
-                <li>Implemented ongoing feature additions and modifications based on business requirements</li>
+                <li>Covered requirements interviews, specifications, feature development, testing, and ongoing operation</li>
+                <li>Built a business management system with Ruby on Rails, from requirements through development and testing</li>
               </ul>
             </>
           ),
@@ -182,7 +185,8 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
             <>
               <p>Worked as a fully remote freelance engineer on contract projects for Japanese companies, primarily developing web services with Ruby on Rails.</p>
               <ul>
-                <li>Built reservation, e-commerce, and business management services</li>
+                <li>Built reservation, e-commerce, video streaming, and business management services</li>
+                <li>Served as the server-side lead engineer of a reservation service for about two years</li>
                 <li>Handled basic design, implementation, and code review</li>
                 <li>Expanded across frontend, backend, infrastructure, and operations</li>
                 <li>Owned requirements, architecture, technology selection, and implementation for an online lottery system</li>
@@ -198,9 +202,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
             <>
               <p>Applied expertise gained through independent AI development to professional LLM-based AI agent projects.</p>
               <ul>
-                <li>Designed and implemented conversation flows, memory, RAG, and external tool integrations</li>
-                <li>Continuously improved long-running systems through operation and maintenance</li>
-                <li>Uses Rails and Python as appropriate rather than being tied to a single language</li>
+                <li>Led the design of a long-term memory system for AI characters and moved its storage to vector search</li>
+                <li>Built the backend of a service that posts to X automatically in an AI character's voice</li>
+                <li>Implemented lip sync for VRM avatars and emotion-driven expressions and motions</li>
+                <li>Uses Rails, Python, and TypeScript as appropriate rather than being tied to a single language</li>
               </ul>
             </>
           ),
@@ -212,9 +217,10 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
             <>
               <p>Focuses primarily on AI agent development, using AI development tools as part of the standard engineering process.</p>
               <ul>
-                <li>Works end to end from requirements and design through implementation, launch, and operation</li>
+                <li>Implemented a plan-then-approve execution flow on an AI agent platform for business automation, where the agent drafts a plan and runs it after the user approves</li>
+                <li>Built the scoring, summarization, and speech synthesis parts of a service where AI scores and summarizes articles and turns them into audio</li>
+                <li>Runs ongoing evaluations in which AI generates tests and code from design documents, scored by test pass rate and difference from reference answers</li>
                 <li>Uses AI tools to improve the research, implementation, and validation process itself</li>
-                <li>Applies broad web engineering experience to production AI agent systems</li>
               </ul>
             </>
           ),
@@ -528,6 +534,20 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
       links={links}
       historyItems={careerItems}
       historyTitle="CAREER"
+      historyFooter={
+        <a
+          href={isJa
+            ? 'https://github.com/tegnike/tegnike/blob/main/README.ja.md'
+            : 'https://github.com/tegnike'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium nk-hover-fill"
+          style={{ backgroundColor: '#F9A3AB' }}
+        >
+          <img src="/icons/github.svg" alt="GitHub" className="w-4 h-4 brightness-0 invert" />
+          {isJa ? '経歴と実績の詳細をGitHubで見る' : 'See full profile on GitHub'}
+        </a>
+      }
       products={products}
       productsTitle="PRODUCTS"
       workSectionTitle={isJa ? '開発実績' : 'Development work'}
