@@ -2593,7 +2593,13 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   box-shadow: none;
 }
 
-.nk-request .nk-contact-links a:hover,
+/* 濃い背景の上では白で塗りつぶす（nk-dhero__links と同じ） */
+.nk-request .nk-contact-links a:hover {
+  color: var(--nk-ink);
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px #fff;
+}
+
 .nk-request .nk-contact-links a.nk-contact-links__mail:hover {
   color: #fff;
   background: var(--nk-pink);
@@ -2640,4 +2646,130 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   .nk-hero__news {
     width: 260px;
   }
+}
+
+/* ---------- ホバーのルール（全ページ共通） ----------
+ * 詳細は docs/DESIGN_SYSTEM.md。新しい部品はここのどれかに合わせる。
+ *   ボタン       : 濃紺で塗りつぶす（位置・大きさは変えない）
+ *   濃紺のボタン : ピンクで塗りつぶす
+ *   カード       : 上に4px浮く（色は変えない）
+ *   選択中の切替 : 動かさない
+ * Tailwindで直接組んだ部品には nk-hover-fill / nk-hover-lift を付ける。
+ * :not(#_) は、legacy.css の !important 付きの色指定に勝たせるための詳細度上げ。
+ */
+:is(
+  .nk-hover-fill,
+  .design-action-button,
+  .design-toggle-link:not(.design-toggle-link--active),
+  .ai-about-actions a,
+  .video-mode-button--inactive,
+  .guideline-ai-quick a,
+  .guideline-detail-link,
+  .guideline-detail-tab:not(.guideline-detail-tab--active),
+  .guideline-copy-button,
+  .post-tool-button,
+  .blog-pagination-button:not(.blog-pagination-button--active),
+  .developer-activity-card__links a,
+  .developer-activities__all a,
+  .character-reference-download,
+  .character-product-card__links a,
+  .activity-slide-viewer__actions a,
+  .activity-detail-summary__links a,
+  .ai-news-read
+):not(#_) {
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+:is(
+  .nk-hover-fill,
+  .design-action-button,
+  .design-toggle-link:not(.design-toggle-link--active),
+  .ai-about-actions a:not(:first-child),
+  .video-mode-button--inactive,
+  .guideline-ai-quick a,
+  .guideline-detail-link,
+  .guideline-detail-tab:not(.guideline-detail-tab--active),
+  .guideline-copy-button,
+  .post-tool-button,
+  .blog-pagination-button:not(.blog-pagination-button--active):not(:disabled),
+  .developer-activity-card__links a,
+  .developer-activities__all a,
+  .character-reference-download,
+  .character-product-card__links a,
+  .activity-slide-viewer__actions a,
+  .activity-detail-summary__links a,
+  .ai-news-read
+):not(#_):hover {
+  border-color: var(--nk-ink) !important;
+  color: #fff !important;
+  background: var(--nk-ink) !important;
+}
+
+/* すでに濃紺で塗ってあるボタンは、塗りつぶしてもわからないのでピンクにする */
+.ai-about-actions a:first-child:not(#_):hover {
+  border-color: var(--nk-pink) !important;
+  color: #fff !important;
+  background: var(--nk-pink) !important;
+}
+
+:is(
+  .nk-hover-lift,
+  .ai-about-touchpoint-card,
+  .character-nav-item:not(.character-nav-item--current),
+  .gallery-redesign .gallery-item,
+  .blog-post-card,
+  .post-nav-link,
+  a.glass-panel,
+  .character-action-grid > a,
+  .ogp-card
+):not(#_) {
+  transition: translate 0.25s var(--nk-ease), opacity 0.16s;
+}
+
+:is(
+  .nk-hover-lift,
+  .ai-about-touchpoint-card,
+  .character-nav-item:not(.character-nav-item--current),
+  .gallery-redesign .gallery-item,
+  .blog-post-card,
+  .post-nav-link,
+  a.glass-panel,
+  .character-action-grid > a,
+  .ogp-card
+):not(#_):hover {
+  translate: 0 -4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(
+    .nk-hover-lift,
+    .ai-about-touchpoint-card,
+    .character-nav-item,
+    .gallery-redesign .gallery-item,
+    .blog-post-card,
+    .post-nav-link,
+    a.glass-panel,
+    .character-action-grid > a,
+    .ogp-card
+  ):not(#_):hover {
+    translate: none;
+  }
+}
+
+/* 文中のリンク: 下線だけ。色は変えない */
+.ai-about-quote__links a:hover {
+  text-decoration: underline;
+}
+
+/* パネル内のリンクは legacy.css でボタンの見た目になる。文中に置くリンクは nk-text-link で戻す */
+.character-page .glass-panel a.nk-text-link:not(#_) {
+  display: inline;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit !important;
+  background: transparent !important;
+  font-size: inherit;
+  text-decoration: underline;
 }

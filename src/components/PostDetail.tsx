@@ -92,7 +92,7 @@ export const PostDetail = ({ post, html, toc, prevPost, nextPost, locale = 'ja' 
             <time dateTime={post.date}>{formatDate(post.date)}</time>
             {post.author && (
               post.authorUrl
-                ? <a href={post.authorUrl} className="hover:text-purple-600 hover:underline">{post.author}</a>
+                ? <a href={post.authorUrl} className="hover:underline">{post.author}</a>
                 : <span>{post.author}</span>
             )}
           </div>
@@ -113,7 +113,7 @@ export const PostDetail = ({ post, html, toc, prevPost, nextPost, locale = 'ja' 
                   >
                     <a
                       href={`#${item.id}`}
-                      className="text-purple-600 hover:text-purple-800 hover:underline text-sm font-bold"
+                      className="text-purple-600 hover:underline text-sm font-bold"
                     >
                       {item.text}
                     </a>
@@ -138,7 +138,7 @@ export const PostDetail = ({ post, html, toc, prevPost, nextPost, locale = 'ja' 
               className="post-nav-link group"
             >
               <div className="text-xs text-zinc-500 mb-1">← {locale === 'en' ? 'Previous' : '前の記事'}</div>
-              <div className="text-sm font-medium text-zinc-700 group-hover:text-purple-600 line-clamp-1">
+              <div className="text-sm font-medium text-zinc-700 line-clamp-1">
                 {prevPost.title}
               </div>
             </a>
@@ -151,7 +151,7 @@ export const PostDetail = ({ post, html, toc, prevPost, nextPost, locale = 'ja' 
               className="post-nav-link text-right group"
             >
               <div className="text-xs text-zinc-500 mb-1">{locale === 'en' ? 'Next' : '次の記事'} →</div>
-              <div className="text-sm font-medium text-zinc-700 group-hover:text-purple-600 line-clamp-1">
+              <div className="text-sm font-medium text-zinc-700 line-clamp-1">
                 {nextPost.title}
               </div>
             </a>

@@ -149,7 +149,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
       </p>
       <a
         href={`/guidelines${langQuery}`}
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium nk-hover-fill"
         style={{ backgroundColor: '#5A4C97' }}
       >
         {derivative.button}
@@ -177,7 +177,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
         href="https://x.com/tegnike"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium nk-hover-fill"
         style={{ backgroundColor: '#5A4C97' }}
       >
         <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />
@@ -204,7 +204,7 @@ export const AINikeProfile: FC<AINikeProfileProps> = ({ locale, headerTitle }) =
             href="https://store.line.me/stickershop/product/32003839/ja"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium nk-hover-fill"
             style={{ backgroundColor: '#06C755' }}
           >
             <ExternalLink className="w-4 h-4" />

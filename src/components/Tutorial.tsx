@@ -26,7 +26,7 @@ export function Tutorial({ locale = 'ja' }: Props) {
   const videoModeButtonActive = 'video-mode-button--active';
   const videoModeButtonInactive = 'video-mode-button--inactive';
   const copyButtonClass =
-    'absolute top-3 right-3 inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-600 shadow-sm transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300';
+    'absolute top-3 right-3 inline-flex items-center gap-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-600 shadow-sm nk-hover-fill focus:outline-none focus:ring-2 focus:ring-gray-300';
   const promptBoxClass = 'relative bg-gray-50 rounded-lg p-4 border border-gray-300 font-mono text-sm text-gray-800';
   const characterFeatures = getCharacterFeatures(locale)
   const imagePrompt = `${t('tutorial:illustration.prompts.dancePrompt')}\n${characterFeatures}`

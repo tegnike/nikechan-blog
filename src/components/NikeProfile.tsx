@@ -494,7 +494,7 @@ export const NikeProfile: FC<NikeProfileProps> = ({ locale, headerTitle }) => {
         href="https://x.com/tegnike"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium nk-hover-fill"
         style={{ backgroundColor: '#F9A3AB' }}
       >
         <img src="/icons/x.svg" alt="X" className="w-4 h-4 brightness-0 invert" />

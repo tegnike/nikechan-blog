@@ -428,7 +428,7 @@ export const CharacterDetail: FC<CharacterDetailProps> = ({
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-medium nk-hover-fill"
                       style={{ backgroundColor: accentColor }}
                     >
                       {link.icon}

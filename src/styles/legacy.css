@@ -833,15 +833,6 @@
   box-shadow: none;
 }
 
-.ai-about-actions a:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
-}
-
-.ai-about-actions a:first-child:hover {
-  box-shadow: none;
-}
-
 .ai-about-kicker {
   width: fit-content;
   margin: 0 0 22px;
@@ -1323,11 +1314,6 @@
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.ai-about-touchpoint-card:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
-}
-
 .ai-about-touchpoint-card > i {
   display: grid;
   place-items: center;
@@ -1758,11 +1744,6 @@
   max-height: 140px;
 }
 
-.ogp-card:hover {
-  border-color: #a78bfa;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
 .ogp-card-image {
   flex-shrink: 0;
   width: 230px;
@@ -1957,10 +1938,6 @@
   align-items: center;
   text-decoration: none;
   transition: transform 0.3s ease;
-}
-
-.character-nav-item:hover {
-  transform: translateY(-4px);
 }
 
 .character-nav-icon {
@@ -2457,11 +2434,6 @@
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.character-link-list a:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
-}
-
 .character-link-list img {
   filter: brightness(0) !important;
 }
@@ -2665,11 +2637,6 @@
   text-decoration: none;
   box-shadow: none;
   transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.character-page .glass-panel a:not(.character-reference-download):hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
 }
 
 .character-page .glass-panel .bg-purple-50,
@@ -3330,8 +3297,6 @@
 
 .character-nav-item:hover,
 .character-nav-item--current {
-  transform: translate(3px, 3px);
-  box-shadow: none;
   opacity: 1;
 }
 
@@ -3524,17 +3489,6 @@
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.design-action-button:hover,
-.design-toggle-link:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
-}
-
-.design-toggle-link--active:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
-}
-
 .site-page-hero__inner {
   min-height: 360px;
   padding: 72px 0 62px;
@@ -3607,7 +3561,6 @@
 .design-toggle-link--active {
   color: #fff;
   background: var(--character-ink);
-  transform: translate(3px, 3px);
   box-shadow: none;
 }
 
@@ -3632,11 +3585,6 @@
   box-shadow: none;
 }
 
-.tutorial-mode-card--active:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
-}
-
 .tutorial-mode-card__label {
   background: rgba(23, 19, 39, 0.84);
   font-weight: 900;
@@ -3656,10 +3604,6 @@
 .video-mode-button--active {
   background: var(--character-ink);
   color: #fff;
-}
-
-.video-mode-button--inactive:hover {
-  background: var(--character-yellow);
 }
 
 .tutorial-service-list {
@@ -3779,11 +3723,6 @@
 .gallery-redesign .gallery-item {
   background: #fff;
   transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.gallery-redesign .gallery-item:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
 }
 
 .guideline-redesign .prose {
@@ -4028,11 +3967,6 @@
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.guideline-ai-quick a:hover {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-}
-
 .guideline-detail-link-row {
   display: flex;
   flex-wrap: wrap;
@@ -4058,12 +3992,6 @@
   line-height: 1;
   text-decoration: none;
   transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
-}
-
-.guideline-detail-link:hover {
-  background: var(--character-yellow);
-  transform: translate(2px, 2px);
-  box-shadow: none;
 }
 
 .guideline-quick-faq {
@@ -4163,12 +4091,6 @@
 .guideline-detail-tab--active {
   color: #fff;
   background: var(--character-ink);
-  transform: translate(2px, 2px);
-  box-shadow: none;
-}
-
-.guideline-detail-tab:not(.guideline-detail-tab--active):hover {
-  transform: translate(2px, 2px);
   box-shadow: none;
 }
 
@@ -4332,11 +4254,6 @@
   text-decoration: underline;
 }
 
-.character-page.guideline-redesign .glass-panel .prose a:hover {
-  transform: none;
-  box-shadow: none;
-}
-
 .character-page.tutorial-redesign .glass-panel p a:not(.design-action-button),
 .character-page.tutorial-redesign .glass-panel li a:not(.design-action-button) {
   display: inline;
@@ -4351,12 +4268,6 @@
   text-decoration: underline;
 }
 
-.character-page.tutorial-redesign .glass-panel p a:not(.design-action-button):hover,
-.character-page.tutorial-redesign .glass-panel li a:not(.design-action-button):hover {
-  transform: none;
-  box-shadow: none;
-}
-
 .guideline-redesign #copy-license-btn {
   border: 1px solid var(--nk-line);
   border-radius: 8px;
@@ -4364,11 +4275,6 @@
   background: #fff;
   box-shadow: none;
   font-weight: 900;
-}
-
-.guideline-redesign #copy-license-btn:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
 }
 
 .home-section-subheading {
@@ -4417,17 +4323,6 @@
 .blog-post-card,
 .post-nav-link {
   transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.blog-post-card:hover,
-.post-nav-link:hover {
-  transform: translate(3px, 3px);
-  box-shadow: none;
-}
-
-a.glass-panel:hover {
-  transform: translate(3px, 3px) !important;
-  box-shadow: none !important;
 }
 
 .news-badge {
@@ -4932,11 +4827,6 @@ a.glass-panel:hover {
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.post-tool-button:hover {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-}
-
 .post-toc-panel ul,
 .post-toc-panel .space-y-1 {
   display: block !important;
@@ -5024,11 +4914,6 @@ a.glass-panel:hover {
   box-shadow: none;
   font-weight: 900;
   text-decoration: underline;
-}
-
-.character-page.post-redesign .post-body-panel a:not(.ogp-card):not(.character-reference-download):hover {
-  transform: none;
-  box-shadow: none;
 }
 
 .character-page.post-redesign .post-body-panel .ogp-card {
@@ -5945,11 +5830,6 @@ a.glass-panel:hover {
   transition: background 160ms ease, transform 160ms ease;
 }
 
-.character-action-grid > a:hover {
-  background: color-mix(in srgb, var(--char-color) 12%, white);
-  transform: translateY(-2px);
-}
-
 .character-action-grid span {
   color: var(--char-color);
   font-size: 11px;
@@ -6356,20 +6236,6 @@ a.glass-panel:hover {
   background: var(--character-yellow);
   font-size: 13px;
   font-weight: 900;
-}
-
-.character-page .developer-activity-card__links a:not(.character-reference-download):hover,
-.character-page .developer-activities__all a:not(.character-reference-download):hover,
-.character-reference-download:hover {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-}
-
-.character-page .developer-activity-card__links a:not(.character-reference-download):active,
-.character-page .developer-activities__all a:not(.character-reference-download):active,
-.character-reference-download:active {
-  transform: translate(3px, 3px);
-  box-shadow: none;
 }
 
 .character-page .developer-activity-card__links a:not(.character-reference-download):focus-visible,
