@@ -1111,6 +1111,15 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   margin-top: 24px;
 }
 
+/* 背景がピンクなので、ボタンはどちらも白で塗りつぶす（ピンクで塗ると背景に溶ける） */
+.nk-create .nk-btn::before {
+  background: #fff;
+}
+
+.nk-create .nk-btn:hover {
+  color: var(--nk-ink);
+}
+
 .nk-create__note {
   margin-top: 16px;
   font-size: 13px;
