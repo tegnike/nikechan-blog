@@ -31,6 +31,33 @@ export type DeveloperActivity = {
 // Public records of Nike's events, talks, media coverage, and writing. Add new entries in descending date order.
 export const developerActivities: DeveloperActivity[] = [
   {
+    slug: 'ai-character-junin-toiro',
+    date: '2026-11-21',
+    kind: 'writing',
+    title: {
+      ja: 'AIキャラクター開発 十人十色：The Dancing Knowledge',
+      en: 'AI Character Development, Junin Toiro: The Dancing Knowledge',
+    },
+    description: {
+      ja: 'AIキャラクターを作っている17人がそれぞれの取り組みを持ち寄った合同誌に寄稿。第1章「中国語訛りの可愛い女の子キャラを作りたいんだよォーーー」を執筆。',
+      en: 'Contributed to an anthology in which 17 AI character developers share their own work, writing Chapter 1 on building a cute girl character who speaks with a Chinese accent.',
+    },
+    topics: [
+      { ja: 'AIキャラクター', en: 'AI characters' },
+      { ja: '合同誌', en: 'Anthology' },
+      { ja: '寄稿', en: 'Contribution' },
+    ],
+    links: [
+      {
+        label: { ja: '書籍ページ（技術書典）', en: 'Book page (Techbookfest)' },
+        url: {
+          ja: 'https://techbookfest.org/product/syaVUUqLeAdkU8L4Y0t5X6',
+          en: 'https://techbookfest.org/product/syaVUUqLeAdkU8L4Y0t5X6',
+        },
+      },
+    ],
+  },
+  {
     slug: 'alibaba-meetup-sapporo-2026',
     date: '2026-08-08',
     kind: 'talk',
