@@ -2782,3 +2782,17 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   font-size: inherit;
   text-decoration: underline;
 }
+
+/* 記事内の画像をスマホとPCで出し分ける <picture>。
+   説明つきの図（.media-figure）の中でも、画像単体と同じ見え方にする。 */
+.media-figure > picture {
+  display: block;
+  margin: 0;
+}
+
+.media-figure > picture > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}

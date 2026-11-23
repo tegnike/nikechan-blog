@@ -11,6 +11,19 @@ describe('media captions', () => {
     expect(html).toContain('example-840.webp 840w')
     expect(html).toContain('<figcaption>最適化画像</figcaption>')
   })
+  test('mobile variant switches the image on narrow screens', () => {
+    expect(mdToHtml('![代替](/pc.png){mobile=/mobile.png}')).toBe('<p><picture><source media="(max-width: 640px)" srcset="/mobile.png" /><img src="/pc.png" alt="代替" loading="lazy" decoding="async" /></picture></p>')
+  })
+  test('mobile variant uses optimized sources and keeps the caption', () => {
+    const html = mdToHtml('![代替](/static/images/posts/example.png "説明"){mobile=/static/images/posts/example-mobile.png}')
+    expect(html).toStartWith('<figure class="media-figure"><picture><source media="(max-width: 640px)" srcset="/static/images/optimized/posts/example-mobile-420.webp 420w, /static/images/optimized/posts/example-mobile-840.webp 840w" sizes="100vw" />')
+    expect(html).toContain('<img src="/static/images/optimized/posts/example-420.webp"')
+    expect(html).toEndWith('</picture><figcaption>説明</figcaption></figure>')
+  })
+  test('mobile variant line ends the preceding paragraph', () => {
+    const html = mdToHtml('本文\n![代替](/pc.png){mobile=/mobile.png}')
+    expect(html).toBe('<p>本文</p>\n<p><picture><source media="(max-width: 640px)" srcset="/mobile.png" /><img src="/pc.png" alt="代替" loading="lazy" decoding="async" /></picture></p>')
+  })
   test('legacy media without captions keeps its markup', () => {
     expect(mdToHtml('![代替](/sample.png)')).toBe('<p><img src="/sample.png" alt="代替" loading="lazy" decoding="async" /></p>')
     expect(mdToHtml('/sample.mp4')).toBe('<div class="video-embed"><video src="/sample.mp4" controls playsinline preload="metadata"></video></div>')

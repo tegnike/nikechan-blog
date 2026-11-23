@@ -116,6 +116,13 @@ thumbnail: "/static/images/posts/<slug>/thumbnail.png"
 - OGPデータは `content/ogp-cache.json` にキャッシュされ、GitHub Actionsで定期再ビルドされる
 - リスト内や他テキストと混在するURLはOGPカードにならず通常リンクとして表示
 
+### 記事内の画像をスマホとPCで出し分ける
+- 画像を1行で書き、末尾に `{mobile=パス}` を付けると、画面幅640px以下ではそのスマホ用画像に切り替わる（`<picture>` で出力し、片方だけが読み込まれる）
+  - 例: `![代替テキスト](/static/images/posts/<slug>/01-flow.png){mobile=/static/images/posts/<slug>/01-flow-mobile.png}`
+  - 説明つきの例: `![代替テキスト](/static/images/posts/<slug>/01-flow.png "図の説明"){mobile=/static/images/posts/<slug>/01-flow-mobile.png}`
+- 横長の図は、スマホ幅では文字が読めなくなる。文字の入った横長の図には、4:3か縦長に組み直したスマホ用（`-mobile` を付けた名前）を用意する
+- PC用とスマホ用のどちらにも、`public/static/images/optimized/posts/<slug>/` に幅420pxと840pxのWebP（`<名前>-420.webp`、`<名前>-840.webp`）が必要
+
 ### 記事の表示順
 - 日付降順でソート（`date`フィールド）
 - 同一日付の場合、ファイル名のアルファベット順で**後**のものが先に表示される

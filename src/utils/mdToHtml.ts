@@ -12,9 +12,25 @@ function escapeHtml(str: string): string {
 // Captions are plain text. Only escaped quotes and backslashes are decoded.
 const captionedImagePattern = /^!\[([^\]]*)\]\(([^)]+?)\s+"((?:\\.|[^"\\])*)"\)\s*$/
 const videoPattern = /^((?:\/|https?:\/\/)\S+\.(?:mp4|webm|mov))(?:\s+"((?:\\.|[^"\\])*)")?\s*$/i
+// 1行で書いた画像の末尾に {mobile=パス} を付けると、狭い画面ではその画像へ切り替える。
+// 例: ![代替](/pc.png){mobile=/mobile.png} / ![代替](/pc.png "説明"){mobile=/mobile.png}
+const responsiveImagePattern = /^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"((?:\\.|[^"\\])*)")?\)\{mobile=([^}\s]+)\}\s*$/
+// サイト全体のスマホ向けスタイルと同じ区切り。
+const MOBILE_IMAGE_MEDIA = '(max-width: 640px)'
 
 function decodeCaption(caption: string): string {
   return caption.replace(/\\(["\\])/g, '$1')
+}
+
+function renderImage(src: string, alt: string, mobileSrc?: string): string {
+  const optimizedImage = getOptimizedImageSources(src)
+  const srcSet = optimizedImage?.srcSet ? ` srcset="${escapeHtml(optimizedImage.srcSet)}" sizes="(max-width: 768px) 100vw, 768px"` : ''
+  const image = `<img src="${escapeHtml(optimizedImage?.src ?? src)}"${srcSet} alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />`
+  if (!mobileSrc) return image
+
+  const mobileImage = getOptimizedImageSources(mobileSrc)
+  const mobileSizes = mobileImage?.srcSet ? ' sizes="100vw"' : ''
+  return `<picture><source media="${MOBILE_IMAGE_MEDIA}" srcset="${escapeHtml(mobileImage?.srcSet ?? mobileSrc)}"${mobileSizes} />${image}</picture>`
 }
 
 function renderFigure(media: string, caption: string): string {
@@ -33,11 +49,7 @@ function applyInlineTransforms(str: string): string {
     return `\u0000${codeSpans.length - 1}\u0000`
   })
   // images ![alt](src)
-  str = str.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_m, alt, src) => {
-    const optimizedImage = getOptimizedImageSources(src)
-    const srcSet = optimizedImage?.srcSet ? ` srcset="${escapeHtml(optimizedImage.srcSet)}" sizes="(max-width: 768px) 100vw, 768px"` : ''
-    return `<img src="${escapeHtml(optimizedImage?.src ?? src)}"${srcSet} alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />`
-  })
+  str = str.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, (_m, alt, src) => renderImage(src, alt))
   // links [text](url)
   str = str.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, (_m, text, href) => {
     const isExternal = /^(https?:)?\/\//.test(href)
@@ -81,7 +93,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
     | { type: 'message'; children: Node[] }
     | { type: 'ogp-card'; url: string; data: OgpData }
     | { type: 'video'; src: string; caption?: string }
-    | { type: 'captioned-image'; src: string; alt: string; caption: string }
+    | { type: 'captioned-image'; src: string; alt: string; caption: string; mobileSrc?: string }
     | { type: 'table'; html: string }
 
   function parseBlocks(startIndex: number, indent: number): { nodes: Node[]; nextIndex: number } {
@@ -252,6 +264,19 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
         }
       }
 
+      const responsiveImageMatch = content.match(responsiveImagePattern)
+      if (responsiveImageMatch) {
+        nodes.push({
+          type: 'captioned-image',
+          alt: responsiveImageMatch[1],
+          src: responsiveImageMatch[2],
+          caption: decodeCaption(responsiveImageMatch[3] ?? ''),
+          mobileSrc: responsiveImageMatch[4],
+        })
+        i++
+        continue
+      }
+
       const imageMatch = content.match(captionedImagePattern)
       if (imageMatch) {
         nodes.push({ type: 'captioned-image', alt: imageMatch[1], src: imageMatch[2], caption: decodeCaption(imageMatch[3]) })
@@ -291,6 +316,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
         if (
           nextLeading < indent ||
           captionedImagePattern.test(nextContent) ||
+          responsiveImagePattern.test(nextContent) ||
           videoPattern.test(nextContent) ||
           /^\s*$/.test(nextContent) ||
           /^```/.test(nextContent) ||
@@ -382,9 +408,7 @@ export function mdToHtml(md: string, ogpCache?: Record<string, OgpData>): string
             return `<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener noreferrer" class="ogp-card">${imageHtml}<div class="ogp-card-content"><div class="ogp-card-title">${escapeHtml(data.title)}</div>${data.description ? `<div class="ogp-card-description">${escapeHtml(data.description)}</div>` : ''}<div class="ogp-card-meta">${data.favicon ? `<img src="${escapeHtml(data.favicon)}" alt="" class="ogp-card-favicon" width="14" height="14" />` : ''}<span>${escapeHtml(domain)}</span></div></div></a>`
           }
           case 'captioned-image': {
-            const optimizedImage = getOptimizedImageSources(node.src)
-            const srcSet = optimizedImage?.srcSet ? ` srcset="${escapeHtml(optimizedImage.srcSet)}" sizes="(max-width: 768px) 100vw, 768px"` : ''
-            const image = `<img src="${escapeHtml(optimizedImage?.src ?? node.src)}"${srcSet} alt="${escapeHtml(node.alt)}" loading="lazy" decoding="async" />`
+            const image = renderImage(node.src, node.alt, node.mobileSrc)
             return node.caption.trim() ? renderFigure(image, node.caption) : `<p>${image}</p>`
           }
           case 'video': {
