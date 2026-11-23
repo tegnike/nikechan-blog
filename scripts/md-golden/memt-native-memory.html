@@ -1,0 +1,92 @@
+<p>こんにちは、ニケです。</p>
+<p>先日、MemOSの開発チームが<strong>MemT-1.0-Pro</strong>を発表しました。<br />NVIDIAと共同で作った、記憶をモデルの中に持つLLMです。</p>
+<div class="twitter-embed"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Today, we launched MemT-1.0-Pro <a href="https://x.com/hashtag/MemT?src=hash&amp;ref_src=twsrc%5Etfw">#MemT</a>, a memory-native model developed in collaboration with <a href="https://x.com/NVIDIAAIDev?ref_src=twsrc%5Etfw">@NVIDIAAIDev</a>.<br><br>Built on NVIDIA Nemotron 3 Ultra, with distributed training powered by NVIDIA Megatron-Core and Megatron Bridge.<br>Here&#39;s how it compares to MemT-1.0-Flash:<br>🧠 554B…</p>&mdash; MemOS (@MemOS_dev) <a href="https://x.com/MemOS_dev/status/2124623963087126562?ref_src=twsrc%5Etfw">November 22, 2026</a></blockquote>
+
+</div>
+<p>AIニケちゃんでも、記憶は改善の余地が大きいと感じている部分です。<br />気になったので、技術レポートを読んでみました。</p>
+<a href="https://arxiv.org/abs/2610.26825" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">MemT-1.0: Towards Memory-Native Evolution</div><div class="ogp-card-description">Memory-native evolution requires making memory an intrinsic capability of foundation models, enabling them to continuously accumulate and utilize information. To this end, we introduce MemT-1.0, a new architecture of memory foundation models that internalize memory as part of model computation. Building on Metis, MemT-1.0 employs Gated DeltaNet-2 with a stable token-level memory update mechanism within each turn. We further introduce Mixture-of-Storage to scale native memory capacity. Following a deliberate backbone preparation, we develop a two-stage training pipeline consisting of continued pre-training and post-training, supported by 34B tokens of training data and efficient training and inference infrastructure. We release a model family comprising MemT-1.0-Nano, MemT-1.0-Flash, and MemT-1.0-Pro, and conduct a comprehensive evaluation of memory and general capabilities. The results show that they outperform the parametric memory baselines on average and remain competitive with retrieval-augmented methods, while largely preserving general capabilities. At a history length of 128K tokens, MemT-1.0-Nano achieves approximately $1.86\times$ end-to-end inference speedup and a $66\times$ reduction in persistent storage relative to full context KV cache. By internalizing retrieved procedural experience, MemT-1.0 improves task success on agentic tasks, providing a practical step toward memory-native evolution.</div><div class="ogp-card-meta"><img src="https://arxiv.org/static/browse/0.3.4/images/icons/favicon-32x32.png" alt="" class="ogp-card-favicon" width="14" height="14" /><span>arxiv.org</span></div></div></a>
+<p>今回は、一般的なAIの記憶の話から始めて、MemTは何が違うのか、結果はどうだったのかを順に整理します。</p>
+<aside class="markdown-message" role="note"><span class="markdown-message__icon" aria-hidden="true">!</span><div class="markdown-message__body"><p>技術レポートとモデルカードを読んだ範囲の整理で、モデルを実際に動かした検証ではありません。<br />数値はすべてレポートに書かれている値です。</p></div></aside>
+<h2 id="aiの記憶は、ほとんどが「文章の出し入れ」">AIの記憶は、ほとんどが「文章の出し入れ」</h2>
+<p>前提として、LLMそのものは会話をまたいで何かを覚えているわけではありません。<br />覚えているように見えるのは、過去の内容を毎回プロンプトへ入れ直しているからです。</p>
+<p>入れ直し方は、大きく3つあります。</p>
+<ul><li><strong>全部入れる</strong>: これまでの会話をそのままプロンプト（文脈）に載せる</li><li><strong>要約して入れる</strong>: 長くなった履歴を短い文章にまとめて載せる</li><li><strong>探して入れる</strong>: 履歴を外部のデータベースに保存し、関係のある部分だけ検索して載せる（RAG）</li></ul>
+<p>Mem0やMemOSのような記憶の仕組みも、保存や検索の工夫はさまざまですが、最後は文章としてモデルへ渡します。<br />AIニケちゃんの記憶も同じで、会話や人物の情報を文章で保存しておき、必要なときに取り出す方式です。</p>
+<p>こうした文章ベースの方式は、レポートでは「テキスト記憶」と呼ばれています。「探して入れる」流れを図にすると、次のようになります。</p>
+<p><picture><source media="(max-width: 640px)" srcset="/static/images/optimized/posts/memt-native-memory/01-text-memory-flow-mobile-420.webp 420w, /static/images/optimized/posts/memt-native-memory/01-text-memory-flow-mobile-840.webp 840w" sizes="100vw" /><img src="/static/images/optimized/posts/memt-native-memory/01-text-memory-flow-420.webp" srcset="/static/images/optimized/posts/memt-native-memory/01-text-memory-flow-420.webp 420w, /static/images/optimized/posts/memt-native-memory/01-text-memory-flow-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="テキスト記憶の流れの図。会話の履歴を文章やベクトルとして外部に保存し、質問のたびに検索して、今の質問と見つけた文章を文脈に入れ、モデルが回答する。履歴が増えるほど、保存量も文脈も増える" loading="lazy" decoding="async" /></picture></p>
+<p>この方式は中身を人間が読めて、間違いを直しやすいのが長所です。<br />一方で、履歴が長くなるほど保存量や文脈が膨らみ、検索で取りこぼした情報はなかったことになります。</p>
+<h2 id="memtは、記憶をモデルの中に置く">MemTは、記憶をモデルの中に置く</h2>
+<p>MemT-1.0は、この「文章を渡す」部分をなくそうとしています。</p>
+<p>過去の会話は、モデルの内部にある<strong>記憶用の行列</strong>へ書き込まれます。<br />書き込みが終わると、元の文章は文脈から消してしまいます。<br />次の質問には、過去の文章を読み直さず、行列から読み出した情報を使って答えます。</p>
+<p>先ほどと同じ形で描くと、次のようになります。</p>
+<p><picture><source media="(max-width: 640px)" srcset="/static/images/optimized/posts/memt-native-memory/02-memt-memory-flow-mobile-420.webp 420w, /static/images/optimized/posts/memt-native-memory/02-memt-memory-flow-mobile-840.webp 840w" sizes="100vw" /><img src="/static/images/optimized/posts/memt-native-memory/02-memt-memory-flow-420.webp" srcset="/static/images/optimized/posts/memt-native-memory/02-memt-memory-flow-420.webp 420w, /static/images/optimized/posts/memt-native-memory/02-memt-memory-flow-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="MemTの記憶の流れの図。文脈に入るのは今の質問だけで、モデルの中にある大きさが一定の記憶の行列から生成中に読み出して回答する。ターンの終わりに、消去・書き込み・忘却のゲートで行列へ書き込む。元の文章は文脈に残さない" loading="lazy" decoding="async" /></picture></p>
+<p>テキスト記憶の図では、文脈に「今の質問」と「見つけた文章」の両方が入っていました。<br />MemTの文脈に入るのは「今の質問」だけで、過去の情報はモデルの中から直接読み出されます。</p>
+<p>モデルカードには、子猫の名前や年齢、好物を伝えたあとに会話履歴を0件にし、それでも「子猫は何歳？」に答えられる例が載っています。<br />記憶はファイルに保存でき、別のセッションで読み込めば続きから使えるようになっています。</p>
+<p>もう少し中身を書くと、次のような作りになっています。</p>
+<ul><li>土台は既存の公開モデルで、その重みは変更しない</li><li>いくつかの層に記憶用のブロックを足し、通常の注意機構の出力へ、記憶から読み出した値を加える</li><li>ターンが終わるたびに、消去・書き込み・忘却の3つのゲートで行列を更新する</li></ul>
+<p>記憶のたびにモデルを再学習するわけではありません。<br />書き込みは、文章を1回モデルに通すだけで済みます。</p>
+<p>公開されたのは次の3モデルです。</p>
+<div class="table-wrapper"><table><thead><tr><th>モデル</th><th>土台</th><th>全体のパラメータ</th><th>記憶の大きさ</th></tr></thead><tbody><tr><td>MemT-1.0-Nano</td><td>Qwen3.6-35B-A3B</td><td>36B</td><td>40MiB</td></tr><tr><td>MemT-1.0-Flash</td><td>DeepSeek-V4-Flash</td><td>288B</td><td>1280MiB</td></tr><tr><td>MemT-1.0-Pro</td><td>NVIDIA Nemotron 3 Ultra</td><td>554B</td><td>48MiB</td></tr></tbody></table></div>
+<p>記憶の大きさは、記憶ブロックを足した層の数や行列サイズの違いによってモデルごとに異なります。</p>
+<h2 id="履歴が伸びても、記憶は大きくならない">履歴が伸びても、記憶は大きくならない</h2>
+<p>テキスト記憶との一番の違いは、<strong>記憶の大きさが一定</strong>なことです。<br />会話が1万トークンでも100万トークンでも、Proなら48MiBのまま変わりません。</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>テキスト記憶</th><th>MemTの記憶</th></tr></thead><tbody><tr><td>置き場所</td><td>モデルの外（文章やベクトル）</td><td>モデルの中（行列）</td></tr><tr><td>履歴が伸びると</td><td>保存量も文脈も増える</td><td>記憶の大きさも文脈も増えない</td></tr><tr><td>思い出し方</td><td>検索して文脈へ入れる</td><td>生成中にそのまま読み出す</td></tr><tr><td>中身の確認</td><td>人間が読める</td><td>人間には読めない</td></tr></tbody></table></div>
+<p>レポートでは、一番小さいNanoを使って速度と保存量を測っています。</p>
+<ul><li>履歴が128Kトークンのとき、全文方式のKVキャッシュを丸ごと保存する場合に比べて、保存量は約66分の1</li><li>質問から最初のトークンが出るまでの時間は、256Kトークンまで伸びても約104〜112msでほぼ一定（全文方式は256Kトークンで約445ms）</li><li>履歴の準備まで含めた全体の時間は、全文方式に比べて128Kトークンで約1.86倍、256Kトークンで約3.99倍速い</li></ul>
+<p>ただし、短い履歴では全文方式のほうが速く、追いつくのは32Kトークンあたりからです。<br />長く付き合うほど得をする仕組みですね。</p>
+<h2 id="成績は、まだテキスト記憶に届いていない">成績は、まだテキスト記憶に届いていない</h2>
+<p>では、肝心の「ちゃんと覚えているか」はどうでしょうか。</p>
+<p>レポートでは、11個の記憶ベンチマークで各手法を比較しています。<br />テキスト記憶の行は、Proと同じNemotronを土台にしたときの平均点です。</p>
+<div class="table-wrapper"><table><thead><tr><th>方式</th><th>手法</th><th>平均</th></tr></thead><tbody><tr><td>テキスト記憶</td><td>MemOS</td><td>72.08</td></tr><tr><td>テキスト記憶</td><td>全文を文脈に入れる</td><td>66.17</td></tr><tr><td>テキスト記憶</td><td>単純なRAG</td><td>59.06</td></tr><tr><td>モデル内の記憶</td><td>MemT-1.0-Pro</td><td>53.08</td></tr><tr><td>モデル内の記憶</td><td>MemT-1.0-Flash</td><td>50.60</td></tr><tr><td>モデル内の記憶</td><td>MemT-1.0-Nano</td><td>46.97</td></tr><tr><td>モデル内の記憶</td><td>他手法の最良（Temp-LoRA）</td><td>38.08</td></tr></tbody></table></div>
+<p>モデルの中に記憶を持つ方式どうしで比べると、MemTの3モデルが上位を独占しています。<br />しかしテキスト記憶と比べると、単純なRAGにもまだ届きません。</p>
+<p>一番上のMemOSは、同じチームが開発しているテキスト記憶の仕組みです。<br />自分たちの既存の方式に負けている結果も、そのまま載せています。</p>
+<p>このMemOSとProの得点を、11個のベンチマークごとに並べたのが次の図です。<br />レポートの表3の数値から作りました。</p>
+<p><picture><source media="(max-width: 640px)" srcset="/static/images/optimized/posts/memt-native-memory/03-benchmark-gap-mobile-420.webp 420w, /static/images/optimized/posts/memt-native-memory/03-benchmark-gap-mobile-840.webp 840w" sizes="100vw" /><img src="/static/images/optimized/posts/memt-native-memory/03-benchmark-gap-420.webp" srcset="/static/images/optimized/posts/memt-native-memory/03-benchmark-gap-420.webp 420w, /static/images/optimized/posts/memt-native-memory/03-benchmark-gap-840.webp 840w" sizes="(max-width: 768px) 100vw, 768px" alt="11個のベンチマークについて、MemOSとMemT-1.0-Proの得点を履歴の長さ別に並べた図。差が大きいのはLongMemEval-Sの46.80点、Memoraの36.94点、BEAM-1Mの35.96点で、PS-BenchだけはProが6.54点上回っている" loading="lazy" decoding="async" /></picture></p>
+<p>差が大きいのは、長い履歴から細かい事実を引く課題です。<br />LongMemEval-Sでは、MemOSの80.60点に対してProは33.80点でした。<br />逆に、ペルソナに基づいて応答するPS-BenchではProが99.03点で、同じ土台のテキスト記憶（91〜95点台）を上回っています。</p>
+<p>この弱点については、著者自身もレポートの中で限界として挙げています。<br />記憶の大きさが一定なので、新しい情報を入れるほど、古い細部が失われていくためです。</p>
+<p>なお、冒頭のX投稿にあった「BEAM-1Mで+4.76点」「MemoryAgentBenchで+6.51点」は、テキスト記憶ではなく1つ下のFlashと比べた数字です。<br />11個のうちProがFlashを上回ったのは5個で、残りの6個はFlashのほうが上でした。</p>
+<h2 id="それでも面白いと思う理由">それでも面白いと思う理由</h2>
+<p>結果だけ見ると「まだ使えない」で終わりそうですが、私はかなり面白い方向だと思っています。</p>
+<p>1つ目は、<strong>細部よりも「身についたこと」に向いていそうな点</strong>です。<br />レポートでは、コーディングエージェントに過去の成功手順を記憶させる実験をしています。<br />SWE-bench Verifiedで、3回試してすべて解けた課題の割合は54.00%から61.60%に上がりました。<br />同じ手順を文章で渡した場合も61.60%です。<br />手順やコツのような情報なら、文章で持たなくても同じくらい効くことになります。</p>
+<p>2つ目は、<strong>まだ伸びしろが残っている点</strong>です。<br />Nanoで記憶の容量を4倍にした実験では平均が46.97点から48.11点に上がり、同じデータで追加学習を2周目まで続けても得点は伸びていました。<br />モデルの大きさや学習データとは別に、「記憶の容量」という伸ばし方が増えたわけです。</p>
+<p>3つ目は、<strong>テキスト記憶と組み合わせられる点</strong>です。<br />実際、先ほどのエージェントの実験でも、手順の検索は外部で行い、選んだものをモデル内の記憶へ書き込んでいます。<br />いつ何があったかという事実は文章で持ち、相手との距離感や仕事の進め方のような傾向はモデルの中に持つ、という分担はありえそうです。</p>
+<p>AIニケちゃんの記憶で今困っているのは、必要な情報を取り出すまでに時間がかかることです。<br />履歴がどれだけ増えても応答の速さが変わらない記憶は、常駐するAIキャラクターにとってかなり魅力的に見えます。</p>
+<p>Proは554Bパラメータなので、個人で動かすのは現実的ではありません。<br />個人で試すなら、全体で36B、推論時に使うのは3B分のNanoになります。</p>
+<p>現時点では、テキスト記憶の置き換えというより、記憶の持ち方がもう1つ増えたと受け取るのが良さそうです。</p>
+<a href="https://huggingface.co/MemTensor/MemT-1.0-Pro" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-image"><img src="https://cdn-thumbnails.huggingface.co/social-thumbnails/models/MemTensor/MemT-1.0-Pro.png" alt="" loading="lazy" decoding="async" /></div><div class="ogp-card-content"><div class="ogp-card-title">MemTensor/MemT-1.0-Pro · Hugging Face</div><div class="ogp-card-description">Text Generation model with 565B parameters. Download, explore files and run it on Hugging Face.</div><div class="ogp-card-meta"><img src="https://huggingface.co/favicon.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>huggingface.co</span></div></div></a>
+<h2 id="宣伝">宣伝</h2>
+<p>普段XでAIツールやAIキャラクターについての発信をしているので、興味があったらフォローしていただけると大変喜びます🙇‍♀️</p>
+<a href="https://x.com/tegnike" target="_blank" rel="noopener noreferrer" class="ogp-card"><div class="ogp-card-content"><div class="ogp-card-title"></div><div class="ogp-card-meta"><img src="https://abs.twimg.com/favicons/twitter.3.ico" alt="" class="ogp-card-favicon" width="14" height="14" /><span>x.com</span></div></div></a>
+<!-- TOC -->
+[
+  {
+    "level": 2,
+    "text": "AIの記憶は、ほとんどが「文章の出し入れ」",
+    "id": "aiの記憶は、ほとんどが「文章の出し入れ」"
+  },
+  {
+    "level": 2,
+    "text": "MemTは、記憶をモデルの中に置く",
+    "id": "memtは、記憶をモデルの中に置く"
+  },
+  {
+    "level": 2,
+    "text": "履歴が伸びても、記憶は大きくならない",
+    "id": "履歴が伸びても、記憶は大きくならない"
+  },
+  {
+    "level": 2,
+    "text": "成績は、まだテキスト記憶に届いていない",
+    "id": "成績は、まだテキスト記憶に届いていない"
+  },
+  {
+    "level": 2,
+    "text": "それでも面白いと思う理由",
+    "id": "それでも面白いと思う理由"
+  },
+  {
+    "level": 2,
+    "text": "宣伝",
+    "id": "宣伝"
+  }
+]

@@ -525,5 +525,31 @@
     "siteName": "Amazon.co.jp",
     "url": "https://www.amazon.co.jp/dp/4297159392",
     "favicon": "https://www.amazon.co.jp/favicon.ico"
+  },
+  "https://x.com/MemOS_dev/status/2124623963087126562": {
+    "title": "MemOS",
+    "description": "",
+    "image": "",
+    "siteName": "X (formerly Twitter)",
+    "url": "https://x.com/MemOS_dev/status/2124623963087126562",
+    "favicon": "https://abs.twimg.com/favicons/twitter.3.ico",
+    "type": "twitter-embed",
+    "embedHtml": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">Today, we launched MemT-1.0-Pro <a href=\"https://x.com/hashtag/MemT?src=hash&amp;ref_src=twsrc%5Etfw\">#MemT</a>, a memory-native model developed in collaboration with <a href=\"https://x.com/NVIDIAAIDev?ref_src=twsrc%5Etfw\">@NVIDIAAIDev</a>.<br><br>Built on NVIDIA Nemotron 3 Ultra, with distributed training powered by NVIDIA Megatron-Core and Megatron Bridge.<br>Here&#39;s how it compares to MemT-1.0-Flash:<br>🧠 554B…</p>&mdash; MemOS (@MemOS_dev) <a href=\"https://x.com/MemOS_dev/status/2124623963087126562?ref_src=twsrc%5Etfw\">November 22, 2026</a></blockquote>\n\n"
+  },
+  "https://arxiv.org/abs/2610.26825": {
+    "title": "MemT-1.0: Towards Memory-Native Evolution",
+    "description": "Memory-native evolution requires making memory an intrinsic capability of foundation models, enabling them to continuously accumulate and utilize information. To this end, we introduce MemT-1.0, a new architecture of memory foundation models that internalize memory as part of model computation. Building on Metis, MemT-1.0 employs Gated DeltaNet-2 with a stable token-level memory update mechanism within each turn. We further introduce Mixture-of-Storage to scale native memory capacity. Following a deliberate backbone preparation, we develop a two-stage training pipeline consisting of continued pre-training and post-training, supported by 34B tokens of training data and efficient training and inference infrastructure. We release a model family comprising MemT-1.0-Nano, MemT-1.0-Flash, and MemT-1.0-Pro, and conduct a comprehensive evaluation of memory and general capabilities. The results show that they outperform the parametric memory baselines on average and remain competitive with retrieval-augmented methods, while largely preserving general capabilities. At a history length of 128K tokens, MemT-1.0-Nano achieves approximately $1.86\\times$ end-to-end inference speedup and a $66\\times$ reduction in persistent storage relative to full context KV cache. By internalizing retrieved procedural experience, MemT-1.0 improves task success on agentic tasks, providing a practical step toward memory-native evolution.",
+    "image": "https://arxiv.org/static/browse/0.3.4/images/arxiv-logo-fb.png",
+    "siteName": "arXiv.org",
+    "url": "https://arxiv.org/abs/2610.26825",
+    "favicon": "https://arxiv.org/static/browse/0.3.4/images/icons/favicon-32x32.png"
+  },
+  "https://huggingface.co/MemTensor/MemT-1.0-Pro": {
+    "title": "MemTensor/MemT-1.0-Pro · Hugging Face",
+    "description": "Text Generation model with 565B parameters. Download, explore files and run it on Hugging Face.",
+    "image": "https://cdn-thumbnails.huggingface.co/social-thumbnails/models/MemTensor/MemT-1.0-Pro.png",
+    "siteName": "",
+    "url": "https://huggingface.co/MemTensor/MemT-1.0-Pro",
+    "favicon": "https://huggingface.co/favicon.ico"
   }
 }
