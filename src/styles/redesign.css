@@ -1314,8 +1314,9 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 
 /* ---------- レスポンシブ ---------- */
 @media (max-width: 860px) {
+  /* 見出しの書体は上に余白を持つので、上だけ下より詰める */
   .nk-sec {
-    padding: 84px 0;
+    padding: 56px 0 84px;
   }
 
   .nk-hero__chara {
