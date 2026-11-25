@@ -44,6 +44,7 @@ import {
   getPublishedArticles,
 } from './lib/activity-log'
 import type { AiCharacterNewsDateGroup, AiCharacterNewsItem } from './lib/ai-character-news'
+import { getLatestYoutube } from './lib/youtube'
 import { getDeveloperActivityBySlug } from './utils/developerActivities'
 import { GALLERY_IMAGE_PREFIXES, galleryImageUrl } from './utils/galleryImages'
 
@@ -73,14 +74,15 @@ app.use('*', async (c, next) => {
 app.use(renderer)
 
 // Home page - Landing Page
-app.get('/', (c) => {
+app.get('/', async (c) => {
   c.header('Cache-Control', 'public, max-age=3600') // 1時間キャッシュ
   const currentPath = c.req.path; // パスを取得
   const locale = c.get('locale') as Locale
+  const youtube = await getLatestYoutube()
 
   return c.render(
     <Layout currentPath={currentPath} locale={locale}>
-      <LandingPage locale={locale} />
+      <LandingPage locale={locale} youtube={youtube} />
     </Layout>,
     {
       locale,

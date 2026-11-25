@@ -2558,6 +2558,29 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
   line-height: 1.8;
 }
 
+.nk-youtube__card .nk-youtube__date {
+  display: inline;
+  margin: 0 0 0 10px;
+  color: var(--nk-ink-soft);
+  font-family: var(--nk-latin);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.nk-youtube__more {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--nk-violet);
+  font-family: var(--nk-display);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nk-youtube__more::after {
+  content: " →";
+}
+
 /* ---------- 活動記録: 依頼の案内 ---------- */
 .nk-request {
   display: flex;
@@ -2766,7 +2789,8 @@ body.site-mobile-menu-open .site-header--overlay .site-header__logo img {
 }
 
 /* 文中のリンク: 下線だけ。色は変えない */
-.ai-about-quote__links a:hover {
+.ai-about-quote__links a:hover,
+.nk-youtube__more:hover {
   text-decoration: underline;
 }
 
